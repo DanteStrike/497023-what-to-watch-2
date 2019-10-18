@@ -1,7 +1,9 @@
 import React from "react";
+import PropTypes from "prop-types";
 import MovieCard from "../movie-card/movie-card.jsx";
 
 const Catalog = (props) => {
+  const {moviesList} = props;
 
   return (
     <section className="catalog">
@@ -41,6 +43,14 @@ const Catalog = (props) => {
       </ul>
 
       <div className="catalog__movies-list">
+        {moviesList.map((movie, index) => (
+          <MovieCard
+            title = {movie.title}
+            image = {movie.image}
+            key = {`${movie.title}_${index}`}
+          />
+        ))
+        }
       </div>
 
       <div className="catalog__more">
@@ -50,5 +60,11 @@ const Catalog = (props) => {
   );
 };
 
+Catalog.propTypes = {
+  moviesList: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired
+  }))
+};
 
 export default Catalog;

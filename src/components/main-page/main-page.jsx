@@ -11,6 +11,7 @@ const MainPage = (props) => {
       <MoviePreview/>
       <div className="page-content">
         <Catalog
+          moviesList = {props.moviesList}
         />
         <PageFooter/>
       </div>
@@ -19,5 +20,11 @@ const MainPage = (props) => {
   );
 };
 
+MainPage.propTypes = {
+  moviesList: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired
+  }))
+};
 
 export default MainPage;
