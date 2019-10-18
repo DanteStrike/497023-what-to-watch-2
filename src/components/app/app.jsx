@@ -1,14 +1,21 @@
-import React, {Fragment} from "react";
-import MovieCard from "../movie-card/movie-card.jsx";
-import PageContent from "../page-content/page-content.jsx";
+import React from "react";
+import PropTypes from "prop-types";
+import MainPage from "../main-page/main-page.jsx";
 
-const App = () => {
+const App = (props) => {
+
   return (
-    <Fragment>
-      <MovieCard/>
-      <PageContent/>
-    </Fragment>
+    <MainPage
+      moviesList = {props.moviesList}
+    />
   );
+};
+
+App.propTypes = {
+  moviesList: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired
+  }))
 };
 
 export default App;
