@@ -5,6 +5,10 @@ import MovieCard from "../movie-card/movie-card.jsx";
 const Catalog = (props) => {
   const {moviesList} = props;
 
+  const onMovieTitleClick = (evt) => {
+    evt.preventDefault();
+  };
+
   return (
     <section className="catalog">
       <h2 className="catalog__title visually-hidden">Catalog</h2>
@@ -47,6 +51,7 @@ const Catalog = (props) => {
           <MovieCard
             title = {movie.title}
             image = {movie.image}
+            onMovieTitleClick = {onMovieTitleClick}
             key = {`${movie.title}_${index}`}
           />
         ))
