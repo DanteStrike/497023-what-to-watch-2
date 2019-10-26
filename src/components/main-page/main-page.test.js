@@ -2,7 +2,7 @@ import React from "react";
 import renderer from "react-test-renderer";
 import MainPage from "./main-page.jsx";
 
-it(`render correctly MainPage component`, () => {
+it(`Render correctly MainPage component`, () => {
   const filmsMock = [
     {
       id: 1,
@@ -16,12 +16,12 @@ it(`render correctly MainPage component`, () => {
     }
   ];
 
-  const MainPageComponent = renderer
+  const component = renderer
     .create(
         <MainPage
           films={filmsMock}
         />
     ).toJSON();
 
-  expect(MainPageComponent).toMatchSnapshot();
+  expect(component).toMatchSnapshot();
 });
