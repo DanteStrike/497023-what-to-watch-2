@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`render correctly MoviesList component 1`] = `
+exports[`Render correctly MoviesList component 1`] = `
 <div
   className="catalog__movies-list"
 >
   <article
     className="small-movie-card catalog__movies-card"
-    onMouseOut={[Function]}
-    onMouseOver={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
     <div
       className="small-movie-card__image"
@@ -24,7 +24,7 @@ exports[`render correctly MoviesList component 1`] = `
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="/details"
       >
         Johnny English
       </a>
@@ -32,8 +32,8 @@ exports[`render correctly MoviesList component 1`] = `
   </article>
   <article
     className="small-movie-card catalog__movies-card"
-    onMouseOut={[Function]}
-    onMouseOver={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
     <div
       className="small-movie-card__image"
@@ -50,7 +50,7 @@ exports[`render correctly MoviesList component 1`] = `
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="/details"
       >
         Shutter Island
       </a>

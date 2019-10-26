@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`render correctly MainPage component 1`] = `
+exports[`Render correctly MainPage component 1`] = `
 Array [
   <section
     className="movie-card"
@@ -134,6 +134,12 @@ Array [
                 My list
               </span>
             </button>
+            <a
+              className="btn movie-card__button"
+              href="add-review.html"
+            >
+              Add review
+            </a>
           </div>
         </div>
       </div>
@@ -259,8 +265,8 @@ Array [
       >
         <article
           className="small-movie-card catalog__movies-card"
-          onMouseOut={[Function]}
-          onMouseOver={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="small-movie-card__image"
@@ -277,7 +283,7 @@ Array [
           >
             <a
               className="small-movie-card__link"
-              href="movie-page.html"
+              href="/details"
             >
               Johnny English
             </a>
@@ -285,8 +291,8 @@ Array [
         </article>
         <article
           className="small-movie-card catalog__movies-card"
-          onMouseOut={[Function]}
-          onMouseOver={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="small-movie-card__image"
@@ -303,7 +309,7 @@ Array [
           >
             <a
               className="small-movie-card__link"
-              href="movie-page.html"
+              href="/details"
             >
               Shutter Island
             </a>

@@ -6,33 +6,35 @@ import MovieCard from "./movie-card.jsx";
 Enzyme.configure({adapter: new Adapter()});
 
 it(`should callback to parent component film ID on mouse over`, () => {
-  const onFilmMouseOver = jest.fn();
+  const onFilmMouseHover = jest.fn();
   const component = shallow(
       <MovieCard
         id={2}
         title={``}
         image={``}
-        onFilmMouseOver={onFilmMouseOver}
-        onFilmMouseOut={jest.fn()}
+        titleLinkHref={`#`}
+        onFilmMouseHover={onFilmMouseHover}
+        onFilmMouseLeave={jest.fn()}
       />
   );
 
-  component.simulate(`mouseover`);
-  expect(onFilmMouseOver).toBeCalledWith(2);
+  component.simulate(`mouseenter`);
+  expect(onFilmMouseHover).toBeCalledWith(2);
 });
 
 it(`should callback to parent component on mouse out`, () => {
-  const onFilmMouseOut = jest.fn();
+  const onFilmMouseLeave = jest.fn();
   const component = shallow(
       <MovieCard
         id={2}
         title={``}
         image={``}
-        onFilmMouseOver={jest.fn()}
-        onFilmMouseOut={onFilmMouseOut}
+        titleLinkHref={`#`}
+        onFilmMouseHover={jest.fn()}
+        onFilmMouseLeave={onFilmMouseLeave}
       />
   );
 
-  component.simulate(`mouseout`);
-  expect(onFilmMouseOut).toBeCalled();
+  component.simulate(`mouseleave`);
+  expect(onFilmMouseLeave).toBeCalled();
 });
