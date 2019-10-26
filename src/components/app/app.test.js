@@ -3,12 +3,14 @@ import renderer from "react-test-renderer";
 import App from "./app.jsx";
 
 it(`render correctly App component`, () => {
-  const moviesMockList = [
+  const filmsMock = [
     {
+      id: 1,
       title: `Johnny English`,
       image: `img/johnny-english.jpg`
     },
     {
+      id: 2,
       title: `Shutter Island`,
       image: `img/shutter-island.jpg`
     }
@@ -17,7 +19,7 @@ it(`render correctly App component`, () => {
   const AppComponent = renderer
     .create(
         <App
-          moviesList = {moviesMockList}
+          films={filmsMock}
         />
     ).toJSON();
 

@@ -3,11 +3,7 @@ import PropTypes from "prop-types";
 import MovieCard from "../movie-card/movie-card.jsx";
 
 const Catalog = (props) => {
-  const {moviesList} = props;
-
-  const onMovieTitleClick = (evt) => {
-    evt.preventDefault();
-  };
+  const {films} = props;
 
   return (
     <section className="catalog">
@@ -66,7 +62,8 @@ const Catalog = (props) => {
 };
 
 Catalog.propTypes = {
-  moviesList: PropTypes.arrayOf(PropTypes.shape({
+  films: PropTypes.arrayOf(PropTypes.exact({
+    id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired
   }))
