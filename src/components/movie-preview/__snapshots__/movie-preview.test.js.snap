@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`render correctly MoviePreview component 1`] = `
+exports[`Render correctly MoviePreview component 1`] = `
 <section
   className="movie-card"
 >
@@ -133,6 +133,12 @@ exports[`render correctly MoviePreview component 1`] = `
               My list
             </span>
           </button>
+          <a
+            className="btn movie-card__button"
+            href="add-review.html"
+          >
+            Add review
+          </a>
         </div>
       </div>
     </div>
