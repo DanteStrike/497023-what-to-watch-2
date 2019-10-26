@@ -33,10 +33,10 @@ describe(`Should change state: {activeFilmId} correctly`, () => {
     const movieCard = component.find(`.small-movie-card`);
     expect(movieCard.exists()).toEqual(true);
 
-    movieCard.simulate(`mouseover`);
+    movieCard.simulate(`mouseenter`);
     expect(component.state(`activeFilmId`)).toBe(4);
 
-    movieCard.simulate(`mouseout`);
+    movieCard.simulate(`mouseleave`);
     expect(component.state(`activeFilmId`)).toBeNull();
   });
 });

@@ -10,8 +10,8 @@ class MoviesList extends React.PureComponent {
       activeFilmId: null
     };
 
-    this._filmMouseOverHandler = this._filmMouseOverHandler.bind(this);
-    this._filmMouseOutHandler = this._filmMouseOutHandler.bind(this);
+    this._filmMouseHoverHandler = this._filmMouseHoverHandler.bind(this);
+    this._filmMouseLeaveHandler = this._filmMouseLeaveHandler.bind(this);
   }
 
   render() {
@@ -22,8 +22,9 @@ class MoviesList extends React.PureComponent {
             id={film.id}
             title={film.title}
             image={film.id === this.state.activeFilmId ? `https://miro.medium.com/max/800/1*MrWVkaCVte77OIv4THt8Hw.gif` : film.image}
-            onFilmMouseOver={this._filmMouseOverHandler}
-            onFilmMouseOut={this._filmMouseOutHandler}
+            titleLinkHref={`/details`}
+            onFilmMouseHover={this._filmMouseHoverHandler}
+            onFilmMouseLeave={this._filmMouseLeaveHandler}
             key={`${film.title}_${film.id}`}
           />
         ))
@@ -32,13 +33,13 @@ class MoviesList extends React.PureComponent {
     );
   }
 
-  _filmMouseOverHandler(filmId) {
+  _filmMouseHoverHandler(filmId) {
     this.setState({
       activeFilmId: filmId
     });
   }
 
-  _filmMouseOutHandler() {
+  _filmMouseLeaveHandler() {
     this.setState({
       activeFilmId: null
     });

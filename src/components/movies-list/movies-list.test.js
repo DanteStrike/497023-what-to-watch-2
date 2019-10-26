@@ -2,7 +2,7 @@ import React from "react";
 import renderer from "react-test-renderer";
 import MoviesList from "./movies-list.jsx";
 
-it(`render correctly MoviesList component`, () => {
+it(`Render correctly MoviesList component`, () => {
   const filmsMock = [
     {
       id: 1,
