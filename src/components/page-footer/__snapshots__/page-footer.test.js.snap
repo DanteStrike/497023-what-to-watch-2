@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`render correctly PageFooter component 1`] = `
+exports[`Render correctly PageFooter component 1`] = `
 <footer
   className="page-footer"
 >
