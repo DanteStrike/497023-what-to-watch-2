@@ -25,7 +25,7 @@ class MoviesList extends React.PureComponent {
             titleLinkHref={`/details`}
             onFilmMouseHover={this._filmMouseHoverHandler}
             onFilmMouseLeave={this._filmMouseLeaveHandler}
-            key={`${film.title}_${film.id}`}
+            key={`${film.id}_${film.title}`}
           />
         ))
         }
