@@ -6,9 +6,9 @@ it(`render correctly MovieCard component`, () => {
   const MovieCardComponent = renderer
     .create(
         <MovieCard
-          title = {`Johnny English`}
-          image = {`img/johnny-english.jpg`}
-          onMovieTitleClick = {jest.fn()}
+          title={`Johnny English`}
+          image={`img/johnny-english.jpg`}
+          onMovieTitleClick={jest.fn()}
         />
     ).toJSON();
 
