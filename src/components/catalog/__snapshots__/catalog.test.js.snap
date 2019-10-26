@@ -118,6 +118,8 @@ exports[`render correctly Catalog component 1`] = `
   >
     <article
       className="small-movie-card catalog__movies-card"
+      onMouseOut={[Function]}
+      onMouseOver={[Function]}
     >
       <div
         className="small-movie-card__image"
@@ -135,7 +137,6 @@ exports[`render correctly Catalog component 1`] = `
         <a
           className="small-movie-card__link"
           href="movie-page.html"
-          onClick={[Function]}
         >
           Johnny English
         </a>
@@ -143,6 +144,8 @@ exports[`render correctly Catalog component 1`] = `
     </article>
     <article
       className="small-movie-card catalog__movies-card"
+      onMouseOut={[Function]}
+      onMouseOver={[Function]}
     >
       <div
         className="small-movie-card__image"
@@ -160,7 +163,6 @@ exports[`render correctly Catalog component 1`] = `
         <a
           className="small-movie-card__link"
           href="movie-page.html"
-          onClick={[Function]}
         >
           Shutter Island
         </a>

@@ -3,12 +3,14 @@ import renderer from "react-test-renderer";
 import Catalog from "./catalog.jsx";
 
 it(`render correctly Catalog component`, () => {
-  const moviesMockList = [
+  const filmsMock = [
     {
+      id: 1,
       title: `Johnny English`,
       image: `img/johnny-english.jpg`
     },
     {
+      id: 2,
       title: `Shutter Island`,
       image: `img/shutter-island.jpg`
     }
@@ -17,7 +19,7 @@ it(`render correctly Catalog component`, () => {
   const CatalogComponent = renderer
     .create(
         <Catalog
-          moviesList = {moviesMockList}
+          films={filmsMock}
         />
     ).toJSON();
 
