@@ -21,7 +21,7 @@ class MoviesList extends React.PureComponent {
           <MovieCard
             id={film.id}
             title={film.title}
-            image={film.id === this.state.activeFilmId ? `https://via.placeholder.com/280x175` : film.image}
+            image={film.id === this.state.activeFilmId ? `https://miro.medium.com/max/800/1*MrWVkaCVte77OIv4THt8Hw.gif` : film.image}
             onFilmMouseOver={this._filmMouseOverHandler}
             onFilmMouseOut={this._filmMouseOutHandler}
             key={`${film.title}_${film.id}`}
