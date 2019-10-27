@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`render correctly App component 1`] = `
+exports[`Render correctly MoviePage component 1`] = `
 Array [
   <section
     className="movie-card"
@@ -272,9 +272,9 @@ Array [
             className="small-movie-card__image"
           >
             <img
-              alt="Johnny English"
+              alt="Fantastic Beasts: The Crimes of Grindelwald"
               height="175"
-              src="img/johnny-english.jpg"
+              src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
               width="280"
             />
           </div>
@@ -285,33 +285,7 @@ Array [
               className="small-movie-card__link"
               href="/details"
             >
-              Johnny English
-            </a>
-          </h3>
-        </article>
-        <article
-          className="small-movie-card catalog__movies-card"
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-        >
-          <div
-            className="small-movie-card__image"
-          >
-            <img
-              alt="Shutter Island"
-              height="175"
-              src="img/shutter-island.jpg"
-              width="280"
-            />
-          </div>
-          <h3
-            className="small-movie-card__title"
-          >
-            <a
-              className="small-movie-card__link"
-              href="/details"
-            >
-              Shutter Island
+              Fantastic Beasts: The Crimes of Grindelwald
             </a>
           </h3>
         </article>

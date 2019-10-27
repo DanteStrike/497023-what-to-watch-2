@@ -16,12 +16,12 @@ it(`render correctly App component`, () => {
     }
   ];
 
-  const AppComponent = renderer
+  const component = renderer
     .create(
         <App
           films={filmsMock}
         />
     ).toJSON();
 
-  expect(AppComponent).toMatchSnapshot();
+  expect(component).toMatchSnapshot();
 });

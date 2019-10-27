@@ -2,7 +2,7 @@ import React from "react";
 import renderer from "react-test-renderer";
 import Catalog from "./catalog.jsx";
 
-it(`render correctly Catalog component`, () => {
+it(`Render correctly Catalog component`, () => {
   const filmsMock = [
     {
       id: 1,
@@ -16,12 +16,12 @@ it(`render correctly Catalog component`, () => {
     }
   ];
 
-  const CatalogComponent = renderer
+  const component = renderer
     .create(
         <Catalog
           films={filmsMock}
         />
     ).toJSON();
 
-  expect(CatalogComponent).toMatchSnapshot();
+  expect(component).toMatchSnapshot();
 });

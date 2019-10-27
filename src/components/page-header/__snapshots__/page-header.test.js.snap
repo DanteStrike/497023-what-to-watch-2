@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`render correctly PageHeader component 1`] = `
+exports[`Render correctly PageHeader component 1`] = `
 <header
   className="page-header movie-card__head"
 >

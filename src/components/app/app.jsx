@@ -1,14 +1,33 @@
 import React from "react";
 import PropTypes from "prop-types";
 import MainPage from "../main-page/main-page.jsx";
+import MoviePage from "../movie-page/movie-page.jsx";
+
+const getPage = (films) => {
+  switch (location.pathname) {
+    case `/`:
+    case `/main`:
+      return (
+        <MainPage
+          films={films}
+        />
+      );
+    case `/details`:
+      return (
+        <MoviePage
+          films={films}
+        />
+      );
+  }
+
+  return null;
+};
 
 const App = (props) => {
   const {films} = props;
 
   return (
-    <MainPage
-      films={films}
-    />
+    getPage(films)
   );
 };
 
