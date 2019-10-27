@@ -14,6 +14,18 @@ class MoviesList extends React.PureComponent {
     this._filmMouseLeaveHandler = this._filmMouseLeaveHandler.bind(this);
   }
 
+  _filmMouseHoverHandler(filmId) {
+    this.setState({
+      activeFilmId: filmId
+    });
+  }
+
+  _filmMouseLeaveHandler() {
+    this.setState({
+      activeFilmId: null
+    });
+  }
+
   render() {
     return (
       <div className="catalog__movies-list">
@@ -31,18 +43,6 @@ class MoviesList extends React.PureComponent {
         }
       </div>
     );
-  }
-
-  _filmMouseHoverHandler(filmId) {
-    this.setState({
-      activeFilmId: filmId
-    });
-  }
-
-  _filmMouseLeaveHandler() {
-    this.setState({
-      activeFilmId: null
-    });
   }
 }
 
