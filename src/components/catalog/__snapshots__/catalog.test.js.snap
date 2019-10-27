@@ -125,6 +125,32 @@ exports[`Render correctly Catalog component 1`] = `
         className="small-movie-card__image"
       >
         <img
+          alt="Fantastic Beasts: The Crimes of Grindelwald"
+          height="175"
+          src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+          width="280"
+        />
+      </div>
+      <h3
+        className="small-movie-card__title"
+      >
+        <a
+          className="small-movie-card__link"
+          href="/details"
+        >
+          Fantastic Beasts: The Crimes of Grindelwald
+        </a>
+      </h3>
+    </article>
+    <article
+      className="small-movie-card catalog__movies-card"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <div
+        className="small-movie-card__image"
+      >
+        <img
           alt="Johnny English"
           height="175"
           src="img/johnny-english.jpg"
@@ -165,6 +191,58 @@ exports[`Render correctly Catalog component 1`] = `
           href="/details"
         >
           Shutter Island
+        </a>
+      </h3>
+    </article>
+    <article
+      className="small-movie-card catalog__movies-card"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <div
+        className="small-movie-card__image"
+      >
+        <img
+          alt="Macbeth"
+          height="175"
+          src="img/macbeth.jpg"
+          width="280"
+        />
+      </div>
+      <h3
+        className="small-movie-card__title"
+      >
+        <a
+          className="small-movie-card__link"
+          href="/details"
+        >
+          Macbeth
+        </a>
+      </h3>
+    </article>
+    <article
+      className="small-movie-card catalog__movies-card"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <div
+        className="small-movie-card__image"
+      >
+        <img
+          alt="Aviator"
+          height="175"
+          src="img/aviator.jpg"
+          width="280"
+        />
+      </div>
+      <h3
+        className="small-movie-card__title"
+      >
+        <a
+          className="small-movie-card__link"
+          href="/details"
+        >
+          Aviator
         </a>
       </h3>
     </article>

@@ -1,25 +1,13 @@
 import React from "react";
 import renderer from "react-test-renderer";
+import {films} from "../../mocks/films.js";
 import App from "./app.jsx";
 
 it(`render correctly App component`, () => {
-  const filmsMock = [
-    {
-      id: 1,
-      title: `Johnny English`,
-      image: `img/johnny-english.jpg`
-    },
-    {
-      id: 2,
-      title: `Shutter Island`,
-      image: `img/shutter-island.jpg`
-    }
-  ];
-
   const component = renderer
     .create(
         <App
-          films={filmsMock}
+          films={films}
         />
     ).toJSON();
 
