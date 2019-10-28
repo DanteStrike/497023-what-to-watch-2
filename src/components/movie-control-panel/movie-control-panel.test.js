@@ -1,14 +1,11 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import {films} from "../../mocks/films.js";
-import App from "./app.jsx";
+import MovieControlPanel from "./movie-control-panel.jsx";
 
-it(`render correctly App component`, () => {
+it(`Render correctly MovieControlPanel component`, () => {
   const component = renderer
     .create(
-        <App
-          films={films}
-        />
+        <MovieControlPanel/>
     ).toJSON();
 
   expect(component).toMatchSnapshot();

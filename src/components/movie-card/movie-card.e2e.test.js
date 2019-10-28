@@ -5,17 +5,38 @@ import MovieCard from "./movie-card.jsx";
 
 Enzyme.configure({adapter: new Adapter()});
 
-it(`check click callback on MovieCard title`, () => {
-  const clickHandler = jest.fn();
-  const MovieCardComponent = shallow(
-      <MovieCard
-        title = {`Johnny English`}
-        image = {`img/johnny-english.jpg`}
-        onMovieTitleClick = {clickHandler}
-      />
-  );
+describe(`Callbacks to parent`, () => {
+  it(`should callback to parent component film ID on mouse over`, () => {
+    const onFilmMouseHover = jest.fn();
+    const component = shallow(
+        <MovieCard
+          id={2}
+          title={``}
+          image={``}
+          titleLinkHref={`#`}
+          onFilmMouseHover={onFilmMouseHover}
+          onFilmMouseLeave={jest.fn()}
+        />
+    );
 
-  const movieTitle = MovieCardComponent.find(`.small-movie-card__link`);
-  movieTitle.simulate(`click`);
-  expect(clickHandler).toHaveBeenCalled();
+    component.simulate(`mouseenter`);
+    expect(onFilmMouseHover).toBeCalledWith(2);
+  });
+
+  it(`should callback to parent component on mouse out`, () => {
+    const onFilmMouseLeave = jest.fn();
+    const component = shallow(
+        <MovieCard
+          id={2}
+          title={``}
+          image={``}
+          titleLinkHref={`#`}
+          onFilmMouseHover={jest.fn()}
+          onFilmMouseLeave={onFilmMouseLeave}
+        />
+    );
+
+    component.simulate(`mouseleave`);
+    expect(onFilmMouseLeave).toBeCalled();
+  });
 });

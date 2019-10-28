@@ -1,25 +1,15 @@
 import React from "react";
 import renderer from "react-test-renderer";
+import {films} from "../../mocks/films.js";
 import Catalog from "./catalog.jsx";
 
-it(`render correctly Catalog component`, () => {
-  const moviesMockList = [
-    {
-      title: `Johnny English`,
-      image: `img/johnny-english.jpg`
-    },
-    {
-      title: `Shutter Island`,
-      image: `img/shutter-island.jpg`
-    }
-  ];
-
-  const CatalogComponent = renderer
+it(`Render correctly Catalog component`, () => {
+  const component = renderer
     .create(
         <Catalog
-          moviesList = {moviesMockList}
+          films={films}
         />
     ).toJSON();
 
-  expect(CatalogComponent).toMatchSnapshot();
+  expect(component).toMatchSnapshot();
 });

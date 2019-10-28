@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render correctly MovieBackground component 1`] = `
+<div
+  className="movie-card__bg"
+>
+  <img
+    alt="The Grand Budapest Hotel"
+    src="img/bg-the-grand-budapest-hotel.jpg"
+  />
+</div>
+`;

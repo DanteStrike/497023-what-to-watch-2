@@ -1,13 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import MovieCard from "../movie-card/movie-card.jsx";
+import MoviesList from "../movies-list/movies-list.jsx";
 
 const Catalog = (props) => {
-  const {moviesList} = props;
-
-  const onMovieTitleClick = (evt) => {
-    evt.preventDefault();
-  };
+  const {films} = props;
 
   return (
     <section className="catalog">
@@ -46,17 +42,9 @@ const Catalog = (props) => {
         </li>
       </ul>
 
-      <div className="catalog__movies-list">
-        {moviesList.map((movie, index) => (
-          <MovieCard
-            title = {movie.title}
-            image = {movie.image}
-            onMovieTitleClick = {onMovieTitleClick}
-            key = {`${movie.title}_${index}`}
-          />
-        ))
-        }
-      </div>
+      <MoviesList
+        films={films}
+      />
 
       <div className="catalog__more">
         <button className="catalog__button" type="button">Show more</button>
@@ -66,7 +54,8 @@ const Catalog = (props) => {
 };
 
 Catalog.propTypes = {
-  moviesList: PropTypes.arrayOf(PropTypes.shape({
+  films: PropTypes.arrayOf(PropTypes.exact({
+    id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired
   }))

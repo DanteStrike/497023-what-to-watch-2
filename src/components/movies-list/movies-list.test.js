@@ -1,11 +1,14 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import MoviePreview from "./movie-preview.jsx";
+import MoviesList from "./movies-list.jsx";
+import {films} from "../../mocks/films.js";
 
-it(`Render correctly MoviePreview component`, () => {
+it(`Render correctly MoviesList component`, () => {
   const MoviePreviewComponent = renderer
     .create(
-        <MoviePreview/>
+        <MoviesList
+          films={films}
+        />
     ).toJSON();
 
   expect(MoviePreviewComponent).toMatchSnapshot();

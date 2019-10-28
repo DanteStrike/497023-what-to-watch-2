@@ -5,13 +5,14 @@ import MoviePreview from "../movie-preview/movie-preview.jsx";
 import Catalog from "../catalog/catalog.jsx";
 
 const MainPage = (props) => {
+  const {films} = props;
 
   return (
     <Fragment>
       <MoviePreview/>
       <div className="page-content">
         <Catalog
-          moviesList = {props.moviesList}
+          films={films}
         />
         <PageFooter/>
       </div>
@@ -21,7 +22,8 @@ const MainPage = (props) => {
 };
 
 MainPage.propTypes = {
-  moviesList: PropTypes.arrayOf(PropTypes.shape({
+  films: PropTypes.arrayOf(PropTypes.exact({
+    id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired
   }))

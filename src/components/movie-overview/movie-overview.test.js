@@ -1,14 +1,11 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import {films} from "../../mocks/films.js";
-import App from "./app.jsx";
+import MovieOverview from "./movie-overview.jsx";
 
-it(`render correctly App component`, () => {
+it(`Render correctly MovieOverview component`, () => {
   const component = renderer
     .create(
-        <App
-          films={films}
-        />
+        <MovieOverview/>
     ).toJSON();
 
   expect(component).toMatchSnapshot();

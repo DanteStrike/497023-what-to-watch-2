@@ -2,13 +2,16 @@ import React from "react";
 import renderer from "react-test-renderer";
 import MovieCard from "./movie-card.jsx";
 
-it(`render correctly MovieCard component`, () => {
+it(`Render correctly MovieCard component`, () => {
   const MovieCardComponent = renderer
     .create(
         <MovieCard
-          title = {`Johnny English`}
-          image = {`img/johnny-english.jpg`}
-          onMovieTitleClick = {jest.fn()}
+          id={2}
+          title={`Johnny English`}
+          image={`img/johnny-english.jpg`}
+          titleLinkHref={`#`}
+          onFilmMouseHover={jest.fn()}
+          onFilmMouseLeave={jest.fn()}
         />
     ).toJSON();
 

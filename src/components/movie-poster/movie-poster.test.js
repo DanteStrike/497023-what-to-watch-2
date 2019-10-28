@@ -1,14 +1,11 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import {films} from "../../mocks/films.js";
-import App from "./app.jsx";
+import MoviePoster from "./movie-poster.jsx";
 
-it(`render correctly App component`, () => {
+it(`Render correctly MoviePoster component`, () => {
   const component = renderer
     .create(
-        <App
-          films={films}
-        />
+        <MoviePoster isBig={false}/>
     ).toJSON();
 
   expect(component).toMatchSnapshot();
