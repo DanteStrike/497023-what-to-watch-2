@@ -9,8 +9,6 @@ import MoviePoster from "../movie-poster/movie-poster.jsx";
 import MovieControlPanel from "../movie-control-panel/movie-control-panel.jsx";
 
 const MoviePage = (props) => {
-  const {films} = props;
-
   return (
     <Fragment>
       <section className="movie-card movie-card--full">
@@ -63,7 +61,7 @@ const MoviePage = (props) => {
           <h2 className="catalog__title">More like this</h2>
 
           <MoviesList
-            films={films}
+            {...props}
           />
         </section>
 
