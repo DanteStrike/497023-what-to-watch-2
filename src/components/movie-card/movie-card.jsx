@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import VideoPlayer from "../video-player/video-player.jsx";
 
 const MovieCard = (props) => {
   const {
@@ -8,7 +9,11 @@ const MovieCard = (props) => {
     image,
     titleLinkHref,
     onFilmMouseHover,
-    onFilmMouseLeave
+    onFilmMouseLeave,
+
+    playPreview,
+    src,
+    isMuted
   } = props;
 
   const onCardMouseEnter = () => {
@@ -18,7 +23,14 @@ const MovieCard = (props) => {
   return (
     <article className="small-movie-card catalog__movies-card" onMouseEnter={onCardMouseEnter} onMouseLeave={onFilmMouseLeave}>
       <div className="small-movie-card__image">
-        <img src={image} alt={title} width="280" height="175"/>
+        <VideoPlayer
+          isPlaying={playPreview}
+          src={src}
+          isMuted={isMuted}
+          poster={image}
+          alt={title}
+          width="280"
+          height="175"/>
       </div>
       <h3 className="small-movie-card__title">
         <a className="small-movie-card__link" href={titleLinkHref}>{title}</a>
@@ -33,7 +45,10 @@ MovieCard.propTypes = {
   image: PropTypes.string.isRequired,
   titleLinkHref: PropTypes.string.isRequired,
   onFilmMouseHover: PropTypes.func.isRequired,
-  onFilmMouseLeave: PropTypes.func.isRequired
+  onFilmMouseLeave: PropTypes.func.isRequired,
+  playPreview: PropTypes.bool.isRequired,
+  src: PropTypes.string.isRequired,
+  isMuted: PropTypes.bool.isRequired
 };
 
 export default MovieCard;

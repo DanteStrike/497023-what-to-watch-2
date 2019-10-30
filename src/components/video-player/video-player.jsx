@@ -38,6 +38,7 @@ class VideoPlayer extends React.PureComponent {
     } else {
       video.pause();
       video.currentTime = 0;
+      video.load();
     }
   }
 
@@ -47,8 +48,9 @@ class VideoPlayer extends React.PureComponent {
   }
 
   render() {
+    const {width, height, alt} = this.props;
     return (
-      <video ref={this._videoRef}/>
+      <video ref={this._videoRef} width={width} height={height} alt={alt}/>
     );
   }
 }
