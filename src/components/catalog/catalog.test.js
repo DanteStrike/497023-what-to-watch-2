@@ -8,7 +8,19 @@ it(`Render correctly Catalog component`, () => {
     .create(
         <Catalog
           films={films}
-        />
+        />,
+        {
+          createNodeMock: (element) => {
+            if (element.type === `video`) {
+              return {
+                src: null,
+                isMuted: null,
+                poster: null
+              };
+            }
+            return null;
+          }
+        }
     ).toJSON();
 
   expect(component).toMatchSnapshot();

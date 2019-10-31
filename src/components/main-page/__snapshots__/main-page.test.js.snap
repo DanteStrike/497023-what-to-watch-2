@@ -271,11 +271,15 @@ Array [
           <div
             className="small-movie-card__image"
           >
-            <img
-              alt="Fantastic Beasts: The Crimes of Grindelwald"
-              height="175"
-              src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-              width="280"
+            <video
+              style={
+                Object {
+                  "display": "block",
+                  "height": "100%",
+                  "objectFit": "fill",
+                  "width": "100%",
+                }
+              }
             />
           </div>
           <h3
@@ -297,11 +301,15 @@ Array [
           <div
             className="small-movie-card__image"
           >
-            <img
-              alt="Johnny English"
-              height="175"
-              src="img/johnny-english.jpg"
-              width="280"
+            <video
+              style={
+                Object {
+                  "display": "block",
+                  "height": "100%",
+                  "objectFit": "fill",
+                  "width": "100%",
+                }
+              }
             />
           </div>
           <h3
@@ -323,11 +331,15 @@ Array [
           <div
             className="small-movie-card__image"
           >
-            <img
-              alt="Shutter Island"
-              height="175"
-              src="img/shutter-island.jpg"
-              width="280"
+            <video
+              style={
+                Object {
+                  "display": "block",
+                  "height": "100%",
+                  "objectFit": "fill",
+                  "width": "100%",
+                }
+              }
             />
           </div>
           <h3
@@ -349,11 +361,15 @@ Array [
           <div
             className="small-movie-card__image"
           >
-            <img
-              alt="Macbeth"
-              height="175"
-              src="img/macbeth.jpg"
-              width="280"
+            <video
+              style={
+                Object {
+                  "display": "block",
+                  "height": "100%",
+                  "objectFit": "fill",
+                  "width": "100%",
+                }
+              }
             />
           </div>
           <h3
@@ -375,11 +391,15 @@ Array [
           <div
             className="small-movie-card__image"
           >
-            <img
-              alt="Aviator"
-              height="175"
-              src="img/aviator.jpg"
-              width="280"
+            <video
+              style={
+                Object {
+                  "display": "block",
+                  "height": "100%",
+                  "objectFit": "fill",
+                  "width": "100%",
+                }
+              }
             />
           </div>
           <h3

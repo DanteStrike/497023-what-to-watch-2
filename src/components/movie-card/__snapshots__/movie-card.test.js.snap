@@ -9,11 +9,15 @@ exports[`Render correctly MovieCard component 1`] = `
   <div
     className="small-movie-card__image"
   >
-    <img
-      alt="Johnny English"
-      height="175"
-      src="img/johnny-english.jpg"
-      width="280"
+    <video
+      style={
+        Object {
+          "display": "block",
+          "height": "100%",
+          "objectFit": "fill",
+          "width": "100%",
+        }
+      }
     />
   </div>
   <h3
