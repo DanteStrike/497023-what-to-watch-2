@@ -120,6 +120,11 @@ exports[`Render correctly Catalog component 1`] = `
       className="small-movie-card catalog__movies-card"
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
+      style={
+        Object {
+          "willChange": "transform",
+        }
+      }
     >
       <div
         className="small-movie-card__image"
@@ -150,6 +155,11 @@ exports[`Render correctly Catalog component 1`] = `
       className="small-movie-card catalog__movies-card"
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
+      style={
+        Object {
+          "willChange": "transform",
+        }
+      }
     >
       <div
         className="small-movie-card__image"
@@ -180,6 +190,11 @@ exports[`Render correctly Catalog component 1`] = `
       className="small-movie-card catalog__movies-card"
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
+      style={
+        Object {
+          "willChange": "transform",
+        }
+      }
     >
       <div
         className="small-movie-card__image"
@@ -210,6 +225,11 @@ exports[`Render correctly Catalog component 1`] = `
       className="small-movie-card catalog__movies-card"
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
+      style={
+        Object {
+          "willChange": "transform",
+        }
+      }
     >
       <div
         className="small-movie-card__image"
@@ -240,6 +260,11 @@ exports[`Render correctly Catalog component 1`] = `
       className="small-movie-card catalog__movies-card"
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
+      style={
+        Object {
+          "willChange": "transform",
+        }
+      }
     >
       <div
         className="small-movie-card__image"

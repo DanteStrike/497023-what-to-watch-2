@@ -2,6 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import VideoPlayer from "../video-player/video-player.jsx";
 
+const fixFirefoxFlickering = {
+  willChange: `transform`
+};
+
 const MovieCard = (props) => {
   const {
     id,
@@ -17,7 +21,7 @@ const MovieCard = (props) => {
   };
 
   return (
-    <article className="small-movie-card catalog__movies-card" onMouseEnter={onCardMouseEnter} onMouseLeave={onFilmMouseLeave}>
+    <article className="small-movie-card catalog__movies-card" style={fixFirefoxFlickering} onMouseEnter={onCardMouseEnter} onMouseLeave={onFilmMouseLeave}>
       <div className="small-movie-card__image">
         <VideoPlayer {...videoPlayerOptions} />
       </div>

@@ -5,6 +5,11 @@ exports[`Render correctly MovieCard component 1`] = `
   className="small-movie-card catalog__movies-card"
   onMouseEnter={[Function]}
   onMouseLeave={[MockFunction]}
+  style={
+    Object {
+      "willChange": "transform",
+    }
+  }
 >
   <div
     className="small-movie-card__image"
