@@ -12,9 +12,6 @@ class MoviesList extends React.PureComponent {
     };
 
     this._previewTimderID = null;
-
-    this._filmMouseHoverHandler = this._filmMouseHoverHandler.bind(this);
-    this._filmMouseLeaveHandler = this._filmMouseLeaveHandler.bind(this);
   }
 
   _showPreview() {
@@ -43,28 +40,36 @@ class MoviesList extends React.PureComponent {
     }
   }
 
+  _getMovieCard(film, activeFilmId, playPreview) {
+    const videoPlayerOptions = {
+      poster: film.image,
+      isPlaying: film.id === activeFilmId && playPreview,
+      isMuted: true,
+      src: film.previewSrc
+    };
+
+    return (
+      <MovieCard
+        key={`${film.id}_${film.title}`}
+
+        id={film.id}
+        title={film.title}
+        titleLinkHref={`/details`}
+        onFilmMouseHover={(filmId) => this._filmMouseHoverHandler(filmId)}
+        onFilmMouseLeave={() => this._filmMouseLeaveHandler()}
+
+        videoPlayerOptions={videoPlayerOptions}
+      />
+    );
+  }
+
   render() {
     const {films} = this.props;
+    const {activeFilmId, playPreview} = this.state;
 
     return (
       <div className="catalog__movies-list">
-        {films.map((film) => (
-          <MovieCard
-            id={film.id}
-            title={film.title}
-
-            image={film.image}
-            playPreview={film.id === this.state.activeFilmId && this.state.playPreview}
-            isMuted={true}
-            src={film.previewSrc}
-
-            titleLinkHref={`/details`}
-            onFilmMouseHover={this._filmMouseHoverHandler}
-            onFilmMouseLeave={this._filmMouseLeaveHandler}
-            key={`${film.id}_${film.title}`}
-          />
-        ))
-        }
+        {films.map((film) => this._getMovieCard(film, activeFilmId, playPreview))}
       </div>
     );
   }
