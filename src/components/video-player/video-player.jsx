@@ -1,23 +1,31 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+const videoPlayerStyle = {
+  display: `block`,
+  objectFit: `fill`,
+  width: `100%`,
+  height: `100%`
+};
+
 class VideoPlayer extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this._videoRef = React.createRef();
 
-    // this.state = {
-    //   isPlaying: false,
-    //   isLoading: true,
-    //   isMuted: props.muted,
-    //   volume: 0
-    // };
+    this.state = {
+      isPlaying: false,
+      // isLoading: true,
+      // isMuted: props.muted,
+      // volume: 0
+    };
   }
 
   componentDidMount() {
     const {src, poster, isMuted} = this.props;
     const video = this._videoRef.current;
+
     video.src = src;
     video.muted = isMuted;
     video.poster = poster;
@@ -26,14 +34,21 @@ class VideoPlayer extends React.PureComponent {
     //   this.setState({isLoading: false});
     // };
     //
-    // video.onplay = () => {
-    //   this.setState({isPlaying: true});
-    // };
+
+    video.onplay = () => {
+      this.setState({isPlaying: true});
+    };
+
+    video.onpause = () => {
+      this.setState({isPlaying: false});
+    };
   }
 
   componentDidUpdate() {
+    const {isPlaying} = this.props;
     const video = this._videoRef.current;
-    if (this.props.isPlaying) {
+
+    if (isPlaying) {
       video.play();
     } else {
       video.pause();
@@ -48,18 +63,17 @@ class VideoPlayer extends React.PureComponent {
   }
 
   render() {
-    const {width, height, alt} = this.props;
     return (
-      <video ref={this._videoRef} width={width} height={height} alt={alt}/>
+      <video ref={this._videoRef} style={videoPlayerStyle}/>
     );
   }
 }
 
 VideoPlayer.propTypes = {
-  isPlaying: PropTypes.bool.isRequired,
-  src: PropTypes.string.isRequired,
   poster: PropTypes.string.isRequired,
-  isMuted: PropTypes.bool.isRequired
+  isPlaying: PropTypes.bool.isRequired,
+  isMuted: PropTypes.bool.isRequired,
+  src: PropTypes.string.isRequired
 };
 
 export default VideoPlayer;
