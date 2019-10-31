@@ -6,14 +6,10 @@ const MovieCard = (props) => {
   const {
     id,
     title,
-    image,
     titleLinkHref,
     onFilmMouseHover,
     onFilmMouseLeave,
-
-    playPreview,
-    src,
-    isMuted
+    videoPlayerOptions
   } = props;
 
   const onCardMouseEnter = () => {
@@ -23,14 +19,7 @@ const MovieCard = (props) => {
   return (
     <article className="small-movie-card catalog__movies-card" onMouseEnter={onCardMouseEnter} onMouseLeave={onFilmMouseLeave}>
       <div className="small-movie-card__image">
-        <VideoPlayer
-          isPlaying={playPreview}
-          src={src}
-          isMuted={isMuted}
-          poster={image}
-          alt={title}
-          width="280"
-          height="175"/>
+        <VideoPlayer {...videoPlayerOptions} />
       </div>
       <h3 className="small-movie-card__title">
         <a className="small-movie-card__link" href={titleLinkHref}>{title}</a>
@@ -42,13 +31,16 @@ const MovieCard = (props) => {
 MovieCard.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired,
   titleLinkHref: PropTypes.string.isRequired,
   onFilmMouseHover: PropTypes.func.isRequired,
   onFilmMouseLeave: PropTypes.func.isRequired,
-  playPreview: PropTypes.bool.isRequired,
-  src: PropTypes.string.isRequired,
-  isMuted: PropTypes.bool.isRequired
+
+  videoPlayerOptions: PropTypes.exact({
+    poster: PropTypes.string.isRequired,
+    isPlaying: PropTypes.bool.isRequired,
+    isMuted: PropTypes.bool.isRequired,
+    src: PropTypes.string.isRequired,
+  })
 };
 
 export default MovieCard;
