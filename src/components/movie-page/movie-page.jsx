@@ -9,6 +9,8 @@ import MoviePoster from "../movie-poster/movie-poster.jsx";
 import MovieControlPanel from "../movie-control-panel/movie-control-panel.jsx";
 
 const MoviePage = (props) => {
+  const {films} = props;
+
   return (
     <Fragment>
       <section className="movie-card movie-card--full">
@@ -61,7 +63,7 @@ const MoviePage = (props) => {
           <h2 className="catalog__title">More like this</h2>
 
           <MoviesList
-            {...props}
+            films={films}
           />
         </section>
 
@@ -75,7 +77,8 @@ MoviePage.propTypes = {
   films: PropTypes.arrayOf(PropTypes.exact({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired
+    image: PropTypes.string.isRequired,
+    previewSrc: PropTypes.string.isRequired
   }))
 };
 

@@ -1,7 +1,10 @@
 import React from "react";
+import PropTypes from "prop-types";
 import MoviesList from "../movies-list/movies-list.jsx";
 
 const Catalog = (props) => {
+  const {films} = props;
+
   return (
     <section className="catalog">
       <h2 className="catalog__title visually-hidden">Catalog</h2>
@@ -40,7 +43,7 @@ const Catalog = (props) => {
       </ul>
 
       <MoviesList
-        {...props}
+        films={films}
       />
 
       <div className="catalog__more">
@@ -48,6 +51,15 @@ const Catalog = (props) => {
       </div>
     </section>
   );
+};
+
+Catalog.propTypes = {
+  films: PropTypes.arrayOf(PropTypes.exact({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    previewSrc: PropTypes.string.isRequired
+  }))
 };
 
 export default Catalog;

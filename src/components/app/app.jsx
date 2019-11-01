@@ -1,20 +1,21 @@
 import React from "react";
+import PropTypes from "prop-types";
 import MainPage from "../main-page/main-page.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
 
-const getPage = (props) => {
+const getPage = (films) => {
   switch (location.pathname) {
     case `/`:
     case `/main`:
       return (
         <MainPage
-          {...props}
+          films={films}
         />
       );
     case `/details`:
       return (
         <MoviePage
-          {...props}
+          films={films}
         />
       );
   }
@@ -23,9 +24,19 @@ const getPage = (props) => {
 };
 
 const App = (props) => {
+  const {films} = props;
   return (
-    getPage(props)
+    getPage(films)
   );
+};
+
+App.propTypes = {
+  films: PropTypes.arrayOf(PropTypes.exact({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    previewSrc: PropTypes.string.isRequired
+  }))
 };
 
 export default App;
