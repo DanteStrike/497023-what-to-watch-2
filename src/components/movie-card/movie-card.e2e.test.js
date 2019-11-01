@@ -18,8 +18,8 @@ describe(`Callbacks to parent`, () => {
     const component = shallow(
         <MovieCard
           id={2}
-          title={``}
-          image={``}
+          title=""
+          image=""
           titleLinkHref={`#`}
           onFilmMouseHover={onFilmMouseHover}
           onFilmMouseLeave={jest.fn()}
