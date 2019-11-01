@@ -5,7 +5,19 @@ import VideoPlayer from "./video-player.jsx";
 
 Enzyme.configure({adapter: new Adapter()});
 
-window.HTMLMediaElement.prototype.play = () => {};
+
+//  jsdom doesn't support any loading or playback media operation
+window.HTMLMediaElement.prototype.play = function () {
+  this.dispatchEvent(new Event(`play`));
+};
+
+window.HTMLMediaElement.prototype.pause = function () {
+  this.dispatchEvent(new Event(`pause`));
+};
+
+window.HTMLMediaElement.prototype.load = function () {
+  this.dispatchEvent(new Event(`load`));
+};
 
 it(`Should have pause and playing state`, () => {
   const component = mount(
@@ -19,6 +31,9 @@ it(`Should have pause and playing state`, () => {
 
   expect(component.state(`isPlaying`)).toEqual(false);
 
-  // component.setProps({isPlaying: true});
-  // expect(component.state(`isPlaying`)).toEqual(true);
+  component.setProps({isPlaying: true});
+  expect(component.state(`isPlaying`)).toEqual(true);
+
+  component.setProps({isPlaying: false});
+  expect(component.state(`isPlaying`)).toEqual(false);
 });
