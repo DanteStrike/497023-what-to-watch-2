@@ -34,13 +34,16 @@ class VideoPlayer extends React.PureComponent {
     //   this.setState({isLoading: false});
     // };
     //
-
     video.onplay = () => {
       this.setState({isPlaying: true});
     };
 
-    video.onpause = () => {
+    video.onpause = (evt) => {
+      const currentVideo = evt.target;
+
       this.setState({isPlaying: false});
+      currentVideo.currentTime = 0;
+      currentVideo.load();
     };
   }
 
@@ -52,14 +55,17 @@ class VideoPlayer extends React.PureComponent {
       video.play();
     } else {
       video.pause();
-      video.currentTime = 0;
-      video.load();
+      // video.currentTime = 0;
+      // video.load();
     }
   }
 
   componentWillUnmount() {
     const video = this._videoRef.current;
+
     video.src = ``;
+    video.onplay = null;
+    video.onpause = null;
   }
 
   render() {
