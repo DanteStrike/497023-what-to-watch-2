@@ -6,16 +6,25 @@ import MovieCard from "./movie-card.jsx";
 Enzyme.configure({adapter: new Adapter()});
 
 describe(`Callbacks to parent`, () => {
+  const videoOptionsMock = {
+    poster: ``,
+    isPlaying: false,
+    isMuted: true,
+    src: ``
+  };
+
   it(`should callback to parent component film ID on mouse over`, () => {
     const onFilmMouseHover = jest.fn();
     const component = shallow(
         <MovieCard
           id={2}
-          title={``}
-          image={``}
+          title=""
+          image=""
           titleLinkHref={`#`}
           onFilmMouseHover={onFilmMouseHover}
           onFilmMouseLeave={jest.fn()}
+
+          videoPlayerOptions={videoOptionsMock}
         />
     );
 
@@ -28,11 +37,13 @@ describe(`Callbacks to parent`, () => {
     const component = shallow(
         <MovieCard
           id={2}
-          title={``}
-          image={``}
+          title=""
+          image=""
           titleLinkHref={`#`}
           onFilmMouseHover={jest.fn()}
           onFilmMouseLeave={onFilmMouseLeave}
+
+          videoPlayerOptions={videoOptionsMock}
         />
     );
 

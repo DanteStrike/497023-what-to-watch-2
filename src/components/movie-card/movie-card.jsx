@@ -1,14 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
+import VideoPlayer from "../video-player/video-player.jsx";
+
+const fixFirefoxFlickering = {
+  willChange: `transform`
+};
 
 const MovieCard = (props) => {
   const {
     id,
     title,
-    image,
     titleLinkHref,
     onFilmMouseHover,
-    onFilmMouseLeave
+    onFilmMouseLeave,
+    videoPlayerOptions
   } = props;
 
   const onCardMouseEnter = () => {
@@ -16,9 +21,9 @@ const MovieCard = (props) => {
   };
 
   return (
-    <article className="small-movie-card catalog__movies-card" onMouseEnter={onCardMouseEnter} onMouseLeave={onFilmMouseLeave}>
+    <article className="small-movie-card catalog__movies-card" style={fixFirefoxFlickering} onMouseEnter={onCardMouseEnter} onMouseLeave={onFilmMouseLeave}>
       <div className="small-movie-card__image">
-        <img src={image} alt={title} width="280" height="175"/>
+        <VideoPlayer {...videoPlayerOptions} />
       </div>
       <h3 className="small-movie-card__title">
         <a className="small-movie-card__link" href={titleLinkHref}>{title}</a>
@@ -30,10 +35,16 @@ const MovieCard = (props) => {
 MovieCard.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired,
   titleLinkHref: PropTypes.string.isRequired,
   onFilmMouseHover: PropTypes.func.isRequired,
-  onFilmMouseLeave: PropTypes.func.isRequired
+  onFilmMouseLeave: PropTypes.func.isRequired,
+
+  videoPlayerOptions: PropTypes.exact({
+    poster: PropTypes.string.isRequired,
+    isPlaying: PropTypes.bool.isRequired,
+    isMuted: PropTypes.bool.isRequired,
+    src: PropTypes.string.isRequired,
+  })
 };
 
 export default MovieCard;

@@ -25,7 +25,8 @@ MainPage.propTypes = {
   films: PropTypes.arrayOf(PropTypes.exact({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired
+    image: PropTypes.string.isRequired,
+    previewSrc: PropTypes.string.isRequired
   }))
 };
 

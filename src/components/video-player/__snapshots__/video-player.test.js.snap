@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render correctly VideoPlayer component 1`] = `
+<video
+  style={
+    Object {
+      "display": "block",
+      "height": "100%",
+      "objectFit": "fill",
+      "width": "100%",
+    }
+  }
+/>
+`;

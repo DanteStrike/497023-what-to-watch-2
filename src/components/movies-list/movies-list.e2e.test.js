@@ -21,7 +21,8 @@ describe(`Should change state: {activeFilmId} correctly`, () => {
       {
         id: 4,
         title: ``,
-        image: ``
+        image: ``,
+        previewSrc: ``
       }
     ];
     const component = mount(
