@@ -18,7 +18,7 @@ const ActionCreator = {
 };
 
 const initialState = {
-  filterGenre: ``,
+  filterGenre: `All genre`,
   filteredFilms: []
 };
 

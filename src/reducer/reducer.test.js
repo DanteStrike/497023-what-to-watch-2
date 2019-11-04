@@ -3,7 +3,7 @@ import {films} from "../mocks/films.js";
 
 describe(`Reducer should work correctly`, () => {
   const state = {
-    filterGenre: ``,
+    filterGenre: `All genre`,
     filteredFilms: []
   };
 
@@ -43,7 +43,7 @@ describe(`Reducer should work correctly`, () => {
       ]
     };
     expect(reducer(state, action)).toMatchObject({
-      filterGenre: ``,
+      filterGenre: `All genre`,
       filteredFilms: [
         {
           id: 1,
