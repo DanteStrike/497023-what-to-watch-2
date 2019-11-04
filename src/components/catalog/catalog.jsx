@@ -11,7 +11,7 @@ class Catalog extends React.PureComponent {
 
     const {films} = props;
 
-    this._genres = films.reduce((genres, film) => genres.add(film.genre), new Set([`All genre`]));
+    this._genres = Array.from(films.reduce((genres, film) => genres.add(film.genre), new Set([`All genre`])));
   }
 
 
@@ -23,9 +23,9 @@ class Catalog extends React.PureComponent {
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <GenreList
-          genres={Array.from(this._genres)}
+          genres={this._genres}
           filterGenre={filterGenre}
-          onGenreChange={(genre) => onGenreChange(genre, films)}
+          onGenreChange={(genre) => onGenreChange(films, genre)}
         />
 
         <MoviesList
@@ -66,7 +66,7 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onGenreChange: (genre, films) => {
+  onGenreChange: (films, genre) => {
     dispatch(ActionCreator.setGenreFilter(genre));
     dispatch(ActionCreator.filterFilms(films, genre));
   }
