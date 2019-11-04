@@ -1,13 +1,16 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import {films} from "../../mocks/films.js";
-import Catalog from "./catalog.jsx";
+import {Catalog} from "./catalog.jsx";
 
 it(`Render correctly Catalog component`, () => {
   const component = renderer
     .create(
         <Catalog
           films={films}
+          filterGenre={`All genre`}
+          filteredFilms={[]}
+          onGenreChange={jest.fn}
         />,
         {
           createNodeMock: (element) => {
