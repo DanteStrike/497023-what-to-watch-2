@@ -35,7 +35,8 @@ App.propTypes = {
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
-    previewSrc: PropTypes.string.isRequired
+    previewSrc: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired
   }))
 };
 
