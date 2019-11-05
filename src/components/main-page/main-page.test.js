@@ -4,9 +4,11 @@ import {films} from "../../mocks/films.js";
 import MainPage from "./main-page.jsx";
 import {Provider} from "react-redux";
 import {createStore} from "redux";
-import {reducer} from "../../reducer/reducer.js";
 
-const store = createStore(reducer);
+const store = createStore(() => ({
+  filterGenre: `All genre`,
+  filteredFilms: []
+}));
 
 it(`Render correctly MainPage component`, () => {
   const component = renderer

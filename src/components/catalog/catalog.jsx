@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import MoviesList from "../movies-list/movies-list.jsx";
 import {connect} from "react-redux";
 import GenreList from "../genre-list/genre-list.jsx";
-import {ActionCreator} from "../../reducer/reducer";
+import {ActionCreator} from "../../reducer/reducer.js";
 
 class Catalog extends React.PureComponent {
   constructor(props) {
@@ -60,7 +60,7 @@ Catalog.propTypes = {
   onGenreChange: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
+const mapStateToProps = (state) => ({
   filterGenre: state.filterGenre,
   filteredFilms: state.filteredFilms
 });
