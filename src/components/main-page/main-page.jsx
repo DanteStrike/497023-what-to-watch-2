@@ -4,6 +4,7 @@ import PageFooter from "../page-footer/page-footer.jsx";
 import MoviePreview from "../movie-preview/movie-preview.jsx";
 import Catalog from "../catalog/catalog.jsx";
 
+
 const MainPage = (props) => {
   const {films} = props;
 
@@ -26,7 +27,8 @@ MainPage.propTypes = {
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
-    previewSrc: PropTypes.string.isRequired
+    previewSrc: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired
   }))
 };
 
