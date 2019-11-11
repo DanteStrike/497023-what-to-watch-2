@@ -1,79 +1,36 @@
 import React from "react";
 import PropTypes from "prop-types";
 import MovieCard from "../movie-card/movie-card.jsx";
+import withTrailerPreview from "../../hocs/with-trailer-preview/with-trailer-preview.jsx";
+import withTimer from "../../hocs/with-timer/with-timer.jsx";
+import {compose} from "redux";
 
-class MoviesList extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const WrappedMovieCard = compose(
+    withTimer,
+    withTrailerPreview
+)(MovieCard);
 
-    this.state = {
-      activeFilmId: null,
-      playPreview: false
-    };
+const MoviesList = (props) => {
+  const {films} = props;
 
-    this._previewTimderID = null;
-  }
+  return (
+    <div className="catalog__movies-list">
+      {films.map((film) => (
+        <WrappedMovieCard
+          key={`${film.id}_${film.title}`}
 
-  _showPreview() {
-    this.setState({
-      playPreview: true
-    });
-  }
+          id={film.id}
+          title={film.title}
+          titleLinkHref={`/details`}
 
-  _filmMouseHoverHandler(filmId) {
-    this.setState({
-      activeFilmId: filmId
-    });
-
-    this._previewTimderID = setTimeout(this._showPreview.bind(this), 1000);
-  }
-
-  _filmMouseLeaveHandler() {
-    this.setState({
-      activeFilmId: null,
-      playPreview: false
-    });
-
-    if (this._previewTimderID !== null) {
-      clearTimeout(this._previewTimderID);
-      this._previewTimderID = null;
-    }
-  }
-
-  _getMovieCard(film, activeFilmId, playPreview) {
-    const videoPlayerOptions = {
-      poster: film.image,
-      isPlaying: film.id === activeFilmId && playPreview,
-      isMuted: true,
-      src: film.previewSrc
-    };
-
-    return (
-      <MovieCard
-        key={`${film.id}_${film.title}`}
-
-        id={film.id}
-        title={film.title}
-        titleLinkHref={`/details`}
-        onFilmMouseHover={(filmId) => this._filmMouseHoverHandler(filmId)}
-        onFilmMouseLeave={() => this._filmMouseLeaveHandler()}
-
-        videoPlayerOptions={videoPlayerOptions}
-      />
-    );
-  }
-
-  render() {
-    const {films} = this.props;
-    const {activeFilmId, playPreview} = this.state;
-
-    return (
-      <div className="catalog__movies-list">
-        {films.map((film) => this._getMovieCard(film, activeFilmId, playPreview))}
-      </div>
-    );
-  }
-}
+          poster={film.image}
+          isMuted={true}
+          previewSrc={film.previewSrc}
+        />
+      ))}
+    </div>
+  );
+};
 
 MoviesList.propTypes = {
   films: PropTypes.arrayOf(PropTypes.exact({

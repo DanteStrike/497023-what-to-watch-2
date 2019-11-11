@@ -5,49 +5,40 @@ import MovieCard from "./movie-card.jsx";
 
 Enzyme.configure({adapter: new Adapter()});
 
-describe(`Callbacks to parent`, () => {
-  const videoOptionsMock = {
-    poster: ``,
-    isPlaying: false,
-    isMuted: true,
-    src: ``
-  };
+describe(`MovieCard should work correctly`, () => {
+  let component;
+  const onTimerStart = jest.fn();
+  const onTimerReset = jest.fn();
+  const renderTrailerPreview = jest.fn();
 
-  it(`should callback to parent component film ID on mouse over`, () => {
-    const onFilmMouseHover = jest.fn();
-    const component = shallow(
+  beforeEach(() => {
+    onTimerStart.mockReset();
+    onTimerReset.mockReset();
+    renderTrailerPreview.mockReset();
+
+    component = shallow(
         <MovieCard
-          id={2}
           title=""
           image=""
           titleLinkHref={`#`}
-          onFilmMouseHover={onFilmMouseHover}
-          onFilmMouseLeave={jest.fn()}
-
-          videoPlayerOptions={videoOptionsMock}
+          onTimerStart={onTimerStart}
+          onTimerReset={onTimerReset}
+          renderTrailerPreview={renderTrailerPreview}
         />
     );
-
-    component.simulate(`mouseenter`);
-    expect(onFilmMouseHover).toBeCalledWith(2);
   });
 
-  it(`should callback to parent component on mouse out`, () => {
-    const onFilmMouseLeave = jest.fn();
-    const component = shallow(
-        <MovieCard
-          id={2}
-          title=""
-          image=""
-          titleLinkHref={`#`}
-          onFilmMouseHover={jest.fn()}
-          onFilmMouseLeave={onFilmMouseLeave}
+  it(`Should callback timer start on mouse enter`, () => {
+    component.simulate(`mouseenter`);
+    expect(onTimerStart).toBeCalledTimes(1);
+  });
 
-          videoPlayerOptions={videoOptionsMock}
-        />
-    );
-
+  it(`Should callback timer reset on mouse leave`, () => {
     component.simulate(`mouseleave`);
-    expect(onFilmMouseLeave).toBeCalled();
+    expect(onTimerReset).toBeCalledTimes(1);
+  });
+
+  it(`Should render preview player`, () => {
+    expect(renderTrailerPreview).toBeCalledTimes(1);
   });
 });
