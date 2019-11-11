@@ -3,7 +3,7 @@
 exports[`Render correctly MovieCard component 1`] = `
 <article
   className="small-movie-card catalog__movies-card"
-  onMouseEnter={[Function]}
+  onMouseEnter={[MockFunction]}
   onMouseLeave={[MockFunction]}
   style={
     Object {
@@ -13,18 +13,7 @@ exports[`Render correctly MovieCard component 1`] = `
 >
   <div
     className="small-movie-card__image"
-  >
-    <video
-      style={
-        Object {
-          "display": "block",
-          "height": "100%",
-          "objectFit": "fill",
-          "width": "100%",
-        }
-      }
-    />
-  </div>
+  />
   <h3
     className="small-movie-card__title"
   >

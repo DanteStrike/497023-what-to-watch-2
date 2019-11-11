@@ -270,6 +270,7 @@ Array [
             className="small-movie-card__image"
           >
             <video
+              src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
               style={
                 Object {
                   "display": "block",
@@ -305,6 +306,7 @@ Array [
             className="small-movie-card__image"
           >
             <video
+              src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
               style={
                 Object {
                   "display": "block",
@@ -340,6 +342,7 @@ Array [
             className="small-movie-card__image"
           >
             <video
+              src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
               style={
                 Object {
                   "display": "block",
@@ -375,6 +378,7 @@ Array [
             className="small-movie-card__image"
           >
             <video
+              src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
               style={
                 Object {
                   "display": "block",
@@ -410,6 +414,7 @@ Array [
             className="small-movie-card__image"
           >
             <video
+              src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
               style={
                 Object {
                   "display": "block",
