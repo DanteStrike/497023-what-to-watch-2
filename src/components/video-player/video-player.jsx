@@ -16,19 +16,18 @@ class VideoPlayer extends React.PureComponent {
   }
 
   componentDidMount() {
-    const {src, poster, isMuted} = this.props;
+    const {poster, isMuted} = this.props;
     const video = this._videoRef.current;
 
-    video.src = src;
     video.muted = isMuted;
     video.poster = poster;
   }
 
   componentDidUpdate() {
-    const {isPlaying} = this.props;
+    const {isActivePlayer} = this.props;
     const video = this._videoRef.current;
 
-    if (isPlaying) {
+    if (isActivePlayer) {
       video.play();
     } else {
       video.pause();
@@ -40,21 +39,22 @@ class VideoPlayer extends React.PureComponent {
   componentWillUnmount() {
     const video = this._videoRef.current;
 
-    video.src = ``;
     video.muted = true;
     video.poster = ``;
   }
 
   render() {
+    const {src} = this.props;
+
     return (
-      <video ref={this._videoRef} style={videoPlayerStyle}/>
+      <video ref={this._videoRef} src={src} style={videoPlayerStyle}/>
     );
   }
 }
 
 VideoPlayer.propTypes = {
   poster: PropTypes.string.isRequired,
-  isPlaying: PropTypes.bool.isRequired,
+  isActivePlayer: PropTypes.bool.isRequired,
   isMuted: PropTypes.bool.isRequired,
   src: PropTypes.string.isRequired
 };
