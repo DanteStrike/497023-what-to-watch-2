@@ -24,7 +24,7 @@ describe(`VideoPlayer state`, () => {
     const component = mount(
         <VideoPlayer
           poster={`img/johnny-english.jpg`}
-          isPlaying={false}
+          isActivePlayer={false}
           src={`https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`}
           isMuted={true}
         />
@@ -33,7 +33,7 @@ describe(`VideoPlayer state`, () => {
     const spyVideoPlay = jest.spyOn(video, `play`);
     const spyVideoPause = jest.spyOn(video, `pause`);
 
-    component.setProps({isPlaying: true});
+    component.setProps({isActivePlayer: true});
     expect(spyVideoPause).toBeCalledTimes(0);
     expect(spyVideoPlay).toBeCalledTimes(1);
   });
@@ -42,7 +42,7 @@ describe(`VideoPlayer state`, () => {
     const component = mount(
         <VideoPlayer
           poster={`img/johnny-english.jpg`}
-          isPlaying={true}
+          isActivePlayer={true}
           src={`https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`}
           isMuted={true}
         />
@@ -51,7 +51,7 @@ describe(`VideoPlayer state`, () => {
     const spyVideoPlay = jest.spyOn(video, `play`);
     const spyVideoPause = jest.spyOn(video, `pause`);
 
-    component.setProps({isPlaying: false});
+    component.setProps({isActivePlayer: false});
     expect(spyVideoPlay).toBeCalledTimes(0);
     expect(spyVideoPause).toBeCalledTimes(1);
   });
