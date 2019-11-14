@@ -4,7 +4,7 @@ import App from "./components/app/app.jsx";
 import {films as filmsMock} from "./mocks/films.js";
 import {Provider} from "react-redux";
 import {createStore} from "redux";
-import {reducer} from "./reducer/reducer.js";
+import {reducer} from "./reducers/reducer.js";
 
 const init = (films) => {
   const store = createStore(

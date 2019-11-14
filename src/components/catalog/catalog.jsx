@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import MoviesList from "../movies-list/movies-list.jsx";
 import {connect} from "react-redux";
 import GenreList from "../genre-list/genre-list.jsx";
-import {ActionCreator} from "../../reducer/reducer.js";
+import {ActionCreator} from "../../reducers/reducer.js";
 
 class Catalog extends React.PureComponent {
   constructor(props) {
