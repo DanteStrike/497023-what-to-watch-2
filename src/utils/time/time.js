@@ -1,0 +1,4 @@
+export const Time = {
+  MILLISECONDS_IN_SECOND: 1000,
+  MILLISECONDS_IN_MINUTE: 60 * 1000
+};
