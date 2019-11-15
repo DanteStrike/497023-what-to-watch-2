@@ -1,10 +1,10 @@
 import {createSelector} from "reselect";
 
 const getAllIDs = (store) => store.films.data.allIDs;
-const getFilmsByID = (store) => store.films.data.byID;
+const getFilmsByIDs = (store) => store.films.data.byIDs;
 
 const getCardsInfo = createSelector(
-    [getAllIDs, getFilmsByID],
+    [getAllIDs, getFilmsByIDs],
     (allIDs, films) => allIDs.map((filmID) => ({
       id: films[filmID].id,
       name: films[filmID].name,
@@ -12,9 +12,18 @@ const getCardsInfo = createSelector(
     }))
 );
 
+const getFilmsGenres = createSelector(
+    [getAllIDs, getFilmsByIDs],
+    (allIDs, films) => allIDs.map((filmID) => ({
+      id: films[filmID].id,
+      genre: films[filmID].genre
+    }))
+);
+
 
 export default {
   getAllIDs,
-  getFilmsByID,
-  getCardsInfo
+  getFilmsByIDs,
+  getCardsInfo,
+  getFilmsGenres
 };

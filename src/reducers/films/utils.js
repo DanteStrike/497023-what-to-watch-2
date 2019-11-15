@@ -28,11 +28,11 @@ const adaptFilmRAW = (filmRAW) => ({
 const adaptFilmsRAW = (filmsRAW) => filmsRAW.map((filmRAW) => adaptFilmRAW(filmRAW));
 
 const normolizeFilms = (adaptedFilms) => adaptedFilms.reduce((normolizedFilms, film) => {
-  normolizedFilms.byID[`${film.id}`] = merge({}, film);
+  normolizedFilms.byIDs[film.id] = merge({}, film);
   normolizedFilms.allIDs.push(film.id);
   return normolizedFilms;
 }, {
-  byID: {},
+  byIDs: {},
   allIDs: []
 });
 

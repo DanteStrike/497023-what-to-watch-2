@@ -1,7 +1,7 @@
 import types from "./types.js";
 import {combineReducers} from "redux";
 
-const filmsReducer = (state = {}, action) => {
+const loadReducer = (state = {}, action) => {
   if (action.type === types.LOAD_FILMS) {
     return action.payload;
   }
@@ -10,7 +10,7 @@ const filmsReducer = (state = {}, action) => {
 };
 
 const reducer = combineReducers({
-  data: filmsReducer
+  data: loadReducer
 });
 
 export default reducer;
