@@ -1,4 +1,11 @@
+import types from "./types.js";
 import utils from "./utils.js";
+import actions from "./actions.js";
+import operations from "./operations.js";
+import selectors from "./selectors.js";
+import reducer from "./reducers.js";
+import MockAdapter from "axios-mock-adapter";
+import configureAPI from "../../server/configure-API.js";
 
 describe(`Reducers: Films utils`, () => {
   describe(`Transform RAW server data`, () => {
@@ -126,5 +133,162 @@ describe(`Reducers: Films utils`, () => {
         allIDs: []
       });
     });
+  });
+});
+
+describe(`Reducers: Films actions`, () => {
+  it(`Action loadFilm`, () => {
+    expect(actions.loadFilms([{film: `any`}])).toEqual({
+      type: types.LOAD_FILMS,
+      payload: [{film: `any`}]
+    });
+  });
+});
+
+describe(`Reducers: Films operations`, () => {
+  it(`Load operation with API should work correctly`, () => {
+    const api = configureAPI();
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const filmsLoader = operations.loadFilms();
+
+    apiMock
+      .onGet(`/films`)
+      .reply(200, [{film: `any`}]);
+
+    filmsLoader(dispatch, jest.fn(), api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: types.LOAD_FILMS,
+          payload: [{film: `any`}]
+        });
+      });
+  });
+});
+
+describe(`Reducers: Films reducers`, () => {
+  describe(`Reducer filmsReducer`, () => {
+    const initState = {
+      data: {
+        some: `any`
+      }
+    };
+
+    it(`Should set state on correct action`, () => {
+      const payload = {
+        propOne: `one`,
+        propTwo: {
+          propOne: `two`
+        }
+      };
+
+      const action = {
+        type: types.LOAD_FILMS,
+        payload
+      };
+
+      expect(reducer({}, action)).toEqual({
+        data: payload
+      });
+      expect(reducer(initState, action)).toEqual({
+        data: payload
+      });
+    });
+
+    it(`Should return state on wrong action`, () => {
+      const action = {};
+
+      expect(reducer({}, action)).toEqual({
+        data: {}
+      });
+      expect(reducer(initState, action)).toEqual(initState);
+    });
+  });
+});
+
+describe(`Reducers: Films selectors`, () => {
+  const store = {
+    films: {
+      data: {
+        byID: {
+          "1": {
+            id: 1,
+            name: `filmOne`,
+            posterImage: `img/filmOne-poster.jpg`,
+            preview: {
+              image: `img/filmOne.jpg`,
+              videoSrc: `https://some-linkOne`
+            },
+            background: {
+              image: `img/filmOne.jpg`,
+              color: `#ffffff`
+            },
+            videoSrc: `https://some-linkOne`,
+            description: `Some text filmOne`,
+            rating: 1.0,
+            scoresCount: 1,
+            director: `directorOne`,
+            starring: [`actorOne`, `actorTwo`],
+            runTime: 1,
+            genre: `genreOne`,
+            released: 2019,
+            isFavorite: false,
+          },
+          "2": {
+            id: 2,
+            name: `filmTwo`,
+            posterImage: `img/filmTwo-poster.jpg`,
+            preview: {
+              image: `img/filmTwo.jpg`,
+              videoSrc: `https://some-linkTwo`
+            },
+            background: {
+              image: `img/filmTwo.jpg`,
+              color: `#000000`
+            },
+            videoSrc: `https://some-linkTwo`,
+            description: `Some text filmTwo`,
+            rating: 2.0,
+            scoresCount: 2,
+            director: `directorTwo`,
+            starring: [`actorThree`, `actorFour`],
+            runTime: 2,
+            genre: `genreTwo`,
+            released: 2020,
+            isFavorite: true,
+          }
+        },
+        allIDs: [1, 2]
+      }
+    }
+  };
+
+  it(`Selector getAllIDs`, () => {
+    expect(selectors.getAllIDs(store)).toEqual([1, 2]);
+  });
+
+  it(`Selector getFilmsByID`, () => {
+    expect(selectors.getFilmsByID(store)).toEqual(store.films.data.byID);
+  });
+
+  it(`Selector getCardsInfo`, () => {
+    expect(selectors.getCardsInfo(store)).toEqual(
+        [{
+          id: 1,
+          name: `filmOne`,
+          preview: {
+            image: `img/filmOne.jpg`,
+            videoSrc: `https://some-linkOne`
+          }
+        }, {
+          id: 2,
+          name: `filmTwo`,
+          preview: {
+            image: `img/filmTwo.jpg`,
+            videoSrc: `https://some-linkTwo`
+          }
+        }]
+    );
   });
 });

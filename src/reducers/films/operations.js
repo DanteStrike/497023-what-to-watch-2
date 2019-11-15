@@ -1,12 +1,12 @@
 import actions from "./actions.js";
 
-const loadQuestions = () => (dispatch, _, api) => {
-  return api.get(`/questions`)
+const loadFilms = () => (dispatch, _, api) => {
+  return api.get(`/films`)
     .then((response) => {
-      dispatch(actions.loadQuestions(response.data));
+      dispatch(actions.loadFilms(response.data));
     });
 };
 
 export default {
-  loadQuestions
+  loadFilms
 };
