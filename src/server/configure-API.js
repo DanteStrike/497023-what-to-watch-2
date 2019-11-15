@@ -3,7 +3,7 @@ import {Time} from "../utils/time/time";
 
 const configureAPI = () => {
   const api = axios.create({
-    baseURL: `https://htmlacademy-react-2.appspot.com/guess-melody`,
+    baseURL: `https://htmlacademy-react-2.appspot.com/wtw`,
     timeout: 5 * Time.MILLISECONDS_IN_SECOND,
     // withCredentials: true
   });
