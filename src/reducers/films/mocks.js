@@ -87,7 +87,7 @@ const adaptedFilmsData = [
   }
 ];
 
-const normolizedFilmsData = {
+const normalizedFilmsData = {
   byIDs: {
     "1": adaptedFilmsData[0],
     "3": adaptedFilmsData[1]
@@ -97,13 +97,13 @@ const normolizedFilmsData = {
 
 const store = {
   films: {
-    data: normolizedFilmsData
+    data: normalizedFilmsData
   }
 };
 
 export default {
   filmsRAW,
   adaptedFilmsData,
-  normolizedFilmsData,
+  normalizedFilmsData,
   store
 };

@@ -22,16 +22,16 @@ describe(`Reducers: Films utils`, () => {
       expect(utils.adaptFilmsRAW([])).toEqual([]);
     });
 
-    it(`Util normolizeFilm`, () => {
-      expect(utils.normolizeFilms(mocks.adaptedFilmsData)).toEqual(mocks.normolizedFilmsData);
-      expect(utils.normolizeFilms([])).toEqual({
+    it(`Util normalizeFilm`, () => {
+      expect(utils.normalizeFilm(mocks.adaptedFilmsData)).toEqual(mocks.normalizedFilmsData);
+      expect(utils.normalizeFilm([])).toEqual({
         byIDs: {},
         allIDs: []
       });
     });
 
     it(`Util transformFilmsRAW`, () => {
-      expect(utils.transformFilmsRAW(mocks.filmsRAW)).toEqual(mocks.normolizedFilmsData);
+      expect(utils.transformFilmsRAW(mocks.filmsRAW)).toEqual(mocks.normalizedFilmsData);
       expect(utils.transformFilmsRAW([])).toEqual({
         byIDs: {},
         allIDs: []
@@ -120,8 +120,40 @@ describe(`Reducers: Films selectors`, () => {
     expect(selectors.getFilmsByIDs(mocks.store)).toEqual(mocks.store.films.data.byIDs);
   });
 
-  it(`Selector getCardsInfo`, () => {
-    expect(selectors.getCardsInfo(mocks.store)).toEqual(
+  // it(`Selector getCardsInfo`, () => {
+  //   expect(selectors.getCardsInfo(mocks.store)).toEqual(
+  //       [{
+  //         id: 1,
+  //         name: `filmOne`,
+  //         preview: {
+  //           image: `img/filmOne.jpg`,
+  //           videoSrc: `https://some-linkOne`
+  //         }
+  //       }, {
+  //         id: 3,
+  //         name: `filmTwo`,
+  //         preview: {
+  //           image: `img/filmTwo.jpg`,
+  //           videoSrc: `https://some-linkTwo`
+  //         }
+  //       }]
+  //   );
+  // });
+
+  it(`Selector getAllFilmsGenres`, () => {
+    expect(selectors.getAllFilmsGenres(mocks.store)).toEqual(
+        [{
+          id: 1,
+          genre: `genreOne`,
+        }, {
+          id: 3,
+          genre: `genreTwo`,
+        }]
+    );
+  });
+
+  it(`Selector getCurrentCardsInfo`, () => {
+    expect(selectors.getCurrentCardsInfo.resultFunc([1, 3], mocks.store.films.data.byIDs)).toEqual(
         [{
           id: 1,
           name: `filmOne`,
@@ -138,17 +170,16 @@ describe(`Reducers: Films selectors`, () => {
           }
         }]
     );
-  });
 
-  it(`Selector getAllFilmsGenres`, () => {
-    expect(selectors.getAllFilmsGenres(mocks.store)).toEqual(
-        [{
-          id: 1,
-          genre: `genreOne`,
-        }, {
-          id: 3,
-          genre: `genreTwo`,
-        }]
-    );
+    expect(selectors.getCurrentCardsInfo.resultFunc([3], mocks.store.films.data.byIDs)).toEqual([{
+      id: 3,
+      name: `filmTwo`,
+      preview: {
+        image: `img/filmTwo.jpg`,
+        videoSrc: `https://some-linkTwo`
+      }
+    }]);
+
+    expect(selectors.getCurrentCardsInfo.resultFunc([], mocks.store.films.data.byIDs)).toEqual([]);
   });
 });

@@ -44,6 +44,6 @@ const transformFilmsRAW = (filmsRAW) => compose(
 export default {
   adaptFilmRAW,
   adaptFilmsRAW,
-  normolizeFilms,
+  normalizeFilm: normolizeFilms,
   transformFilmsRAW
 };
