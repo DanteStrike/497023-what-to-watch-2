@@ -2,8 +2,8 @@ import types from "./types.js";
 import {filmsSelectors} from "../films/index.js";
 import utils from "./utils.js";
 
-const setupFilterState = () => {
-  const filmsGenres = filmsSelectors.getAllFilmsGenres();
+const setupFilterState = (store) => {
+  const filmsGenres = filmsSelectors.getAllFilmsGenres(store);
 
   return {
     type: types.SETUP_FILTER_STATE,

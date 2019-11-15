@@ -2,8 +2,14 @@ import types from "./types.js";
 import utils from "./utils.js";
 import {combineReducers} from "redux";
 
+const initSetupState = {
+  genres: [utils.ALL_GENRE],
+  byGenres: {
+    [utils.ALL_GENRE]: []
+  }
+};
 
-const setupReducer = (state = utils.ALL_GENRE, action) => {
+const setupReducer = (state = initSetupState, action) => {
   if (action.type === types.SETUP_FILTER_STATE) {
     return action.payload;
   }
@@ -11,7 +17,7 @@ const setupReducer = (state = utils.ALL_GENRE, action) => {
   return state;
 };
 
-const filterReducer = (state = {}, action) => {
+const filterReducer = (state = utils.ALL_GENRE, action) => {
   if (action.type === types.SET_CURRENT_FILTER) {
     return action.payload;
   }
