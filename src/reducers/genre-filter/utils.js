@@ -19,5 +19,6 @@ const collectState = (filmsGenres) => filmsGenres.reduce((filter, filmGenre) => 
 });
 
 export default {
-  collectState
+  collectState,
+  ALL_GENRE
 };

@@ -1,6 +1,10 @@
 import types from "./types.js";
 import utils from "./utils.js";
 import actions from "./actions.js";
+import selectors from "./selectors.js";
+import reducer from "./reducers.js";
+import {filmsSelectors} from "../films/index.js";
+import mocks from "./mocks";
 
 describe(`Reducers: GenreFilter utils`, () => {
   it(`Util collectState`, () => {
@@ -42,6 +46,10 @@ describe(`Reducers: GenreFilter utils`, () => {
 
 describe(`Reducers: GenreFilter actions`, () => {
   it(`Action setupFilterState`, () => {
+    const spyGetAllFilmsGenres = jest.spyOn(filmsSelectors, `getAllFilmsGenres`);
+    const spyCollectState = jest.spyOn(utils, `collectState`);
+    spyGetAllFilmsGenres.mockReturnValue([]);
+
     expect(actions.setupFilterState()).toEqual({
       type: types.SETUP_FILTER_STATE,
       payload: {
@@ -51,5 +59,76 @@ describe(`Reducers: GenreFilter actions`, () => {
         }
       }
     });
+
+    expect(spyGetAllFilmsGenres).toBeCalledTimes(1);
+    expect(spyCollectState).toBeCalledTimes(1);
+  });
+
+  it(`Action setCurrentFilter`, () => {
+    expect(actions.setCurrentFilter(`genre`)).toEqual({
+      type: types.SET_CURRENT_FILTER,
+      payload: `genre`
+    });
+  });
+});
+
+describe(`Reducers: GenreFilter reducers`, () => {
+  it(`Reducer filterReducer`, () => {
+    const action = {
+      type: types.SET_CURRENT_FILTER,
+      payload: `anyGenre`
+    };
+
+    expect(reducer(mocks.genreFilterStore, action)).toEqual({
+      currentFilter: `anyGenre`,
+      data: {
+        genres: [`All genre`, `genreOne`, `genreTwo`],
+        byGenres: {
+          "All genre": [1, 2, 3, 4],
+          "genreOne": [2, 4],
+          "genreTwo": [1, 3]
+        }
+      }
+    });
+  });
+
+  it(`Reducer setupReducer`, () => {
+    const action = {
+      type: types.SETUP_FILTER_STATE,
+      payload: {
+        genres: [`All genre new`, `genreOne new`, `genreTwo new`],
+        byGenres: {
+          "All genre": [5, 6, 7, 8],
+          "genreOne": [5, 6],
+          "genreTwo": [7, 8]
+        }
+      }
+    };
+
+    expect(reducer(mocks.genreFilterStore, action)).toEqual({
+      currentFilter: utils.ALL_GENRE,
+      data: {
+        genres: [`All genre new`, `genreOne new`, `genreTwo new`],
+        byGenres: {
+          "All genre": [5, 6, 7, 8],
+          "genreOne": [5, 6],
+          "genreTwo": [7, 8]
+        }
+      }
+    });
+  });
+
+  it(`Reducer should return state on empty action`, () => {
+    expect(reducer(mocks.genreFilterStore, {})).toEqual(mocks.genreFilterStore);
+  });
+});
+
+describe(`Reducers: GenreFilter selectors`, () => {
+  it(`Selector getCurrentFilter`, () => {
+    expect(selectors.getCurrentFilter(mocks.store)).toEqual(`All genre`);
+  });
+
+  it(`Selector getCurrentFilterFilmsIDs`, () => {
+    expect(selectors.getCurrentFilterFilmsIDs(mocks.store)).toEqual([1, 2, 3, 4]);
   });
 });
