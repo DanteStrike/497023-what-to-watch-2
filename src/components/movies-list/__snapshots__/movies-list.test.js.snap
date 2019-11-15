@@ -18,7 +18,7 @@ exports[`Render correctly MoviesList component 1`] = `
       className="small-movie-card__image"
     >
       <video
-        src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
+        src="src"
         style={
           Object {
             "display": "block",
@@ -34,153 +34,9 @@ exports[`Render correctly MoviesList component 1`] = `
     >
       <a
         className="small-movie-card__link"
-        href="/details"
+        href="#1"
       >
-        Fantastic Beasts: The Crimes of Grindelwald
-      </a>
-    </h3>
-  </article>
-  <article
-    className="small-movie-card catalog__movies-card"
-    onMouseEnter={[Function]}
-    onMouseLeave={[Function]}
-    style={
-      Object {
-        "willChange": "transform",
-      }
-    }
-  >
-    <div
-      className="small-movie-card__image"
-    >
-      <video
-        src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
-        style={
-          Object {
-            "display": "block",
-            "height": "100%",
-            "objectFit": "fill",
-            "width": "100%",
-          }
-        }
-      />
-    </div>
-    <h3
-      className="small-movie-card__title"
-    >
-      <a
-        className="small-movie-card__link"
-        href="/details"
-      >
-        Johnny English
-      </a>
-    </h3>
-  </article>
-  <article
-    className="small-movie-card catalog__movies-card"
-    onMouseEnter={[Function]}
-    onMouseLeave={[Function]}
-    style={
-      Object {
-        "willChange": "transform",
-      }
-    }
-  >
-    <div
-      className="small-movie-card__image"
-    >
-      <video
-        src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
-        style={
-          Object {
-            "display": "block",
-            "height": "100%",
-            "objectFit": "fill",
-            "width": "100%",
-          }
-        }
-      />
-    </div>
-    <h3
-      className="small-movie-card__title"
-    >
-      <a
-        className="small-movie-card__link"
-        href="/details"
-      >
-        Shutter Island
-      </a>
-    </h3>
-  </article>
-  <article
-    className="small-movie-card catalog__movies-card"
-    onMouseEnter={[Function]}
-    onMouseLeave={[Function]}
-    style={
-      Object {
-        "willChange": "transform",
-      }
-    }
-  >
-    <div
-      className="small-movie-card__image"
-    >
-      <video
-        src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
-        style={
-          Object {
-            "display": "block",
-            "height": "100%",
-            "objectFit": "fill",
-            "width": "100%",
-          }
-        }
-      />
-    </div>
-    <h3
-      className="small-movie-card__title"
-    >
-      <a
-        className="small-movie-card__link"
-        href="/details"
-      >
-        Macbeth
-      </a>
-    </h3>
-  </article>
-  <article
-    className="small-movie-card catalog__movies-card"
-    onMouseEnter={[Function]}
-    onMouseLeave={[Function]}
-    style={
-      Object {
-        "willChange": "transform",
-      }
-    }
-  >
-    <div
-      className="small-movie-card__image"
-    >
-      <video
-        src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
-        style={
-          Object {
-            "display": "block",
-            "height": "100%",
-            "objectFit": "fill",
-            "width": "100%",
-          }
-        }
-      />
-    </div>
-    <h3
-      className="small-movie-card__title"
-    >
-      <a
-        className="small-movie-card__link"
-        href="/details"
-      >
-        Aviator
+        name
       </a>
     </h3>
   </article>

@@ -5,19 +5,10 @@ import App from "./app.jsx";
 import {Provider} from "react-redux";
 import {createStore} from "redux";
 
-const store = createStore(() => ({
-  filterGenre: `All genre`,
-  filteredFilms: []
-}));
-
 it(`render correctly App component`, () => {
   const component = renderer
     .create(
-        <Provider store={store}>
-          <App
-            films={films}
-          />
-        </Provider>,
+          <App/>,
         {
           createNodeMock: (element) => {
             if (element.type === `video`) {

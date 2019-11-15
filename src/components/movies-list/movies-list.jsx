@@ -4,6 +4,8 @@ import MovieCard from "../movie-card/movie-card.jsx";
 import withTrailerPreview from "../../hocs/with-trailer-preview/with-trailer-preview.jsx";
 import withTimer from "../../hocs/with-timer/with-timer.jsx";
 import {compose} from "redux";
+import {connect} from "react-redux";
+import {filmsSelectors} from "../../reducers/films";
 
 const WrappedMovieCard = compose(
     withTimer,
@@ -11,21 +13,20 @@ const WrappedMovieCard = compose(
 )(MovieCard);
 
 const MoviesList = (props) => {
-  const {films} = props;
+  const {filmsCards} = props;
 
   return (
     <div className="catalog__movies-list">
-      {films.map((film) => (
+      {filmsCards.map((filmCard) => (
         <WrappedMovieCard
-          key={`${film.id}_${film.title}`}
+          key={`${filmCard.id}_${filmCard.name}`}
 
-          id={film.id}
-          title={film.title}
-          titleLinkHref={`/details`}
+          id={filmCard.id}
+          name={filmCard.name}
 
-          poster={film.image}
+          poster={filmCard.preview.image}
           isMuted={true}
-          previewSrc={film.previewSrc}
+          previewSrc={filmCard.preview.videoSrc}
         />
       ))}
     </div>
@@ -33,13 +34,20 @@ const MoviesList = (props) => {
 };
 
 MoviesList.propTypes = {
-  films: PropTypes.arrayOf(PropTypes.exact({
+  filmsCards: PropTypes.arrayOf(PropTypes.exact({
     id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    previewSrc: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired
+    name: PropTypes.string.isRequired,
+    preview: PropTypes.exact({
+      image: PropTypes.string.isRequired,
+      videoSrc: PropTypes.string.isRequired
+    }).isRequired
   }))
 };
 
-export default MoviesList;
+const mapStateToProps = (store) => ({
+  filmsCards: filmsSelectors.getCurrentCardsInfo(store),
+});
+
+export {MoviesList};
+
+export default connect(mapStateToProps)(MoviesList);

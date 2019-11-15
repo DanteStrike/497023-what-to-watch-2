@@ -18,9 +18,9 @@ describe(`MovieCard should work correctly`, () => {
 
     component = shallow(
         <MovieCard
-          title=""
-          image=""
-          titleLinkHref={`#`}
+          id={1}
+          name={`Johnny English`}
+          image={`img/johnny-english.jpg`}
           onTimerStart={onTimerStart}
           onTimerReset={onTimerReset}
           renderTrailerPreview={renderTrailerPreview}

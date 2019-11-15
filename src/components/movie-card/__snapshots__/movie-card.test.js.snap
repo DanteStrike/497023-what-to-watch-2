@@ -19,7 +19,7 @@ exports[`Render correctly MovieCard component 1`] = `
   >
     <a
       className="small-movie-card__link"
-      href="#"
+      href="#1"
     >
       Johnny English
     </a>

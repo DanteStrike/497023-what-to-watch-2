@@ -1,43 +1,27 @@
 import React from "react";
-import PropTypes from "prop-types";
 import MainPage from "../main-page/main-page.jsx";
-import MoviePage from "../movie-page/movie-page.jsx";
+// import MoviePage from "../movie-page/movie-page.jsx";
 
-const getPage = (films) => {
+const getPage = () => {
   switch (location.pathname) {
     case `/`:
     case `/main`:
       return (
-        <MainPage
-          films={films}
-        />
+        <MainPage/>
       );
-    case `/details`:
-      return (
-        <MoviePage
-          films={films}
-        />
-      );
+    // case `/details`:
+    //   return (
+    //     <MoviePage/>
+    //   );
   }
 
   return null;
 };
 
-const App = (props) => {
-  const {films} = props;
+const App = () => {
   return (
-    getPage(films)
+    getPage()
   );
-};
-
-App.propTypes = {
-  films: PropTypes.arrayOf(PropTypes.exact({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    previewSrc: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired
-  }))
 };
 
 export default App;
