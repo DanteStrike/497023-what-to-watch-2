@@ -1,4 +1,7 @@
-const adaptFilmRawData = (filmRAW) => ({
+import merge from "lodash.merge";
+import {compose} from "recompose";
+
+const adaptFilmRAW = (filmRAW) => ({
   id: filmRAW[`id`],
   name: filmRAW[`name`],
   posterImage: filmRAW[`poster_image`],
@@ -22,6 +25,25 @@ const adaptFilmRawData = (filmRAW) => ({
   isFavorite: filmRAW[`is_favorite`],
 });
 
+const adaptFilmsRAW = (filmsRAW) => filmsRAW.map((filmRAW) => adaptFilmRAW(filmRAW));
+
+const normolizeFilms = (adaptedFilms) => adaptedFilms.reduce((normolizedFilms, film) => {
+  normolizedFilms.byID[`${film.id}`] = merge({}, film);
+  normolizedFilms.allIDs.push(film.id);
+  return normolizedFilms;
+}, {
+  byID: {},
+  allIDs: []
+});
+
+const transformFilmsRAW = (filmsRAW) => compose(
+    normolizeFilms,
+    adaptFilmsRAW
+)(filmsRAW);
+
 export default {
-  adaptFilmRawData
+  adaptFilmRAW,
+  adaptFilmsRAW,
+  normolizeFilms,
+  transformFilmsRAW
 };

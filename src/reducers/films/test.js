@@ -84,18 +84,47 @@ describe(`Reducers: Films utils`, () => {
         scoresCount: 2,
         director: `directorTwo`,
         starring: [`actorThree`, `actorFour`],
-        runTime: 1,
+        runTime: 2,
         genre: `genreTwo`,
         released: 2020,
         isFavorite: true,
       }
     ];
 
+    const normolizedFilmsData = {
+      byID: {
+        "1": adaptedFilmsData[0],
+        "2": adaptedFilmsData[1]
+      },
+      allIDs: [1, 2]
+    };
+
     it(`Util adaptFilmRawData`, () => {
       const filmRAW = filmsRAW[0];
       const adaptedFilmData = adaptedFilmsData[0];
 
-      expect(utils.adaptFilmRawData(filmRAW)).toEqual(adaptedFilmData);
+      expect(utils.adaptFilmRAW(filmRAW)).toEqual(adaptedFilmData);
+    });
+
+    it(`Util adaptFilmsRAW`, () => {
+      expect(utils.adaptFilmsRAW(filmsRAW)).toEqual(adaptedFilmsData);
+      expect(utils.adaptFilmsRAW([])).toEqual([]);
+    });
+
+    it(`Util normolizeFilm`, () => {
+      expect(utils.normolizeFilms(adaptedFilmsData)).toEqual(normolizedFilmsData);
+      expect(utils.normolizeFilms([])).toEqual({
+        byID: {},
+        allIDs: []
+      });
+    });
+
+    it(`Util transformFilmsRAW`, () => {
+      expect(utils.transformFilmsRAW(filmsRAW)).toEqual(normolizedFilmsData);
+      expect(utils.transformFilmsRAW([])).toEqual({
+        byID: {},
+        allIDs: []
+      });
     });
   });
 });
