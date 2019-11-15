@@ -140,8 +140,8 @@ describe(`Reducers: Films selectors`, () => {
     );
   });
 
-  it(`Selector getFilmsGenres`, () => {
-    expect(selectors.getFilmsGenres(mocks.store)).toEqual(
+  it(`Selector getAllFilmsGenres`, () => {
+    expect(selectors.getAllFilmsGenres(mocks.store)).toEqual(
         [{
           id: 1,
           genre: `genreOne`,

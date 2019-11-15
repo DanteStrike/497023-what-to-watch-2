@@ -12,7 +12,7 @@ const getCardsInfo = createSelector(
     }))
 );
 
-const getFilmsGenres = createSelector(
+const getAllFilmsGenres = createSelector(
     [getAllIDs, getFilmsByIDs],
     (allIDs, films) => allIDs.map((filmID) => ({
       id: films[filmID].id,
@@ -25,5 +25,5 @@ export default {
   getAllIDs,
   getFilmsByIDs,
   getCardsInfo,
-  getFilmsGenres
+  getAllFilmsGenres
 };
