@@ -2,11 +2,8 @@ import types from "./types.js";
 import mocks from "./mocks.js";
 import utils from "./utils.js";
 import actions from "./actions.js";
-import operations from "./operations.js";
 import selectors from "./selectors.js";
 import reducer from "./reducers.js";
-import MockAdapter from "axios-mock-adapter";
-import configureAPI from "../../server/configure-API.js";
 
 describe(`Reducers: Films utils`, () => {
   describe(`Transform RAW server data`, () => {
@@ -22,9 +19,9 @@ describe(`Reducers: Films utils`, () => {
       expect(utils.adaptFilmsRAW([])).toEqual([]);
     });
 
-    it(`Util normalizeFilm`, () => {
-      expect(utils.normalizeFilm(mocks.adaptedFilmsData)).toEqual(mocks.normalizedFilmsData);
-      expect(utils.normalizeFilm([])).toEqual({
+    it(`Util normalizeFilms`, () => {
+      expect(utils.normalizeFilms(mocks.adaptedFilmsData)).toEqual(mocks.normalizedFilmsData);
+      expect(utils.normalizeFilms([])).toEqual({
         byIDs: {},
         allIDs: []
       });
@@ -42,32 +39,12 @@ describe(`Reducers: Films utils`, () => {
 
 describe(`Reducers: Films actions`, () => {
   it(`Action loadFilm`, () => {
+    const spy = jest.spyOn(utils, `transformFilmsRAW`);
+    spy.mockReturnValue([{film: `norm`}]);
     expect(actions.loadFilms([{film: `any`}])).toEqual({
       type: types.LOAD_FILMS,
-      payload: [{film: `any`}]
+      payload: [{film: `norm`}]
     });
-  });
-});
-
-describe(`Reducers: Films operations`, () => {
-  it(`Load operation with API should work correctly`, () => {
-    const api = configureAPI();
-    const apiMock = new MockAdapter(api);
-    const dispatch = jest.fn();
-    const filmsLoader = operations.loadFilms();
-
-    apiMock
-      .onGet(`/films`)
-      .reply(200, [{film: `any`}]);
-
-    filmsLoader(dispatch, jest.fn(), api)
-      .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: types.LOAD_FILMS,
-          payload: [{film: `any`}]
-        });
-      });
   });
 });
 
@@ -102,10 +79,14 @@ describe(`Reducers: Films reducers`, () => {
 
     it(`Should return state on wrong action`, () => {
       const action = {};
+      const store = {
+        data: {
+          allIDs: [],
+          byIDs: {}
+        }
+      };
 
-      expect(reducer({}, action)).toEqual({
-        data: {}
-      });
+      expect(reducer(store, action)).toEqual(store);
       expect(reducer(initState, action)).toEqual(initState);
     });
   });
@@ -119,26 +100,6 @@ describe(`Reducers: Films selectors`, () => {
   it(`Selector getFilmsByIDs`, () => {
     expect(selectors.getFilmsByIDs(mocks.store)).toEqual(mocks.store.films.data.byIDs);
   });
-
-  // it(`Selector getCardsInfo`, () => {
-  //   expect(selectors.getCardsInfo(mocks.store)).toEqual(
-  //       [{
-  //         id: 1,
-  //         name: `filmOne`,
-  //         preview: {
-  //           image: `img/filmOne.jpg`,
-  //           videoSrc: `https://some-linkOne`
-  //         }
-  //       }, {
-  //         id: 3,
-  //         name: `filmTwo`,
-  //         preview: {
-  //           image: `img/filmTwo.jpg`,
-  //           videoSrc: `https://some-linkTwo`
-  //         }
-  //       }]
-  //   );
-  // });
 
   it(`Selector getAllFilmsGenres`, () => {
     expect(selectors.getAllFilmsGenres(mocks.store)).toEqual(

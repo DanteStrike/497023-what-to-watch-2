@@ -1,10 +1,11 @@
 import types from "./types.js";
+import utils from "./utils.js";
 
 
-const loadFilms = (films) => {
+const loadFilms = (filmsRAW) => {
   return {
     type: types.LOAD_FILMS,
-    payload: films
+    payload: utils.transformFilmsRAW(filmsRAW)
   };
 };
 

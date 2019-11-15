@@ -27,23 +27,23 @@ const adaptFilmRAW = (filmRAW) => ({
 
 const adaptFilmsRAW = (filmsRAW) => filmsRAW.map((filmRAW) => adaptFilmRAW(filmRAW));
 
-const normolizeFilms = (adaptedFilms) => adaptedFilms.reduce((normolizedFilms, film) => {
-  normolizedFilms.byIDs[film.id] = merge({}, film);
-  normolizedFilms.allIDs.push(film.id);
-  return normolizedFilms;
+const normalizeFilms = (adaptedFilms) => adaptedFilms.reduce((normalizedFilms, film) => {
+  normalizedFilms.byIDs[film.id] = merge({}, film);
+  normalizedFilms.allIDs.push(film.id);
+  return normalizedFilms;
 }, {
   byIDs: {},
   allIDs: []
 });
 
 const transformFilmsRAW = (filmsRAW) => compose(
-    normolizeFilms,
+    normalizeFilms,
     adaptFilmsRAW
 )(filmsRAW);
 
 export default {
   adaptFilmRAW,
   adaptFilmsRAW,
-  normalizeFilm: normolizeFilms,
+  normalizeFilms,
   transformFilmsRAW
 };

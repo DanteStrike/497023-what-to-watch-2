@@ -1,7 +1,12 @@
 import types from "./types.js";
 import {combineReducers} from "redux";
 
-const loadReducer = (state = {}, action) => {
+const initState = {
+  byIDs: {},
+  allIDs: []
+};
+
+const loadReducer = (state = initState, action) => {
   if (action.type === types.LOAD_FILMS) {
     return action.payload;
   }
