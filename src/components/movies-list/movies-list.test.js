@@ -2,16 +2,17 @@ import React from "react";
 import renderer from "react-test-renderer";
 import {MoviesList} from "./movies-list.jsx";
 
-const filmsCardsMock = [{
-  id: 1,
-  name: `name`,
-  preview: {
-    image: `src`,
-    videoSrc: `src`
-  }
-}];
 
 it(`Render correctly MoviesList component`, () => {
+  const filmsCardsMock = [{
+    id: 1,
+    name: `name`,
+    preview: {
+      image: `src`,
+      videoSrc: `src`
+    }
+  }];
+
   const MoviePreviewComponent = renderer
     .create(
         <MoviesList

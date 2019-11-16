@@ -1,6 +1,9 @@
 import React from "react";
 import renderer from "react-test-renderer";
+
+import {createNodeMock} from "../../mocks/node-mock.js";
 import VideoPlayer from "./video-player.jsx";
+
 
 it(`Render correctly VideoPlayer component`, () => {
   const VideoPlayerComponent = renderer
@@ -12,14 +15,7 @@ it(`Render correctly VideoPlayer component`, () => {
           isMuted={true}
         />,
         {
-          createNodeMock: (element) => {
-            if (element.type === `video`) {
-              return {
-                src: null
-              };
-            }
-            return null;
-          }
+          createNodeMock
         }
     ).toJSON();
 
