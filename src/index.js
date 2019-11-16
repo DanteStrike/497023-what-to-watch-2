@@ -9,17 +9,19 @@ import {compose} from "recompose";
 
 import configureAPI from "./server/configure-API.js";
 
+import {appReducer} from "./reducers/app/index.js";
 import {filmsReducer} from "./reducers/films/index.js";
 import {genreFilterReducer} from "./reducers/genre-filter";
 
 import App from "./components/app/app.jsx";
-import setupApp from "./reducers/app/loader";
+import {appOperations} from "./reducers/app/index.js";
 
 
 const init = () => {
   const api = configureAPI((...args) => store.dispatch(...args));
 
   const rootReducer = combineReducers({
+    app: appReducer,
     films: filmsReducer,
     genreFilter: genreFilterReducer
   });
@@ -32,7 +34,7 @@ const init = () => {
       )
   );
 
-  store.dispatch(setupApp());
+  store.dispatch(appOperations.setupApp());
 
   ReactDOM.render(
       <Provider store={store}>
