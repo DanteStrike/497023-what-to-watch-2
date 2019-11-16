@@ -3,7 +3,6 @@ import utils from "./utils.js";
 import actions from "./actions.js";
 import selectors from "./selectors.js";
 import reducer from "./reducers.js";
-import {filmsSelectors} from "../films/index.js";
 import mocks from "./mocks";
 
 describe(`Reducers: GenreFilter utils`, () => {
@@ -46,11 +45,9 @@ describe(`Reducers: GenreFilter utils`, () => {
 
 describe(`Reducers: GenreFilter actions`, () => {
   it(`Action setupFilterState`, () => {
-    const spyGetAllFilmsGenres = jest.spyOn(filmsSelectors, `getAllFilmsGenres`);
     const spyCollectState = jest.spyOn(utils, `collectState`);
-    spyGetAllFilmsGenres.mockReturnValue([]);
 
-    expect(actions.setupFilterState()).toEqual({
+    expect(actions.setupFilterState([])).toEqual({
       type: types.SETUP_FILTER_STATE,
       payload: {
         genres: new Set([`All genre`]),
@@ -60,7 +57,6 @@ describe(`Reducers: GenreFilter actions`, () => {
       }
     });
 
-    expect(spyGetAllFilmsGenres).toBeCalledTimes(1);
     expect(spyCollectState).toBeCalledTimes(1);
   });
 
