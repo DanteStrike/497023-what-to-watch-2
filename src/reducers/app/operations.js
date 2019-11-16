@@ -9,8 +9,8 @@ const setupApp = () => (dispatch, getState, api) => {
       dispatch(filmsActions.loadFilms(response.data));
     })
     .then(() => {
-      const filmsGenre = filmsSelectors.getAllFilmsGenres(getState());
-      dispatch(genreFilterActions.setupFilterState(filmsGenre));
+      const filmsGenres = filmsSelectors.getAllFilmsGenres(getState());
+      dispatch(genreFilterActions.setupFilterState(filmsGenres));
     })
     .then(() => {
       dispatch(actions.setAppIsReady(true));
