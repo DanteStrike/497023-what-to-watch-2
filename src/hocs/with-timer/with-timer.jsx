@@ -1,6 +1,6 @@
 import React from "react";
 
-const withTimer = (WrappedComponent, timeout = 1000) => {
+const withTimer = (timeout) => (WrappedComponent) => {
   class WithTimer extends React.PureComponent {
     constructor(props) {
       super(props);

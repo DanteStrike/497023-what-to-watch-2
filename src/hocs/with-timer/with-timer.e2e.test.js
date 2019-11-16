@@ -8,7 +8,7 @@ Enzyme.configure({adapter: new Adapter()});
 describe(`HoC withTimer should work correctly`, () => {
   let component;
   const MockComponent = () => <div/>;
-  const MockComponentWrapped = withTimer(MockComponent, 500);
+  const MockComponentWrapped = withTimer(500)(MockComponent);
 
   beforeEach(() => {
     jest.useFakeTimers();
