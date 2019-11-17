@@ -1,28 +1,23 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import {films} from "../../mocks/films.js";
-import {Catalog} from "./catalog.jsx";
+
+import {createStore} from "redux";
+import {Provider} from "react-redux";
+
+import {initStore} from "../../mocks/store.js";
+import {createNodeMock} from "../../mocks/node-mock.js";
+import Catalog from "./catalog.jsx";
+
 
 it(`Render correctly Catalog component`, () => {
+  const store = createStore(() => initStore);
   const component = renderer
     .create(
-        <Catalog
-          films={films}
-          filterGenre={`All genre`}
-          filteredFilms={[]}
-          onGenreChange={jest.fn}
-        />,
+        <Provider store={store}>
+          <Catalog/>
+        </Provider>,
         {
-          createNodeMock: (element) => {
-            if (element.type === `video`) {
-              return {
-                src: null,
-                isMuted: null,
-                poster: null
-              };
-            }
-            return null;
-          }
+          createNodeMock
         }
     ).toJSON();
 

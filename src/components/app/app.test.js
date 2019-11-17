@@ -1,34 +1,23 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import {films} from "../../mocks/films.js";
-import App from "./app.jsx";
+
 import {Provider} from "react-redux";
 import {createStore} from "redux";
 
-const store = createStore(() => ({
-  filterGenre: `All genre`,
-  filteredFilms: []
-}));
+import {initStore} from "../../mocks/store.js";
+import {createNodeMock} from "../../mocks/node-mock.js";
+import App from "./app.jsx";
 
-it(`render correctly App component`, () => {
+
+it(`Render correctly App component`, () => {
+  const store = createStore(() => initStore);
   const component = renderer
     .create(
         <Provider store={store}>
-          <App
-            films={films}
-          />
+          <App/>
         </Provider>,
         {
-          createNodeMock: (element) => {
-            if (element.type === `video`) {
-              return {
-                src: null,
-                isMuted: null,
-                poster: null
-              };
-            }
-            return null;
-          }
+          createNodeMock
         }
     ).toJSON();
 

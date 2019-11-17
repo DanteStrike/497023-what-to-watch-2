@@ -1,13 +1,22 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import MoviesList from "./movies-list.jsx";
-import {films} from "../../mocks/films.js";
+import {MoviesList} from "./movies-list.jsx";
+
 
 it(`Render correctly MoviesList component`, () => {
+  const filmsCardsMock = [{
+    id: 1,
+    name: `name`,
+    preview: {
+      image: `src`,
+      videoSrc: `src`
+    }
+  }];
+
   const MoviePreviewComponent = renderer
     .create(
         <MoviesList
-          films={films}
+          filmsCards={filmsCardsMock}
         />,
         {
           createNodeMock: (element) => {

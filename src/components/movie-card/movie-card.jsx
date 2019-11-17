@@ -7,8 +7,8 @@ const fixFirefoxFlickering = {
 
 const MovieCard = (props) => {
   const {
-    title,
-    titleLinkHref,
+    id,
+    name,
     onTimerStart,
     onTimerReset,
     renderTrailerPreview
@@ -20,15 +20,15 @@ const MovieCard = (props) => {
         {renderTrailerPreview()}
       </div>
       <h3 className="small-movie-card__title">
-        <a className="small-movie-card__link" href={titleLinkHref}>{title}</a>
+        <a className="small-movie-card__link" href={`#${id}`}>{name}</a>
       </h3>
     </article>
   );
 };
 
 MovieCard.propTypes = {
-  title: PropTypes.string.isRequired,
-  titleLinkHref: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
   onTimerStart: PropTypes.func.isRequired,
   onTimerReset: PropTypes.func.isRequired,
   renderTrailerPreview: PropTypes.func.isRequired

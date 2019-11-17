@@ -1,20 +1,15 @@
 import React, {Fragment} from "react";
-import PropTypes from "prop-types";
 import PageFooter from "../page-footer/page-footer.jsx";
 import MoviePreview from "../movie-preview/movie-preview.jsx";
 import Catalog from "../catalog/catalog.jsx";
 
 
-const MainPage = (props) => {
-  const {films} = props;
-
+const MainPage = () => {
   return (
     <Fragment>
       <MoviePreview/>
       <div className="page-content">
-        <Catalog
-          films={films}
-        />
+        <Catalog/>
         <PageFooter/>
       </div>
     </Fragment>
@@ -22,14 +17,5 @@ const MainPage = (props) => {
   );
 };
 
-MainPage.propTypes = {
-  films: PropTypes.arrayOf(PropTypes.exact({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    previewSrc: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired
-  }))
-};
 
 export default MainPage;
