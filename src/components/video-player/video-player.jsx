@@ -47,7 +47,7 @@ class VideoPlayer extends React.PureComponent {
     const {src} = this.props;
 
     return (
-      <video ref={this._videoRef} src={src} style={videoPlayerStyle}/>
+      <video ref={this._videoRef} src={src} preload={`none`} style={videoPlayerStyle}/>
     );
   }
 }

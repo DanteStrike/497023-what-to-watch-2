@@ -18,5 +18,9 @@ export const initStore = {
         "All genre": [],
       }
     }
+  },
+
+  movieList: {
+    displayedFilmsAmount: 0
   }
 };

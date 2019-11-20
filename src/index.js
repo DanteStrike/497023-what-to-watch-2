@@ -12,6 +12,7 @@ import configureAPI from "./server/configure-API.js";
 import {appReducer} from "./reducers/app/index.js";
 import {filmsReducer} from "./reducers/films/index.js";
 import {genreFilterReducer} from "./reducers/genre-filter";
+import {movieListReducer} from "./reducers/movie-list/index.js";
 
 import App from "./components/app/app.jsx";
 import {appOperations} from "./reducers/app/index.js";
@@ -23,7 +24,8 @@ const init = () => {
   const rootReducer = combineReducers({
     app: appReducer,
     films: filmsReducer,
-    genreFilter: genreFilterReducer
+    genreFilter: genreFilterReducer,
+    movieList: movieListReducer
   });
 
   const store = createStore(

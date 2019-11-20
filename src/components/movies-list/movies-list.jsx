@@ -6,10 +6,11 @@ import withTimer from "../../hocs/with-timer/with-timer.jsx";
 import {compose} from "redux";
 import {connect} from "react-redux";
 import {filmsSelectors} from "../../reducers/films";
-import {Time} from "../../utils/time/time";
+import {movieListConfig} from "../../configs/movie-list-config.js";
+
 
 const WrappedMovieCard = compose(
-    withTimer(Time.MILLISECONDS_IN_SECOND),
+    withTimer(movieListConfig.showTrailerTimeout),
     withTrailerPreview
 )(MovieCard);
 
