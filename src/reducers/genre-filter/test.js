@@ -127,4 +127,8 @@ describe(`Reducers: GenreFilter selectors`, () => {
   it(`Selector getCurrentFilterFilmsIDs`, () => {
     expect(selectors.getCurrentFilterFilmsIDs(mocks.store)).toEqual([1, 2, 3, 4]);
   });
+
+  it(`Selector getCurrentFilterFilmsAmount`, () => {
+    expect(selectors.getCurrentFilterFilmsAmount(mocks.store)).toBe(4);
+  });
 });

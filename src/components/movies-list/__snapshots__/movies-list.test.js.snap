@@ -18,6 +18,7 @@ exports[`Render correctly MoviesList component 1`] = `
       className="small-movie-card__image"
     >
       <video
+        preload="none"
         src="src"
         style={
           Object {
