@@ -17,6 +17,10 @@ const withTimer = (timeout) => (WrappedComponent) => {
       this._timerFinished = this._timerFinished.bind(this);
     }
 
+    componentWillUnmount() {
+      this._timerResetHandler();
+    }
+
     _timerStartHandler() {
       this.setState({
         timerID: setTimeout(this._timerFinished, this._timeout)
