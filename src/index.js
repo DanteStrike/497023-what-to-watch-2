@@ -16,6 +16,7 @@ import {movieListReducer} from "./reducers/movie-list/index.js";
 
 import App from "./components/app/app.jsx";
 import {appOperations} from "./reducers/app/index.js";
+import {BrowserRouter} from "react-router-dom";
 
 
 const init = () => {
@@ -40,7 +41,9 @@ const init = () => {
 
   ReactDOM.render(
       <Provider store={store}>
-        <App/>
+        <BrowserRouter>
+          <App/>
+        </BrowserRouter>
       </Provider>,
       document.querySelector(`#root`)
   );
