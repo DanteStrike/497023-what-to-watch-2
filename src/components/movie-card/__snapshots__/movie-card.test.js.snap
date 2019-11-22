@@ -11,18 +11,24 @@ exports[`Render correctly MovieCard component 1`] = `
     }
   }
 >
-  <div
-    className="small-movie-card__image"
-  />
-  <h3
-    className="small-movie-card__title"
+  <a
+    href="/films/1"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "unset",
+        "textDecoration": "none",
+      }
+    }
   >
-    <a
-      className="small-movie-card__link"
-      href="#1"
+    <div
+      className="small-movie-card__image"
+    />
+    <h3
+      className="small-movie-card__title"
     >
       Johnny English
-    </a>
-  </h3>
+    </h3>
+  </a>
 </article>
 `;

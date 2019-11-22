@@ -16,9 +16,10 @@ class Catalog extends React.PureComponent {
   }
 
   componentDidMount() {
-    const {defaultFilter, setCurrentFilter} = this.props;
+    const {defaultFilter, defaultItemsAmount, maxItemsAmount, setCurrentFilter, setDisplayedItems} = this.props;
 
     setCurrentFilter(defaultFilter);
+    setDisplayedItems(defaultItemsAmount, maxItemsAmount);
   }
 
   componentDidUpdate(prevProps) {

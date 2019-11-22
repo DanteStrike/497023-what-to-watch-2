@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+
 const MoviePoster = (props) => {
   const {isBig} = props;
 
@@ -15,5 +16,10 @@ const MoviePoster = (props) => {
 MoviePoster.propTypes = {
   isBig: PropTypes.bool.isRequired
 };
+
+MoviePoster.defaultProps = {
+  isBig: false
+};
+
 
 export default MoviePoster;

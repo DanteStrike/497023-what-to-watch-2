@@ -1,5 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
+import {BrowserRouter as Router} from 'react-router-dom';
 import {MoviesList} from "./movies-list.jsx";
 
 
@@ -15,9 +16,11 @@ it(`Render correctly MoviesList component`, () => {
 
   const MoviePreviewComponent = renderer
     .create(
-        <MoviesList
-          filmsCards={filmsCardsMock}
-        />,
+        <Router>
+          <MoviesList
+            filmsCards={filmsCardsMock}
+          />
+        </Router>,
         {
           createNodeMock: (element) => {
             if (element.type === `video`) {
