@@ -1,22 +1,15 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import PageHeader from "../page-header/page-header.jsx";
 import PageFooter from "../page-footer/page-footer.jsx";
+import PageTitle from "../page-title/page-title.jsx";
 
 const SignInPage = () => {
   return (
     <div className="user-page">
-      <header className="page-header user-page__head">
-        <div className="logo">
-          <Link to="/" className="logo__link">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </Link>
-        </div>
-
-        <h1 className="page-title user-page__title">Sign in</h1>
-      </header>
-
+      <PageHeader
+        mixinClass={`user-page__head`}
+        rightPart={<PageTitle title={`Sign in`}/>}
+      />
       <div className="sign-in user-page__content">
         <form action="#" className="sign-in__form">
           <div className="sign-in__fields">
@@ -36,7 +29,6 @@ const SignInPage = () => {
           </div>
         </form>
       </div>
-
       <PageFooter/>
     </div>
   );

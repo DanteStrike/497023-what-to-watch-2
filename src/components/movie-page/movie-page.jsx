@@ -1,5 +1,6 @@
 import React, {Fragment} from "react";
 import PageHeader from "../page-header/page-header.jsx";
+import UserBlock from "../user-block/user-block.jsx";
 import PageFooter from "../page-footer/page-footer.jsx";
 import MovieBackground from "../movie-background/movie-background.jsx";
 import MoviePoster from "../movie-poster/movie-poster.jsx";
@@ -10,27 +11,17 @@ const MoviePage = () => {
     <Fragment>
       <section className="movie-card movie-card--full">
         <div className="movie-card__hero">
-
           <MovieBackground/>
-
           <h1 className="visually-hidden">WTW</h1>
-
-          <PageHeader/>
-
+          <PageHeader mixinClass={`movie-card__head`} rightPart={<UserBlock/>}/>
           <div className="movie-card__wrap">
-
             <MovieControlPanel/>
-
           </div>
         </div>
 
         <div className="movie-card__wrap movie-card__translate-top">
           <div className="movie-card__info">
-
-            <MoviePoster
-              isBig={true}
-            />
-
+            <MoviePoster isBig={true}/>
             <div className="movie-card__desc">
               <nav className="movie-nav movie-card__nav">
                 <ul className="movie-nav__list">
@@ -45,9 +36,7 @@ const MoviePage = () => {
                   </li>
                 </ul>
               </nav>
-
               <div>Movie Overview</div>
-
             </div>
           </div>
         </div>

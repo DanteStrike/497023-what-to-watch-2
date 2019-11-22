@@ -1,26 +1,19 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import PageHeader from "../page-header/page-header.jsx";
+import PageTitle from "../page-title/page-title.jsx";
+import UserBlock from "../user-block/user-block.jsx";
+import PageFooter from "../page-footer/page-footer.jsx";
 
 const MyListPage = () => {
   return (
     <div className="user-page">
-      <header className="page-header user-page__head">
-        <div className="logo">
-          <Link to="/" className="logo__link">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </Link>
-        </div>
-
-        <h1 className="page-title user-page__title">My list</h1>
-
-        <div className="user-block">
-          <div className="user-block__avatar">
-            <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-          </div>
-        </div>
-      </header>
+      <PageHeader
+        mixinClass={`user-page__head`}
+        rightPart={[
+          <PageTitle key="middle" title={`My list`}/>,
+          <UserBlock key="right"/>
+        ]}
+      />
 
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
@@ -39,19 +32,7 @@ const MyListPage = () => {
         </div>
       </section>
 
-      <footer className="page-footer">
-        <div className="logo">
-          <Link to="/" className="logo__link logo__link--light">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </Link>
-        </div>
-
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
+      <PageFooter/>
     </div>
   );
 };
