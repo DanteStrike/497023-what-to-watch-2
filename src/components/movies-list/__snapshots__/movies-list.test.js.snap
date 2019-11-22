@@ -14,32 +14,38 @@ exports[`Render correctly MoviesList component 1`] = `
       }
     }
   >
-    <div
-      className="small-movie-card__image"
-    >
-      <video
-        preload="none"
-        src="src"
-        style={
-          Object {
-            "display": "block",
-            "height": "100%",
-            "objectFit": "fill",
-            "width": "100%",
-          }
+    <a
+      href="/films/1"
+      onClick={[Function]}
+      style={
+        Object {
+          "color": "unset",
+          "textDecoration": "none",
         }
-      />
-    </div>
-    <h3
-      className="small-movie-card__title"
+      }
     >
-      <a
-        className="small-movie-card__link"
-        href="#1"
+      <div
+        className="small-movie-card__image"
+      >
+        <video
+          preload="none"
+          src="src"
+          style={
+            Object {
+              "display": "block",
+              "height": "100%",
+              "objectFit": "fill",
+              "width": "100%",
+            }
+          }
+        />
+      </div>
+      <h3
+        className="small-movie-card__title"
       >
         name
-      </a>
-    </h3>
+      </h3>
+    </a>
   </article>
 </div>
 `;

@@ -14,7 +14,11 @@ it(`Render correctly Catalog component`, () => {
   const component = renderer
     .create(
         <Provider store={store}>
-          <Catalog/>
+          <Catalog
+            defaultFilter={`any`}
+            defaultItemsAmount={10}
+            increaseAmountRate={10}
+          />
         </Provider>,
         {
           createNodeMock
