@@ -4,7 +4,7 @@ import MainPage from "../main-page/main-page.jsx";
 import SignInPage from "../sign-in-page/sign-in-page.jsx";
 import MyListPage from "../my-list-page/my-list-page.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
-import PageNotFound from "../page-not-found/404.jsx";
+import PageNotFound from "../page-not-found/page-not-found.jsx";
 
 const App = () => {
   return (
