@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
 
 const UserBlock = (props) => {
   const {isAuth, avatarSrc} = props;
@@ -12,7 +13,7 @@ const UserBlock = (props) => {
             <img src={avatarSrc} alt="User avatar" width="63" height="63"/>
           </div>
           :
-          <a href="sign-in.html" className="user-block__link">Sign in</a>
+          <Link to="/login" className="user-block__link">Sign in</Link>
       }
     </div>
   );
@@ -24,8 +25,7 @@ UserBlock.propTypes = {
 };
 
 UserBlock.defaultProps = {
-  isAuth: true,
-  avatarSrc: `img/avatar.jpg`
+  isAuth: false
 };
 
 
