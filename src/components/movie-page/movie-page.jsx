@@ -1,4 +1,5 @@
 import React, {Fragment} from "react";
+import PropTypes from "prop-types";
 import PageHeader from "../page-header/page-header.jsx";
 import UserBlock from "../user-block/user-block.jsx";
 import PageFooter from "../page-footer/page-footer.jsx";
@@ -6,7 +7,9 @@ import MovieBackground from "../movie-background/movie-background.jsx";
 import MoviePoster from "../movie-poster/movie-poster.jsx";
 import MovieControlPanel from "../movie-control-panel/movie-control-panel.jsx";
 
-const MoviePage = () => {
+const MoviePage = (props) => {
+  const {renderTabs} = props;
+
   return (
     <Fragment>
       <section className="movie-card movie-card--full">
@@ -22,22 +25,7 @@ const MoviePage = () => {
         <div className="movie-card__wrap movie-card__translate-top">
           <div className="movie-card__info">
             <MoviePoster isBig={true}/>
-            <div className="movie-card__desc">
-              <nav className="movie-nav movie-card__nav">
-                <ul className="movie-nav__list">
-                  <li className="movie-nav__item movie-nav__item--active">
-                    <a href="#" className="movie-nav__link">Overview</a>
-                  </li>
-                  <li className="movie-nav__item">
-                    <a href="#" className="movie-nav__link">Details</a>
-                  </li>
-                  <li className="movie-nav__item">
-                    <a href="#" className="movie-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
-              <div>Movie Overview</div>
-            </div>
+            {renderTabs()}
           </div>
         </div>
       </section>
@@ -53,6 +41,10 @@ const MoviePage = () => {
       </div>
     </Fragment>
   );
+};
+
+MoviePage.propTypes = {
+  renderTabs: PropTypes.func
 };
 
 

@@ -6,13 +6,30 @@ import MyListPage from "../my-list-page/my-list-page.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
 import PageNotFound from "../page-not-found/page-not-found.jsx";
 
+import withTabs from "../../hocs/with-tabs/with-tabs.jsx";
+
+const MoviePageTabs = [
+  {
+    name: `Overview`,
+    output: <div className="tab1__Output"></div>
+  }, {
+    name: `Details`,
+    output: <div className="tab2__Output"></div>
+  }, {
+    name: `Reviews`,
+    output: <div className="tab3__Output"></div>
+  }
+];
+
+const MoviePageWrapped = withTabs(MoviePageTabs)(MoviePage);
+
 const App = () => {
   return (
     <Switch>
       <Route exact path="/" component={MainPage}/>
       <Route exact path="/login" component={SignInPage}/>
       <Route exact path="/mylist" component={MyListPage}/>
-      <Route exact path="/films/:id" component={MoviePage}/>
+      <Route exact path="/films/:id" component={MoviePageWrapped}/>
       <Route component={PageNotFound}/>
     </Switch>
   );
