@@ -1,12 +1,17 @@
 import React from "react";
+import {Link} from "react-router-dom";
+import PropTypes from "prop-types";
 
-const MovieControlPanel = () => {
+
+const MovieControlPanel = (props) => {
+  const {id, name, genre, released} = props;
+
   return (
     <div className="movie-card__desc">
-      <h2 className="movie-card__title">The Grand Budapest Hotel</h2>
+      <h2 className="movie-card__title">{name}</h2>
       <p className="movie-card__meta">
-        <span className="movie-card__genre">Drama</span>
-        <span className="movie-card__year">2014</span>
+        <span className="movie-card__genre">{genre}</span>
+        <span className="movie-card__year">{released}</span>
       </p>
 
       <div className="movie-card__buttons">
@@ -22,10 +27,18 @@ const MovieControlPanel = () => {
           </svg>
           <span>My list</span>
         </button>
-        <a href="add-review.html" className="btn movie-card__button">Add review</a>
+        <Link to={`/films/${id}/add-review`} className="btn movie-card__button">Add review</Link>
       </div>
     </div>
   );
 };
+
+MovieControlPanel.propTypes = {
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  genre: PropTypes.string.isRequired,
+  released: PropTypes.number.isRequired
+};
+
 
 export default MovieControlPanel;
