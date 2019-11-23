@@ -1,5 +1,5 @@
 export const mainPageConfig = {
-  defaultDisplayedFilmsAmount: 20,
+  defaultDisplayedFilmsAmount: 8,
   defaultGenreFilter: `All genre`,
   increaseFilmsAmountRate: 20,
 };
