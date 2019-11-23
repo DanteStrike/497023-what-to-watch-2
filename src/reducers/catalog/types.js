@@ -1,5 +1,5 @@
-const SHOW_MORE_FILMS = `app/movie-list/SHOW_MORE_FILMS`;
-const SET_DISPLAYED_FILMS_AMOUNT = `app/movie-list/SET_DISPLAYED_FILMS_AMOUNT`;
+const SHOW_MORE_FILMS = `app/catalog/SHOW_MORE_FILMS`;
+const SET_DISPLAYED_FILMS_AMOUNT = `app/catalog/SET_DISPLAYED_FILMS_AMOUNT`;
 
 export default {
   SHOW_MORE_FILMS,

@@ -1,5 +1,5 @@
-const SETUP_FILTER_STATE = `app/genre-filter/SETUP_FILTER_STATE`;
-const SET_CURRENT_FILTER = `app/genre-filter/SET_CURRENT_FILTER`;
+const SETUP_FILTER_STATE = `app/genres/SETUP_FILTER_STATE`;
+const SET_CURRENT_FILTER = `app/genres/SET_CURRENT_FILTER`;
 
 export default {
   SETUP_FILTER_STATE,
