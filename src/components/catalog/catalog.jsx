@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import MoviesList from "../movies-list/movies-list.jsx";
 import GenreList from "../genre-list/genre-list.jsx";
-import {appSelectors} from "../../reducers/app/index.js";
 import {movieListActions, movieListSelectors} from "../../reducers/movie-list/index.js";
 import {genreFilterActions, genreFilterSelectors} from "../../reducers/genre-filter/index.js";
 import ShowMoreButton from "../show-more-button/show-more-button.jsx";
@@ -23,9 +22,9 @@ class Catalog extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    const {isItemsLoaded, currentFilter, defaultItemsAmount, maxItemsAmount, setDisplayedItems} = this.props;
+    const {currentFilter, defaultItemsAmount, maxItemsAmount, setDisplayedItems} = this.props;
 
-    if (prevProps.isItemsLoaded !== isItemsLoaded || prevProps.currentFilter !== currentFilter) {
+    if (prevProps.currentFilter !== currentFilter) {
       setDisplayedItems(defaultItemsAmount, maxItemsAmount);
     }
   }
@@ -57,7 +56,6 @@ Catalog.propTypes = {
   defaultItemsAmount: PropTypes.number.isRequired,
   increaseAmountRate: PropTypes.number.isRequired,
 
-  isItemsLoaded: PropTypes.bool.isRequired,
   currentFilter: PropTypes.string.isRequired,
   itemsAmount: PropTypes.number.isRequired,
   maxItemsAmount: PropTypes.number.isRequired,
@@ -68,7 +66,6 @@ Catalog.propTypes = {
 };
 
 const mapStateToProps = (store) => ({
-  isItemsLoaded: appSelectors.getAppIsReady(store),
   currentFilter: genreFilterSelectors.getCurrentFilter(store),
   itemsAmount: movieListSelectors.getDisplayedFilmsAmount(store),
   maxItemsAmount: genreFilterSelectors.getCurrentFilterFilmsAmount(store),

@@ -52,14 +52,6 @@ describe(`Catalog should work correctly`, () => {
     expect(setCurrentFilterMock).toHaveBeenLastCalledWith(`default`);
   });
 
-  it(`Should setDisplayedItems amount on isItemsLoaded change`, () => {
-    providerWrap.setProps({
-      children: cloneElement(providerWrap.props().children, {isItemsLoaded: true}),
-    });
-    expect(setDisplayedItemsMock).toBeCalledTimes(2);
-    expect(setDisplayedItemsMock).toHaveBeenLastCalledWith(10, 30);
-  });
-
   it(`Should setDisplayedItems amount on currentFilter change`, () => {
     providerWrap.setProps({
       children: cloneElement(providerWrap.props().children, {currentFilter: `another`}),

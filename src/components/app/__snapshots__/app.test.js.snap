@@ -9,8 +9,11 @@ Array [
       className="movie-card__bg"
     >
       <img
-        alt="The Grand Budapest Hotel"
-        src="img/bg-the-grand-budapest-hotel.jpg"
+        style={
+          Object {
+            "backgroundColor": undefined,
+          }
+        }
       />
     </div>
     <h1
@@ -68,9 +71,7 @@ Array [
           className="movie-card__poster"
         >
           <img
-            alt="The Grand Budapest Hotel poster"
             height="327"
-            src="img/the-grand-budapest-hotel-poster.jpg"
             width="218"
           />
         </div>
@@ -79,22 +80,16 @@ Array [
         >
           <h2
             className="movie-card__title"
-          >
-            The Grand Budapest Hotel
-          </h2>
+          />
           <p
             className="movie-card__meta"
           >
             <span
               className="movie-card__genre"
-            >
-              Drama
-            </span>
+            />
             <span
               className="movie-card__year"
-            >
-              2014
-            </span>
+            />
           </p>
           <div
             className="movie-card__buttons"
@@ -135,7 +130,8 @@ Array [
             </button>
             <a
               className="btn movie-card__button"
-              href="add-review.html"
+              href="/films/undefined/add-review"
+              onClick={[Function]}
             >
               Add review
             </a>

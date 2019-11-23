@@ -7,7 +7,7 @@ exports[`Render correctly MovieControlPanel component 1`] = `
   <h2
     className="movie-card__title"
   >
-    The Grand Budapest Hotel
+    any
   </h2>
   <p
     className="movie-card__meta"
@@ -15,12 +15,12 @@ exports[`Render correctly MovieControlPanel component 1`] = `
     <span
       className="movie-card__genre"
     >
-      Drama
+      any
     </span>
     <span
       className="movie-card__year"
     >
-      2014
+      9999
     </span>
   </p>
   <div
@@ -62,7 +62,8 @@ exports[`Render correctly MovieControlPanel component 1`] = `
     </button>
     <a
       className="btn movie-card__button"
-      href="add-review.html"
+      href="/films/0/add-review"
+      onClick={[Function]}
     >
       Add review
     </a>

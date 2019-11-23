@@ -1,95 +1,95 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Render correctly MainPage component 1`] = `
+exports[`Render correctly MoviePage component 1`] = `
 Array [
   <section
-    className="movie-card"
+    className="movie-card movie-card--full"
   >
     <div
-      className="movie-card__bg"
+      className="movie-card__hero"
     >
-      <img
-        style={
-          Object {
-            "backgroundColor": undefined,
+      <div
+        className="movie-card__bg"
+      >
+        <img
+          alt="filmOne"
+          src="img/filmOne.jpg"
+          style={
+            Object {
+              "backgroundColor": "#ffffff",
+            }
           }
-        }
-      />
-    </div>
-    <h1
-      className="visually-hidden"
-    >
-      WTW
-    </h1>
-    <header
-      className="page-header movie-card__head"
-    >
-      <div
-        className="logo"
-      >
-        <a
-          className="logo__link "
-          href="/"
-          onClick={[Function]}
-        >
-          <span
-            className="logo__letter logo__letter--1"
-          >
-            W
-          </span>
-          <span
-            className="logo__letter logo__letter--2"
-          >
-            T
-          </span>
-          <span
-            className="logo__letter logo__letter--3"
-          >
-            W
-          </span>
-        </a>
+        />
       </div>
-      <div
-        className="user-block"
+      <h1
+        className="visually-hidden"
       >
-        <a
-          className="user-block__link"
-          href="/login"
-          onClick={[Function]}
-        >
-          Sign in
-        </a>
-      </div>
-    </header>
-    <div
-      className="movie-card__wrap"
-    >
-      <div
-        className="movie-card__info"
+        WTW
+      </h1>
+      <header
+        className="page-header movie-card__head"
       >
         <div
-          className="movie-card__poster"
+          className="logo"
         >
-          <img
-            height="327"
-            width="218"
-          />
+          <a
+            className="logo__link "
+            href="/"
+            onClick={[Function]}
+          >
+            <span
+              className="logo__letter logo__letter--1"
+            >
+              W
+            </span>
+            <span
+              className="logo__letter logo__letter--2"
+            >
+              T
+            </span>
+            <span
+              className="logo__letter logo__letter--3"
+            >
+              W
+            </span>
+          </a>
         </div>
+        <div
+          className="user-block"
+        >
+          <a
+            className="user-block__link"
+            href="/login"
+            onClick={[Function]}
+          >
+            Sign in
+          </a>
+        </div>
+      </header>
+      <div
+        className="movie-card__wrap"
+      >
         <div
           className="movie-card__desc"
         >
           <h2
             className="movie-card__title"
-          />
+          >
+            filmOne
+          </h2>
           <p
             className="movie-card__meta"
           >
             <span
               className="movie-card__genre"
-            />
+            >
+              genreOne
+            </span>
             <span
               className="movie-card__year"
-            />
+            >
+              2019
+            </span>
           </p>
           <div
             className="movie-card__buttons"
@@ -130,7 +130,7 @@ Array [
             </button>
             <a
               className="btn movie-card__button"
-              href="/films/undefined/add-review"
+              href="/films/1/add-review"
               onClick={[Function]}
             >
               Add review
@@ -139,36 +139,39 @@ Array [
         </div>
       </div>
     </div>
+    <div
+      className="movie-card__wrap movie-card__translate-top"
+    >
+      <div
+        className="movie-card__info"
+      >
+        <div
+          className="movie-card__poster movie-card__poster--big"
+        >
+          <img
+            alt="filmOne"
+            height="327"
+            src="img/filmOne-poster.jpg"
+            width="218"
+          />
+        </div>
+      </div>
+    </div>
   </section>,
   <div
     className="page-content"
   >
     <section
-      className="catalog"
+      className="catalog catalog--like-this"
     >
       <h2
-        className="catalog__title visually-hidden"
+        className="catalog__title"
       >
-        Catalog
+        More like this
       </h2>
-      <ul
-        className="catalog__genres-list"
-      >
-        <li
-          className="catalog__genres-item catalog__genres-item--active"
-        >
-          <a
-            className="catalog__genres-link"
-            href="#"
-            onClick={[Function]}
-          >
-            All genre
-          </a>
-        </li>
-      </ul>
-      <div
-        className="catalog__movies-list"
-      />
+      <div>
+        MOVIE LIST
+      </div>
     </section>
     <footer
       className="page-footer"
