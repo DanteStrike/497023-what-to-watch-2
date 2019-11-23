@@ -6,15 +6,17 @@ import {genreFilterActions, genreFilterSelectors} from "../../reducers/genre-fil
 const GenreList = (props) => {
   const {genres, currentFilter, onGenreChange} = props;
 
+  const genreClickHandler = (evt, genre) => {
+    evt.preventDefault();
+    onGenreChange(genre);
+  };
+
   return (
     <ul className="catalog__genres-list">
       {genres.map((genre, index) => (
         <li key={`${index}_${genre}`} className={`catalog__genres-item ${genre === currentFilter ? `catalog__genres-item--active` : ``}`}>
           <a href="#" className="catalog__genres-link"
-            onClick={(evt) => {
-              evt.preventDefault();
-              onGenreChange(genre);
-            }}>{genre}</a>
+            onClick={(evt) => genreClickHandler(evt, genre)}>{genre}</a>
         </li>
       ))}
     </ul>
