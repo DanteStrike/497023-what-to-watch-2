@@ -6,26 +6,39 @@ import PageFooter from "../page-footer/page-footer.jsx";
 import MovieBackground from "../movie-background/movie-background.jsx";
 import MoviePoster from "../movie-poster/movie-poster.jsx";
 import MovieControlPanel from "../movie-control-panel/movie-control-panel.jsx";
+import {filmsSelectors} from "../../reducers/films";
+import {connect} from "react-redux";
 
 const MoviePage = (props) => {
-  const {renderTabs} = props;
-
+  const {renderTabs, film} = props;
   return (
     <Fragment>
       <section className="movie-card movie-card--full">
         <div className="movie-card__hero">
-          <MovieBackground/>
+          <MovieBackground
+            name={film.name}
+            {...film.background}
+          />
           <h1 className="visually-hidden">WTW</h1>
           <PageHeader mixinClass={`movie-card__head`} rightPart={<UserBlock/>}/>
           <div className="movie-card__wrap">
-            <MovieControlPanel/>
+            <MovieControlPanel
+              id={film.id}
+              name={film.name}
+              genre={film.genre}
+              released={film.released}
+            />
           </div>
         </div>
 
         <div className="movie-card__wrap movie-card__translate-top">
           <div className="movie-card__info">
-            <MoviePoster isBig={true}/>
-            {renderTabs()}
+            <MoviePoster
+              isBig={true}
+              name={film.name}
+              image={film.posterImage}
+            />
+            {renderTabs && renderTabs(film)}
           </div>
         </div>
       </section>
@@ -44,8 +57,19 @@ const MoviePage = (props) => {
 };
 
 MoviePage.propTypes = {
-  renderTabs: PropTypes.func
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired
+    })
+  }),
+  renderTabs: PropTypes.func,
+  film: PropTypes.object,
+  setCurrentPageFilmID: PropTypes.func
 };
 
+const mapStateToProps = (store, props) => ({
+  film: filmsSelectors.getFilmByCurrentID(store, Number(props.match.params.id))
+});
 
-export default MoviePage;
+export {MoviePage};
+export default connect(mapStateToProps)(MoviePage);
