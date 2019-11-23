@@ -6,3 +6,7 @@ export const RatingLevel = {
   AWESOME: `Awesome`
 };
 
+export const GenreFilter = {
+  ALL_GENRE: `All genre`
+};
+
