@@ -1,11 +1,22 @@
 import React from "react";
+import PropTypes from "prop-types";
 
-const MovieBackground = () => {
+
+const MovieBackground = (props) => {
+  const {name, image, color} = props;
+
   return (
     <div className="movie-card__bg">
-      <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
+      <img src={image} alt={name} style={{backgroundColor: color}}/>
     </div>
   );
 };
+
+MovieBackground.propTypes = {
+  name: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired
+};
+
 
 export default MovieBackground;
