@@ -2,10 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import MoviesList from "../movies-list/movies-list.jsx";
-import GenreList from "../genre-list/genre-list.jsx";
+import ShowMoreButton from "../show-more-button/show-more-button.jsx";
 import {movieListActions, movieListSelectors} from "../../reducers/movie-list/index.js";
 import {genreFilterActions, genreFilterSelectors} from "../../reducers/genre-filter/index.js";
-import ShowMoreButton from "../show-more-button/show-more-button.jsx";
+import {filmsSelectors} from "../../reducers/films/index.js";
+
 
 class Catalog extends React.PureComponent {
   constructor(props) {
@@ -36,13 +37,18 @@ class Catalog extends React.PureComponent {
   }
 
   render() {
-    const {itemsAmount, maxItemsAmount} = this.props;
+    const {title, classModifier, itemsAmount, maxItemsAmount, increaseAmountRate, filmsCards, children} = this.props;
 
     return (
-      <section className="catalog">
-        <h2 className="catalog__title visually-hidden">Catalog</h2>
-        <GenreList/>
-        <MoviesList/>
+      <section className={`catalog${(classModifier) ? ` ${classModifier}` : ``}`}>
+        {(!title) ?
+          <h2 className="catalog__title visually-hidden">Catalog</h2>
+          :
+          <h2 className="catalog__title">{title}</h2>
+        }
+
+        {children}
+        <MoviesList filmsCards={filmsCards}/>
         {(itemsAmount < maxItemsAmount) &&
           <ShowMoreButton onShowMoreButtonClick={this._showMoreItems}/>
         }
@@ -52,6 +58,10 @@ class Catalog extends React.PureComponent {
 }
 
 Catalog.propTypes = {
+  title: PropTypes.string,
+  classModifier: PropTypes.string,
+  children: PropTypes.element,
+
   defaultFilter: PropTypes.string.isRequired,
   defaultItemsAmount: PropTypes.number.isRequired,
   increaseAmountRate: PropTypes.number.isRequired,
@@ -62,13 +72,23 @@ Catalog.propTypes = {
 
   setCurrentFilter: PropTypes.func.isRequired,
   setDisplayedItems: PropTypes.func.isRequired,
-  showMoreItems: PropTypes.func.isRequired
+  showMoreItems: PropTypes.func.isRequired,
+
+  filmsCards: PropTypes.arrayOf(PropTypes.exact({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    preview: PropTypes.exact({
+      image: PropTypes.string.isRequired,
+      videoSrc: PropTypes.string.isRequired
+    }).isRequired
+  }))
 };
 
 const mapStateToProps = (store) => ({
   currentFilter: genreFilterSelectors.getCurrentFilter(store),
   itemsAmount: movieListSelectors.getDisplayedFilmsAmount(store),
   maxItemsAmount: genreFilterSelectors.getCurrentFilterFilmsAmount(store),
+  filmsCards: filmsSelectors.getCurrentCardsInfo(store),
 });
 
 const mapDispatchToProps = (dispatch) => ({
