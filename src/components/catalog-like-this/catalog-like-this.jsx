@@ -2,10 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import MoviesList from "../movies-list/movies-list.jsx";
-import {genreFilterActions} from "../../reducers/genre-filter/index.js";
+import {genreFilterActions} from "../../reducers/genres/index.js";
 import {filmsSelectors} from "../../reducers/films/index.js";
-import {movieListActions} from "../../reducers/movie-list/index.js";
-import {genreFilterSelectors} from "../../reducers/genre-filter/index";
+import {movieListActions} from "../../reducers/catalog/index.js";
+import {genreFilterSelectors} from "../../reducers/genres/index";
 
 
 class CatalogLikeThis extends React.PureComponent {

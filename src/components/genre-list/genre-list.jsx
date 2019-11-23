@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {genreFilterActions, genreFilterSelectors} from "../../reducers/genre-filter";
+import {genreFilterActions, genreFilterSelectors} from "../../reducers/genres";
 
 const GenreList = (props) => {
   const {genres, currentFilter, onGenreChange} = props;

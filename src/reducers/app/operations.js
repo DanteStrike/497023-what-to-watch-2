@@ -1,5 +1,5 @@
 import {filmsActions, filmsSelectors} from "../films/index.js";
-import {genreFilterActions} from "../genre-filter/index.js";
+import {genreFilterActions} from "../genres/index.js";
 import actions from "./actions.js";
 
 

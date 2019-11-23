@@ -1,7 +1,7 @@
 import types from "./types.js";
 import StoreNameSpace from "../store-name-space.js";
 import {filmsTypes, filmsSelectors, filmsActions} from "../films/index.js";
-import {genreFilterTypes, genreFilterActions} from "../genre-filter/index.js";
+import {genreFilterTypes, genreFilterActions} from "../genres/index.js";
 
 import actions from "./actions.js";
 import operations from "./operations.js";

@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import MoviesList from "../movies-list/movies-list.jsx";
 import ShowMoreButton from "../show-more-button/show-more-button.jsx";
-import {movieListActions, movieListSelectors} from "../../reducers/movie-list/index.js";
-import {genreFilterActions, genreFilterSelectors} from "../../reducers/genre-filter/index.js";
+import {movieListActions, movieListSelectors} from "../../reducers/catalog/index.js";
+import {genreFilterActions, genreFilterSelectors} from "../../reducers/genres/index.js";
 import {filmsSelectors} from "../../reducers/films/index.js";
 
 
