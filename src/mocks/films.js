@@ -1,37 +1,47 @@
 export const films = [
   {
     id: 1,
-    title: `Fantastic Beasts: The Crimes of Grindelwald`,
-    image: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
-    previewSrc: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
-    genre: `Fantasy`
-  },
-  {
-    id: 2,
-    title: `Johnny English`,
-    image: `img/johnny-english.jpg`,
-    previewSrc: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
-    genre: `Comedy`
-  },
-  {
+    name: `filmOne`,
+    posterImage: `img/filmOne-poster.jpg`,
+    preview: {
+      image: `img/filmOne.jpg`,
+      videoSrc: `https://some-linkOne`
+    },
+    background: {
+      image: `img/filmOne.jpg`,
+      color: `#ffffff`
+    },
+    videoSrc: `https://some-linkOne`,
+    description: `Some text filmOne`,
+    rating: 1.0,
+    scoresCount: 1,
+    director: `directorOne`,
+    starring: [`actorOne`, `actorTwo`],
+    runTime: 1,
+    genre: `genreOne`,
+    released: 2019,
+    isFavorite: false,
+  }, {
     id: 3,
-    title: `Shutter Island`,
-    image: `img/shutter-island.jpg`,
-    previewSrc: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
-    genre: `Thriller`
-  },
-  {
-    id: 4,
-    title: `Macbeth`,
-    image: `img/macbeth.jpg`,
-    previewSrc: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
-    genre: `Drama`
-  },
-  {
-    id: 5,
-    title: `Aviator`,
-    image: `img/aviator.jpg`,
-    previewSrc: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
-    genre: `Drama`
+    name: `filmTwo`,
+    posterImage: `img/filmTwo-poster.jpg`,
+    preview: {
+      image: `img/filmTwo.jpg`,
+      videoSrc: `https://some-linkTwo`
+    },
+    background: {
+      image: `img/filmTwo.jpg`,
+      color: `#000000`
+    },
+    videoSrc: `https://some-linkTwo`,
+    description: `Some text filmTwo`,
+    rating: 2.0,
+    scoresCount: 2,
+    director: `directorTwo`,
+    starring: [`actorThree`, `actorFour`],
+    runTime: 2,
+    genre: `genreTwo`,
+    released: 2020,
+    isFavorite: true,
   }
 ];

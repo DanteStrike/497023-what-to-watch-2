@@ -1,4 +1,5 @@
 import utils from "./utils";
+import StoreNameSpace from "../store-name-space";
 
 const genreFilterStore = {
   currentFilter: utils.ALL_GENRE,
@@ -13,7 +14,7 @@ const genreFilterStore = {
 };
 
 const store = {
-  genreFilter: genreFilterStore
+  [StoreNameSpace.GENRES]: genreFilterStore
 };
 
 export default {

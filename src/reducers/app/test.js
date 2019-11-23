@@ -1,4 +1,5 @@
 import types from "./types.js";
+import StoreNameSpace from "../store-name-space.js";
 import {filmsTypes, filmsSelectors, filmsActions} from "../films/index.js";
 import {genreFilterTypes, genreFilterActions} from "../genre-filter/index.js";
 
@@ -95,12 +96,16 @@ describe(`Reducers: App reducer`, () => {
 
 describe(`Reducers: App selectors`, () => {
   const store = {
-    app: {
+    [StoreNameSpace.APP]: {
       isReady: true
     }
   };
 
-  it(`Selector getIsAppReady`, () => {
-    expect(selectors.getAppIsReady(store)).toEqual(true);
+  it(`Selector getStoreSpace`, () => {
+    expect(selectors.getStoreSpace(store)).toEqual(store[StoreNameSpace.APP]);
+  });
+
+  it(`Selector getIsReady`, () => {
+    expect(selectors.getIsReady(store)).toEqual(true);
   });
 });

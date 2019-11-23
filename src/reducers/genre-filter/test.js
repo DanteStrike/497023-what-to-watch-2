@@ -1,9 +1,11 @@
 import types from "./types.js";
+import StoreNameSpace from "../store-name-space";
 import utils from "./utils.js";
 import actions from "./actions.js";
 import selectors from "./selectors.js";
 import reducer from "./reducers.js";
 import mocks from "./mocks";
+
 
 describe(`Reducers: GenreFilter utils`, () => {
   it(`Util collectState`, () => {
@@ -25,7 +27,7 @@ describe(`Reducers: GenreFilter utils`, () => {
     }];
 
     expect(utils.collectState(filmsGenres)).toEqual({
-      genres: new Set([`All genre`, `genreThree`, `genreOne`, `genreTwo`]),
+      genres: [`All genre`, `genreThree`, `genreOne`, `genreTwo`],
       byGenres: {
         "All genre": [1, 3, 5, 6, 10],
         "genreOne": [3, 6],
@@ -35,7 +37,7 @@ describe(`Reducers: GenreFilter utils`, () => {
     });
 
     expect(utils.collectState([])).toEqual({
-      genres: new Set([`All genre`]),
+      genres: [`All genre`],
       byGenres: {
         "All genre": []
       }
@@ -50,7 +52,7 @@ describe(`Reducers: GenreFilter actions`, () => {
     expect(actions.setupFilterState([])).toEqual({
       type: types.SETUP_FILTER_STATE,
       payload: {
-        genres: new Set([`All genre`]),
+        genres: [`All genre`],
         byGenres: {
           "All genre": []
         }
@@ -120,8 +122,16 @@ describe(`Reducers: GenreFilter reducers`, () => {
 });
 
 describe(`Reducers: GenreFilter selectors`, () => {
+  it(`Selector getStoreSpace`, () => {
+    expect(selectors.getStoreSpace(mocks.store)).toEqual(mocks.store[StoreNameSpace.GENRES]);
+  });
+
   it(`Selector getCurrentFilter`, () => {
     expect(selectors.getCurrentFilter(mocks.store)).toEqual(`All genre`);
+  });
+
+  it(`Selector getGenres`, () => {
+    expect(selectors.getGenres(mocks.store)).toEqual([`All genre`, `genreOne`, `genreTwo`]);
   });
 
   it(`Selector getCurrentFilterFilmsIDs`, () => {

@@ -1,16 +1,18 @@
+import StoreNameSpace from "../reducers/store-name-space";
+
 export const initStore = {
-  app: {
+  [StoreNameSpace.APP]: {
     isReady: true
   },
 
-  films: {
+  [StoreNameSpace.FILMS]: {
     data: {
       allIDs: [],
       byIDs: {}
     }
   },
 
-  genreFilter: {
+  [StoreNameSpace.GENRES]: {
     currentFilter: `All genre`,
     data: {
       genres: [`All genre`],
@@ -20,7 +22,7 @@ export const initStore = {
     }
   },
 
-  movieList: {
+  [StoreNameSpace.MOVIE_LIST]: {
     displayedFilmsAmount: 0
   }
 };

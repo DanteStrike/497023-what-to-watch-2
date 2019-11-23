@@ -1,7 +1,9 @@
 import types from "./types.js";
+import StoreNameSpace from "../store-name-space";
 import actions from "./actions.js";
 import reducer from "./reducers.js";
 import selectors from "./selectors.js";
+
 
 describe(`Reducers: Movie list actions`, () => {
   describe(`Action showMoreFilms`, () => {
@@ -87,9 +89,16 @@ describe(`Reducers: Movie list reducer`, () => {
 
 describe(`Reducers: Movie list selectors`, () => {
   const store = {
-    movieList: {
+    [StoreNameSpace.MOVIE_LIST]: {
       displayedFilmsAmount: 13
     }
   };
-  expect(selectors.getDisplayedFilmsAmount(store)).toBe(13);
+
+  it(`Selector getStoreSpace`, () => {
+    expect(selectors.getStoreSpace(store)).toEqual(store[StoreNameSpace.MOVIE_LIST]);
+  });
+
+  it(`Selector getDisplayedFilmsAmount`, () => {
+    expect(selectors.getDisplayedFilmsAmount(store)).toBe(13);
+  });
 });

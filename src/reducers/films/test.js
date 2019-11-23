@@ -1,9 +1,11 @@
 import types from "./types.js";
+import StoreNameSpace from "../store-name-space";
 import mocks from "./mocks.js";
 import utils from "./utils.js";
 import actions from "./actions.js";
 import selectors from "./selectors.js";
 import reducer from "./reducers.js";
+
 
 describe(`Reducers: Films utils`, () => {
   describe(`Transform RAW server data`, () => {
@@ -93,12 +95,16 @@ describe(`Reducers: Films reducers`, () => {
 });
 
 describe(`Reducers: Films selectors`, () => {
+  it(`Selector getStoreSpace`, () => {
+    expect(selectors.getStoreSpace(mocks.store)).toEqual(mocks.store[StoreNameSpace.FILMS]);
+  });
+
   it(`Selector getAllIDs`, () => {
     expect(selectors.getAllIDs(mocks.store)).toEqual([1, 3]);
   });
 
   it(`Selector getFilmsByIDs`, () => {
-    expect(selectors.getFilmsByIDs(mocks.store)).toEqual(mocks.store.films.data.byIDs);
+    expect(selectors.getFilmsByIDs(mocks.store)).toEqual(mocks.store[StoreNameSpace.FILMS].data.byIDs);
   });
 
   it(`Selector getAllFilmsGenres`, () => {
@@ -114,7 +120,7 @@ describe(`Reducers: Films selectors`, () => {
   });
 
   it(`Selector getCurrentCardsInfo`, () => {
-    expect(selectors.getCurrentCardsInfo.resultFunc([1, 3], mocks.store.films.data.byIDs, 2)).toEqual(
+    expect(selectors.getCurrentCardsInfo.resultFunc([1, 3], mocks.store[StoreNameSpace.FILMS].data.byIDs, 2)).toEqual(
         [{
           id: 1,
           name: `filmOne`,
@@ -132,7 +138,7 @@ describe(`Reducers: Films selectors`, () => {
         }]
     );
 
-    expect(selectors.getCurrentCardsInfo.resultFunc([1, 3], mocks.store.films.data.byIDs, 1)).toEqual(
+    expect(selectors.getCurrentCardsInfo.resultFunc([1, 3], mocks.store[StoreNameSpace.FILMS].data.byIDs, 1)).toEqual(
         [{
           id: 1,
           name: `filmOne`,
@@ -143,7 +149,7 @@ describe(`Reducers: Films selectors`, () => {
         }]
     );
 
-    expect(selectors.getCurrentCardsInfo.resultFunc([3], mocks.store.films.data.byIDs, 1)).toEqual([{
+    expect(selectors.getCurrentCardsInfo.resultFunc([3], mocks.store[StoreNameSpace.FILMS].data.byIDs, 1)).toEqual([{
       id: 3,
       name: `filmTwo`,
       preview: {
@@ -152,7 +158,7 @@ describe(`Reducers: Films selectors`, () => {
       }
     }]);
 
-    expect(selectors.getCurrentCardsInfo.resultFunc([], mocks.store.films.data.byIDs, 0)).toEqual([]);
+    expect(selectors.getCurrentCardsInfo.resultFunc([], mocks.store[StoreNameSpace.FILMS].data.byIDs, 0)).toEqual([]);
   });
 
   it(`Selector getFilmsAmount`, () => {

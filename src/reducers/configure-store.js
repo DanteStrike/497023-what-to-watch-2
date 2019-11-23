@@ -6,14 +6,15 @@ import {genreFilterReducer} from "./genre-filter";
 import {movieListReducer} from "./movie-list";
 import {compose} from "recompose";
 import thunk from "redux-thunk";
+import StoreNameSpace from "./store-name-space";
 
 const api = configureAPI((...args) => configuredStore.dispatch(...args));
 
 const rootReducer = combineReducers({
-  app: appReducer,
-  films: filmsReducer,
-  genreFilter: genreFilterReducer,
-  movieList: movieListReducer
+  [StoreNameSpace.APP]: appReducer,
+  [StoreNameSpace.FILMS]: filmsReducer,
+  [StoreNameSpace.GENRES]: genreFilterReducer,
+  [StoreNameSpace.MOVIE_LIST]: movieListReducer
 });
 
 const configuredStore = createStore(
