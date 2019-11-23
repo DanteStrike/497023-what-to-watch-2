@@ -17,9 +17,9 @@ const withTabs = (tabs) => (WrappedComponent) => {
       this.setState({curTabID: id});
     }
 
-    _renderTabs() {
+    _renderTabs(film) {
       const {curTabID} = this.state;
-      const outputTab = tabs[curTabID].output;
+      const OutputTabComponent = tabs[curTabID].output;
 
       return (
         <div className="movie-card__desc">
@@ -32,7 +32,7 @@ const withTabs = (tabs) => (WrappedComponent) => {
               ))}
             </ul>
           </nav>
-          <div>{outputTab}</div>
+          <div>{<OutputTabComponent {...film}/>}</div>
         </div>
       );
     }
@@ -41,7 +41,7 @@ const withTabs = (tabs) => (WrappedComponent) => {
       return (
         <WrappedComponent
           {...this.props}
-          renderTabs={this._renderTabs}
+          renderTabs={(film) => this._renderTabs(film)}
         />
       );
     }

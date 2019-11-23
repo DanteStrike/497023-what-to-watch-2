@@ -1,5 +1,5 @@
 import React from "react";
-import Enzyme, {shallow} from "enzyme";
+import Enzyme, {mount, shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import withTabs from "./with-tabs.jsx";
 
@@ -7,17 +7,20 @@ Enzyme.configure({adapter: new Adapter()});
 
 describe(`HoC withTabs should work correctly`, () => {
   let component;
+  const ComponentOne = () => (<div className="tab1__Output">1</div>);
+  const ComponentTwo = () => (<div className="tab2__Output">2</div>);
+  const ComponentThree = () => (<div className="tab3__Output">3</div>);
 
   const tabs = [
     {
       name: `tab1`,
-      output: React.createElement(() => (<div className="tab1__Output">1</div>))
+      output: ComponentOne
     }, {
       name: `tab2`,
-      output: React.createElement(() => (<div className="tab2__Output">2</div>))
+      output: ComponentTwo
     }, {
       name: `tab3`,
-      output: React.createElement(() => (<div className="tab3__Output">3</div>))
+      output: ComponentThree
     }
   ];
 
@@ -30,7 +33,10 @@ describe(`HoC withTabs should work correctly`, () => {
 
   it(`Default Tab should be first`, () => {
     expect(component.state().curTabID).toBe(0);
-    expect(shallow(component.instance()._renderTabs()).contains(tabs[0].output)).toEqual(true);
+    const renderedComponent = mount(component.instance()._renderTabs());
+    expect(renderedComponent.find(ComponentTwo)).toHaveLength(0);
+    expect(renderedComponent.find(ComponentThree)).toHaveLength(0);
+    expect(renderedComponent.find(ComponentOne)).toHaveLength(1);
   });
 
   it(`Should preventDefault on navLink click and set new active tab`, () => {
@@ -50,6 +56,13 @@ describe(`HoC withTabs should work correctly`, () => {
 
   it(`Should switch tabs`, () => {
     component.setState({curTabID: 2});
-    expect(shallow(component.instance()._renderTabs()).contains(tabs[2].output)).toEqual(true);
+    const renderedComponent = mount(component.instance()._renderTabs());
+    expect(renderedComponent.find(ComponentThree)).toHaveLength(1);
+  });
+
+  it(`Should transfer render ...arg to output component`, () => {
+    const renderedComponent = mount(component.instance()._renderTabs({any: `any`, some: `some`}));
+    expect(renderedComponent.find(ComponentOne).props().any).toEqual(`any`);
+    expect(renderedComponent.find(ComponentOne).props().some).toEqual(`some`);
   });
 });
