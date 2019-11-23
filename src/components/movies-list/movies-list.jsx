@@ -4,8 +4,6 @@ import MovieCard from "../movie-card/movie-card.jsx";
 import withTrailerPreview from "../../hocs/with-trailer-preview/with-trailer-preview.jsx";
 import withTimer from "../../hocs/with-timer/with-timer.jsx";
 import {compose} from "redux";
-import {connect} from "react-redux";
-import {filmsSelectors} from "../../reducers/films";
 import {movieListConfig} from "../../configs/movie-list-config.js";
 
 
@@ -46,10 +44,5 @@ MoviesList.propTypes = {
   }))
 };
 
-const mapStateToProps = (store) => ({
-  filmsCards: filmsSelectors.getCurrentCardsInfo(store),
-});
 
-export {MoviesList};
-
-export default connect(mapStateToProps)(MoviesList);
+export default MoviesList;

@@ -1,8 +1,7 @@
 import React, {Fragment} from "react";
 import PageFooter from "../page-footer/page-footer.jsx";
 import MoviePreview from "../movie-preview/movie-preview.jsx";
-import Catalog from "../catalog/catalog.jsx";
-import {mainPageConfig} from "../../configs/main-page-config.js";
+import CatalogAllFilms from "../catalog-all-films/catalog-all-films.jsx";
 
 
 const MainPage = () => {
@@ -10,11 +9,7 @@ const MainPage = () => {
     <Fragment>
       <MoviePreview/>
       <div className="page-content">
-        <Catalog
-          defaultFilter={mainPageConfig.defaultGenreFilter}
-          defaultItemsAmount={mainPageConfig.defaultDisplayedFilmsAmount}
-          increaseAmountRate={mainPageConfig.increaseFilmsAmountRate}
-        />
+        <CatalogAllFilms/>
         <PageFooter/>
       </div>
     </Fragment>

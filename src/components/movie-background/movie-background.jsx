@@ -6,8 +6,8 @@ const MovieBackground = (props) => {
   const {name, image, color} = props;
 
   return (
-    <div className="movie-card__bg">
-      <img src={image} alt={name} style={{backgroundColor: color}}/>
+    <div className="movie-card__bg" style={{backgroundColor: color}}>
+      <img src={image} alt={name}/>
     </div>
   );
 };
