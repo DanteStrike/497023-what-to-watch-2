@@ -1,7 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import {BrowserRouter as Router} from 'react-router-dom';
-import {MoviesList} from "./movies-list.jsx";
+import MoviesList from "./movies-list.jsx";
 
 
 it(`Render correctly MoviesList component`, () => {

@@ -6,14 +6,13 @@ exports[`Render correctly MoviePreview component 1`] = `
 >
   <div
     className="movie-card__bg"
-  >
-    <img
-      style={
-        Object {
-          "backgroundColor": undefined,
-        }
+    style={
+      Object {
+        "backgroundColor": undefined,
       }
-    />
+    }
+  >
+    <img />
   </div>
   <h1
     className="visually-hidden"

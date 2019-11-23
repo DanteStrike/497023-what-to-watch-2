@@ -5,7 +5,7 @@ import reducer from "./reducers.js";
 import selectors from "./selectors.js";
 
 
-describe(`Reducers: Movie list actions`, () => {
+describe(`Reducers: Catalog actions`, () => {
   describe(`Action showMoreFilms`, () => {
     it(`Should return payload = increaseFilmsAmountRate`, () => {
       expect(actions.showMoreFilms(0, 20, 99)).toEqual({
@@ -51,7 +51,7 @@ describe(`Reducers: Movie list actions`, () => {
   });
 });
 
-describe(`Reducers: Movie list reducer`, () => {
+describe(`Reducers: Catalog reducer`, () => {
   const initState = {
     displayedFilmsAmount: 20
   };
@@ -87,15 +87,15 @@ describe(`Reducers: Movie list reducer`, () => {
   });
 });
 
-describe(`Reducers: Movie list selectors`, () => {
+describe(`Reducers: Catalog selectors`, () => {
   const store = {
-    [StoreNameSpace.MOVIE_LIST]: {
+    [StoreNameSpace.CATALOG]: {
       displayedFilmsAmount: 13
     }
   };
 
   it(`Selector getStoreSpace`, () => {
-    expect(selectors.getStoreSpace(store)).toEqual(store[StoreNameSpace.MOVIE_LIST]);
+    expect(selectors.getStoreSpace(store)).toEqual(store[StoreNameSpace.CATALOG]);
   });
 
   it(`Selector getDisplayedFilmsAmount`, () => {

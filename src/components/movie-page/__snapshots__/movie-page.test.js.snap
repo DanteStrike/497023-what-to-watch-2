@@ -10,15 +10,15 @@ Array [
     >
       <div
         className="movie-card__bg"
+        style={
+          Object {
+            "backgroundColor": "#ffffff",
+          }
+        }
       >
         <img
           alt="filmOne"
           src="img/filmOne.jpg"
-          style={
-            Object {
-              "backgroundColor": "#ffffff",
-            }
-          }
         />
       </div>
       <h1
@@ -169,9 +169,9 @@ Array [
       >
         More like this
       </h2>
-      <div>
-        MOVIE LIST
-      </div>
+      <div
+        className="catalog__movies-list"
+      />
     </section>
     <footer
       className="page-footer"

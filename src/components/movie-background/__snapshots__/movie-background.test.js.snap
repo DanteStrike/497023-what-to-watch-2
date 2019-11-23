@@ -3,15 +3,15 @@
 exports[`Render correctly MovieBackground component 1`] = `
 <div
   className="movie-card__bg"
+  style={
+    Object {
+      "backgroundColor": "color",
+    }
+  }
 >
   <img
     alt="any"
     src="url"
-    style={
-      Object {
-        "backgroundColor": "color",
-      }
-    }
   />
 </div>
 `;

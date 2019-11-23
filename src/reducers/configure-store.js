@@ -3,7 +3,7 @@ import {applyMiddleware, combineReducers, createStore} from "redux";
 import {appReducer} from "./app";
 import {filmsReducer} from "./films";
 import {genreFilterReducer} from "./genres";
-import {movieListReducer} from "./catalog";
+import {catalogReducer} from "./catalog";
 import {compose} from "recompose";
 import thunk from "redux-thunk";
 import StoreNameSpace from "./store-name-space";
@@ -14,7 +14,7 @@ const rootReducer = combineReducers({
   [StoreNameSpace.APP]: appReducer,
   [StoreNameSpace.FILMS]: filmsReducer,
   [StoreNameSpace.GENRES]: genreFilterReducer,
-  [StoreNameSpace.MOVIE_LIST]: movieListReducer
+  [StoreNameSpace.CATALOG]: catalogReducer
 });
 
 const configuredStore = createStore(

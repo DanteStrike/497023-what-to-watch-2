@@ -6,19 +6,15 @@ import GenreList from "../genre-list/genre-list.jsx";
 import MoviesList from "../movies-list/movies-list.jsx";
 import ShowMoreButton from "../show-more-button/show-more-button.jsx";
 
-import {movieListActions, movieListSelectors} from "../../reducers/catalog/index.js";
+import {catalogActions, catalogSelectors} from "../../reducers/catalog/index.js";
 import {genreFilterActions, genreFilterSelectors} from "../../reducers/genres/index.js";
 import {filmsSelectors} from "../../reducers/films/index.js";
-import {GenreFilter} from "../../utils/enum.js";
+import {catalogAllFilmsConfig} from "../../configs/catalog-all-films-config";
 
 
 class CatalogAllFilms extends React.PureComponent {
   constructor(props) {
     super(props);
-
-    this._defaultFilter = GenreFilter.ALL_GENRE;
-    this._defaultItemsAmount = 8;
-    this._increaseAmountRate = 20;
 
     this._showMoreItems = this._showMoreItems.bind(this);
   }
@@ -26,22 +22,22 @@ class CatalogAllFilms extends React.PureComponent {
   componentDidMount() {
     const {maxItemsAmount, setCurrentFilter, setDisplayedItems} = this.props;
 
-    setCurrentFilter(this._defaultFilter);
-    setDisplayedItems(this._defaultItemsAmount, maxItemsAmount);
+    setCurrentFilter(catalogAllFilmsConfig.defaultGenre);
+    setDisplayedItems(catalogAllFilmsConfig.defaultItemsAmount, maxItemsAmount);
   }
 
   componentDidUpdate(prevProps) {
     const {currentFilter, maxItemsAmount, setDisplayedItems} = this.props;
 
     if (prevProps.currentFilter !== currentFilter) {
-      setDisplayedItems(this._defaultItemsAmount, maxItemsAmount);
+      setDisplayedItems(catalogAllFilmsConfig.defaultItemsAmount, maxItemsAmount);
     }
   }
 
   _showMoreItems() {
     const {itemsAmount, maxItemsAmount, showMoreItems} = this.props;
 
-    showMoreItems(itemsAmount, this._increaseAmountRate, maxItemsAmount);
+    showMoreItems(itemsAmount, catalogAllFilmsConfig.increaseAmountRate, maxItemsAmount);
   }
 
   render() {
@@ -81,15 +77,15 @@ CatalogAllFilms.propTypes = {
 
 const mapStateToProps = (store) => ({
   currentFilter: genreFilterSelectors.getCurrentFilter(store),
-  itemsAmount: movieListSelectors.getDisplayedFilmsAmount(store),
+  itemsAmount: catalogSelectors.getDisplayedFilmsAmount(store),
   maxItemsAmount: genreFilterSelectors.getCurrentFilterFilmsAmount(store),
   filmsCards: filmsSelectors.getDisplayedCardInfo(store),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   setCurrentFilter: (genre) => dispatch(genreFilterActions.setCurrentFilter(genre)),
-  setDisplayedItems: (amount, maxAmount) => dispatch(movieListActions.setDisplayedFilmsAmount(amount, maxAmount)),
-  showMoreItems: (currentAmount, increaseRate, maxAmount) => dispatch(movieListActions.showMoreFilms(currentAmount, increaseRate, maxAmount))
+  setDisplayedItems: (amount, maxAmount) => dispatch(catalogActions.setDisplayedFilmsAmount(amount, maxAmount)),
+  showMoreItems: (currentAmount, increaseRate, maxAmount) => dispatch(catalogActions.showMoreFilms(currentAmount, increaseRate, maxAmount))
 });
 
 

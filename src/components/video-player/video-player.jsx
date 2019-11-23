@@ -30,7 +30,7 @@ class VideoPlayer extends React.PureComponent {
     if (isActivePlayer) {
       video.play();
     } else {
-      video.pause();
+      // video.pause();
       video.currentTime = 0;
       video.load();
     }

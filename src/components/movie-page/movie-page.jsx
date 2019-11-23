@@ -8,7 +8,6 @@ import MoviePoster from "../movie-poster/movie-poster.jsx";
 import MovieControlPanel from "../movie-control-panel/movie-control-panel.jsx";
 import {filmsSelectors} from "../../reducers/films";
 import {connect} from "react-redux";
-import Catalog from "../catalog/catalog.jsx";
 import CatalogLikeThis from "../catalog-like-this/catalog-like-this.jsx";
 
 const MoviePage = (props) => {

@@ -1,6 +1,6 @@
 import {createSelector} from "reselect";
 import {genreFilterSelectors} from "../genres/index.js";
-import {movieListSelectors} from "../catalog/index.js";
+import {catalogSelectors} from "../catalog/index.js";
 import StoreNameSpace from "../store-name-space";
 
 
@@ -30,12 +30,14 @@ const getCurrentCardsInfo = createSelector(
 
 const getDisplayedCardInfo = createSelector(
     getCurrentCardsInfo,
-    movieListSelectors.getDisplayedFilmsAmount,
+    catalogSelectors.getDisplayedFilmsAmount,
     (currentCards, amount) => currentCards.slice(0, amount)
 );
 
 const getFilmByCurrentID = (store, id) => getFilmsByIDs(store)[id];
-const getLikeThisCardsInfo = (store, id) => getCurrentCardsInfo(store).filter((card) => card.id !== id).slice(0, movieListSelectors.getDisplayedFilmsAmount(store));
+const getLikeThisCardsInfo = (store, id) => getCurrentCardsInfo(store)
+  .filter((card) => card.id !== id)
+  .slice(0, catalogSelectors.getDisplayedFilmsAmount(store));
 
 export default {
   getStoreSpace,

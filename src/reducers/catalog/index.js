@@ -1,3 +1,3 @@
-export {default as movieListActions} from "./actions.js";
-export {default as movieListSelectors} from "./selectors.js";
-export {default as movieListReducer} from "./reducers.js";
+export {default as catalogActions} from "./actions.js";
+export {default as catalogSelectors} from "./selectors.js";
+export {default as catalogReducer} from "./reducers.js";

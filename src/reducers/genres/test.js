@@ -7,7 +7,7 @@ import reducer from "./reducers.js";
 import mocks from "./mocks";
 
 
-describe(`Reducers: GenreFilter utils`, () => {
+describe(`Reducers: Genres utils`, () => {
   it(`Util collectState`, () => {
     const filmsGenres = [{
       id: 1,
@@ -45,7 +45,7 @@ describe(`Reducers: GenreFilter utils`, () => {
   });
 });
 
-describe(`Reducers: GenreFilter actions`, () => {
+describe(`Reducers: Genres actions`, () => {
   it(`Action setupFilterState`, () => {
     const spyCollectState = jest.spyOn(utils, `collectState`);
 
@@ -70,7 +70,7 @@ describe(`Reducers: GenreFilter actions`, () => {
   });
 });
 
-describe(`Reducers: GenreFilter reducers`, () => {
+describe(`Reducers: Genres reducers`, () => {
   it(`Reducer filterReducer`, () => {
     const action = {
       type: types.SET_CURRENT_FILTER,
@@ -121,7 +121,7 @@ describe(`Reducers: GenreFilter reducers`, () => {
   });
 });
 
-describe(`Reducers: GenreFilter selectors`, () => {
+describe(`Reducers: Genres selectors`, () => {
   it(`Selector getStoreSpace`, () => {
     expect(selectors.getStoreSpace(mocks.store)).toEqual(mocks.store[StoreNameSpace.GENRES]);
   });

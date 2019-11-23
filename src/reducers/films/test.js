@@ -120,7 +120,7 @@ describe(`Reducers: Films selectors`, () => {
   });
 
   it(`Selector getCurrentCardsInfo`, () => {
-    expect(selectors.getCurrentCardsInfo.resultFunc([1, 3], mocks.store[StoreNameSpace.FILMS].data.byIDs, 2)).toEqual(
+    expect(selectors.getCurrentCardsInfo.resultFunc([1, 3], mocks.store[StoreNameSpace.FILMS].data.byIDs)).toEqual(
         [{
           id: 1,
           name: `filmOne`,
@@ -138,18 +138,7 @@ describe(`Reducers: Films selectors`, () => {
         }]
     );
 
-    expect(selectors.getCurrentCardsInfo.resultFunc([1, 3], mocks.store[StoreNameSpace.FILMS].data.byIDs, 1)).toEqual(
-        [{
-          id: 1,
-          name: `filmOne`,
-          preview: {
-            image: `img/filmOne.jpg`,
-            videoSrc: `https://some-linkOne`
-          }
-        }]
-    );
-
-    expect(selectors.getCurrentCardsInfo.resultFunc([3], mocks.store[StoreNameSpace.FILMS].data.byIDs, 1)).toEqual([{
+    expect(selectors.getCurrentCardsInfo.resultFunc([3], mocks.store[StoreNameSpace.FILMS].data.byIDs)).toEqual([{
       id: 3,
       name: `filmTwo`,
       preview: {
@@ -158,7 +147,17 @@ describe(`Reducers: Films selectors`, () => {
       }
     }]);
 
-    expect(selectors.getCurrentCardsInfo.resultFunc([], mocks.store[StoreNameSpace.FILMS].data.byIDs, 0)).toEqual([]);
+    expect(selectors.getCurrentCardsInfo.resultFunc([], mocks.store[StoreNameSpace.FILMS].data.byIDs)).toEqual([]);
+  });
+
+  it(`Selector getDisplayedCardInfo`, () => {
+    expect(selectors.getDisplayedCardInfo.resultFunc([1, 2, 3, 4, 5], 2)).toEqual([1, 2]);
+    expect(selectors.getDisplayedCardInfo.resultFunc([1, 2, 3, 4, 5], 0)).toEqual([]);
+    expect(selectors.getDisplayedCardInfo.resultFunc([1, 2, 3, 4, 5], 5)).toEqual([1, 2, 3, 4, 5]);
+  });
+
+  it(`Selector getFilmByCurrentID`, () => {
+    expect(selectors.getFilmByCurrentID(mocks.store, 3)).toEqual(mocks.adaptedFilmsData[1]);
   });
 
   it(`Selector getFilmsAmount`, () => {

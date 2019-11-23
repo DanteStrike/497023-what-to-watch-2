@@ -4,20 +4,21 @@ import {connect} from "react-redux";
 import MoviesList from "../movies-list/movies-list.jsx";
 import {genreFilterActions} from "../../reducers/genres/index.js";
 import {filmsSelectors} from "../../reducers/films/index.js";
-import {movieListActions} from "../../reducers/catalog/index.js";
+import {catalogActions} from "../../reducers/catalog/index.js";
 import {genreFilterSelectors} from "../../reducers/genres/index";
+import {catalogLikeThisConfig} from "../../configs/catalog-like-this";
 
 
 class CatalogLikeThis extends React.PureComponent {
   componentDidMount() {
     const {genre, maxItemsAmount, setDisplayedItems, setCurrentFilter} = this.props;
     setCurrentFilter(genre);
-    setDisplayedItems(4, maxItemsAmount - 1);
+    setDisplayedItems(catalogLikeThisConfig.defaultItemsAmount, maxItemsAmount - 1);
   }
 
   componentDidUpdate() {
     const {maxItemsAmount, setDisplayedItems} = this.props;
-    setDisplayedItems(4, maxItemsAmount - 1);
+    setDisplayedItems(catalogLikeThisConfig.defaultItemsAmount, maxItemsAmount - 1);
   }
 
   render() {
@@ -56,7 +57,7 @@ const mapStateToProps = (store, props) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   setCurrentFilter: (genre) => dispatch(genreFilterActions.setCurrentFilter(genre)),
-  setDisplayedItems: (amount, maxAmount) => dispatch(movieListActions.setDisplayedFilmsAmount(amount, maxAmount)),
+  setDisplayedItems: (amount, maxAmount) => dispatch(catalogActions.setDisplayedFilmsAmount(amount, maxAmount)),
 });
 
 

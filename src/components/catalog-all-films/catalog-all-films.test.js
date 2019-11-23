@@ -1,24 +1,23 @@
 import React from "react";
 import renderer from "react-test-renderer";
+import {BrowserRouter as Router} from 'react-router-dom';
 
-import {createStore} from "redux";
 import {Provider} from "react-redux";
+import {createStore} from "redux";
 
 import {initStore} from "../../mocks/store.js";
 import {createNodeMock} from "../../mocks/node-mock.js";
-import Catalog from "./catalog.jsx";
+import CatalogAllFilms from "./catalog-all-films";
 
 
-it(`Render correctly Catalog component`, () => {
+it(`Render correctly CatalogLikeThis component`, () => {
   const store = createStore(() => initStore);
   const component = renderer
     .create(
         <Provider store={store}>
-          <Catalog
-            defaultFilter={`any`}
-            defaultItemsAmount={10}
-            increaseAmountRate={10}
-          />
+          <Router>
+            <CatalogAllFilms/>
+          </Router>
         </Provider>,
         {
           createNodeMock
