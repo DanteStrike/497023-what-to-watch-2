@@ -7,7 +7,12 @@ import StoreNameSpace from "../store-name-space";
 const getStoreSpace = (store) => store[StoreNameSpace.FILMS];
 const getAllIDs = (store) => getStoreSpace(store).data.allIDs;
 const getFilmsByIDs = (store) => getStoreSpace(store).data.byIDs;
+const getPromoID = (store) => getStoreSpace(store).promo.filmID;
+const getPromoFilm = (store) => getFilmsByIDs(store)[getPromoID(store)];
 const getFilmsAmount = (store) => getAllIDs(store).length;
+const getCurFilmID = (_, {curFilmID}) => curFilmID;
+const getFilmByCurID = (store, {curFilmID}) => getFilmsByIDs(store)[curFilmID];
+const getCurFilmGenre = (store, {curFilmID}) => getFilmByCurID(store, {curFilmID}).genre;
 
 const getAllFilmsGenres = createSelector(
     getAllIDs,
@@ -34,13 +39,23 @@ const getDisplayedCardInfo = createSelector(
     (currentCards, amount) => currentCards.slice(0, amount)
 );
 
-const getFilmByCurrentID = (store, id) => getFilmsByIDs(store)[id];
-const getLikeThisCardsInfo = (store, id) => getCurrentCardsInfo(store)
-  .filter((card) => card.id !== id)
-  .slice(0, catalogSelectors.getDisplayedFilmsAmount(store));
+const getFilmByCurrentID = createSelector(
+    getFilmsByIDs,
+    getCurFilmID,
+    (films, id) => films[id]
+);
+const getLikeThisCardsInfo = createSelector(
+    getCurrentCardsInfo,
+    getCurFilmID,
+    catalogSelectors.getDisplayedFilmsAmount,
+    (currentCards, curFilmID, amount) => (amount === 0) ? [] : currentCards
+      .filter((card) => card.id !== curFilmID)
+      .slice(0, amount)
+);
 
 export default {
   getStoreSpace,
+  getCurFilmID,
   getAllIDs,
   getFilmsByIDs,
   getFilmsAmount,
@@ -48,5 +63,9 @@ export default {
   getCurrentCardsInfo,
   getDisplayedCardInfo,
   getLikeThisCardsInfo,
-  getFilmByCurrentID
+  getFilmByCurrentID,
+  getFilmByCurID,
+  getCurFilmGenre,
+  getPromoID,
+  getPromoFilm
 };

@@ -8,11 +8,14 @@ exports[`Render correctly MoviePreview component 1`] = `
     className="movie-card__bg"
     style={
       Object {
-        "backgroundColor": undefined,
+        "backgroundColor": "#FFF",
       }
     }
   >
-    <img />
+    <img
+      alt="any"
+      src="url"
+    />
   </div>
   <h1
     className="visually-hidden"
@@ -69,7 +72,9 @@ exports[`Render correctly MoviePreview component 1`] = `
         className="movie-card__poster"
       >
         <img
+          alt="any"
           height="327"
+          src="url"
           width="218"
         />
       </div>
@@ -78,16 +83,22 @@ exports[`Render correctly MoviePreview component 1`] = `
       >
         <h2
           className="movie-card__title"
-        />
+        >
+          any
+        </h2>
         <p
           className="movie-card__meta"
         >
           <span
             className="movie-card__genre"
-          />
+          >
+            any
+          </span>
           <span
             className="movie-card__year"
-          />
+          >
+            9999
+          </span>
         </p>
         <div
           className="movie-card__buttons"
@@ -128,7 +139,7 @@ exports[`Render correctly MoviePreview component 1`] = `
           </button>
           <a
             className="btn movie-card__button"
-            href="/films/undefined/add-review"
+            href="/films/1/add-review"
             onClick={[Function]}
           >
             Add review

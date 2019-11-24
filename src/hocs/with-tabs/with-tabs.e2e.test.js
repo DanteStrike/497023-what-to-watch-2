@@ -65,4 +65,10 @@ describe(`HoC withTabs should work correctly`, () => {
     expect(renderedComponent.find(ComponentOne).props().any).toEqual(`any`);
     expect(renderedComponent.find(ComponentOne).props().some).toEqual(`some`);
   });
+
+  it(`Should reset state on resetTabs`, () => {
+    component.setState({curTabID: 2});
+    component.instance()._resetTabs();
+    expect(component.state().curTabID).toBe(0);
+  });
 });

@@ -6,19 +6,18 @@ import {genreFilterActions} from "../../reducers/genres/index.js";
 import {filmsSelectors} from "../../reducers/films/index.js";
 import {catalogActions} from "../../reducers/catalog/index.js";
 import {genreFilterSelectors} from "../../reducers/genres/index";
-import {catalogLikeThisConfig} from "../../configs/catalog-like-this";
+import {catalogLikeThisConfig} from "../../configs/catalog-like-this-config";
 
 
 class CatalogLikeThis extends React.PureComponent {
   componentDidMount() {
-    const {genre, maxItemsAmount, setDisplayedItems, setCurrentFilter} = this.props;
-    setCurrentFilter(genre);
-    setDisplayedItems(catalogLikeThisConfig.defaultItemsAmount, maxItemsAmount - 1);
+    const {curFilmGenre, maxItemsAmount, initCatalogLikeThis} = this.props;
+    initCatalogLikeThis(curFilmGenre, catalogLikeThisConfig.defaultItemsAmount, maxItemsAmount - 1);
   }
 
   componentDidUpdate() {
-    const {maxItemsAmount, setDisplayedItems} = this.props;
-    setDisplayedItems(catalogLikeThisConfig.defaultItemsAmount, maxItemsAmount - 1);
+    const {curFilmGenre, maxItemsAmount, initCatalogLikeThis} = this.props;
+    initCatalogLikeThis(curFilmGenre, catalogLikeThisConfig.defaultItemsAmount, maxItemsAmount - 1);
   }
 
   render() {
@@ -34,11 +33,10 @@ class CatalogLikeThis extends React.PureComponent {
 }
 
 CatalogLikeThis.propTypes = {
-  id: PropTypes.number.isRequired,
-  genre: PropTypes.string.isRequired,
+  curFilmID: PropTypes.number.isRequired,
+  curFilmGenre: PropTypes.string.isRequired,
   maxItemsAmount: PropTypes.number.isRequired,
-  setDisplayedItems: PropTypes.func.isRequired,
-  setCurrentFilter: PropTypes.func.isRequired,
+  initCatalogLikeThis: PropTypes.func.isRequired,
 
   filmsCards: PropTypes.arrayOf(PropTypes.exact({
     id: PropTypes.number.isRequired,
@@ -51,13 +49,16 @@ CatalogLikeThis.propTypes = {
 };
 
 const mapStateToProps = (store, props) => ({
-  filmsCards: filmsSelectors.getLikeThisCardsInfo(store, props.id),
+  curFilmGenre: filmsSelectors.getCurFilmGenre(store, props),
+  filmsCards: filmsSelectors.getLikeThisCardsInfo(store, props),
   maxItemsAmount: genreFilterSelectors.getCurrentFilterFilmsAmount(store),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setCurrentFilter: (genre) => dispatch(genreFilterActions.setCurrentFilter(genre)),
-  setDisplayedItems: (amount, maxAmount) => dispatch(catalogActions.setDisplayedFilmsAmount(amount, maxAmount)),
+  initCatalogLikeThis: (genre, amount, maxAmount) => {
+    dispatch(genreFilterActions.setCurrentFilter(genre));
+    dispatch(catalogActions.setDisplayedFilmsAmount(amount, maxAmount));
+  }
 });
 
 

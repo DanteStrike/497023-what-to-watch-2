@@ -10,11 +10,16 @@ const withTabs = (tabs) => (WrappedComponent) => {
       };
 
       this._renderTabs = this._renderTabs.bind(this);
+      this._resetTabs = this._resetTabs.bind(this);
     }
 
     _navLinkClickHandler(evt, id) {
       evt.preventDefault();
       this.setState({curTabID: id});
+    }
+
+    _resetTabs() {
+      this.setState({curTabID: 0});
     }
 
     _renderTabs(film) {
@@ -41,6 +46,7 @@ const withTabs = (tabs) => (WrappedComponent) => {
       return (
         <WrappedComponent
           {...this.props}
+          resetTabs={this._resetTabs}
           renderTabs={(film) => this._renderTabs(film)}
         />
       );

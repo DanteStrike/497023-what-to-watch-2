@@ -10,17 +10,12 @@ import {Provider} from "react-redux";
 
 it(`Render correctly MoviePage component`, () => {
   const store = createStore(() => loadedStore);
-  const matchMock = {
-    params: {
-      id: `1`
-    }
-  };
   const component = renderer
     .create(
         <Provider store={store}>
           <Router>
             <MoviePage
-              match={matchMock}
+              curFilmID={1}
             />
           </Router>
         </Provider>

@@ -8,7 +8,7 @@ it(`Render correctly MovieBackground component`, () => {
     .create(
         <MovieBackground
           name={`any`}
-          color={`color`}
+          backgroundColor={`color`}
           image={`url`}
         />
     ).toJSON();

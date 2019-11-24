@@ -54,7 +54,10 @@ const normalizedFilmsData = {
 
 const store = {
   [StoreNameSpace.FILMS]: {
-    data: normalizedFilmsData
+    data: normalizedFilmsData,
+    promo: {
+      filmID: 3
+    }
   }
 };
 

@@ -44,7 +44,9 @@ const App = (props) => {
       <Route exact path="/" component={MainPage}/>
       <Route exact path="/login" component={SignInPage}/>
       <Route exact path="/mylist" component={MyListPage}/>
-      <Route exact path="/films/:id" component={MoviePageWrapped}/>
+      <Route exact path="/films/:id" component={({match: {params: {id}}}) => {
+        return (<MoviePageWrapped curFilmID={Number(id)}/>);
+      }}/>
       <Route component={PageNotFound}/>
     </Switch>
   );

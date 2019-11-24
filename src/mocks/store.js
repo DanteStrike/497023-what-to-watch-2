@@ -10,6 +10,19 @@ export const initStore = {
     data: {
       allIDs: [],
       byIDs: {}
+    },
+
+    promo: {
+      filmID: null
+    }
+  },
+
+  [StoreNameSpace.COMMENTS]: {
+    data: {
+      isReady: false,
+      isFetching: false,
+      filmID: null,
+      comments: []
     }
   },
 
@@ -40,6 +53,10 @@ export const loadedStore = {
         "3": films[1]
       },
       allIDs: [1, 3]
+    },
+
+    promo: {
+      filmID: 3
     }
   },
 

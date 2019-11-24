@@ -9,11 +9,14 @@ Array [
       className="movie-card__bg"
       style={
         Object {
-          "backgroundColor": undefined,
+          "backgroundColor": "#000000",
         }
       }
     >
-      <img />
+      <img
+        alt="filmTwo"
+        src="img/filmTwo.jpg"
+      />
     </div>
     <h1
       className="visually-hidden"
@@ -70,7 +73,9 @@ Array [
           className="movie-card__poster"
         >
           <img
+            alt="filmTwo"
             height="327"
+            src="img/filmTwo-poster.jpg"
             width="218"
           />
         </div>
@@ -79,16 +84,22 @@ Array [
         >
           <h2
             className="movie-card__title"
-          />
+          >
+            filmTwo
+          </h2>
           <p
             className="movie-card__meta"
           >
             <span
               className="movie-card__genre"
-            />
+            >
+              genreTwo
+            </span>
             <span
               className="movie-card__year"
-            />
+            >
+              2020
+            </span>
           </p>
           <div
             className="movie-card__buttons"
@@ -129,7 +140,7 @@ Array [
             </button>
             <a
               className="btn movie-card__button"
-              href="/films/undefined/add-review"
+              href="/films/3/add-review"
               onClick={[Function]}
             >
               Add review
@@ -164,10 +175,43 @@ Array [
             All genre
           </a>
         </li>
+        <li
+          className="catalog__genres-item "
+        >
+          <a
+            className="catalog__genres-link"
+            href="#"
+            onClick={[Function]}
+          >
+            genreOne
+          </a>
+        </li>
+        <li
+          className="catalog__genres-item "
+        >
+          <a
+            className="catalog__genres-link"
+            href="#"
+            onClick={[Function]}
+          >
+            genreTwo
+          </a>
+        </li>
       </ul>
       <div
         className="catalog__movies-list"
       />
+      <div
+        className="catalog__more"
+      >
+        <button
+          className="catalog__button"
+          onClick={[Function]}
+          type="button"
+        >
+          Show more
+        </button>
+      </div>
     </section>
     <footer
       className="page-footer"

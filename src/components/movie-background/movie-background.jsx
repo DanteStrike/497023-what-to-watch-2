@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 
 
 const MovieBackground = (props) => {
-  const {name, image, color} = props;
+  const {name, image, backgroundColor} = props;
 
   return (
-    <div className="movie-card__bg" style={{backgroundColor: color}}>
+    <div className="movie-card__bg" style={{backgroundColor}}>
       <img src={image} alt={name}/>
     </div>
   );
@@ -15,7 +15,7 @@ const MovieBackground = (props) => {
 MovieBackground.propTypes = {
   name: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired
+  backgroundColor: PropTypes.string.isRequired
 };
 
 
