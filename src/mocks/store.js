@@ -18,12 +18,7 @@ export const initStore = {
   },
 
   [StoreNameSpace.COMMENTS]: {
-    data: {
-      isReady: false,
-      isFetching: false,
-      filmID: null,
-      comments: []
-    }
+    curFilmComments: []
   },
 
   [StoreNameSpace.GENRES]: {
@@ -58,6 +53,21 @@ export const loadedStore = {
     promo: {
       filmID: 3
     }
+  },
+
+  [StoreNameSpace.COMMENTS]: {
+    curFilmComments: [
+      {
+        id: 1,
+        user: {
+          id: 4,
+          name: `Kate Muir`,
+        },
+        rating: 8.9,
+        comment: `Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.`,
+        date: `2019-05-08T14:13:56.569Z`
+      }
+    ]
   },
 
   [StoreNameSpace.GENRES]: {
