@@ -4,7 +4,7 @@ import {formatTimeToHM} from "../../utils/time/time";
 
 
 const MoviePageDetails = (props) => {
-  const {director, starring, runTime, genre, released} = props;
+  const {filmDetails: {director, starring, runTime, genre, released}} = props;
 
   return (
     <div className="movie-card__text movie-card__row">
@@ -45,11 +45,13 @@ const MoviePageDetails = (props) => {
 };
 
 MoviePageDetails.propTypes = {
-  director: PropTypes.string.isRequired,
-  starring: PropTypes.arrayOf(PropTypes.string).isRequired,
-  runTime: PropTypes.number.isRequired,
-  genre: PropTypes.string.isRequired,
-  released: PropTypes.number.isRequired
+  filmDetails: PropTypes.shape({
+    director: PropTypes.string.isRequired,
+    starring: PropTypes.arrayOf(PropTypes.string).isRequired,
+    runTime: PropTypes.number.isRequired,
+    genre: PropTypes.string.isRequired,
+    released: PropTypes.number.isRequired
+  }).isRequired,
 };
 
 

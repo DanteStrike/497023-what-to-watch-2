@@ -21,7 +21,7 @@ const getRatingLevel = (rate) => {
 };
 
 const MoviePageOverview = (props) => {
-  const {rating, scoresCount, description, director, starring} = props;
+  const {filmOverview: {rating, scoresCount, description, director, starring}} = props;
 
   return (
     <Fragment>
@@ -49,11 +49,13 @@ const MoviePageOverview = (props) => {
 };
 
 MoviePageOverview.propTypes = {
-  rating: PropTypes.number.isRequired,
-  scoresCount: PropTypes.number.isRequired,
-  description: PropTypes.string.isRequired,
-  director: PropTypes.string.isRequired,
-  starring: PropTypes.arrayOf(PropTypes.string).isRequired
+  filmOverview: PropTypes.shape({
+    rating: PropTypes.number.isRequired,
+    scoresCount: PropTypes.number.isRequired,
+    description: PropTypes.string.isRequired,
+    director: PropTypes.string.isRequired,
+    starring: PropTypes.arrayOf(PropTypes.string).isRequired
+  }).isRequired
 };
 
 

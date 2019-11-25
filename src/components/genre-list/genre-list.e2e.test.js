@@ -6,7 +6,7 @@ import {GenreList} from "./genre-list.jsx";
 Enzyme.configure({adapter: new Adapter()});
 
 describe(`GenreList should work correctly`, () => {
-  it(``, () => {
+  it(`Should switch genre correctly`, () => {
     const preventDefault = jest.fn();
     const onGenreChange = jest.fn();
     const component = shallow(

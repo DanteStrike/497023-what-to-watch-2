@@ -15,9 +15,12 @@ class CatalogLikeThis extends React.PureComponent {
     initCatalogLikeThis(curFilmGenre, catalogLikeThisConfig.defaultItemsAmount, maxItemsAmount - 1);
   }
 
-  componentDidUpdate() {
-    const {curFilmGenre, maxItemsAmount, initCatalogLikeThis} = this.props;
-    initCatalogLikeThis(curFilmGenre, catalogLikeThisConfig.defaultItemsAmount, maxItemsAmount - 1);
+  componentDidUpdate(prevProps) {
+    const {curFilmID, curFilmGenre, maxItemsAmount, initCatalogLikeThis} = this.props;
+
+    if (curFilmID !== prevProps.curFilmID) {
+      initCatalogLikeThis(curFilmGenre, catalogLikeThisConfig.defaultItemsAmount, maxItemsAmount - 1);
+    }
   }
 
   render() {

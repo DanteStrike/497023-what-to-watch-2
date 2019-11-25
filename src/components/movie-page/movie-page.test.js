@@ -6,6 +6,7 @@ import MoviePage from "./movie-page.jsx";
 import {loadedStore} from "../../mocks/store.js";
 import {createStore} from "redux";
 import {Provider} from "react-redux";
+import {commentsOperations} from "../../reducers/comments/index.js";
 
 
 it(`Render correctly MoviePage component`, () => {

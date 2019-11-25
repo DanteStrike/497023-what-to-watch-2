@@ -9,7 +9,7 @@ import ShowMoreButton from "../show-more-button/show-more-button.jsx";
 import {catalogActions, catalogSelectors} from "../../reducers/catalog/index.js";
 import {genreFilterActions, genreFilterSelectors} from "../../reducers/genres/index.js";
 import {filmsSelectors} from "../../reducers/films/index.js";
-import {catalogAllFilmsConfig} from "../../configs/catalog-all-films-config";
+import {catalogAllFilmsConfig} from "../../configs/catalog-all-films-config.js";
 
 
 class CatalogAllFilms extends React.PureComponent {
