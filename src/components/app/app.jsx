@@ -20,12 +20,15 @@ import {appSelectors} from "../../reducers/app";
 const MoviePageTabs = [
   {
     name: `Overview`,
+    requiredPropName: `filmOverview`,
     output: MoviePageOverview
   }, {
     name: `Details`,
+    requiredPropName: `filmDetails`,
     output: MoviePageDetails
   }, {
     name: `Reviews`,
+    requiredPropName: `filmReviews`,
     output: MoviePageReviews
   }
 ];

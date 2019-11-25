@@ -7,12 +7,14 @@ import {catalogReducer} from "./catalog";
 import {compose} from "recompose";
 import thunk from "redux-thunk";
 import StoreNameSpace from "./store-name-space";
+import {commentsReducer} from "./comments";
 
 const api = configureAPI((...args) => configuredStore.dispatch(...args));
 
 const rootReducer = combineReducers({
   [StoreNameSpace.APP]: appReducer,
   [StoreNameSpace.FILMS]: filmsReducer,
+  [StoreNameSpace.COMMENTS]: commentsReducer,
   [StoreNameSpace.GENRES]: genreFilterReducer,
   [StoreNameSpace.CATALOG]: catalogReducer
 });

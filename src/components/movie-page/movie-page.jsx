@@ -9,18 +9,25 @@ import MovieControlPanel from "../movie-control-panel/movie-control-panel.jsx";
 import {filmsSelectors} from "../../reducers/films";
 import {connect} from "react-redux";
 import CatalogLikeThis from "../catalog-like-this/catalog-like-this.jsx";
+import {commentsOperations, commentsSelectors} from "../../reducers/comments";
 
 class MoviePage extends React.PureComponent {
+  componentDidMount() {
+    const {curFilmID, loadCurFilmComments} = this.props;
+    loadCurFilmComments(curFilmID);
+  }
+
   componentDidUpdate(prevProps) {
-    const {curFilmID, resetTabs} = this.props;
+    const {curFilmID, resetTabs, loadCurFilmComments} = this.props;
 
     if (prevProps.curFilmID !== curFilmID) {
       resetTabs();
+      loadCurFilmComments(curFilmID);
     }
   }
 
   render() {
-    const {renderTabs, film} = this.props;
+    const {renderTabs, film, comments} = this.props;
 
     return (
       <Fragment>
@@ -50,7 +57,7 @@ class MoviePage extends React.PureComponent {
                 name={film.name}
                 image={film.posterImage}
               />
-              {renderTabs && renderTabs(film)}
+              {renderTabs && renderTabs([film, film, comments])}
             </div>
           </div>
         </section>
@@ -78,15 +85,29 @@ MoviePage.propTypes = {
     background: PropTypes.exact({
       color: PropTypes.string.isRequired,
       image: PropTypes.string.isRequired,
-    }),
+    }).isRequired,
     released: PropTypes.number.isRequired
   }),
-  setCurrentPageFilmID: PropTypes.func
+  comments: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    user: PropTypes.shape({
+      name: PropTypes.string.isRequired
+    }),
+    rating: PropTypes.number.isRequired,
+    comment: PropTypes.string.isRequired,
+    date: PropTypes.number.isRequired
+  })).isRequired,
+  loadCurFilmComments: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (store, props) => ({
-  film: filmsSelectors.getFilmByCurrentID(store, props)
+  film: filmsSelectors.getFilmByCurrentID(store, props),
+  comments: commentsSelectors.getCurFilmComments(store)
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  loadCurFilmComments: (curFilmID) => dispatch(commentsOperations.loadCurFilmComments(curFilmID))
 });
 
 export {MoviePage};
-export default connect(mapStateToProps)(MoviePage);
+export default connect(mapStateToProps, mapDispatchToProps)(MoviePage);
