@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Player from "./player.jsx";
+import {Player} from "./player.jsx";
 
 
 it(`Render correctly Player component`, () => {
@@ -13,6 +13,11 @@ it(`Render correctly Player component`, () => {
           renderTimeBar={jest.fn()}
           renderPlayButton={jest.fn()}
           renderFullScreenButton={jest.fn()}
+          closeVideoPlayer={jest.fn()}
+          video={{
+            poster: `image`,
+            src: `url`
+          }}
         />
     ).toJSON();
 

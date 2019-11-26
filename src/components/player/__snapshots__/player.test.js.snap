@@ -7,10 +7,11 @@ exports[`Render correctly Player component 1`] = `
   <video
     className="player__video"
     poster="image"
-    src="source"
+    src="url"
   />
   <button
     className="player__exit"
+    onClick={[MockFunction]}
     type="button"
   >
     Exit

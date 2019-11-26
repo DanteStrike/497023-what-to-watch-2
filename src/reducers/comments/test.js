@@ -1,6 +1,5 @@
 import types from "./types.js";
 import StoreNameSpace from "../store-name-space";
-import {loadedStore} from "../../mocks/store.js";
 import utils from "./utils.js";
 import actions from "./actions.js";
 import operations from "./operations.js";
@@ -9,6 +8,7 @@ import selectors from "./selectors.js";
 import {commentsRAW, comments} from "../../mocks/comments.js";
 import configureAPI from "../../server/configure-API.js";
 import MockAdapter from "axios-mock-adapter";
+import * as storeMock from "../../mocks/store.js";
 
 describe(`Reducers: Comments utils`, () => {
   describe(`Transform RAW server data`, () => {
@@ -70,9 +70,7 @@ describe(`Reducers: Comments operations`, () => {
 });
 
 describe(`Reducers: Comments reducer`, () => {
-  const initState = {
-    curFilmComments: []
-  };
+  const initState = storeMock.initStore[StoreNameSpace.COMMENTS];
 
   describe(`Reducer loadCommentsReducer`, () => {
     it(`Should return state on default`, () => {
@@ -94,6 +92,6 @@ describe(`Reducers: Comments reducer`, () => {
 
 describe(`Reducers: Comments selector`, () => {
   it(`Selector getCurFilmComments`, () => {
-    expect(selectors.getCurFilmComments(loadedStore)).toEqual(loadedStore[StoreNameSpace.COMMENTS].curFilmComments);
+    expect(selectors.getCurFilmComments(storeMock.loadedStore)).toEqual(storeMock.loadedStore[StoreNameSpace.COMMENTS].curFilmComments);
   });
 });

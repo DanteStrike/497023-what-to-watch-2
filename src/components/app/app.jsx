@@ -15,6 +15,7 @@ import PageNotFound from "../page-not-found/page-not-found.jsx";
 
 import withTabs from "../../hocs/with-tabs/with-tabs.jsx";
 import {appSelectors} from "../../reducers/app";
+import Player from "../player/player.jsx";
 
 
 const MoviePageTabs = [
@@ -36,10 +37,14 @@ const MoviePageTabs = [
 const MoviePageWrapped = withTabs(MoviePageTabs)(MoviePage);
 
 const App = (props) => {
-  const {isAppReady} = props;
+  const {isAppReady, videoPlayerID} = props;
 
   if (!isAppReady) {
     return null;
+  }
+
+  if (videoPlayerID !== -1) {
+    return (<Player preload={`metadata`}/>);
   }
 
   return (
@@ -56,11 +61,14 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  isAppReady: PropTypes.bool.isRequired
+  isAppReady: PropTypes.bool.isRequired,
+  videoPlayerID: PropTypes.number.isRequired
 };
 
 const mapStateToProps = (store) => ({
-  isAppReady: appSelectors.getIsReady(store)
+  isAppReady: appSelectors.getIsReady(store),
+  videoPlayerID: appSelectors.getVideoPlayerFilmID(store)
 });
 
+export {App};
 export default connect(mapStateToProps)(App);

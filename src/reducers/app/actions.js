@@ -5,7 +5,18 @@ const setAppIsReady = (isAppReady) => ({
   payload: isAppReady
 });
 
+const openVideoPlayer = (filmID) => ({
+  type: types.OPEN_VIDEO_PLAYER,
+  payload: filmID
+});
+
+const closeVideoPlayer = () => ({
+  type: types.CLOSE_VIDEO_PLAYER
+});
+
 export default {
-  setAppIsReady
+  setAppIsReady,
+  openVideoPlayer,
+  closeVideoPlayer
 };
 
