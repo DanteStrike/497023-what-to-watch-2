@@ -23,4 +23,17 @@ describe(`GenreList should work correctly`, () => {
     expect(onGenreChange).toBeCalledTimes(1);
     expect(onGenreChange).toHaveBeenNthCalledWith(1, `others`);
   });
+
+  it(`Should render max 9 genres + "All genre"`, () => {
+    const component = shallow(
+        <GenreList
+          currentFilter={`All genre`}
+          genres={[`All genre`, `genre-1`, `genre-2`, `genre-3`, `genre-4`, `genre-5`, `genre-6`, `genre-7`, `genre-8`, `genre-9`, `genre-10`]}
+          filterGenre={`All genre`}
+          onGenreChange={jest.fn()}
+        />
+    );
+
+    expect(component.find(`.catalog__genres-link`)).toHaveLength(10);
+  });
 });

@@ -1,5 +1,6 @@
-import StoreNameSpace from "../reducers/store-name-space";
-import {films} from "./films";
+import StoreNameSpace from "../reducers/store-name-space.js";
+import {films} from "./films.js";
+import {comments} from "./comments.js";
 
 export const initStore = {
   [StoreNameSpace.APP]: {
@@ -56,18 +57,7 @@ export const loadedStore = {
   },
 
   [StoreNameSpace.COMMENTS]: {
-    curFilmComments: [
-      {
-        id: 1,
-        user: {
-          id: 4,
-          name: `Kate Muir`,
-        },
-        rating: 8.9,
-        comment: `Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.`,
-        date: new Date(`2019-05-08T14:13:56.569Z`).valueOf()
-      }
-    ]
+    curFilmComments: comments
   },
 
   [StoreNameSpace.GENRES]: {

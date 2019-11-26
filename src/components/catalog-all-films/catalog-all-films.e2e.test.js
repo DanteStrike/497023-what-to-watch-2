@@ -20,9 +20,7 @@ describe(`Component CatalogAllFilms should work correctly`, () => {
   const showMoreItemsMock = jest.fn();
 
   beforeEach(() => {
-    setCurrentFilterMock.mockReset();
-    setDisplayedItemsMock.mockReset();
-    showMoreItemsMock.mockReset();
+    jest.resetAllMocks();
 
     component = shallow(
         <CatalogAllFilms

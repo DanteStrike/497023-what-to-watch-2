@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {genreFilterActions, genreFilterSelectors} from "../../reducers/genres";
+import {genreListConfig} from "../../configs/genre-list-config.js";
 
 const GenreList = (props) => {
   const {genres, currentFilter, onGenreChange} = props;
@@ -10,11 +11,12 @@ const GenreList = (props) => {
     evt.preventDefault();
     onGenreChange(genre);
   };
+  const maxGenresAmount = (genres.length > genreListConfig.maxDisplayedAmount) ? genreListConfig.maxDisplayedAmount : genres.length;
 
   return (
     <ul className="catalog__genres-list">
-      {genres.map((genre, index) => (
-        <li key={`${index}_${genre}`} className={`catalog__genres-item ${genre === currentFilter ? `catalog__genres-item--active` : ``}`}>
+      {genres.slice(0, maxGenresAmount).map((genre, index) => (
+        <li key={`${index}_${genre}`} className={`catalog__genres-item${genre === currentFilter ? ` catalog__genres-item--active` : ``}`}>
           <a href="#" className="catalog__genres-link"
             onClick={(evt) => genreClickHandler(evt, genre)}>{genre}</a>
         </li>

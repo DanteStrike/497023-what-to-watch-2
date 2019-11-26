@@ -23,5 +23,5 @@ ScrollToTop.propTypes = {
   }).isRequired
 };
 
-
+export {ScrollToTop};
 export default withRouter(ScrollToTop);
