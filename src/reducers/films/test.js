@@ -61,13 +61,19 @@ describe(`Reducers: Films actions`, () => {
 });
 
 describe(`Reducers: Film operations`, () => {
-  it(`Operation loadFilms`, () => {
-    const api = configureAPI();
-    const apiMock = new MockAdapter(api);
-    const filmsLoader = operations.loadFilms();
+  const api = configureAPI();
+  const dispatch = jest.fn();
+  const _ = jest.fn();
 
-    const dispatch = jest.fn();
-    const _ = jest.fn();
+  let apiMock;
+  beforeEach(() => {
+    jest.resetAllMocks();
+    apiMock = new MockAdapter(api);
+  });
+
+
+  it(`Operation loadFilms`, () => {
+    const filmsLoader = operations.loadFilms();
 
     const spyOnLoadFilms = jest.spyOn(actions, `loadFilms`);
     spyOnLoadFilms.mockReturnValue({
@@ -90,12 +96,7 @@ describe(`Reducers: Film operations`, () => {
   });
 
   it(`Operation loadPromo`, () => {
-    const api = configureAPI();
-    const apiMock = new MockAdapter(api);
     const promoLoader = operations.loadPromo();
-
-    const dispatch = jest.fn();
-    const _ = jest.fn();
 
     const spyOnLoadPromo = jest.spyOn(actions, `loadPromo`);
     spyOnLoadPromo.mockReturnValue({

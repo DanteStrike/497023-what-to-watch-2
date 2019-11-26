@@ -44,4 +44,10 @@ describe(`HoC withTimer should work correctly`, () => {
     jest.runAllTimers();
     expect(component.state().isTimerFinished).toEqual(true);
   });
+
+  it(`Should correctly unmount`, () => {
+    const reset = component.instance()._timerResetHandler = jest.fn();
+    component.unmount();
+    expect(reset).toHaveBeenCalledTimes(1);
+  });
 });

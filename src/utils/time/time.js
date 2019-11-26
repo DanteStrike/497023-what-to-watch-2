@@ -12,11 +12,12 @@ export const formatDateForReview = (timestamp = 0) => {
   const date = new Date(timestamp);
   const monthName = date.toLocaleString(`en-us`, {month: `long`});
   const month = date.toLocaleString(`en-us`, {month: `2-digit`});
-  const day = date.toLocaleString(`en-us`, {day: `2-digit`});
+  const day = date.getDate();
+  const dayTwoDigit = date.toLocaleString(`en-us`, {day: `2-digit`});
   const year = date.getFullYear();
 
   return {
-    dateTime: `${year}-${month}-${day}`,
+    dateTime: `${year}-${month}-${dayTwoDigit}`,
     view: `${monthName} ${day}, ${year}`
   };
 };
