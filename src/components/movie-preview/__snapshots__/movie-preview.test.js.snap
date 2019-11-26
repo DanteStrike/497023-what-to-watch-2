@@ -6,10 +6,15 @@ exports[`Render correctly MoviePreview component 1`] = `
 >
   <div
     className="movie-card__bg"
+    style={
+      Object {
+        "backgroundColor": "#FFF",
+      }
+    }
   >
     <img
-      alt="The Grand Budapest Hotel"
-      src="img/bg-the-grand-budapest-hotel.jpg"
+      alt="any"
+      src="url"
     />
   </div>
   <h1
@@ -48,16 +53,13 @@ exports[`Render correctly MoviePreview component 1`] = `
     <div
       className="user-block"
     >
-      <div
-        className="user-block__avatar"
+      <a
+        className="user-block__link"
+        href="/login"
+        onClick={[Function]}
       >
-        <img
-          alt="User avatar"
-          height="63"
-          src="img/avatar.jpg"
-          width="63"
-        />
-      </div>
+        Sign in
+      </a>
     </div>
   </header>
   <div
@@ -70,9 +72,9 @@ exports[`Render correctly MoviePreview component 1`] = `
         className="movie-card__poster"
       >
         <img
-          alt="The Grand Budapest Hotel poster"
+          alt="any"
           height="327"
-          src="img/the-grand-budapest-hotel-poster.jpg"
+          src="url"
           width="218"
         />
       </div>
@@ -82,7 +84,7 @@ exports[`Render correctly MoviePreview component 1`] = `
         <h2
           className="movie-card__title"
         >
-          The Grand Budapest Hotel
+          any
         </h2>
         <p
           className="movie-card__meta"
@@ -90,12 +92,12 @@ exports[`Render correctly MoviePreview component 1`] = `
           <span
             className="movie-card__genre"
           >
-            Drama
+            any
           </span>
           <span
             className="movie-card__year"
           >
-            2014
+            9999
           </span>
         </p>
         <div
@@ -137,7 +139,8 @@ exports[`Render correctly MoviePreview component 1`] = `
           </button>
           <a
             className="btn movie-card__button"
-            href="add-review.html"
+            href="/films/1/add-review"
+            onClick={[Function]}
           >
             Add review
           </a>

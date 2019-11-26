@@ -5,9 +5,9 @@ exports[`Render correctly MoviePoster component 1`] = `
   className="movie-card__poster"
 >
   <img
-    alt="The Grand Budapest Hotel poster"
+    alt="any"
     height="327"
-    src="img/the-grand-budapest-hotel-poster.jpg"
+    src="url"
     width="218"
   />
 </div>

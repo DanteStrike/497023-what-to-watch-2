@@ -1,9 +1,14 @@
 import types from "./types.js";
+import StoreNameSpace from "../store-name-space";
 import mocks from "./mocks.js";
 import utils from "./utils.js";
 import actions from "./actions.js";
+import operations from "./operations.js";
 import selectors from "./selectors.js";
 import reducer from "./reducers.js";
+import configureAPI from "../../server/configure-API.js";
+import MockAdapter from "axios-mock-adapter";
+
 
 describe(`Reducers: Films utils`, () => {
   describe(`Transform RAW server data`, () => {
@@ -46,16 +51,86 @@ describe(`Reducers: Films actions`, () => {
       payload: [{film: `norm`}]
     });
   });
+
+  it(`Action loadPromo`, () => {
+    expect(actions.loadPromo({"id": 3})).toEqual({
+      type: types.LOAD_PROMO,
+      payload: 3
+    });
+  });
+});
+
+describe(`Reducers: Film operations`, () => {
+  const api = configureAPI();
+  const dispatch = jest.fn();
+  const _ = jest.fn();
+
+  let apiMock;
+  beforeEach(() => {
+    jest.resetAllMocks();
+    apiMock = new MockAdapter(api);
+  });
+
+
+  it(`Operation loadFilms`, () => {
+    const filmsLoader = operations.loadFilms();
+
+    const spyOnLoadFilms = jest.spyOn(actions, `loadFilms`);
+    spyOnLoadFilms.mockReturnValue({
+      type: types.LOAD_FILMS,
+      payload: [{film: `norm`}]
+    });
+
+    apiMock
+      .onGet(`/films`)
+      .reply(200, [{film: `raw`}]);
+
+    filmsLoader(dispatch, _, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: types.LOAD_FILMS,
+          payload: [{film: `norm`}]
+        });
+      });
+  });
+
+  it(`Operation loadPromo`, () => {
+    const promoLoader = operations.loadPromo();
+
+    const spyOnLoadPromo = jest.spyOn(actions, `loadPromo`);
+    spyOnLoadPromo.mockReturnValue({
+      type: types.LOAD_PROMO,
+      payload: [{promo: `filmID`}]
+    });
+
+    apiMock
+      .onGet(`/films/promo`)
+      .reply(200, [{promo: `raw`}]);
+
+    promoLoader(dispatch, _, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: types.LOAD_PROMO,
+          payload: [{promo: `filmID`}]
+        });
+      });
+  });
 });
 
 describe(`Reducers: Films reducers`, () => {
-  describe(`Reducer filmsReducer`, () => {
-    const initState = {
-      data: {
-        some: `any`
-      }
-    };
+  const initState = {
+    data: {
+      allIDs: [],
+      byIDs: {}
+    },
+    promo: {
+      filmID: null
+    }
+  };
 
+  describe(`Reducer loadFilmReducer`, () => {
     it(`Should set state on correct action`, () => {
       const payload = {
         propOne: `one`,
@@ -69,36 +144,50 @@ describe(`Reducers: Films reducers`, () => {
         payload
       };
 
-      expect(reducer({}, action)).toEqual({
-        data: payload
-      });
       expect(reducer(initState, action)).toEqual({
-        data: payload
+        data: payload,
+        promo: {
+          filmID: null
+        }
       });
     });
 
     it(`Should return state on wrong action`, () => {
-      const action = {};
-      const store = {
+      expect(reducer(initState, {})).toEqual(initState);
+    });
+  });
+
+  describe(`Reducer loadPromoReducer`, () => {
+    it(`Should set state on correct action`, () => {
+      const action = {
+        type: types.LOAD_PROMO,
+        payload: 3
+      };
+
+      expect(reducer(initState, action)).toEqual({
         data: {
           allIDs: [],
           byIDs: {}
+        },
+        promo: {
+          filmID: 3
         }
-      };
-
-      expect(reducer(store, action)).toEqual(store);
-      expect(reducer(initState, action)).toEqual(initState);
+      });
     });
   });
 });
 
 describe(`Reducers: Films selectors`, () => {
+  it(`Selector getStoreSpace`, () => {
+    expect(selectors.getStoreSpace(mocks.store)).toEqual(mocks.store[StoreNameSpace.FILMS]);
+  });
+
   it(`Selector getAllIDs`, () => {
     expect(selectors.getAllIDs(mocks.store)).toEqual([1, 3]);
   });
 
   it(`Selector getFilmsByIDs`, () => {
-    expect(selectors.getFilmsByIDs(mocks.store)).toEqual(mocks.store.films.data.byIDs);
+    expect(selectors.getFilmsByIDs(mocks.store)).toEqual(mocks.store[StoreNameSpace.FILMS].data.byIDs);
   });
 
   it(`Selector getAllFilmsGenres`, () => {
@@ -114,7 +203,7 @@ describe(`Reducers: Films selectors`, () => {
   });
 
   it(`Selector getCurrentCardsInfo`, () => {
-    expect(selectors.getCurrentCardsInfo.resultFunc([1, 3], mocks.store.films.data.byIDs, 2)).toEqual(
+    expect(selectors.getCurrentCardsInfo.resultFunc([1, 3], mocks.store[StoreNameSpace.FILMS].data.byIDs)).toEqual(
         [{
           id: 1,
           name: `filmOne`,
@@ -132,18 +221,7 @@ describe(`Reducers: Films selectors`, () => {
         }]
     );
 
-    expect(selectors.getCurrentCardsInfo.resultFunc([1, 3], mocks.store.films.data.byIDs, 1)).toEqual(
-        [{
-          id: 1,
-          name: `filmOne`,
-          preview: {
-            image: `img/filmOne.jpg`,
-            videoSrc: `https://some-linkOne`
-          }
-        }]
-    );
-
-    expect(selectors.getCurrentCardsInfo.resultFunc([3], mocks.store.films.data.byIDs, 1)).toEqual([{
+    expect(selectors.getCurrentCardsInfo.resultFunc([3], mocks.store[StoreNameSpace.FILMS].data.byIDs)).toEqual([{
       id: 3,
       name: `filmTwo`,
       preview: {
@@ -152,10 +230,48 @@ describe(`Reducers: Films selectors`, () => {
       }
     }]);
 
-    expect(selectors.getCurrentCardsInfo.resultFunc([], mocks.store.films.data.byIDs, 0)).toEqual([]);
+    expect(selectors.getCurrentCardsInfo.resultFunc([], mocks.store[StoreNameSpace.FILMS].data.byIDs)).toEqual([]);
+  });
+
+  it(`Selector getDisplayedCardInfo`, () => {
+    expect(selectors.getDisplayedCardInfo.resultFunc([1, 2, 3, 4, 5], 2)).toEqual([1, 2]);
+    expect(selectors.getDisplayedCardInfo.resultFunc([1, 2, 3, 4, 5], 0)).toEqual([]);
+    expect(selectors.getDisplayedCardInfo.resultFunc([1, 2, 3, 4, 5], 5)).toEqual([1, 2, 3, 4, 5]);
+  });
+
+  it(`Selector getFilmByCurrentID`, () => {
+    expect(selectors.getFilmByCurrentID(mocks.store, {curFilmID: 3})).toEqual(mocks.adaptedFilmsData[1]);
   });
 
   it(`Selector getFilmsAmount`, () => {
     expect(selectors.getFilmsAmount(mocks.store)).toBe(2);
+  });
+
+  it(`Selector getCurFilmID`, () => {
+    expect(selectors.getCurFilmID({}, {curFilmID: 3})).toBe(3);
+  });
+
+  it(`Selector getLikeThisCardsInfo`, () => {
+    expect(selectors.getLikeThisCardsInfo.resultFunc([{id: 1}, {id: 2}, {id: 3}, {id: 4}], 3, 0))
+      .toEqual([]);
+    expect(selectors.getLikeThisCardsInfo.resultFunc([{id: 1}, {id: 2}, {id: 3}, {id: 4}], 3, 3))
+      .toEqual([{id: 1}, {id: 2}, {id: 4}]);
+    expect(selectors.getLikeThisCardsInfo.resultFunc([{id: 1}, {id: 2}, {id: 3}, {id: 4}], 4, 2))
+      .toEqual([{id: 1}, {id: 2}]);
+  });
+
+  it(`Selector getFilmByCurID`, () => {
+    expect(selectors.getFilmByCurID(mocks.store, {curFilmID: 3})).toEqual(mocks.adaptedFilmsData[1]);
+  });
+
+  it(`Selector getCurFilmGenre`, () => {
+    expect(selectors.getCurFilmGenre(mocks.store, {curFilmID: 3})).toEqual(`genreTwo`);
+  });
+  it(`Selector getPromoID`, () => {
+    expect(selectors.getPromoID(mocks.store)).toBe(3);
+  });
+
+  it(`Selector getPromoFilm`, () => {
+    expect(selectors.getPromoFilm(mocks.store)).toEqual(mocks.adaptedFilmsData[1]);
   });
 });

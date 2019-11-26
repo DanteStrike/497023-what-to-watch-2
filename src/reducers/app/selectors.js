@@ -1,7 +1,11 @@
-const getAppIsReady = (store) => store.app.isReady;
+import StoreNameSpace from "../store-name-space.js";
+
+const getStoreSpace = (store) => store[StoreNameSpace.APP];
+const getIsReady = (store) => getStoreSpace(store).isReady;
 
 export default {
-  getAppIsReady
+  getStoreSpace,
+  getIsReady
 };
 
 

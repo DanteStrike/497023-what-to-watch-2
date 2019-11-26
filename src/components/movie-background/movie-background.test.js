@@ -6,7 +6,11 @@ import MovieBackground from "./movie-background.jsx";
 it(`Render correctly MovieBackground component`, () => {
   const component = renderer
     .create(
-        <MovieBackground/>
+        <MovieBackground
+          name={`any`}
+          backgroundColor={`color`}
+          image={`url`}
+        />
     ).toJSON();
 
   expect(component).toMatchSnapshot();

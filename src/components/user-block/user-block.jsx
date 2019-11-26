@@ -25,7 +25,8 @@ UserBlock.propTypes = {
 };
 
 UserBlock.defaultProps = {
-  isAuth: false
+  isAuth: false,
+  avatarSrc: ``
 };
 
 

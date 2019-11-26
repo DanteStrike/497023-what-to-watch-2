@@ -38,7 +38,7 @@ describe(`VideoPlayer state`, () => {
     expect(spyVideoPlay).toBeCalledTimes(1);
   });
 
-  it(`Should pause on isPlaying = false`, () => {
+  it(`Should reset on isPlaying = false`, () => {
     const component = mount(
         <VideoPlayer
           poster={`img/johnny-english.jpg`}
@@ -49,10 +49,11 @@ describe(`VideoPlayer state`, () => {
     );
     const video = component.find(`video`).getDOMNode();
     const spyVideoPlay = jest.spyOn(video, `play`);
-    const spyVideoPause = jest.spyOn(video, `pause`);
+    const spyVideoLoad = jest.spyOn(video, `load`);
 
     component.setProps({isActivePlayer: false});
     expect(spyVideoPlay).toBeCalledTimes(0);
-    expect(spyVideoPause).toBeCalledTimes(1);
+    expect(spyVideoLoad).toBeCalledTimes(1);
+    expect(video.currentTime).toBe(0);
   });
 });

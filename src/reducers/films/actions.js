@@ -9,7 +9,15 @@ const loadFilms = (filmsRAW) => {
   };
 };
 
+const loadPromo = (PromoRAW) => {
+  return {
+    type: types.LOAD_PROMO,
+    payload: PromoRAW[`id`]
+  };
+};
+
 
 export default {
-  loadFilms
+  loadFilms,
+  loadPromo
 };

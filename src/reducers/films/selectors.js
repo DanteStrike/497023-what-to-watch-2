@@ -1,10 +1,18 @@
 import {createSelector} from "reselect";
-import {genreFilterSelectors} from "../genre-filter/index.js";
-import {movieListSelectors} from "../movie-list/index.js";
+import {genreFilterSelectors} from "../genres/index.js";
+import {catalogSelectors} from "../catalog/index.js";
+import StoreNameSpace from "../store-name-space";
 
-const getAllIDs = (store) => store.films.data.allIDs;
-const getFilmsByIDs = (store) => store.films.data.byIDs;
+
+const getStoreSpace = (store) => store[StoreNameSpace.FILMS];
+const getAllIDs = (store) => getStoreSpace(store).data.allIDs;
+const getFilmsByIDs = (store) => getStoreSpace(store).data.byIDs;
+const getPromoID = (store) => getStoreSpace(store).promo.filmID;
+const getPromoFilm = (store) => getFilmsByIDs(store)[getPromoID(store)];
 const getFilmsAmount = (store) => getAllIDs(store).length;
+const getCurFilmID = (_, {curFilmID}) => curFilmID;
+const getFilmByCurID = (store, {curFilmID}) => getFilmsByIDs(store)[curFilmID];
+const getCurFilmGenre = (store, {curFilmID}) => getFilmByCurID(store, {curFilmID}).genre;
 
 const getAllFilmsGenres = createSelector(
     getAllIDs,
@@ -18,18 +26,46 @@ const getAllFilmsGenres = createSelector(
 const getCurrentCardsInfo = createSelector(
     genreFilterSelectors.getCurrentFilterFilmsIDs,
     getFilmsByIDs,
-    movieListSelectors.getDisplayedFilmsAmount,
-    (currentFilterIDs, films, amount) => currentFilterIDs.map((filmID) => ({
+    (currentFilterIDs, films) => currentFilterIDs.map((filmID) => ({
       id: films[filmID].id,
       name: films[filmID].name,
       preview: films[filmID].preview,
-    })).slice(0, amount)
+    }))
+);
+
+const getDisplayedCardInfo = createSelector(
+    getCurrentCardsInfo,
+    catalogSelectors.getDisplayedFilmsAmount,
+    (currentCards, amount) => currentCards.slice(0, amount)
+);
+
+const getFilmByCurrentID = createSelector(
+    getFilmsByIDs,
+    getCurFilmID,
+    (films, id) => films[id]
+);
+const getLikeThisCardsInfo = createSelector(
+    getCurrentCardsInfo,
+    getCurFilmID,
+    catalogSelectors.getDisplayedFilmsAmount,
+    (currentCards, curFilmID, amount) => (amount === 0) ? [] : currentCards
+      .filter((card) => card.id !== curFilmID)
+      .slice(0, amount)
 );
 
 export default {
+  getStoreSpace,
+  getCurFilmID,
   getAllIDs,
   getFilmsByIDs,
   getFilmsAmount,
   getAllFilmsGenres,
-  getCurrentCardsInfo
+  getCurrentCardsInfo,
+  getDisplayedCardInfo,
+  getLikeThisCardsInfo,
+  getFilmByCurrentID,
+  getFilmByCurID,
+  getCurFilmGenre,
+  getPromoID,
+  getPromoFilm
 };
