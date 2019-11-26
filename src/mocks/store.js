@@ -1,6 +1,6 @@
 import StoreNameSpace from "../reducers/store-name-space.js";
-import {films} from "./films.js";
 import {comments} from "./comments.js";
+import {normalizedFilmsData} from "./films";
 
 export const initStore = {
   [StoreNameSpace.APP]: {
@@ -43,13 +43,7 @@ export const loadedStore = {
   },
 
   [StoreNameSpace.FILMS]: {
-    data: {
-      byIDs: {
-        "1": films[0],
-        "3": films[1]
-      },
-      allIDs: [1, 3]
-    },
+    data: normalizedFilmsData,
 
     promo: {
       filmID: 3
