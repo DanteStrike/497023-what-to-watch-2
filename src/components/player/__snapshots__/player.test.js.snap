@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render correctly Player component 1`] = `
+<div
+  className="player"
+>
+  <video
+    className="player__video"
+    poster="image"
+    src="source"
+  />
+  <button
+    className="player__exit"
+    type="button"
+  >
+    Exit
+  </button>
+  <div
+    className="player__controls"
+  >
+    <div
+      className="player__controls-row"
+    />
+    <div
+      className="player__controls-row"
+    >
+      <div
+        className="player__name"
+      >
+        DanteStrike
+      </div>
+    </div>
+  </div>
+</div>
+`;
