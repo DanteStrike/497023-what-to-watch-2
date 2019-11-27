@@ -15,3 +15,10 @@ export const GenreFilter = {
   ALL_GENRE: `All genre`
 };
 
+export const Icons = {
+  ADD: `add`,
+  FULL_SCREEN: `full-screen`,
+  IN_LIST: `in-list`,
+  PAUSE: `pause`,
+  PLAY_S: `play-s`
+};
