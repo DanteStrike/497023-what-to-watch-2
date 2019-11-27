@@ -16,7 +16,11 @@ import PageNotFound from "../page-not-found/page-not-found.jsx";
 import withTabs from "../../hocs/with-tabs/with-tabs.jsx";
 import {appSelectors} from "../../reducers/app";
 import Player from "../player/player.jsx";
+import withMovie from "../../hocs/with-movie/with-movie.jsx";
+import withPlayControls from "../../hocs/with-play-controls/with-play-controls.jsx";
+import withFullScreen from "../../hocs/with-full-screen/with-full-screen.jsx";
 
+const PlayerWrapped = withFullScreen(withPlayControls(withMovie(Player)));
 
 const MoviePageTabs = [
   {
@@ -33,7 +37,6 @@ const MoviePageTabs = [
     output: MoviePageReviews
   }
 ];
-
 const MoviePageWrapped = withTabs(MoviePageTabs)(MoviePage);
 
 const App = (props) => {
@@ -44,7 +47,7 @@ const App = (props) => {
   }
 
   if (videoPlayerID !== -1) {
-    return (<Player preload={`metadata`} poster={`img/player-poster.jpg`}/>);
+    return (<PlayerWrapped poster={`img/player-poster.jpg`}/>);
   }
 
   return (

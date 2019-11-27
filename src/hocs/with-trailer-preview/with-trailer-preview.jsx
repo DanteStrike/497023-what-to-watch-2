@@ -1,5 +1,5 @@
 import React from "react";
-import VideoPlayer from "../../components/video-player/video-player.jsx";
+import Video from "../../components/video/video.jsx";
 import PropTypes from "prop-types";
 
 const withTrailerPreview = (WrappedComponent) => {
@@ -7,29 +7,20 @@ const withTrailerPreview = (WrappedComponent) => {
     constructor(props) {
       super(props);
 
-      this.state = {
-        isActivePlayer: false
-      };
-
       this._renderTrailerPreview = this._renderTrailerPreview.bind(this);
     }
 
-    componentDidUpdate() {
-      const {isTimerFinished} = this.props;
-
-      this.setState({isActivePlayer: isTimerFinished});
-    }
-
     _renderTrailerPreview() {
-      const {poster, isMuted, previewSrc} = this.props;
-      const {isActivePlayer} = this.state;
+      const {poster, previewSrc, isTimerFinished} = this.props;
 
       return (
-        <VideoPlayer
+        <Video
           poster={poster}
-          isActivePlayer={isActivePlayer}
-          isMuted={isMuted}
+          isActivePlayer={isTimerFinished}
+          isMuted={true}
           src={previewSrc}
+          isAutoReset={true}
+          preload={`none`}
         />
       );
     }
@@ -47,7 +38,6 @@ const withTrailerPreview = (WrappedComponent) => {
   WithTrailerPreview.propTypes = {
     poster: PropTypes.string.isRequired,
     isTimerFinished: PropTypes.bool.isRequired,
-    isMuted: PropTypes.bool.isRequired,
     previewSrc: PropTypes.string.isRequired
   };
 

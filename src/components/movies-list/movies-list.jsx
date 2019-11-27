@@ -25,7 +25,6 @@ const MoviesList = (props) => {
           name={filmCard.name}
 
           poster={filmCard.preview.image}
-          isMuted={true}
           previewSrc={filmCard.preview.videoSrc}
         />
       ))}
