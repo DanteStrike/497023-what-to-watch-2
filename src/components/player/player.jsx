@@ -4,11 +4,11 @@ import {appActions, appSelectors} from "../../reducers/app";
 import {connect} from "react-redux";
 
 const Player = (props) => {
-  const {video: {poster, src}, forwardedRef, renderTimeBar, renderPlayButton, renderFullScreenButton, closeVideoPlayer} = props;
+  const {videoSrc, poster, forwardedRef, renderTimeBar, renderPlayButton, renderFullScreenButton, closeVideoPlayer} = props;
 
   return (
     <div className="player">
-      <video ref={forwardedRef} src={src} className="player__video" poster={poster}/>
+      <video ref={forwardedRef} src={videoSrc} className="player__video" poster={poster}/>
 
       <button type="button" className="player__exit" onClick={closeVideoPlayer}>Exit</button>
 
@@ -28,10 +28,8 @@ const Player = (props) => {
 };
 
 Player.propTypes = {
-  video: PropTypes.exact({
-    poster: PropTypes.string.isRequired,
-    src: PropTypes.string.isRequired,
-  }).isRequired,
+  videoSrc: PropTypes.string.isRequired,
+  poster: PropTypes.string.isRequired,
   preload: PropTypes.string.isRequired,
   forwardedRef: PropTypes.oneOfType([
     PropTypes.func,
@@ -44,7 +42,7 @@ Player.propTypes = {
 };
 
 const mapStateToProps = (store) => ({
-  video: appSelectors.getVideoPlayerInfo(store)
+  videoSrc: appSelectors.getVideoPlayerInfo(store)
 });
 
 const mapDispatchToProps = (dispatch) => ({

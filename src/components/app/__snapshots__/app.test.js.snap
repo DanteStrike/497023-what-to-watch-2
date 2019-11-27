@@ -6,7 +6,7 @@ exports[`Render correctly App component 1`] = `
 >
   <video
     className="player__video"
-    poster="img/filmOne.jpg"
+    poster="img/player-poster.jpg"
     src="https://some-linkOne"
   />
   <button

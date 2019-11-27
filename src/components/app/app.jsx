@@ -44,7 +44,7 @@ const App = (props) => {
   }
 
   if (videoPlayerID !== -1) {
-    return (<Player preload={`metadata`}/>);
+    return (<Player preload={`metadata`} poster={`img/player-poster.jpg`}/>);
   }
 
   return (

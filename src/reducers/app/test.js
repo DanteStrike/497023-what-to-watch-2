@@ -8,6 +8,7 @@ import operations from "./operations.js";
 import reducer from "./reducers.js";
 import selectors from "./selectors.js";
 import * as storeMock from "../../mocks/store.js";
+import {films} from "../../mocks/films.js";
 
 
 describe(`Reducers: App actions`, () => {
@@ -132,5 +133,9 @@ describe(`Reducers: App selectors`, () => {
 
   it(`Select getVideoPlayerFilmID`, () => {
     expect(selectors.getVideoPlayerFilmID(storeMock.loadedStore)).toBe(1);
+  });
+
+  it(`Select getVideoPlayerInfo`, () => {
+    expect(selectors.getVideoPlayerInfo(storeMock.loadedStore)).toEqual(films[0].videoSrc);
   });
 });

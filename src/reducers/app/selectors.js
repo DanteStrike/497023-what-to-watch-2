@@ -8,10 +8,7 @@ const getVideoPlayerFilmID = (store) => getStoreSpace(store).videoPlayerFilmID;
 const getVideoPlayerInfo = createSelector(
     filmsSelectors.getFilmsByIDs,
     getVideoPlayerFilmID,
-    (films, id) => (films[id] !== undefined) ? {
-      poster: films[id].background.image,
-      src: films[id].videoSrc
-    } : {}
+    (films, id) => films[id].videoSrc || ``
 );
 
 export default {

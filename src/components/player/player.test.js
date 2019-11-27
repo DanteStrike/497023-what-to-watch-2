@@ -14,10 +14,7 @@ it(`Render correctly Player component`, () => {
           renderPlayButton={jest.fn()}
           renderFullScreenButton={jest.fn()}
           closeVideoPlayer={jest.fn()}
-          video={{
-            poster: `image`,
-            src: `url`
-          }}
+          videoSrc={`url`}
         />
     ).toJSON();
 
