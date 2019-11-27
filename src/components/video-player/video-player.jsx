@@ -24,18 +24,19 @@ class VideoPlayer extends React.PureComponent {
   }
 
   componentDidUpdate() {
+    const {isActivePlayer} = this.props;
     const video = this._videoRef.current;
 
-    video.play()
+    if (isActivePlayer) {
+      this._playPromise = video.play();
+    } else {
+      this._playPromise
         .then(() => {
-          const {isActivePlayer} = this.props;
-
-          if (!isActivePlayer) {
-            video.pause();
-            video.currentTime = 0;
-            video.load();
-          }
+          video.pause();
+          video.currentTime = 0;
+          video.load();
         });
+    }
   }
 
   componentWillUnmount() {

@@ -20,15 +20,23 @@ class Video extends React.PureComponent {
   }
 
   componentDidUpdate() {
-    const {isActivePlayer} = this.props;
+    const {isActivePlayer, isAutoReset} = this.props;
     const video = this._videoRef.current;
 
+    let playPromise;
+
     if (isActivePlayer) {
-      video.play();
+      playPromise = video.play();
     } else {
-      video.pause();
-      video.currentTime = 0;
-      video.load();
+      playPromise
+        .then(() => {
+          video.pause();
+
+          if (isAutoReset) {
+            video.currentTime = 0;
+            video.load();
+          }
+        });
     }
   }
 
@@ -48,9 +56,11 @@ class Video extends React.PureComponent {
   }
 }
 
-VideoPlayer.propTypes = {
-  poster: PropTypes.string.isRequired,
+Video.propTypes = {
   isActivePlayer: PropTypes.bool.isRequired,
+  isAutoReset: PropTypes.bool.isRequired,
+  poster: PropTypes.string.isRequired,
+  autoplay: PropTypes.bool.isRequired,
   preload: PropTypes.string.isRequired,
   isMuted: PropTypes.bool.isRequired,
   src: PropTypes.string.isRequired
