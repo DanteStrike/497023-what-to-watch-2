@@ -14,26 +14,26 @@ const trailerPreviewStyle = {
   minHeight: `100%`
 };
 
-const trailerPreviewStyleP = {
-  display: `block`,
-  objectFit: `fill`,
-  width: `100%`,
-  height: `100%`,
-
-};
-
-const videoPlayerStyle = {
-  display: `block`,
-  objectFit: `fill`,
-  width: `auto`,
-  height: `auto`,
-  position: `absolute`,
-  top: `50%`,
-  left: `50%`,
-  transform: `translate(-50%, -50%)`,
-  minWidth: `100%`,
-  minHeight: `100%`
-};
+// const trailerPreviewStyleP = {
+//   display: `block`,
+//   objectFit: `fill`,
+//   width: `100%`,
+//   height: `100%`,
+//
+// };
+//
+// const videoPlayerStyle = {
+//   display: `block`,
+//   objectFit: `fill`,
+//   width: `auto`,
+//   height: `auto`,
+//   position: `absolute`,
+//   top: `50%`,
+//   left: `50%`,
+//   transform: `translate(-50%, -50%)`,
+//   minWidth: `100%`,
+//   minHeight: `100%`
+// };
 
 class Video extends React.PureComponent {
   constructor(props) {
@@ -48,9 +48,6 @@ class Video extends React.PureComponent {
       poster,
       isMuted,
       preload,
-      onPlay,
-      onPause,
-      onCanPlayThrough,
       updateProgressBar
     } = this.props;
     const video = this._videoRef.current;
@@ -60,18 +57,6 @@ class Video extends React.PureComponent {
     video.poster = poster;
     video.controls = false;
     video.src = src;
-
-    if (onCanPlayThrough) {
-      video.addEventListener(`canplaythrough`, onCanPlayThrough);
-    }
-
-    if (onPlay) {
-      video.addEventListener(`play`, onPlay);
-    }
-
-    if (onPause) {
-      video.addEventListener(`pause`, onPause);
-    }
 
     if (updateProgressBar) {
       video.addEventListener(`timeupdate`, updateProgressBar);
@@ -97,25 +82,13 @@ class Video extends React.PureComponent {
   }
 
   componentWillUnmount() {
-    const {onPlay, onPause, onCanPlayThrough, updateProgressBar} = this.props;
+    const {updateProgressBar} = this.props;
     const video = this._videoRef.current;
 
     video.preload = ``;
     video.muted = null;
     video.poster = ``;
     video.src = ``;
-
-    if (onCanPlayThrough) {
-      video.removeEventListener(`canplaythrough`, onCanPlayThrough);
-    }
-
-    if (onPlay) {
-      video.removeEventListener(`play`, onPlay);
-    }
-
-    if (onPause) {
-      video.removeEventListener(`pause`, onPause);
-    }
 
     if (updateProgressBar) {
       video.removeEventListener(`timeupdate`, updateProgressBar);
@@ -147,15 +120,10 @@ Video.propTypes = {
   preload: PropTypes.string,
   isMuted: PropTypes.bool,
 
-  onPlay: PropTypes.func,
-  onPause: PropTypes.func,
-  onCanPlayThrough: PropTypes.func,
   updateProgressBar: PropTypes.func,
 };
 
 Video.defaultProps = {
-  poster: ``,
-  src: ``,
   isActivePlayer: false,
   isAutoReset: false,
   preload: `auto`,

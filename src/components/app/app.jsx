@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 import {Switch, Route} from "react-router-dom";
 import {connect} from "react-redux";
+import {compose} from "recompose";
 
 import MainPage from "../main-page/main-page.jsx";
 import SignInPage from "../sign-in-page/sign-in-page.jsx";
@@ -16,12 +17,15 @@ import PageNotFound from "../page-not-found/page-not-found.jsx";
 import withTabs from "../../hocs/with-tabs/with-tabs.jsx";
 import {appSelectors} from "../../reducers/app";
 import Player from "../player/player.jsx";
-import withMovie from "../../hocs/with-movie/with-movie.jsx";
 import withPlayControls from "../../hocs/with-play-controls/with-play-controls.jsx";
 import withFullScreen from "../../hocs/with-full-screen/with-full-screen.jsx";
 import withProgressBar from "../../hocs/with-progress-bar/with-progress-bar.jsx";
 
-const PlayerWrapped = withProgressBar(withFullScreen(withPlayControls(withMovie(Player))));
+const PlayerWrapped = compose(
+    withProgressBar,
+    withFullScreen,
+    withPlayControls
+)(Player);
 
 const MoviePageTabs = [
   {

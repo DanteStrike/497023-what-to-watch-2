@@ -15,6 +15,7 @@ describe(`Component ScrollToTop should work correctly`, () => {
         <ScrollToTop location={locationMock}/>
     );
 
+    expect(global.scrollTo).toHaveBeenCalledTimes(0);
     const newLocationMock = {
       pathname: `other`
     };

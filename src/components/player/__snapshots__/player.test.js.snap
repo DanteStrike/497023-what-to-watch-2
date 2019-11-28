@@ -5,9 +5,20 @@ exports[`Render correctly Player component 1`] = `
   className="player"
 >
   <video
-    className="player__video"
-    poster="image"
-    src="url"
+    style={
+      Object {
+        "display": "block",
+        "height": "100%",
+        "left": "50%",
+        "minHeight": "100%",
+        "minWidth": "100%",
+        "objectFit": "fill",
+        "position": "absolute",
+        "top": "50%",
+        "transform": "translate(-50%, -50%)",
+        "width": "100%",
+      }
+    }
   />
   <button
     className="player__exit"

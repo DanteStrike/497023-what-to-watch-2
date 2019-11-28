@@ -1,21 +1,26 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import {Player} from "./player.jsx";
+import {createNodeMock} from "../../mocks/node-mock";
 
 
 it(`Render correctly Player component`, () => {
   const component = renderer
     .create(
         <Player
-          poster={`image`}
-          src={`source`}
-          preload={`none`}
-          renderTimeBar={jest.fn()}
+          videoSrc={`src`}
+          isActivePlayer={false}
+          isFullScreen={false}
+          toggleFullScreen={jest.fn()}
+          updateProgressBar={jest.fn()}
+          renderProgressBar={jest.fn()}
           renderPlayButton={jest.fn()}
-          renderFullScreenButton={jest.fn()}
+          renderFullScreen={jest.fn()}
           closeVideoPlayer={jest.fn()}
-          videoSrc={`url`}
-        />
+        />,
+        {
+          createNodeMock
+        }
     ).toJSON();
 
   expect(component).toMatchSnapshot();

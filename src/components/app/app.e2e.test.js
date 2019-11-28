@@ -15,8 +15,8 @@ describe(`Component APP should work correctly`, () => {
         />
     );
 
-    expect(component.find(`Connect(Player)`)).toHaveLength(0);
+    expect(component.find(`WithProgressBar`)).toHaveLength(0);
     component.setProps({videoPlayerID: 222});
-    expect(component.find(`Connect(Player)`)).toHaveLength(1);
+    expect(component.find(`WithProgressBar`)).toHaveLength(1);
   });
 });

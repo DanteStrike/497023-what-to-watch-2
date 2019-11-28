@@ -5,9 +5,20 @@ exports[`Render correctly App component 1`] = `
   className="player"
 >
   <video
-    className="player__video"
-    poster="img/player-poster.jpg"
-    src="https://some-linkOne"
+    style={
+      Object {
+        "display": "block",
+        "height": "100%",
+        "left": "50%",
+        "minHeight": "100%",
+        "minWidth": "100%",
+        "objectFit": "fill",
+        "position": "absolute",
+        "top": "50%",
+        "transform": "translate(-50%, -50%)",
+        "width": "100%",
+      }
+    }
   />
   <button
     className="player__exit"
@@ -21,15 +32,76 @@ exports[`Render correctly App component 1`] = `
   >
     <div
       className="player__controls-row"
-    />
+    >
+      <div
+        className="player__time"
+      >
+        <progress
+          className="player__progress"
+          max="100"
+          value={0}
+        />
+        <div
+          className="player__toggler"
+          style={
+            Object {
+              "left": "0%",
+            }
+          }
+        >
+          Toggler
+        </div>
+      </div>
+      <div
+        className="player__time-value"
+      >
+        00:00:00
+      </div>
+    </div>
     <div
       className="player__controls-row"
     >
+      <button
+        className="player__play"
+        onClick={[Function]}
+        type="button"
+      >
+        <svg
+          height="19"
+          viewBox="0 0 19 19"
+          width="19"
+        >
+          <use
+            xlinkHref="#play-s"
+          />
+        </svg>
+        <span>
+          Play
+        </span>
+      </button>
       <div
         className="player__name"
       >
         DanteStrike
       </div>
+      <button
+        className="player__full-screen"
+        onClick={[Function]}
+        type="button"
+      >
+        <svg
+          height="27"
+          viewBox="0 0 27 27"
+          width="27"
+        >
+          <use
+            xlinkHref="#full-screen"
+          />
+        </svg>
+        <span>
+          Full screen
+        </span>
+      </button>
     </div>
   </div>
 </div>

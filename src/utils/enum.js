@@ -1,6 +1,8 @@
 export const Time = {
   MILLISECONDS_IN_SECOND: 1000,
-  MINUTES_IN_HOUR: 60
+  MINUTES_IN_HOUR: 60,
+  SECONDS_IN_MINUTE: 60,
+  SECONDS_IN_HOUR: 3600
 };
 
 export const RatingLevel = {

@@ -1,5 +1,5 @@
 import React from "react";
-import IconsLibrary from "../../components/icons-library/icons-library.jsx";
+import {openFullScreen, closeFullscreen} from "../../utils/fullscreen-api/fullscreen-api.js";
 import {Icons} from "../../utils/enum.js";
 
 const withFullScreen = (WrappedComponent) => {
@@ -27,7 +27,9 @@ const withFullScreen = (WrappedComponent) => {
     _renderFullScreen() {
       return (
         <button type="button" className="player__full-screen" onClick={this._fullScreenButtonClickHandler}>
-          <IconsLibrary svgID={Icons.FULL_SCREEN}/>
+          <svg viewBox="0 0 27 27" width="27" height="27">
+            <use xlinkHref={`#${Icons.FULL_SCREEN}`}></use>
+          </svg>
           <span>Full screen</span>
         </button>
       );
@@ -37,33 +39,9 @@ const withFullScreen = (WrappedComponent) => {
       const {isFullScreen} = this.state;
 
       if (isFullScreen) {
-        WithFullScreen.openFullScreen(playerElement);
+        openFullScreen(playerElement);
       } else {
-        WithFullScreen.closeFullscreen();
-      }
-    }
-
-    static openFullScreen(playerElement) {
-      if (playerElement.requestFullscreen) {
-        playerElement.requestFullscreen();
-      } else if (playerElement.mozRequestFullScreen) { /* Firefox */
-        playerElement.mozRequestFullScreen();
-      } else if (playerElement.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-        playerElement.webkitRequestFullscreen();
-      } else if (playerElement.msRequestFullscreen) { /* IE/Edge */
-        playerElement.msRequestFullscreen();
-      }
-    }
-
-    static closeFullscreen() {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      } else if (document.mozCancelFullScreen) { /* Firefox */
-        document.mozCancelFullScreen();
-      } else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
-        document.webkitExitFullscreen();
-      } else if (document.msExitFullscreen) { /* IE/Edge */
-        document.msExitFullscreen();
+        closeFullscreen();
       }
     }
 

@@ -9,12 +9,9 @@ describe(`MovieCard should work correctly`, () => {
   let component;
   const onTimerStart = jest.fn();
   const onTimerReset = jest.fn();
-  const renderTrailerPreview = jest.fn();
 
   beforeEach(() => {
-    onTimerStart.mockReset();
-    onTimerReset.mockReset();
-    renderTrailerPreview.mockReset();
+    jest.resetAllMocks();
 
     component = shallow(
         <MovieCard
@@ -23,7 +20,9 @@ describe(`MovieCard should work correctly`, () => {
           image={`img/johnny-english.jpg`}
           onTimerStart={onTimerStart}
           onTimerReset={onTimerReset}
-          renderTrailerPreview={renderTrailerPreview}
+          isTimerFinished={false}
+          poster={`url`}
+          previewSrc={`src`}
         />
     );
   });
@@ -36,9 +35,5 @@ describe(`MovieCard should work correctly`, () => {
   it(`Should callback timer reset on mouse leave`, () => {
     component.simulate(`mouseleave`);
     expect(onTimerReset).toBeCalledTimes(1);
-  });
-
-  it(`Should render preview player`, () => {
-    expect(renderTrailerPreview).toBeCalledTimes(1);
   });
 });

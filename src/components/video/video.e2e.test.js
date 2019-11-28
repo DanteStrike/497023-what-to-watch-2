@@ -1,59 +1,95 @@
 import React from "react";
-import Enzyme, {mount} from "enzyme";
+import Enzyme, {shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import Video from "./video.jsx";
 
 Enzyme.configure({adapter: new Adapter()});
 
+describe(`Component Video should work correctly`, () => {
+  let component;
+  const updateProgressBarMock = jest.fn();
 
-//  jsdom doesn't support any loading or playback media operation
-HTMLVideoElement.prototype.play = function () {
-  this.dispatchEvent(new Event(`play`));
-};
+  const refMock = {
+    current: document.createElement(`video`)
+  };
 
-HTMLVideoElement.prototype.pause = function () {
-  this.dispatchEvent(new Event(`pause`));
-};
+  refMock.current.play = jest.fn().mockResolvedValue(`default`);
+  refMock.current.pause = jest.fn();
+  refMock.current.load = jest.fn();
 
-HTMLVideoElement.prototype.load = function () {
-  this.dispatchEvent(new Event(`load`));
-};
+  const eventsMock = {};
+  const addEventListenerMock = jest.fn((event, cb) => {
+    eventsMock[event] = cb;
+  });
+  refMock.current.addEventListener = addEventListenerMock;
 
-describe(`VideoPlayer state`, () => {
-  it(`Should play on isPlaying = true`, () => {
-    const component = mount(
+  const removeEventListenerMock = jest.fn((event) => {
+    delete eventsMock[event];
+  });
+  refMock.current.removeEventListener = removeEventListenerMock;
+
+  jest.spyOn(React, `createRef`).mockImplementation(() => refMock);
+
+  beforeEach(() => {
+    updateProgressBarMock.mockReset();
+
+    component = shallow(
         <Video
-          poster={`img/johnny-english.jpg`}
+          poster={`any`}
+          src={`url`}
           isActivePlayer={false}
-          src={`https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`}
+          isAutoReset={false}
+          preload={`auto`}
           isMuted={true}
+          updateProgressBar={updateProgressBarMock}
         />
     );
-    const video = component.find(`video`).getDOMNode();
-    const spyVideoPlay = jest.spyOn(video, `play`);
-    const spyVideoPause = jest.spyOn(video, `pause`);
-
-    component.setProps({isActivePlayer: true});
-    expect(spyVideoPause).toBeCalledTimes(0);
-    expect(spyVideoPlay).toBeCalledTimes(1);
   });
 
-  it(`Should reset on isPlaying = false`, () => {
-    const component = mount(
-        <Video
-          poster={`img/johnny-english.jpg`}
-          isActivePlayer={true}
-          src={`https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`}
-          isMuted={true}
-        />
-    );
-    const video = component.find(`video`).getDOMNode();
-    const spyVideoPlay = jest.spyOn(video, `play`);
-    const spyVideoLoad = jest.spyOn(video, `load`);
+  it(`Should correct add EventListener and remove EventListener`, () => {
+    component.unmount();
+    expect(addEventListenerMock).toBeCalledTimes(1);
+    expect(removeEventListenerMock).toBeCalledTimes(1);
+    expect(eventsMock).toEqual({});
+  });
 
+  it(`Should start play on isActivePlayer`, () => {
+    expect(refMock.current.play).toBeCalledTimes(0);
+    component.setProps({isActivePlayer: true});
+    expect(refMock.current.play).toBeCalledTimes(1);
+  });
+
+  it(`Must paused on !isActivePlayer and play() promise resolved`, () => {
+    component.instance()._resetVideo = jest.fn();
+
+    expect(refMock.current.pause).toBeCalledTimes(0);
+    component.setProps({isActivePlayer: true});
+    expect(refMock.current.pause).toBeCalledTimes(0);
+    expect(component.instance()._resetVideo).toBeCalledTimes(0);
     component.setProps({isActivePlayer: false});
-    expect(spyVideoPlay).toBeCalledTimes(0);
-    expect(spyVideoLoad).toBeCalledTimes(1);
-    expect(video.currentTime).toBe(0);
+    refMock.current.play()
+      .then(() => {
+        expect(refMock.current.pause).toBeCalledTimes(1);
+        expect(component.instance()._resetVideo).toBeCalledTimes(1);
+      });
+  });
+
+  it(`_resetVideo Should reset video on isAutoReset`, () => {
+    refMock.current.currentTime = 1000;
+
+    component.instance()._resetVideo();
+    expect(refMock.current.currentTime).toBe(1000);
+    expect(refMock.current.load).toBeCalledTimes(0);
+
+    component.setProps({isAutoReset: true});
+    component.instance()._resetVideo();
+    expect(refMock.current.currentTime).toBe(0);
+    expect(refMock.current.load).toBeCalledTimes(1);
+  });
+
+  it(`Should call updateProgressBar on timeupdate`, () => {
+    expect(updateProgressBarMock).toBeCalledTimes(0);
+    eventsMock[`timeupdate`]();
+    expect(updateProgressBarMock).toBeCalledTimes(1);
   });
 });

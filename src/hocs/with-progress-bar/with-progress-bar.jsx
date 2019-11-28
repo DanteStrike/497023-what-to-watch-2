@@ -1,4 +1,5 @@
 import React, {Fragment} from "react";
+import {formatTimeForPlayer} from "../../utils/time/time";
 
 const withProgressBar = (WrappedComponent) => {
   class WithProgressBar extends React.PureComponent {
@@ -32,7 +33,7 @@ const withProgressBar = (WrappedComponent) => {
             <progress className="player__progress" value={barPercent} max="100"></progress>
             <div className="player__toggler" style={{left: `${barPercent}%`}}>Toggler</div>
           </div>
-          <div className="player__time-value">{time}</div>
+          <div className="player__time-value">{formatTimeForPlayer(time)}</div>
         </Fragment>
       );
     }

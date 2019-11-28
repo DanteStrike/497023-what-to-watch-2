@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
+import Video from "../video/video.jsx";
 
 const fixFirefoxFlickering = {
   willChange: `transform`
@@ -12,14 +13,23 @@ const MovieCard = (props) => {
     name,
     onTimerStart,
     onTimerReset,
-    renderTrailerPreview
+    previewSrc,
+    poster,
+    isTimerFinished
   } = props;
 
   return (
     <article className="small-movie-card catalog__movies-card" style={fixFirefoxFlickering} onMouseEnter={onTimerStart} onMouseLeave={onTimerReset}>
       <Link to={`/films/${id}`} style={{textDecoration: `none`, color: `unset`}}>
         <div className="small-movie-card__image">
-          {renderTrailerPreview()}
+          <Video
+            poster={poster}
+            isActivePlayer={isTimerFinished}
+            isMuted={true}
+            src={previewSrc}
+            isAutoReset={true}
+            preload={`none`}
+          />
         </div>
         <h3 className="small-movie-card__title">
           {name}
@@ -32,9 +42,11 @@ const MovieCard = (props) => {
 MovieCard.propTypes = {
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
+  poster: PropTypes.string.isRequired,
+  isTimerFinished: PropTypes.bool.isRequired,
+  previewSrc: PropTypes.string.isRequired,
   onTimerStart: PropTypes.func.isRequired,
   onTimerReset: PropTypes.func.isRequired,
-  renderTrailerPreview: PropTypes.func.isRequired
 };
 
 export default MovieCard;
