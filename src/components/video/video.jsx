@@ -43,7 +43,16 @@ class Video extends React.PureComponent {
   }
 
   componentDidMount() {
-    const {src, poster, isMuted, preload, onPlay, onPause, onCanPlayThrough} = this.props;
+    const {
+      src,
+      poster,
+      isMuted,
+      preload,
+      onPlay,
+      onPause,
+      onCanPlayThrough,
+      updateProgressBar
+    } = this.props;
     const video = this._videoRef.current;
 
     video.preload = preload;
@@ -63,10 +72,14 @@ class Video extends React.PureComponent {
     if (onPause) {
       video.addEventListener(`pause`, onPause);
     }
+
+    if (updateProgressBar) {
+      video.addEventListener(`timeupdate`, updateProgressBar);
+    }
   }
 
   componentDidUpdate() {
-    const {src, isActivePlayer, isFullScreen, openFullScreen} = this.props;
+    const {isActivePlayer} = this.props;
     const video = this._videoRef.current;
 
     if (isActivePlayer) {
@@ -81,14 +94,10 @@ class Video extends React.PureComponent {
           });
       }
     }
-
-    // if (isFullScreen) {
-    //   openFullScreen(video);
-    // }
   }
 
   componentWillUnmount() {
-    const {onPlay, onPause, onCanPlayThrough} = this.props;
+    const {onPlay, onPause, onCanPlayThrough, updateProgressBar} = this.props;
     const video = this._videoRef.current;
 
     video.preload = ``;
@@ -106,6 +115,10 @@ class Video extends React.PureComponent {
 
     if (onPause) {
       video.removeEventListener(`pause`, onPause);
+    }
+
+    if (updateProgressBar) {
+      video.removeEventListener(`timeupdate`, updateProgressBar);
     }
   }
 
@@ -131,14 +144,13 @@ Video.propTypes = {
   src: PropTypes.string.isRequired,
   isActivePlayer: PropTypes.bool,
   isAutoReset: PropTypes.bool,
-  isFullScreen: PropTypes.bool,
   preload: PropTypes.string,
   isMuted: PropTypes.bool,
 
   onPlay: PropTypes.func,
   onPause: PropTypes.func,
   onCanPlayThrough: PropTypes.func,
-  openFullScreen: PropTypes.func
+  updateProgressBar: PropTypes.func,
 };
 
 Video.defaultProps = {
@@ -148,7 +160,6 @@ Video.defaultProps = {
   isAutoReset: false,
   preload: `auto`,
   isMuted: true,
-  isFullScreen: false
 };
 
 export default Video;

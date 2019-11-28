@@ -14,8 +14,10 @@ class Player extends React.PureComponent {
 
   componentDidUpdate(prevState) {
     const {isFullScreen, toggleFullScreen} = this.props;
+    const playerElement = this._playerRef.current;
+
     if (prevState.isFullScreen !== isFullScreen) {
-      toggleFullScreen(this._playerRef.current);
+      toggleFullScreen(playerElement);
     }
   }
 
@@ -23,7 +25,7 @@ class Player extends React.PureComponent {
     const {
       videoSrc,
       renderMovie,
-      renderTimeBar,
+      renderProgressBar,
       renderPlayButton,
       renderFullScreen,
       closeVideoPlayer
@@ -37,7 +39,7 @@ class Player extends React.PureComponent {
 
         <div className="player__controls">
           <div className="player__controls-row">
-            {renderTimeBar && renderTimeBar()}
+            {renderProgressBar && renderProgressBar()}
           </div>
 
           <div className="player__controls-row">
@@ -54,7 +56,7 @@ class Player extends React.PureComponent {
 Player.propTypes = {
   videoSrc: PropTypes.string.isRequired,
   renderMovie: PropTypes.func.isRequired,
-  renderTimeBar: PropTypes.func,
+  renderProgressBar: PropTypes.func,
   renderPlayButton: PropTypes.func,
   renderFullScreen: PropTypes.func,
   closeVideoPlayer: PropTypes.func.isRequired,

@@ -11,13 +11,12 @@ const withMovie = (WrappedComponent) => {
     }
 
     _renderMovie(poster, src) {
-      const {isActivePlayer, isFullScreen, onCanPlayThrough, onPlay, onPause, openFullScreen} = this.props;
+      const {isActivePlayer, onCanPlayThrough, onPlay, onPause, updateProgressBar} = this.props;
 
       return (
         <Video
           poster={poster}
           isActivePlayer={isActivePlayer}
-          isFullScreen={isFullScreen}
           isMuted={true}
           src={src}
           isAutoReset={false}
@@ -25,7 +24,7 @@ const withMovie = (WrappedComponent) => {
           onCanPlayThrough={onCanPlayThrough}
           onPlay={onPlay}
           onPause={onPause}
-          openFullScreen={openFullScreen}
+          updateProgressBar={updateProgressBar}
         />
       );
     }
@@ -41,12 +40,13 @@ const withMovie = (WrappedComponent) => {
   }
 
   WithMovie.propTypes = {
-    isActivePlayer: PropTypes.bool,
-    isFullScreen: PropTypes.bool,
-    openFullScreen: PropTypes.func,
+    isActivePlayer: PropTypes.bool.isRequired,
+    isFullScreen: PropTypes.bool.isRequired,
+    toggleFullScreen: PropTypes.func.isRequired,
     onCanPlayThrough: PropTypes.func.isRequired,
     onPlay: PropTypes.func.isRequired,
-    onPause: PropTypes.func.isRequired
+    onPause: PropTypes.func.isRequired,
+    updateProgressBar: PropTypes.func.isRequired,
   };
 
   return WithMovie;

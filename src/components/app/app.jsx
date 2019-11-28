@@ -19,8 +19,9 @@ import Player from "../player/player.jsx";
 import withMovie from "../../hocs/with-movie/with-movie.jsx";
 import withPlayControls from "../../hocs/with-play-controls/with-play-controls.jsx";
 import withFullScreen from "../../hocs/with-full-screen/with-full-screen.jsx";
+import withProgressBar from "../../hocs/with-progress-bar/with-progress-bar.jsx";
 
-const PlayerWrapped = withFullScreen(withPlayControls(withMovie(Player)));
+const PlayerWrapped = withProgressBar(withFullScreen(withPlayControls(withMovie(Player))));
 
 const MoviePageTabs = [
   {
