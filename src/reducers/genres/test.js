@@ -4,7 +4,7 @@ import utils from "./utils.js";
 import actions from "./actions.js";
 import selectors from "./selectors.js";
 import reducer from "./reducers.js";
-import mocks from "./mocks";
+import * as storeMock from "../../mocks/store.js";
 
 
 describe(`Reducers: Genres utils`, () => {
@@ -71,13 +71,25 @@ describe(`Reducers: Genres actions`, () => {
 });
 
 describe(`Reducers: Genres reducers`, () => {
+  const genreFilterStore = {
+    currentFilter: utils.ALL_GENRE,
+    data: {
+      genres: [`All genre`, `genreOne`, `genreTwo`],
+      byGenres: {
+        "All genre": [1, 2, 3, 4],
+        "genreOne": [2, 4],
+        "genreTwo": [1, 3]
+      }
+    }
+  };
+
   it(`Reducer filterReducer`, () => {
     const action = {
       type: types.SET_CURRENT_FILTER,
       payload: `anyGenre`
     };
 
-    expect(reducer(mocks.genreFilterStore, action)).toEqual({
+    expect(reducer(genreFilterStore, action)).toEqual({
       currentFilter: `anyGenre`,
       data: {
         genres: [`All genre`, `genreOne`, `genreTwo`],
@@ -103,7 +115,7 @@ describe(`Reducers: Genres reducers`, () => {
       }
     };
 
-    expect(reducer(mocks.genreFilterStore, action)).toEqual({
+    expect(reducer(genreFilterStore, action)).toEqual({
       currentFilter: utils.ALL_GENRE,
       data: {
         genres: [`All genre new`, `genreOne new`, `genreTwo new`],
@@ -117,28 +129,28 @@ describe(`Reducers: Genres reducers`, () => {
   });
 
   it(`Reducer should return state on empty action`, () => {
-    expect(reducer(mocks.genreFilterStore, {})).toEqual(mocks.genreFilterStore);
+    expect(reducer(genreFilterStore, {})).toEqual(genreFilterStore);
   });
 });
 
 describe(`Reducers: Genres selectors`, () => {
   it(`Selector getStoreSpace`, () => {
-    expect(selectors.getStoreSpace(mocks.store)).toEqual(mocks.store[StoreNameSpace.GENRES]);
+    expect(selectors.getStoreSpace(storeMock.loadedStore)).toEqual(storeMock.loadedStore[StoreNameSpace.GENRES]);
   });
 
   it(`Selector getCurrentFilter`, () => {
-    expect(selectors.getCurrentFilter(mocks.store)).toEqual(`All genre`);
+    expect(selectors.getCurrentFilter(storeMock.loadedStore)).toEqual(`All genre`);
   });
 
   it(`Selector getGenres`, () => {
-    expect(selectors.getGenres(mocks.store)).toEqual([`All genre`, `genreOne`, `genreTwo`]);
+    expect(selectors.getGenres(storeMock.loadedStore)).toEqual([`All genre`, `genreOne`, `genreTwo`]);
   });
 
   it(`Selector getCurrentFilterFilmsIDs`, () => {
-    expect(selectors.getCurrentFilterFilmsIDs(mocks.store)).toEqual([1, 2, 3, 4]);
+    expect(selectors.getCurrentFilterFilmsIDs(storeMock.loadedStore)).toEqual([1, 3]);
   });
 
   it(`Selector getCurrentFilterFilmsAmount`, () => {
-    expect(selectors.getCurrentFilterFilmsAmount(mocks.store)).toBe(4);
+    expect(selectors.getCurrentFilterFilmsAmount(storeMock.loadedStore)).toBe(2);
   });
 });

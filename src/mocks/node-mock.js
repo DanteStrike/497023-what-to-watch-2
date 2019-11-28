@@ -3,7 +3,8 @@ export const createNodeMock = (element) => {
     return {
       src: null,
       isMuted: null,
-      poster: null
+      poster: null,
+      addEventListener: () => {}
     };
   }
   return null;

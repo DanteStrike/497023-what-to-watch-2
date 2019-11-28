@@ -2,13 +2,17 @@
 
 exports[`Render correctly VideoPlayer component 1`] = `
 <video
-  preload="none"
-  src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
   style={
     Object {
       "display": "block",
       "height": "100%",
+      "left": "50%",
+      "minHeight": "100%",
+      "minWidth": "100%",
       "objectFit": "fill",
+      "position": "absolute",
+      "top": "50%",
+      "transform": "translate(-50%, -50%)",
       "width": "100%",
     }
   }

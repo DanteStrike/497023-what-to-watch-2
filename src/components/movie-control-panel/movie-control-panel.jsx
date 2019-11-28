@@ -1,10 +1,12 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
+import {appActions} from "../../reducers/app";
+import {connect} from "react-redux";
 
 
 const MovieControlPanel = (props) => {
-  const {id, name, genre, released} = props;
+  const {id, name, genre, released, openVideoPlayer} = props;
 
   return (
     <div className="movie-card__desc">
@@ -15,7 +17,7 @@ const MovieControlPanel = (props) => {
       </p>
 
       <div className="movie-card__buttons">
-        <button className="btn btn--play movie-card__button" type="button">
+        <button className="btn btn--play movie-card__button" type="button" onClick={() => openVideoPlayer(id)}>
           <svg viewBox="0 0 19 19" width="19" height="19">
             <use xlinkHref="#play-s"></use>
           </svg>
@@ -37,8 +39,14 @@ MovieControlPanel.propTypes = {
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
-  released: PropTypes.number.isRequired
+  released: PropTypes.number.isRequired,
+  openVideoPlayer: PropTypes.func.isRequired
 };
 
 
-export default MovieControlPanel;
+const mapDispatchToProps = (dispatch) => ({
+  openVideoPlayer: (filmID) => dispatch(appActions.openVideoPlayer(filmID))
+});
+
+export {MovieControlPanel};
+export default connect(null, mapDispatchToProps)(MovieControlPanel);

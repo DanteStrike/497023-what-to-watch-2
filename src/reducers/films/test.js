@@ -1,6 +1,5 @@
 import types from "./types.js";
 import StoreNameSpace from "../store-name-space";
-import mocks from "./mocks.js";
 import utils from "./utils.js";
 import actions from "./actions.js";
 import operations from "./operations.js";
@@ -8,24 +7,23 @@ import selectors from "./selectors.js";
 import reducer from "./reducers.js";
 import configureAPI from "../../server/configure-API.js";
 import MockAdapter from "axios-mock-adapter";
+import * as filmsMock from "../../mocks/films.js";
+import * as storeMock from "../../mocks/store.js";
 
 
 describe(`Reducers: Films utils`, () => {
   describe(`Transform RAW server data`, () => {
     it(`Util adaptFilmRawData`, () => {
-      const filmRAW = mocks.filmsRAW[0];
-      const adaptedFilmData = mocks.adaptedFilmsData[0];
-
-      expect(utils.adaptFilmRAW(filmRAW)).toEqual(adaptedFilmData);
+      expect(utils.adaptFilmRAW(filmsMock.filmsRAW[0])).toEqual(filmsMock.films[0]);
     });
 
     it(`Util adaptFilmsRAW`, () => {
-      expect(utils.adaptFilmsRAW(mocks.filmsRAW)).toEqual(mocks.adaptedFilmsData);
+      expect(utils.adaptFilmsRAW(filmsMock.filmsRAW)).toEqual(filmsMock.films);
       expect(utils.adaptFilmsRAW([])).toEqual([]);
     });
 
     it(`Util normalizeFilms`, () => {
-      expect(utils.normalizeFilms(mocks.adaptedFilmsData)).toEqual(mocks.normalizedFilmsData);
+      expect(utils.normalizeFilms(filmsMock.films)).toEqual(filmsMock.normalizedFilmsData);
       expect(utils.normalizeFilms([])).toEqual({
         byIDs: {},
         allIDs: []
@@ -33,7 +31,7 @@ describe(`Reducers: Films utils`, () => {
     });
 
     it(`Util transformFilmsRAW`, () => {
-      expect(utils.transformFilmsRAW(mocks.filmsRAW)).toEqual(mocks.normalizedFilmsData);
+      expect(utils.transformFilmsRAW(filmsMock.filmsRAW)).toEqual(filmsMock.normalizedFilmsData);
       expect(utils.transformFilmsRAW([])).toEqual({
         byIDs: {},
         allIDs: []
@@ -120,15 +118,7 @@ describe(`Reducers: Film operations`, () => {
 });
 
 describe(`Reducers: Films reducers`, () => {
-  const initState = {
-    data: {
-      allIDs: [],
-      byIDs: {}
-    },
-    promo: {
-      filmID: null
-    }
-  };
+  const initState = storeMock.initStore[StoreNameSpace.FILMS];
 
   describe(`Reducer loadFilmReducer`, () => {
     it(`Should set state on correct action`, () => {
@@ -179,19 +169,19 @@ describe(`Reducers: Films reducers`, () => {
 
 describe(`Reducers: Films selectors`, () => {
   it(`Selector getStoreSpace`, () => {
-    expect(selectors.getStoreSpace(mocks.store)).toEqual(mocks.store[StoreNameSpace.FILMS]);
+    expect(selectors.getStoreSpace(storeMock.loadedStore)).toEqual(storeMock.loadedStore[StoreNameSpace.FILMS]);
   });
 
   it(`Selector getAllIDs`, () => {
-    expect(selectors.getAllIDs(mocks.store)).toEqual([1, 3]);
+    expect(selectors.getAllIDs(storeMock.loadedStore)).toEqual([1, 3]);
   });
 
   it(`Selector getFilmsByIDs`, () => {
-    expect(selectors.getFilmsByIDs(mocks.store)).toEqual(mocks.store[StoreNameSpace.FILMS].data.byIDs);
+    expect(selectors.getFilmsByIDs(storeMock.loadedStore)).toEqual(storeMock.loadedStore[StoreNameSpace.FILMS].data.byIDs);
   });
 
   it(`Selector getAllFilmsGenres`, () => {
-    expect(selectors.getAllFilmsGenres(mocks.store)).toEqual(
+    expect(selectors.getAllFilmsGenres(storeMock.loadedStore)).toEqual(
         [{
           id: 1,
           genre: `genreOne`,
@@ -203,7 +193,7 @@ describe(`Reducers: Films selectors`, () => {
   });
 
   it(`Selector getCurrentCardsInfo`, () => {
-    expect(selectors.getCurrentCardsInfo.resultFunc([1, 3], mocks.store[StoreNameSpace.FILMS].data.byIDs)).toEqual(
+    expect(selectors.getCurrentCardsInfo.resultFunc([1, 3], storeMock.loadedStore[StoreNameSpace.FILMS].data.byIDs)).toEqual(
         [{
           id: 1,
           name: `filmOne`,
@@ -221,7 +211,7 @@ describe(`Reducers: Films selectors`, () => {
         }]
     );
 
-    expect(selectors.getCurrentCardsInfo.resultFunc([3], mocks.store[StoreNameSpace.FILMS].data.byIDs)).toEqual([{
+    expect(selectors.getCurrentCardsInfo.resultFunc([3], storeMock.loadedStore[StoreNameSpace.FILMS].data.byIDs)).toEqual([{
       id: 3,
       name: `filmTwo`,
       preview: {
@@ -230,7 +220,7 @@ describe(`Reducers: Films selectors`, () => {
       }
     }]);
 
-    expect(selectors.getCurrentCardsInfo.resultFunc([], mocks.store[StoreNameSpace.FILMS].data.byIDs)).toEqual([]);
+    expect(selectors.getCurrentCardsInfo.resultFunc([], storeMock.loadedStore[StoreNameSpace.FILMS].data.byIDs)).toEqual([]);
   });
 
   it(`Selector getDisplayedCardInfo`, () => {
@@ -240,11 +230,11 @@ describe(`Reducers: Films selectors`, () => {
   });
 
   it(`Selector getFilmByCurrentID`, () => {
-    expect(selectors.getFilmByCurrentID(mocks.store, {curFilmID: 3})).toEqual(mocks.adaptedFilmsData[1]);
+    expect(selectors.getFilmByCurrentID(storeMock.loadedStore, {curFilmID: 3})).toEqual(filmsMock.films[1]);
   });
 
   it(`Selector getFilmsAmount`, () => {
-    expect(selectors.getFilmsAmount(mocks.store)).toBe(2);
+    expect(selectors.getFilmsAmount(storeMock.loadedStore)).toBe(2);
   });
 
   it(`Selector getCurFilmID`, () => {
@@ -261,17 +251,17 @@ describe(`Reducers: Films selectors`, () => {
   });
 
   it(`Selector getFilmByCurID`, () => {
-    expect(selectors.getFilmByCurID(mocks.store, {curFilmID: 3})).toEqual(mocks.adaptedFilmsData[1]);
+    expect(selectors.getFilmByCurID(storeMock.loadedStore, {curFilmID: 3})).toEqual(filmsMock.films[1]);
   });
 
   it(`Selector getCurFilmGenre`, () => {
-    expect(selectors.getCurFilmGenre(mocks.store, {curFilmID: 3})).toEqual(`genreTwo`);
+    expect(selectors.getCurFilmGenre(storeMock.loadedStore, {curFilmID: 3})).toEqual(`genreTwo`);
   });
   it(`Selector getPromoID`, () => {
-    expect(selectors.getPromoID(mocks.store)).toBe(3);
+    expect(selectors.getPromoID(storeMock.loadedStore)).toBe(3);
   });
 
   it(`Selector getPromoFilm`, () => {
-    expect(selectors.getPromoFilm(mocks.store)).toEqual(mocks.adaptedFilmsData[1]);
+    expect(selectors.getPromoFilm(storeMock.loadedStore)).toEqual(filmsMock.films[1]);
   });
 });

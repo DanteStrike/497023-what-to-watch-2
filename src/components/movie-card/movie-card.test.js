@@ -3,6 +3,7 @@ import renderer from "react-test-renderer";
 import {BrowserRouter as Router} from 'react-router-dom';
 
 import MovieCard from "./movie-card.jsx";
+import {createNodeMock} from "../../mocks/node-mock";
 
 
 it(`Render correctly MovieCard component`, () => {
@@ -15,9 +16,14 @@ it(`Render correctly MovieCard component`, () => {
             image={`img/johnny-english.jpg`}
             onTimerStart={jest.fn()}
             onTimerReset={jest.fn()}
-            renderTrailerPreview={jest.fn()}
+            isTimerFinished={false}
+            poster={`url`}
+            previewSrc={`src`}
           />
-        </Router>
+        </Router>,
+        {
+          createNodeMock
+        }
     ).toJSON();
 
   expect(MovieCardComponent).toMatchSnapshot();
