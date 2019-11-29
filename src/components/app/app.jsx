@@ -6,7 +6,6 @@ import {connect} from "react-redux";
 import {compose} from "recompose";
 
 import MainPage from "../main-page/main-page.jsx";
-import SignInPage from "../sign-in-page/sign-in-page.jsx";
 import MyListPage from "../my-list-page/my-list-page.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
 import MoviePageOverview from "../movie-page-overview/movie-page-overview.jsx";
@@ -20,6 +19,8 @@ import Player from "../player/player.jsx";
 import withPlayControls from "../../hocs/with-play-controls/with-play-controls.jsx";
 import withFullScreen from "../../hocs/with-full-screen/with-full-screen.jsx";
 import withProgressBar from "../../hocs/with-progress-bar/with-progress-bar.jsx";
+import withLogin from "../../hocs/with-login/with-login.jsx";
+import Login from "../login/login.jsx";
 
 const PlayerWrapped = compose(
     withProgressBar,
@@ -58,7 +59,7 @@ const App = (props) => {
   return (
     <Switch>
       <Route exact path="/" component={MainPage}/>
-      <Route exact path="/login" component={SignInPage}/>
+      <Route exact path="/login" component={withLogin(Login)}/>
       <Route exact path="/mylist" component={MyListPage}/>
       <Route exact path="/films/:id" component={({match: {params: {id}}}) => {
         return (<MoviePageWrapped curFilmID={Number(id)}/>);

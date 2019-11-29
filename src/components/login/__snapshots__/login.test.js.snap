@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Render correctly SignInPage component 1`] = `
+exports[`Component Login should render correctly 1`] = `
 <div
   className="user-page"
 >
@@ -44,6 +44,7 @@ exports[`Render correctly SignInPage component 1`] = `
     <form
       action="#"
       className="sign-in__form"
+      onSubmit={[Function]}
     >
       <div
         className="sign-in__fields"
@@ -55,6 +56,7 @@ exports[`Render correctly SignInPage component 1`] = `
             className="sign-in__input"
             id="user-email"
             name="user-email"
+            onChange={[MockFunction]}
             placeholder="Email address"
             type="email"
           />
@@ -72,6 +74,7 @@ exports[`Render correctly SignInPage component 1`] = `
             className="sign-in__input"
             id="user-password"
             name="user-password"
+            onChange={[MockFunction]}
             placeholder="Password"
             type="password"
           />

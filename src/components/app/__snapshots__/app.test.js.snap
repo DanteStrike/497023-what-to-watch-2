@@ -7,12 +7,12 @@ exports[`Render correctly App component 1`] = `
   <video
     style={
       Object {
+        "backgroundColor": "black",
         "display": "block",
         "height": "100%",
         "left": "50%",
         "minHeight": "100%",
         "minWidth": "100%",
-        "objectFit": "fill",
         "position": "absolute",
         "top": "50%",
         "transform": "translate(-50%, -50%)",

@@ -1,39 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const trailerPreviewStyle = {
+const videoObjectFitCover = {
+  position: `absolute`,
   display: `block`,
-  objectFit: `fill`,
   width: `100%`,
   height: `100%`,
-  position: `absolute`,
   top: `50%`,
   left: `50%`,
   transform: `translate(-50%, -50%)`,
   minWidth: `100%`,
-  minHeight: `100%`
+  minHeight: `100%`,
+  backgroundColor: `black`
 };
-
-// const trailerPreviewStyleP = {
-//   display: `block`,
-//   objectFit: `fill`,
-//   width: `100%`,
-//   height: `100%`,
-//
-// };
-//
-// const videoPlayerStyle = {
-//   display: `block`,
-//   objectFit: `fill`,
-//   width: `auto`,
-//   height: `auto`,
-//   position: `absolute`,
-//   top: `50%`,
-//   left: `50%`,
-//   transform: `translate(-50%, -50%)`,
-//   minWidth: `100%`,
-//   minHeight: `100%`
-// };
 
 class Video extends React.PureComponent {
   constructor(props) {
@@ -107,7 +86,7 @@ class Video extends React.PureComponent {
 
   render() {
     return (
-      <video ref={this._videoRef} style={trailerPreviewStyle}/>
+      <video ref={this._videoRef} style={videoObjectFitCover}/>
     );
   }
 }
