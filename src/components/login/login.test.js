@@ -10,11 +10,12 @@ it(`Component Login should render correctly`, () => {
           onFormSubmit={jest.fn()}
           onEmailChange={jest.fn()}
           onPasswordChange={jest.fn()}
-          validation={{
+          formValidation={{
             showError: false,
             type: ``,
             msg: ``
           }}
+          isSubmitting={false}
         />
       </Router>
   );

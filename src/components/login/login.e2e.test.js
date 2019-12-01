@@ -19,11 +19,12 @@ describe(`Component Login should work correctly`, () => {
           onFormSubmit={onFormSubmitMock}
           onEmailChange={onEmailChangeMock}
           onPasswordChange={onPasswordChangeMock}
-          validation={{
+          formValidation={{
             showError: false,
             type: ``,
             msg: ``
           }}
+          isSubmitting={false}
         />
     );
   });
@@ -48,5 +49,8 @@ describe(`Component Login should work correctly`, () => {
     expect(onPasswordChangeMock).toHaveBeenLastCalledWith({evt: `test`});
   });
 
-
+  it(`Should show msg on submitting`, () => {
+    component.setProps({isSubmitting: true});
+    expect(component.find(`.sign-in__message`)).toHaveLength(1);
+  });
 });

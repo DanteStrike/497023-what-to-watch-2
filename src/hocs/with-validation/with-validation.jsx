@@ -1,10 +1,12 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {LoginValidationType} from "../../utils/enum";
-import {getIsValidEmail} from "../../utils/validation/validation";
+import {getIsValidFormatEmail} from "../../utils/validation/validation";
+import {formatServerErrorMsg} from "../../utils/string/string";
 
 
-const withLogin = (WrappedComponent) => {
-  class WithLogin extends React.PureComponent {
+const withValidation = (WrappedComponent) => {
+  class WithValidation extends React.PureComponent {
     constructor(props) {
       super(props);
 
@@ -15,12 +17,30 @@ const withLogin = (WrappedComponent) => {
           showError: false,
           type: ``,
           msg: ``
-        }
+        },
+        isSubmitting: false
       };
 
       this._emailChangeHandler = this._emailChangeHandler.bind(this);
       this._passwordChangeHandler = this._passwordChangeHandler.bind(this);
       this._formSubmitHandler = this._formSubmitHandler.bind(this);
+    }
+
+    componentDidUpdate(prevProps) {
+      const {serverErrorMsg} = this.props;
+
+      if (prevProps.serverErrorMsg !== serverErrorMsg && serverErrorMsg !== ``) {
+        const error = formatServerErrorMsg(serverErrorMsg);
+
+        this.setState({
+          validation: {
+            showError: true,
+            type: error.type,
+            msg: `Server: ${error.msg}`
+          },
+          isSubmitting: false
+        });
+      }
     }
 
     _emailChangeHandler(evt) {
@@ -38,27 +58,44 @@ const withLogin = (WrappedComponent) => {
     }
 
     _formSubmitHandler() {
+      const {onRequestAuth} = this.props;
+      const {email, password} = this.state;
+
       switch (true) {
         case !this._validateEmail():
-          break;
+          return;
         case !this._validatePassword():
-          break;
+          return;
       }
+
+      onRequestAuth(email, password);
+      this.setState({isSubmitting: true});
     }
 
     _validateEmail() {
       const {email} = this.state;
-      const isValidEmail = getIsValidEmail(email);
 
-      if (!isValidEmail) {
+      if (email === ``) {
         this.setState({validation: {
           showError: true,
           type: LoginValidationType.EMAIL,
-          msg: `Please enter a valid email address`
+          msg: `Form: Please enter email address`
         }});
+
+        return false;
       }
 
-      return isValidEmail;
+      if (!getIsValidFormatEmail(email)) {
+        this.setState({validation: {
+          showError: true,
+          type: LoginValidationType.EMAIL,
+          msg: `Form: Please enter a valid email address`
+        }});
+
+        return false;
+      }
+
+      return true;
     }
 
     _validatePassword() {
@@ -69,7 +106,7 @@ const withLogin = (WrappedComponent) => {
         this.setState({validation: {
           showError: true,
           type: LoginValidationType.PASSWORD,
-          msg: `Please enter password`
+          msg: `Form: Please enter password`
         }});
       }
 
@@ -91,7 +128,7 @@ const withLogin = (WrappedComponent) => {
     }
 
     render() {
-      const {validation} = this.state;
+      const {validation, isSubmitting} = this.state;
 
       return (
         <WrappedComponent
@@ -99,13 +136,19 @@ const withLogin = (WrappedComponent) => {
           onEmailChange={this._emailChangeHandler}
           onPasswordChange={this._passwordChangeHandler}
           onFormSubmit={this._formSubmitHandler}
-          validation={validation}
+          formValidation={validation}
+          isSubmitting={isSubmitting}
         />
       );
     }
   }
 
-  return WithLogin;
+  WithValidation.propTypes = {
+    onRequestAuth: PropTypes.func.isRequired,
+    serverErrorMsg: PropTypes.string.isRequired
+  };
+
+  return WithValidation;
 };
 
-export default withLogin;
+export default withValidation;

@@ -8,6 +8,7 @@ import {compose} from "recompose";
 import thunk from "redux-thunk";
 import StoreNameSpace from "./store-name-space";
 import {commentsReducer} from "./comments";
+import {userReducer} from "./user";
 
 const api = configureAPI((...args) => configuredStore.dispatch(...args));
 
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
   [StoreNameSpace.FILMS]: filmsReducer,
   [StoreNameSpace.COMMENTS]: commentsReducer,
   [StoreNameSpace.GENRES]: genreFilterReducer,
-  [StoreNameSpace.CATALOG]: catalogReducer
+  [StoreNameSpace.CATALOG]: catalogReducer,
+  [StoreNameSpace.USER]: userReducer
 });
 
 const configuredStore = createStore(

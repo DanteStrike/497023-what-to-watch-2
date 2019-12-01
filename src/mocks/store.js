@@ -40,14 +40,13 @@ export const initStore = {
   [StoreNameSpace.USER]: {
     auth: {
       isAuth: false,
-      isFetching: false,
       error: {
         isError: false,
-        errorMsg: ``
+        msg: ``
       }
     },
 
-    info: {
+    data: {
       id: null,
       email: ``,
       name: ``,
@@ -94,14 +93,13 @@ export const loadedStore = {
   [StoreNameSpace.USER]: {
     auth: {
       isAuth: true,
-      isFetching: false,
       error: {
-        isError: false,
-        errorMsg: ``
+        isError: true,
+        msg: `any`
       }
     },
 
-    info: {
+    data: {
       id: 1,
       email: `Oliver.conner@gmail.com`,
       name: `Oliver.conner`,

@@ -1,13 +1,16 @@
 import React from "react";
 import Enzyme, {shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import withLogin from "./with-login";
+import withValidation from "./with-validation";
 import {LoginValidationType} from "../../utils/enum";
 
 Enzyme.configure({adapter: new Adapter()});
 
 describe(`HoC withLogin should work correctly`, () => {
   let component;
+  let validateEmailMock;
+  let validatePasswordMock;
+  const onRequestAuthMock = jest.fn();
 
   const evtInputMock = {
     target: {
@@ -16,10 +19,19 @@ describe(`HoC withLogin should work correctly`, () => {
   };
 
   const MockComponent = () => (<div/>);
-  const MockComponentWrapped = withLogin(MockComponent);
+  const MockComponentWrapped = withValidation(MockComponent);
 
   beforeEach(() => {
-    component = shallow(<MockComponentWrapped/>);
+    jest.resetAllMocks();
+    component = shallow(
+        <MockComponentWrapped
+          onRequestAuth={onRequestAuthMock}
+          serverErrorMsg={``}
+        />
+    );
+
+    validateEmailMock = jest.spyOn(component.instance(), `_validateEmail`);
+    validatePasswordMock = jest.spyOn(component.instance(), `_validatePassword`);
   });
 
   it(`Should have default state`, () => {
@@ -29,6 +41,7 @@ describe(`HoC withLogin should work correctly`, () => {
       showError: false,
       msg: ``
     };
+    component.state().isSubmitting = false;
   });
 
   it(`Should change email state on _emailChangeHandler`, () => {
@@ -42,10 +55,8 @@ describe(`HoC withLogin should work correctly`, () => {
   });
 
   it(`Should validate form on _formSubmitHandler`, () => {
-    const validateEmail = component.instance()._validateEmail = jest.fn();
-    validateEmail.mockReturnValue(true);
-    const validatePassword = component.instance()._validatePassword = jest.fn();
-    validatePassword.mockReturnValue(true);
+    validateEmailMock.mockReturnValue(true);
+    validatePasswordMock.mockReturnValue(true);
 
     component.instance()._formSubmitHandler();
     expect(component.instance()._validateEmail).toBeCalledTimes(1);
@@ -53,20 +64,48 @@ describe(`HoC withLogin should work correctly`, () => {
     jest.resetAllMocks();
 
     component.instance()._formSubmitHandler();
-    validateEmail.mockReturnValue(false);
-    validatePassword.mockReturnValue(true);
+    validateEmailMock.mockReturnValue(false);
+    validatePasswordMock.mockReturnValue(true);
     expect(component.instance()._validateEmail).toBeCalledTimes(1);
     expect(component.instance()._validatePassword).toBeCalledTimes(0);
   });
 
+  it(`Should call onRequestAuth on validation success`, () => {
+    validateEmailMock.mockReturnValue(true);
+    validatePasswordMock.mockReturnValue(true);
+
+    component.setState({
+      email: `email`,
+      password: `password`,
+    });
+
+    component.instance()._formSubmitHandler();
+    expect(onRequestAuthMock).toHaveBeenCalledTimes(1);
+    expect(onRequestAuthMock).toHaveBeenLastCalledWith(`email`, `password`);
+  });
+
+  it(`Should lock form on submitting and unlock on server error`, () => {
+    validateEmailMock.mockReturnValue(true);
+    validatePasswordMock.mockReturnValue(true);
+    component.instance()._formSubmitHandler();
+    expect(component.state().isSubmitting).toEqual(true);
+
+    component.setProps({serverErrorMsg: `any`});
+    expect(component.state().isSubmitting).toEqual(false);
+    expect(component.state().validation).toEqual({
+      showError: true,
+      type: ``,
+      msg: `Server: any`
+    });
+  });
+
   it(`Should validate email correctly`, () => {
-    jest.spyOn(component.instance(), `_validateEmail`);
     component.instance()._validateEmail();
 
     expect(component.state().validation).toEqual({
       showError: true,
       type: LoginValidationType.EMAIL,
-      msg: `Please enter a valid email address`
+      msg: `Form: Please enter email address`
     });
     expect(component.instance()._validateEmail).lastReturnedWith(false);
     component.state().validation = {
@@ -80,7 +119,7 @@ describe(`HoC withLogin should work correctly`, () => {
     expect(component.state().validation).toEqual({
       showError: true,
       type: LoginValidationType.EMAIL,
-      msg: `Please enter a valid email address`
+      msg: `Form: Please enter a valid email address`
     });
     expect(component.instance()._validateEmail).lastReturnedWith(false);
     component.state().validation = {
@@ -100,13 +139,12 @@ describe(`HoC withLogin should work correctly`, () => {
   });
 
   it(`Should validate password correctly`, () => {
-    jest.spyOn(component.instance(), `_validatePassword`);
     component.instance()._validatePassword();
 
     expect(component.state().validation).toEqual({
       showError: true,
       type: LoginValidationType.PASSWORD,
-      msg: `Please enter password`
+      msg: `Form: Please enter password`
     });
     expect(component.instance()._validatePassword).lastReturnedWith(false);
     component.state().validation = {

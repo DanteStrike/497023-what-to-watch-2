@@ -1,16 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
+import {userSelectors} from "../../reducers/user";
+import {connect} from "react-redux";
+
 
 const UserBlock = (props) => {
-  const {isAuth, avatarSrc} = props;
+  const {isAuth, avatarUrl} = props;
 
   return (
     <div className="user-block">
       {
         isAuth ?
           <div className="user-block__avatar">
-            <img src={avatarSrc} alt="User avatar" width="63" height="63"/>
+            <img src={avatarUrl} alt="User avatar" width="63" height="63"/>
           </div>
           :
           <Link to="/login" className="user-block__link">Sign in</Link>
@@ -21,13 +24,13 @@ const UserBlock = (props) => {
 
 UserBlock.propTypes = {
   isAuth: PropTypes.bool.isRequired,
-  avatarSrc: PropTypes.string.isRequired
+  avatarUrl: PropTypes.string.isRequired
 };
 
-UserBlock.defaultProps = {
-  isAuth: false,
-  avatarSrc: ``
-};
+const mapStateToProps = (state) => ({
+  isAuth: userSelectors.getIsAuth(state),
+  avatarUrl: userSelectors.getAvatarUrl(state)
+});
 
-
-export default UserBlock;
+export {UserBlock};
+export default connect(mapStateToProps)(UserBlock);
