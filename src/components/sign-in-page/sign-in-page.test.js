@@ -1,16 +1,25 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import {BrowserRouter as Router} from 'react-router-dom';
-import SignInPage from "./sign-in-page.jsx";
+import {SignInPage} from "./sign-in-page";
+import {BrowserRouter as Router} from "react-router-dom";
 
-
-it(`Render correctly SignInPage component`, () => {
-  const component = renderer
-    .create(
-        <Router>
-          <SignInPage/>
-        </Router>
-    ).toJSON();
+it(`Component SignInPage should render correctly`, () => {
+  const component = renderer.create(
+      <Router>
+        <SignInPage
+          history={{
+            push: jest.fn()
+          }}
+          location={{obj: `obj`}}
+          isAuth={false}
+          resetAuthErrors={jest.fn()}
+          sentAuthRequest={jest.fn()}
+          serverError={{
+            isError: false,
+            msg: ``}}
+        />
+      </Router>
+  );
 
   expect(component).toMatchSnapshot();
 });

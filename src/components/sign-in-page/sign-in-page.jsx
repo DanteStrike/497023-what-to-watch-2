@@ -1,37 +1,105 @@
 import React from "react";
+import PropTypes from "prop-types";
+import axios from "axios";
+import {connect} from "react-redux";
+
 import PageHeader from "../page-header/page-header.jsx";
 import PageFooter from "../page-footer/page-footer.jsx";
-import PageTitle from "../page-title/page-title.jsx";
 
-const SignInPage = () => {
-  return (
-    <div className="user-page">
-      <PageHeader
-        mixinClass={`user-page__head`}
-        rightPart={<PageTitle title={`Sign in`}/>}
-      />
-      <div className="sign-in user-page__content">
-        <form action="#" className="sign-in__form">
-          <div className="sign-in__fields">
-            <div className="sign-in__field">
-              <input className="sign-in__input" type="email" placeholder="Email address" name="user-email"
-                id="user-email"/>
-              <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
-            </div>
-            <div className="sign-in__field">
-              <input className="sign-in__input" type="password" placeholder="Password" name="user-password"
-                id="user-password"/>
-              <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
-            </div>
-          </div>
-          <div className="sign-in__submit">
-            <button className="sign-in__btn" type="submit">Sign in</button>
-          </div>
-        </form>
+import withValidation from "../../hocs/with-validation/with-validation.jsx";
+import Login from "../login/login.jsx";
+import {userActions, userOperations, userSelectors} from "../../reducers/user";
+
+const LoginWrapped = withValidation(Login);
+
+
+class SignInPage extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this._requestAuthHandler = this._requestAuthHandler.bind(this);
+  }
+
+  componentDidMount() {
+    const {resetAuthErrors} = this.props;
+    resetAuthErrors();
+  }
+
+  componentDidUpdate(prevProps) {
+    const {isAuth, history, location} = this.props;
+
+    if (prevProps.isAuth !== isAuth && isAuth) {
+      if (location.state) {
+        history.push(location.state.referer || `/`);
+      } else {
+        history.push(`/`);
+      }
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.authRequestToken) {
+      this.authRequestToken.cancel(`Operation was aborted by user`);
+    }
+  }
+
+
+  _requestAuthHandler(email, password) {
+    const {sentAuthRequest, resetAuthErrors} = this.props;
+    const CancelToken = axios.CancelToken;
+
+    resetAuthErrors();
+    this.authRequestToken = CancelToken.source();
+    sentAuthRequest(email, password, this.authRequestToken);
+  }
+
+  render() {
+    const {serverError} = this.props;
+
+    return (
+      <div className="user-page">
+        <PageHeader
+          mixinClass="user-page__head"
+          rightPart={<h1 className="page-title user-page__title">Sign in</h1>}
+        />
+        <div className="sign-in user-page__content">
+          <LoginWrapped
+            serverErrorMsg={serverError.msg}
+            onRequestAuth={this._requestAuthHandler}
+          />
+        </div>
+        <PageFooter/>
       </div>
-      <PageFooter/>
-    </div>
-  );
+    );
+  }
+}
+
+SignInPage.propTypes = {
+  isAuth: PropTypes.bool.isRequired,
+  serverError: PropTypes.exact({
+    isError: PropTypes.bool.isRequired,
+    msg: PropTypes.string.isRequired
+  }).isRequired,
+  sentAuthRequest: PropTypes.func.isRequired,
+  resetAuthErrors: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired,
+  location: PropTypes.shape({
+    state: PropTypes.shape({
+      referer: PropTypes.string.isRequired
+    })
+  })
 };
 
-export default SignInPage;
+const mapStateToProps = (state) => ({
+  isAuth: userSelectors.getIsAuth(state),
+  serverError: userSelectors.getAuthError(state)
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  sentAuthRequest: (email, password, source) => dispatch(userOperations.sentAuthRequest(email, password, source)),
+  resetAuthErrors: () => dispatch(userActions.resetAuthErrors())
+});
+
+export {SignInPage};
+export default connect(mapStateToProps, mapDispatchToProps)(SignInPage);

@@ -35,6 +35,24 @@ export const initStore = {
 
   [StoreNameSpace.CATALOG]: {
     displayedFilmsAmount: 0
+  },
+
+  [StoreNameSpace.USER]: {
+    auth: {
+      isAuth: false,
+      error: {
+        isError: false,
+        msg: ``
+      }
+    },
+
+    data: {
+      id: null,
+      email: ``,
+      name: ``,
+      avatarUrl: ``,
+      myListFilmsIDs: []
+    }
   }
 };
 
@@ -70,5 +88,23 @@ export const loadedStore = {
 
   [StoreNameSpace.CATALOG]: {
     displayedFilmsAmount: 0
-  }
+  },
+
+  [StoreNameSpace.USER]: {
+    auth: {
+      isAuth: true,
+      error: {
+        isError: true,
+        msg: `any`
+      }
+    },
+
+    data: {
+      id: 1,
+      email: `Oliver.conner@gmail.com`,
+      name: `Oliver.conner`,
+      avatarUrl: `img/1.png`,
+      myListFilmsIDs: [3]
+    }
+  },
 };

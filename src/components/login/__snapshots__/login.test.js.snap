@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component Login should render correctly 1`] = `
+<form
+  action="#"
+  className="sign-in__form"
+  onSubmit={[Function]}
+  style={Object {}}
+>
+  <div
+    className="sign-in__fields"
+    style={Object {}}
+  >
+    <div
+      className="sign-in__field"
+    >
+      <input
+        className="sign-in__input"
+        disabled={false}
+        id="user-email"
+        name="user-email"
+        onChange={[MockFunction]}
+        placeholder="Email address"
+        type="email"
+      />
+      <label
+        className="sign-in__label visually-hidden"
+        htmlFor="user-email"
+      >
+        Email address
+      </label>
+    </div>
+    <div
+      className="sign-in__field"
+    >
+      <input
+        className="sign-in__input"
+        disabled={false}
+        id="user-password"
+        name="user-password"
+        onChange={[MockFunction]}
+        placeholder="Password"
+        type="password"
+      />
+      <label
+        className="sign-in__label visually-hidden"
+        htmlFor="user-password"
+      >
+        Password
+      </label>
+    </div>
+  </div>
+  <div
+    className="sign-in__submit"
+    style={Object {}}
+  >
+    <button
+      className="sign-in__btn"
+      disabled={false}
+      type="submit"
+    >
+      Sign in
+    </button>
+  </div>
+</form>
+`;

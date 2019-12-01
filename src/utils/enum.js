@@ -24,3 +24,8 @@ export const Icons = {
   PAUSE: `pause`,
   PLAY_S: `play-s`
 };
+
+export const LoginValidationType = {
+  EMAIL: `email`,
+  PASSWORD: `password`
+};
