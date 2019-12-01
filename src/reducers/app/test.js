@@ -63,12 +63,12 @@ describe(`Reducers: App operations`, () => {
         expect(spyOnSetupFilterState).toHaveBeenCalledTimes(1);
 
         expect(spyOnSetupFilterState).toHaveBeenNthCalledWith(1, [`mock`]);
-        expect(dispatch).toHaveBeenNthCalledWith(3, {
+        expect(dispatch).toHaveBeenNthCalledWith(4, {
           type: genreFilterTypes.SETUP_FILTER_STATE,
           payload: [{genre: `ready`}]
         });
 
-        expect(dispatch).toHaveBeenNthCalledWith(4, {
+        expect(dispatch).toHaveBeenNthCalledWith(6, {
           type: types.SET_APP_IS_READY,
           payload: true
         });
