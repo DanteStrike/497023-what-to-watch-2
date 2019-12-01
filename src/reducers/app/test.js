@@ -54,7 +54,7 @@ describe(`Reducers: App operations`, () => {
 
     setupApp(dispatch, getState)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(4);
+        expect(dispatch).toHaveBeenCalledTimes(6);
         expect(getState).toHaveBeenCalledTimes(1);
 
         expect(spyOnLoadFilms).toHaveBeenCalledTimes(1);
