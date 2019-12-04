@@ -2,15 +2,33 @@ import React from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import {connect} from "react-redux";
-
 import PageHeader from "../page-header/page-header.jsx";
 import PageFooter from "../page-footer/page-footer.jsx";
-
-import withValidation from "../../hocs/with-validation/with-validation.jsx";
 import Login from "../login/login.jsx";
 import {userActions, userOperations, userSelectors} from "../../reducers/user";
+import {compose} from "recompose";
+import withToggleState from "../../hocs/with-toggle-state/with-toggle-state.jsx";
+import withInputValidation from "../../hocs/with-input-validation/with-input-validation.jsx";
 
-const LoginWrapped = withValidation(Login);
+const LoginWrapped = compose(
+    withToggleState(`isSubmitting`, false, `toggleFormLock`),
+    withInputValidation(
+        `email`,
+        `onEmailChange`,
+        ``,
+        `validateEmail`,
+        `emailValidation`,
+        () => ({})
+    ),
+    withInputValidation(
+        `password`,
+        `onPasswordChange`,
+        ``,
+        `validatePassword`,
+        `passwordValidation`,
+        () => ({})
+    )
+)(Login);
 
 
 class SignInPage extends React.PureComponent {
@@ -63,8 +81,12 @@ class SignInPage extends React.PureComponent {
         />
         <div className="sign-in user-page__content">
           <LoginWrapped
-            serverErrorMsg={serverError.msg}
-            onRequestAuth={this._requestAuthHandler}
+            serverValidation={{
+              isValid: true,
+              type: ``,
+              msg: ``
+            }}
+            requestLogin={this._requestAuthHandler}
           />
         </div>
         <PageFooter/>
