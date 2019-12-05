@@ -9,6 +9,7 @@ import {userActions, userOperations, userSelectors} from "../../reducers/user";
 import {compose} from "recompose";
 import withToggleState from "../../hocs/with-toggle-state/with-toggle-state.jsx";
 import withInputValidation from "../../hocs/with-input-validation/with-input-validation.jsx";
+import {getIsValidFormatEmail, getIsValidFormatPassword} from "../../utils/validation/validation.js";
 
 const LoginWrapped = compose(
     withToggleState(`isSubmitting`, false, `toggleFormLock`),
@@ -18,7 +19,7 @@ const LoginWrapped = compose(
         ``,
         `validateEmail`,
         `emailValidation`,
-        () => ({})
+        getIsValidFormatEmail
     ),
     withInputValidation(
         `password`,
@@ -26,7 +27,7 @@ const LoginWrapped = compose(
         ``,
         `validatePassword`,
         `passwordValidation`,
-        () => ({})
+        getIsValidFormatPassword
     )
 )(Login);
 
@@ -35,11 +36,6 @@ class SignInPage extends React.PureComponent {
   constructor(props) {
     super(props);
     this._requestAuthHandler = this._requestAuthHandler.bind(this);
-  }
-
-  componentDidMount() {
-    const {resetAuthErrors} = this.props;
-    resetAuthErrors();
   }
 
   componentDidUpdate(prevProps) {
@@ -55,9 +51,12 @@ class SignInPage extends React.PureComponent {
   }
 
   componentWillUnmount() {
+    const {resetAuthErrors} = this.props;
+
     if (this.authRequestToken) {
       this.authRequestToken.cancel(`Operation was aborted by user`);
     }
+    resetAuthErrors();
   }
 
 
