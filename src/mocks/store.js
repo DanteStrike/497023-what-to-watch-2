@@ -42,6 +42,7 @@ export const initStore = {
       isAuth: false,
       error: {
         isError: false,
+        target: ``,
         msg: ``
       }
     },
@@ -95,6 +96,7 @@ export const loadedStore = {
       isAuth: true,
       error: {
         isError: true,
+        target: `target`,
         msg: `any`
       }
     },

@@ -40,6 +40,19 @@ describe(`Reducers: User utils`, () => {
   it(`Util getIDsList`, () => {
     expect(utils.getIDsList(filmsMock.filmsRAW)).toEqual([1, 3]);
   });
+
+  it(`Util decodeServerErrMsg`, () => {
+    expect(utils.decodeServerErrMsg(`child "email" fails because ["email" must be a valid email]`))
+      .toEqual({
+        target: `email`,
+        msg: `"email" must be a valid email`
+      });
+    expect(utils.decodeServerErrMsg(`any`))
+      .toEqual({
+        target: ``,
+        msg: `any`
+      });
+  });
 });
 
 describe(`Reducers: User actions`, () => {
@@ -62,10 +75,18 @@ describe(`Reducers: User actions`, () => {
   });
 
   it(`Action initAuthServerError`, () => {
+    utils.decodeServerErrMsg = jest.fn(() => ({
+      target: `any`,
+      msg: `msgAny`
+    }));
     expect(actions.initAuthServerError(`error`)).toEqual({
       type: types.INIT_AUTH_SERVER_ERROR,
-      payload: `error`
+      payload: {
+        target: `any`,
+        msg: `msgAny`
+      }
     });
+    expect(utils.decodeServerErrMsg).toHaveBeenCalled();
   });
 
   it(`Action setUserProfile`, () => {
@@ -216,6 +237,7 @@ describe(`Reducers: User reducers`, () => {
         isAuth: true,
         error: {
           isError: false,
+          target: ``,
           msg: ``
         }
       });
@@ -227,6 +249,7 @@ describe(`Reducers: User reducers`, () => {
         isAuth: false,
         error: {
           isError: true,
+          target: `target`,
           msg: `any`
         }
       });
@@ -234,13 +257,17 @@ describe(`Reducers: User reducers`, () => {
     it(`Should init error correctly`, () => {
       const action = {
         type: types.INIT_AUTH_SERVER_ERROR,
-        payload: `errorMsg`
+        payload: {
+          target: `target`,
+          msg: `errorMsg`
+        }
       };
 
       expect(reducer(initState, action).auth).toEqual({
         isAuth: false,
         error: {
           isError: true,
+          target: `target`,
           msg: `errorMsg`
         }
       });
@@ -253,6 +280,7 @@ describe(`Reducers: User reducers`, () => {
         isAuth: true,
         error: {
           isError: false,
+          target: ``,
           msg: ``
         }
       });
@@ -317,6 +345,7 @@ describe(`Reducers: User selectors`, () => {
   it(`Selector getAuthError`, () => {
     expect(selectors.getAuthError(storeMock.loadedStore)).toEqual({
       isError: true,
+      target: `target`,
       msg: `any`
     });
   });

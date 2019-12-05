@@ -2,9 +2,9 @@ import React from "react";
 import {updateObject} from "../../utils/object/object";
 
 const withToggleState = (
-    stateName = `state`,
-    stateInitValue = false,
-    stateToggleName = `toggleState`
+    stateName,
+    stateInitValue,
+    stateToggleName
 ) => (WrappedComponent) => {
   class WithToggleState extends React.PureComponent {
     constructor(props) {

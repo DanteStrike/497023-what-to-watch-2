@@ -13,10 +13,16 @@ const resetAuthErrors = () => ({
   type: types.RESET_AUTH_ERRORS
 });
 
-const initAuthServerError = (errMsg) => ({
-  type: types.INIT_AUTH_SERVER_ERROR,
-  payload: errMsg
-});
+const initAuthServerError = (errMsg) => {
+  const errDetails = utils.decodeServerErrMsg(errMsg);
+  return {
+    type: types.INIT_AUTH_SERVER_ERROR,
+    payload: {
+      target: errDetails.target,
+      msg: errDetails.msg
+    }
+  };
+};
 
 const setUserProfile = (userProfileRAW) => ({
   type: types.SET_USER_PROFILE,

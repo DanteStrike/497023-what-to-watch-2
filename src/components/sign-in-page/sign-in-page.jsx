@@ -9,7 +9,7 @@ import {userActions, userOperations, userSelectors} from "../../reducers/user";
 import {compose} from "recompose";
 import withToggleState from "../../hocs/with-toggle-state/with-toggle-state.jsx";
 import withInputValidation from "../../hocs/with-input-validation/with-input-validation.jsx";
-import {getIsValidFormatEmail, getIsValidFormatPassword} from "../../utils/validation/validation.js";
+import {checkEmail, checkPassword} from "../../utils/validation/validation.js";
 
 const LoginWrapped = compose(
     withToggleState(`isSubmitting`, false, `toggleFormLock`),
@@ -19,7 +19,7 @@ const LoginWrapped = compose(
         ``,
         `validateEmail`,
         `emailValidation`,
-        getIsValidFormatEmail
+        checkEmail
     ),
     withInputValidation(
         `password`,
@@ -27,7 +27,7 @@ const LoginWrapped = compose(
         ``,
         `validatePassword`,
         `passwordValidation`,
-        getIsValidFormatPassword
+        checkPassword
     )
 )(Login);
 
@@ -80,11 +80,7 @@ class SignInPage extends React.PureComponent {
         />
         <div className="sign-in user-page__content">
           <LoginWrapped
-            serverValidation={{
-              isValid: true,
-              type: ``,
-              msg: ``
-            }}
+            serverError={serverError}
             requestLogin={this._requestAuthHandler}
           />
         </div>
@@ -98,6 +94,7 @@ SignInPage.propTypes = {
   isAuth: PropTypes.bool.isRequired,
   serverError: PropTypes.exact({
     isError: PropTypes.bool.isRequired,
+    target: PropTypes.string.isRequired,
     msg: PropTypes.string.isRequired
   }).isRequired,
   sentAuthRequest: PropTypes.func.isRequired,

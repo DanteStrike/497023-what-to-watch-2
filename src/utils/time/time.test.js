@@ -3,6 +3,7 @@ import {formatTimeToHM, formatDateForReview, formatTimeForPlayer, twoDigitView} 
 
 describe(`Time Utils should work correctly`, () => {
   it(`Util formatTimeToHM`, () => {
+    expect(formatTimeToHM()).toEqual(``);
     expect(formatTimeToHM(0)).toEqual(``);
     expect(formatTimeToHM(1)).toEqual(`1m`);
     expect(formatTimeToHM(59)).toEqual(`59m`);
@@ -16,6 +17,11 @@ describe(`Time Utils should work correctly`, () => {
     expect(formatDateForReview(1574778476298)).toEqual({
       dateTime: `2019-11-26`,
       view: `November 26, 2019`
+    });
+
+    expect(formatDateForReview()).toEqual({
+      dateTime: `1970-01-01`,
+      view: `January 1, 1970`
     });
   });
 

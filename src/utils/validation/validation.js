@@ -1,37 +1,27 @@
-export const getIsValidFormatEmail = (email) => {
+export const createValidationReport = (isValid, msg) => ({
+  isValid,
+  msg
+});
+
+export const checkEmail = (email) => {
   if (email === ``) {
-    return {
-      isValid: false,
-      msg: `Form: Please enter email address`
-    };
+    return createValidationReport(false, `Form: Please enter email address`);
   }
 
   const emailFormatRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
   if (!(emailFormatRegex.test(email))) {
-    return {
-      isValid: false,
-      msg: `Form: Please enter a valid email address`
-    };
+    return createValidationReport(false, `Form: Please enter a valid email address`);
   }
 
-  return {
-    isValid: true,
-    msg: ``
-  };
+  return createValidationReport(true, ``);
 };
 
 
-export const getIsValidFormatPassword = (password) => {
+export const checkPassword = (password) => {
   if (password === ``) {
-    return {
-      isValid: false,
-      msg: `Form: Please enter password`
-    };
+    return createValidationReport(false, `Form: Please enter password`);
   }
 
-  return {
-    isValid: true,
-    msg: ``
-  };
+  return createValidationReport(true, ``);
 };

@@ -2,16 +2,12 @@ import React from "react";
 import {updateObject} from "../../utils/object/object";
 
 const withInputValidation = (
-    inputName = `input`,
-    inputChangeName = `onInputChange`,
-    inputInitValue = ``,
-
-    inputValidateName = `validateInput`,
-    inputValidationName = `inputValidation`,
-    validationFn = () => ({
-      isValid: true,
-      msg: ``
-    })
+    inputName,
+    inputChangeName,
+    inputInitValue,
+    inputValidateName,
+    inputValidationName,
+    validationFn
 ) => (WrappedComponent) => {
   const validationInitState = {
     isValid: true,

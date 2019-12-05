@@ -14,7 +14,29 @@ const getIDsList = (myListFilmsRAW) => {
   }, []);
 };
 
+const decodeServerErrMsg = (serverErrorMsg) => {
+  let result = {
+    target: ``,
+    msg: serverErrorMsg
+  };
+
+  const targetRegex = /child "([a-zA-Z]*)"/gm;
+  const targetMatch = targetRegex.exec(serverErrorMsg);
+  if (targetMatch) {
+    result.target = targetMatch[1];
+  }
+
+  const errorMsgRegex = /\[(.*)]/gm;
+  const errorMsgMatch = errorMsgRegex.exec(serverErrorMsg);
+  if (errorMsgMatch) {
+    result.msg = errorMsgMatch[1];
+  }
+
+  return result;
+};
+
 export default {
   adaptUserProfile,
-  getIDsList
+  getIDsList,
+  decodeServerErrMsg
 };

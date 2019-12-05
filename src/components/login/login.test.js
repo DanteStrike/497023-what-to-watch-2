@@ -7,15 +7,28 @@ it(`Component Login should render correctly`, () => {
   const component = renderer.create(
       <Router>
         <Login
-          onFormSubmit={jest.fn()}
-          onEmailChange={jest.fn()}
-          onPasswordChange={jest.fn()}
-          formValidation={{
-            showError: false,
-            type: ``,
+          email={`email`}
+          emailValidation={{
+            isValid: true,
             msg: ``
           }}
+          validateEmail={jest.fn()}
+          onEmailChange={jest.fn()}
+          password={`password`}
+          passwordValidation={{
+            isValid: true,
+            msg: ``
+          }}
+          validatePassword={jest.fn()}
+          onPasswordChange={jest.fn()}
+          requestLogin={jest.fn()}
+          toggleFormLock={jest.fn()}
           isSubmitting={false}
+          serverError={{
+            isError: false,
+            target: ``,
+            msg: ``
+          }}
         />
       </Router>
   );

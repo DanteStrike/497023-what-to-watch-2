@@ -18,6 +18,7 @@ describe(`SignInPage should work correctly`, () => {
   };
   const serverErrorMock = {
     isError: false,
+    target: ``,
     msg: ``
   };
   const sentAuthRequestMock = jest.fn();
@@ -38,7 +39,9 @@ describe(`SignInPage should work correctly`, () => {
     );
   });
 
-  it(`Should reset prev error state in store`, () => {
+  it(`Should reset prev error state in store on unmount`, () => {
+    expect(resetAuthErrorsMock).toHaveBeenCalledTimes(0);
+    component.unmount();
     expect(resetAuthErrorsMock).toHaveBeenCalledTimes(1);
   });
 

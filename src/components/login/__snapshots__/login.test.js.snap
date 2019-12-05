@@ -19,7 +19,7 @@ exports[`Component Login should render correctly 1`] = `
         disabled={false}
         id="user-email"
         name="user-email"
-        onChange={[MockFunction]}
+        onChange={[Function]}
         placeholder="Email address"
         type="email"
       />
@@ -38,7 +38,7 @@ exports[`Component Login should render correctly 1`] = `
         disabled={false}
         id="user-password"
         name="user-password"
-        onChange={[MockFunction]}
+        onChange={[Function]}
         placeholder="Password"
         type="password"
       />
