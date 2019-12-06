@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component ClearLink should render correctly 1`] = `
+<a
+  href="/any"
+  onClick={[Function]}
+  style={
+    Object {
+      "color": "unset",
+      "textDecoration": "none",
+    }
+  }
+>
+  <div />
+</a>
+`;

@@ -13,7 +13,9 @@ const UserBlock = (props) => {
       {
         isAuth ?
           <div className="user-block__avatar">
-            <img src={avatarUrl} alt="User avatar" width="63" height="63"/>
+            <Link to="/mylist">
+              <img src={avatarUrl} alt="User avatar" width="63" height="63"/>
+            </Link>
           </div>
           :
           <Link to="/login" className="user-block__link">Sign in</Link>
