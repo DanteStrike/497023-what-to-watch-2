@@ -1,5 +1,5 @@
 import React from "react";
-import Enzyme, {shallow} from "enzyme";
+import Enzyme, {mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import withInputValidation from "./with-input-validation";
 
@@ -21,7 +21,7 @@ describe(`HoC withInputValidation should work correctly`, () => {
 
   beforeEach(() => {
     jest.resetAllMocks();
-    component = shallow(
+    component = mount(
         <MockComponentWrapped/>
     );
   });
