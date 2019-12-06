@@ -1,34 +1,25 @@
 import React from "react";
 import PropTypes from "prop-types";
-import axios from "axios";
+
 import {connect} from "react-redux";
+import {compose} from "recompose";
+import {userActions, userOperations, userSelectors} from "../../reducers/user";
+import axios from "axios";
+
 import PageHeader from "../page-header/page-header.jsx";
 import PageFooter from "../page-footer/page-footer.jsx";
 import Login from "../login/login.jsx";
-import {userActions, userOperations, userSelectors} from "../../reducers/user";
-import {compose} from "recompose";
 import withToggleState from "../../hocs/with-toggle-state/with-toggle-state.jsx";
-import withInputValidation from "../../hocs/with-input-validation/with-input-validation.jsx";
+import withInput from "../../hocs/with-input/with-input.jsx";
+import withValidation from "../../hocs/with-validation/with-validation.jsx";
 import {checkEmail, checkPassword} from "../../utils/validation/validation.js";
 
 const LoginWrapped = compose(
     withToggleState(`isSubmitting`, false, `toggleFormLock`),
-    withInputValidation(
-        `email`,
-        `onEmailChange`,
-        ``,
-        `validateEmail`,
-        `emailValidation`,
-        checkEmail
-    ),
-    withInputValidation(
-        `password`,
-        `onPasswordChange`,
-        ``,
-        `validatePassword`,
-        `passwordValidation`,
-        checkPassword
-    )
+    withInput(`email`, `onEmailChange`, ``),
+    withInput(`password`, `onPasswordChange`, ``),
+    withValidation(`email`, `validateEmail`, `emailValidation`, `resetEmailValidation`, checkEmail),
+    withValidation(`password`, `validatePassword`, `passwordValidation`, `resetPasswordValidation`, checkPassword)
 )(Login);
 
 
