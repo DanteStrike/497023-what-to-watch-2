@@ -1,7 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
+
 import {connect} from "react-redux";
+
 import MoviesList from "../movies-list/movies-list.jsx";
+
 import {genreFilterActions} from "../../reducers/genres/index.js";
 import {filmsSelectors} from "../../reducers/films/index.js";
 import {catalogActions} from "../../reducers/catalog/index.js";

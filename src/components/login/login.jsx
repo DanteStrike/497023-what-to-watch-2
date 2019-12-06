@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+
 class Login extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -145,6 +146,5 @@ Login.propTypes = {
     msg: PropTypes.string.isRequired
   }).isRequired,
 };
-
 
 export default Login;

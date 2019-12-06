@@ -1,8 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
+
 import {connect} from "react-redux";
+
 import {genreFilterActions, genreFilterSelectors} from "../../reducers/genres";
 import {genreListConfig} from "../../configs/genre-list-config.js";
+
 
 const GenreList = (props) => {
   const {genres, currentFilter, onGenreChange} = props;
@@ -43,5 +46,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export {GenreList};
-
 export default connect(mapStateToProps, mapDispatchToProps)(GenreList);

@@ -1,7 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
+
 import Video from "../video/video.jsx";
 import ClearLink from "../clear-link/clear-link.jsx";
+
 
 const fixFirefoxFlickering = {
   willChange: `transform`

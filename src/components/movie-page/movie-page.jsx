@@ -1,15 +1,18 @@
 import React, {Fragment} from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
+
 import PageHeader from "../page-header/page-header.jsx";
 import UserBlock from "../user-block/user-block.jsx";
 import PageFooter from "../page-footer/page-footer.jsx";
 import MovieBackground from "../movie-background/movie-background.jsx";
 import MoviePoster from "../movie-poster/movie-poster.jsx";
 import MovieControlPanel from "../movie-control-panel/movie-control-panel.jsx";
+
 import {filmsSelectors} from "../../reducers/films";
-import {connect} from "react-redux";
 import CatalogLikeThis from "../catalog-like-this/catalog-like-this.jsx";
 import {commentsOperations, commentsSelectors} from "../../reducers/comments";
+
 
 class MoviePage extends React.PureComponent {
   componentDidMount() {
@@ -33,39 +36,24 @@ class MoviePage extends React.PureComponent {
       <Fragment>
         <section className="movie-card movie-card--full">
           <div className="movie-card__hero">
-            <MovieBackground
-              name={film.name}
-              image={film.background.image}
-              backgroundColor={film.background.color}
-            />
+            <MovieBackground name={film.name} image={film.background.image} backgroundColor={film.background.color}/>
             <h1 className="visually-hidden">WTW</h1>
             <PageHeader mixinClass={`movie-card__head`} rightPart={<UserBlock/>}/>
             <div className="movie-card__wrap">
-              <MovieControlPanel
-                id={film.id}
-                name={film.name}
-                genre={film.genre}
-                released={film.released}
-              />
+              <MovieControlPanel curFilmID={film.id}/>
             </div>
           </div>
 
           <div className="movie-card__wrap movie-card__translate-top">
             <div className="movie-card__info">
-              <MoviePoster
-                isBig={true}
-                name={film.name}
-                image={film.posterImage}
-              />
-              {renderTabs && renderTabs([film, film, comments])}
+              <MoviePoster isBig={true} isSmall={false} name={film.name} image={film.posterImage}/>
+              {renderTabs([film, film, comments])}
             </div>
           </div>
         </section>
 
         <div className="page-content">
-          <CatalogLikeThis
-            curFilmID={film.id}
-          />
+          <CatalogLikeThis curFilmID={film.id}/>
           <PageFooter/>
         </div>
       </Fragment>
@@ -75,8 +63,8 @@ class MoviePage extends React.PureComponent {
 
 MoviePage.propTypes = {
   curFilmID: PropTypes.number.isRequired,
-  renderTabs: PropTypes.func,
-  resetTabs: PropTypes.func,
+  renderTabs: PropTypes.func.isRequired,
+  resetTabs: PropTypes.func.isRequired,
   film: PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,

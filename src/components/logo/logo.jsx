@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+
 import {Link} from "react-router-dom";
 
 
@@ -20,10 +21,5 @@ const Logo = (props) => {
 Logo.propTypes = {
   isLight: PropTypes.bool.isRequired
 };
-
-Logo.defaultProps = {
-  isLight: false
-};
-
 
 export default Logo;

@@ -22,5 +22,4 @@ PageHeader.propTypes = {
   ])
 };
 
-
 export default PageHeader;

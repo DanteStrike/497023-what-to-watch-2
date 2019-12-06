@@ -264,4 +264,12 @@ describe(`Reducers: Films selectors`, () => {
   it(`Selector getPromoFilm`, () => {
     expect(selectors.getPromoFilm(storeMock.loadedStore)).toEqual(filmsMock.films[1]);
   });
+
+  it(`Selector getCurFilmName`, () => {
+    expect(selectors.getCurFilmName(storeMock.loadedStore, {curFilmID: 3})).toEqual(filmsMock.films[1].name);
+  });
+
+  it(`Selector getCurFilmReleased`, () => {
+    expect(selectors.getCurFilmReleased(storeMock.loadedStore, {curFilmID: 3})).toEqual(filmsMock.films[1].released);
+  });
 });

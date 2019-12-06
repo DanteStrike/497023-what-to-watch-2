@@ -1,8 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {appActions, appSelectors} from "../../reducers/app";
 import {connect} from "react-redux";
+
 import Video from "../video/video.jsx";
+import {appActions, appSelectors} from "../../reducers/app";
+
 
 const PLAYER_POSTER = `img/player-poster.jpg`;
 

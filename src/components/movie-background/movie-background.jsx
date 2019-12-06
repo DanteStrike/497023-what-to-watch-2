@@ -18,5 +18,4 @@ MovieBackground.propTypes = {
   backgroundColor: PropTypes.string.isRequired
 };
 
-
 export default MovieBackground;
