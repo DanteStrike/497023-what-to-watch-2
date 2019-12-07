@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
+import {compose} from "redux";
 
 import AddReviewForm from "../add-review-form/add-review-form.jsx";
 import MovieBackground from "../movie-background/movie-background.jsx";
@@ -9,8 +10,17 @@ import MoviePoster from "../movie-poster/movie-poster.jsx";
 import PageHeader from "../page-header/page-header.jsx";
 import UserBlock from "../user-block/user-block.jsx";
 
+import withInput from "../../hocs/with-input/with-input.jsx";
+import withValidation from "../../hocs/with-validation/with-validation.jsx";
+
+import {checkComment} from "../../utils/validation/validation.js";
 import {filmsSelectors} from "../../reducers/films";
 
+const AddReviewFormWrapped = compose(
+    withInput(`score`, `setScore`, -1),
+    withInput(`comment`, `setComment`, ``),
+    withValidation(`comment`, `validateComment`, `commentValidation`, `resetValidation`, checkComment(50, 400))
+)(AddReviewForm);
 
 class AddReviewPage extends React.PureComponent {
   render() {
@@ -29,7 +39,7 @@ class AddReviewPage extends React.PureComponent {
           />
           <MoviePoster isBig={false} isSmall={true} name={film.name} image={film.posterImage}/>
         </div>
-        <AddReviewForm/>
+        <AddReviewFormWrapped/>
       </section>
     );
   }

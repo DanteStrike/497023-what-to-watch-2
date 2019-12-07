@@ -1,33 +1,57 @@
-import React from "react";
+import React, {Fragment} from "react";
+import PropTypes from "prop-types";
 
 class AddReviewForm extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this._stars = new Array(5).fill(``);
+    this._handleInputChange = this._handleInputChange.bind(this);
+  }
+
+  componentDidMount() {
+    const {validateComment} = this.props;
+    validateComment();
+  }
+
+  _handleInputChange(evt) {
+    const {setScore, setComment, validateComment} = this.props;
+
+    const target = evt.target;
+    const newValue = target.value;
+
+    if (target.name === `rating`) {
+      setScore(Number(newValue));
+      return;
+    }
+
+    if (target.name === `review-text`) {
+      setComment(newValue, validateComment);
+    }
+  }
+
+
   render() {
+    const {score, commentValidation} = this.props;
+
     return (
       <div className="add-review">
         <form action="#" className="add-review__form">
           <div className="rating">
             <div className="rating__stars">
-              <input className="rating__input" id="star-1" type="radio" name="rating" value="1"/>
-              <label className="rating__label" htmlFor="star-1">Rating 1</label>
-
-              <input className="rating__input" id="star-2" type="radio" name="rating" value="2"/>
-              <label className="rating__label" htmlFor="star-2">Rating 2</label>
-
-              <input className="rating__input" id="star-3" type="radio" name="rating" value="3"/>
-              <label className="rating__label" htmlFor="star-3">Rating 3</label>
-
-              <input className="rating__input" id="star-4" type="radio" name="rating" value="4"/>
-              <label className="rating__label" htmlFor="star-4">Rating 4</label>
-
-              <input className="rating__input" id="star-5" type="radio" name="rating" value="5"/>
-              <label className="rating__label" htmlFor="star-5">Rating 5</label>
+              {this._stars.map((_, index) => (
+                <Fragment key={`${index}_star`}>
+                  <input className="rating__input" id={`star-${index}`} type="radio" name="rating" value={`${index + 1}`} onChange={this._handleInputChange}/>
+                  <label className="rating__label" htmlFor={`star-${index}`}>Rating ${index}</label>
+                </Fragment>
+              ))}
             </div>
           </div>
 
           <div className="add-review__text">
-            <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text"></textarea>
+            <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" onChange={this._handleInputChange}></textarea>
             <div className="add-review__submit">
-              <button className="add-review__btn" type="submit">Post</button>
+              {(score === -1 || !commentValidation.isValid) ? null : <button className="add-review__btn" type="submit">Post</button>}
             </div>
 
           </div>
@@ -36,5 +60,18 @@ class AddReviewForm extends React.PureComponent {
     );
   }
 }
+
+AddReviewForm.propTypes = {
+  score: PropTypes.number.isRequired,
+  setScore: PropTypes.func.isRequired,
+  comment: PropTypes.string.isRequired,
+  setComment: PropTypes.func.isRequired,
+  validateComment: PropTypes.func.isRequired,
+  commentValidation: PropTypes.exact({
+    isValid: PropTypes.bool.isRequired,
+    msg: PropTypes.string.isRequired
+  }).isRequired,
+  resetValidation: PropTypes.func.isRequired
+};
 
 export default AddReviewForm;
