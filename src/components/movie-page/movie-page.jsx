@@ -8,6 +8,7 @@ import PageFooter from "../page-footer/page-footer.jsx";
 import MovieBackground from "../movie-background/movie-background.jsx";
 import MoviePoster from "../movie-poster/movie-poster.jsx";
 import CatalogLikeThis from "../catalog-like-this/catalog-like-this.jsx";
+import MovieControlPanel from "../movie-control-panel/movie-control-panel.jsx";
 
 import withToggleState from "../../hocs/with-toggle-state/with-toggle-state.jsx";
 
@@ -15,7 +16,7 @@ import {filmsSelectors} from "../../reducers/films";
 import {commentsOperations, commentsSelectors} from "../../reducers/comments";
 
 
-const MovieControlPanelWrapped = withToggleState(`isSubmitting`, false, `toggleFormLock`);
+const MovieControlPanelWrapped = withToggleState(`isSubmitting`, false, `toggleFormLock`)(MovieControlPanel);
 
 class MoviePage extends React.PureComponent {
   componentDidMount() {
