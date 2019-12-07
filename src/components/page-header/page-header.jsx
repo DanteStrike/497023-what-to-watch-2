@@ -4,11 +4,11 @@ import Logo from "../logo/logo.jsx";
 
 
 const PageHeader = (props) => {
-  const {mixinClass, rightPart} = props;
+  const {mixinClass = ``, rightPart} = props;
 
   return (
     <header className={`page-header ${mixinClass}`}>
-      <Logo/>
+      <Logo isLight={false}/>
       {rightPart}
     </header>
   );
