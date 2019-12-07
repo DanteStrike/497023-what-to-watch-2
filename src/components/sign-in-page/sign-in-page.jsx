@@ -34,7 +34,7 @@ class SignInPage extends React.PureComponent {
 
     if (prevProps.isAuth !== isAuth && isAuth) {
       if (location.state) {
-        history.push(location.state.referer || `/`);
+        history.push(location.state.referrer || `/`);
       } else {
         history.push(`/`);
       }
@@ -95,7 +95,7 @@ SignInPage.propTypes = {
   }).isRequired,
   location: PropTypes.shape({
     state: PropTypes.shape({
-      referer: PropTypes.string.isRequired
+      referrer: PropTypes.string
     })
   })
 };
