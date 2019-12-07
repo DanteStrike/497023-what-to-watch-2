@@ -1,6 +1,6 @@
 import actions from "./actions";
 import axios from "axios";
-import {userSelectors} from "./index";
+import {userSelectors} from "./user";
 
 const checkAuth = () => (dispatch, _, api) => {
   return api.get(`/login`)

@@ -1,7 +1,7 @@
 import types from "./types.js";
 import StoreNameSpace from "../store-name-space.js";
-import {filmsSelectors, filmsOperations} from "../films/index.js";
-import {genreFilterActions} from "../genres/index.js";
+import {filmsSelectors, filmsOperations} from "../films/films.js";
+import {genreFilterActions} from "../genres/genres.js";
 
 import actions from "./actions.js";
 import operations from "./operations.js";
@@ -9,7 +9,7 @@ import reducer from "./reducers.js";
 import selectors from "./selectors.js";
 import * as storeMock from "../../mocks/store.js";
 import {films} from "../../mocks/films.js";
-import {userOperations} from "../user";
+import {userOperations} from "../user/user";
 
 
 describe(`Reducers: App actions`, () => {

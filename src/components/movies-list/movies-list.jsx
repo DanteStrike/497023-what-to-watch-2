@@ -1,18 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {compose} from "redux";
+import configs from "../../configs.js";
 
 import MovieCard from "../movie-card/movie-card.jsx";
 
 import withTimer from "../../hocs/with-timer/with-timer.jsx";
 
-import {movieListConfig} from "../../configs/movie-list-config.js";
 
-
-const WrappedMovieCard = compose(
-    withTimer(movieListConfig.showTrailerTimeout)
-)(MovieCard);
+const WrappedMovieCard = withTimer(configs.movieListConfig.showTrailerTimeout)(MovieCard);
 
 const MoviesList = (props) => {
   const {filmsCards} = props;
@@ -22,10 +18,8 @@ const MoviesList = (props) => {
       {filmsCards.map((filmCard) => (
         <WrappedMovieCard
           key={`${filmCard.id}_${filmCard.name}`}
-
           id={filmCard.id}
           name={filmCard.name}
-
           poster={filmCard.preview.image}
           previewSrc={filmCard.preview.videoSrc}
         />

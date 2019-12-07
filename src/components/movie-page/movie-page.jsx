@@ -12,8 +12,8 @@ import MovieControlPanel from "../movie-control-panel/movie-control-panel.jsx";
 
 import withToggleState from "../../hocs/with-toggle-state/with-toggle-state.jsx";
 
-import {filmsSelectors} from "../../reducers/films";
-import {commentsOperations, commentsSelectors} from "../../reducers/comments";
+import {filmsSelectors} from "../../reducers/films/films";
+import {commentsOperations, commentsSelectors} from "../../reducers/comments/comments";
 
 
 const MovieControlPanelWrapped = withToggleState(`isSubmitting`, false, `toggleFormLock`)(MovieControlPanel);

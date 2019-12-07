@@ -1,16 +1,11 @@
 import React from "react";
 
 import {Link} from "react-router-dom";
-
-
-const clearLinkStyle = {
-  textDecoration: `none`,
-  color: `unset`
-};
+import Enum from "../../enum";
 
 const ClearLink = (props) => {
   return (
-    <Link {...props} style={clearLinkStyle}/>
+    <Link {...props} style={Enum.Styles.CLEAR_LINK}/>
   );
 };
 

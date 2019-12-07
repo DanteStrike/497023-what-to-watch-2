@@ -5,12 +5,12 @@ import operations from "./operations.js";
 import selectors from "./selectors.js";
 import reducer from "./reducers.js";
 import utils from "./utils";
-import configureAPI from "../../server/configure-API";
+import configureAPI from "../../configure-API";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import * as storeMock from "../../mocks/store.js";
 import * as filmsMock from "../../mocks/films.js";
-import {userSelectors} from "./index";
+import {userSelectors} from "./user";
 
 describe(`Reducers: User utils`, () => {
   it(`Util adaptUserProfile`, () => {

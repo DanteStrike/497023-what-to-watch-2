@@ -22,27 +22,15 @@ import withFullScreen from "../../hocs/with-full-screen/with-full-screen.jsx";
 import withProgressBar from "../../hocs/with-progress-bar/with-progress-bar.jsx";
 import withTabs from "../../hocs/with-tabs/with-tabs.jsx";
 
-import {appSelectors} from "../../reducers/app";
+import {appSelectors} from "../../reducers/app/app";
 
 
 const PlayerWrapped = compose(withProgressBar, withFullScreen, withPlayControls)(Player);
-
-const MoviePageTabs = [
-  {
-    name: `Overview`,
-    requiredPropName: `filmOverview`,
-    output: MoviePageOverview
-  }, {
-    name: `Details`,
-    requiredPropName: `filmDetails`,
-    output: MoviePageDetails
-  }, {
-    name: `Reviews`,
-    requiredPropName: `filmReviews`,
-    output: MoviePageReviews
-  }
-];
-const MoviePageWrapped = withTabs(MoviePageTabs)(MoviePage);
+const MoviePageWrapped = withTabs([
+  {name: `Overview`, requiredPropName: `filmOverview`, Output: MoviePageOverview},
+  {name: `Details`, requiredPropName: `filmDetails`, Output: MoviePageDetails},
+  {name: `Reviews`, requiredPropName: `filmReviews`, Output: MoviePageReviews}
+])(MoviePage);
 
 const App = (props) => {
   const {isAppReady, videoPlayerID} = props;
@@ -51,8 +39,8 @@ const App = (props) => {
     return null;
   }
 
-  if (videoPlayerID !== -1) {
-    return (<PlayerWrapped poster="img/player-poster.jpg"/>);
+  if (~videoPlayerID) {
+    return (<PlayerWrapped/>);
   }
 
   return (

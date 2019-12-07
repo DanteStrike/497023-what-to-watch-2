@@ -10,7 +10,7 @@ import MovieControlPanel from "../movie-control-panel/movie-control-panel.jsx";
 
 import withToggleState from "../../hocs/with-toggle-state/with-toggle-state.jsx";
 
-import {filmsSelectors} from "../../reducers/films";
+import {filmsSelectors} from "../../reducers/films/films";
 
 
 const MovieControlPanelWrapped = withToggleState(`isSubmitting`, false, `toggleFormLock`)(MovieControlPanel);

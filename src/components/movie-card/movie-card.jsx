@@ -3,11 +3,8 @@ import PropTypes from "prop-types";
 
 import Video from "../video/video.jsx";
 import ClearLink from "../clear-link/clear-link.jsx";
+import Enum from "../../enum";
 
-
-const fixFirefoxFlickering = {
-  willChange: `transform`
-};
 
 const MovieCard = (props) => {
   const {
@@ -21,7 +18,7 @@ const MovieCard = (props) => {
   } = props;
 
   return (
-    <article className="small-movie-card catalog__movies-card" style={fixFirefoxFlickering} onMouseEnter={onTimerStart} onMouseLeave={onTimerReset}>
+    <article className="small-movie-card catalog__movies-card" style={Enum.Styles.FIX_FIREFOX_FLICKERING} onMouseEnter={onTimerStart} onMouseLeave={onTimerReset}>
       <ClearLink to={`/films/${id}`}>
         <div className="small-movie-card__image">
           <Video

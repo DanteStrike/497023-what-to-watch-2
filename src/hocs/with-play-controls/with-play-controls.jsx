@@ -1,5 +1,5 @@
 import React from "react";
-import {Icons} from "../../utils/enum.js";
+import Enum from "../../enum.js";
 
 const withPlayControls = (WrappedComponent) => {
   class WithPlayControls extends React.PureComponent {
@@ -27,7 +27,7 @@ const withPlayControls = (WrappedComponent) => {
       return (
         <button className="player__play" type="button" onClick={this._playerButtonClickHandler}>
           <svg viewBox="0 0 19 19" width="19" height="19">
-            <use xlinkHref={`#${isPlaying ? Icons.PAUSE : Icons.PLAY_S}`}></use>
+            <use xlinkHref={`#${isPlaying ? Enum.Icons.PAUSE : Enum.Icons.PLAY_S}`}></use>
           </svg>
           <span>{`${(isPlaying) ? `Pause` : `Play`}`}</span>
         </button>
@@ -46,6 +46,8 @@ const withPlayControls = (WrappedComponent) => {
       );
     }
   }
+
+  WithPlayControls.propTypes = {};
 
   return WithPlayControls;
 };

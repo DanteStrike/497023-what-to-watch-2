@@ -26,8 +26,8 @@ const withTabs = (tabs) => (WrappedComponent) => {
       const {curTabID} = this.state;
 
       const curTab = tabs[curTabID];
-      const OutputTabComponent = curTab.output;
-      const tabProp = {[curTab.requiredPropName]: tabsProps[curTabID]};
+      const OutputTabComponent = curTab.Output;
+      const tabProps = {[curTab.requiredPropName]: tabsProps[curTabID]};
 
       return (
         <div className="movie-card__desc">
@@ -40,7 +40,7 @@ const withTabs = (tabs) => (WrappedComponent) => {
               ))}
             </ul>
           </nav>
-          <div>{<OutputTabComponent {...tabProp}/>}</div>
+          <div>{<OutputTabComponent {...tabProps}/>}</div>
         </div>
       );
     }

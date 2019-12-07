@@ -1,5 +1,5 @@
 import StoreNameSpace from "../store-name-space.js";
-import {filmsSelectors} from "../films";
+import {filmsSelectors} from "../films/films";
 import {createSelector} from "reselect";
 
 const getStoreSpace = (store) => store[StoreNameSpace.APP];

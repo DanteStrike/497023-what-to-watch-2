@@ -3,10 +3,11 @@ import PropTypes from "prop-types";
 
 import {Link} from "react-router-dom";
 
-import {appActions} from "../../reducers/app";
+import {appActions} from "../../reducers/app/app";
 import {connect} from "react-redux";
-import {filmsSelectors} from "../../reducers/films";
-import {userActions, userOperations, userSelectors} from "../../reducers/user";
+import {filmsSelectors} from "../../reducers/films/films";
+import {userActions, userOperations, userSelectors} from "../../reducers/user/user";
+import Enum from "../../enum";
 
 
 class MovieControlPanel extends React.PureComponent {
@@ -54,16 +55,16 @@ class MovieControlPanel extends React.PureComponent {
         <div className="movie-card__buttons">
           <button className="btn btn--play movie-card__button" type="button" onClick={this._handlePlayButtonClick}>
             <svg viewBox="0 0 19 19" width="19" height="19">
-              <use xlinkHref="#play-s"></use>
+              <use xlinkHref={`#${Enum.Icons.PLAY_S}`}></use>
             </svg>
             <span>Play</span>
           </button>
           {isAuth &&
             <Fragment>
               <button className="btn btn--list movie-card__button" type="button" onClick={this._handleFavoriteToggleClick}
-                disabled={isSubmitting} style={isSubmitting ? {cursor: `wait`} : {}}>
+                disabled={isSubmitting} style={isSubmitting ? Enum.Styles.LOADING_CURSOR : Enum.Styles.NO_STYLE}>
                 <svg viewBox="0 0 19 20" width="19" height="20">
-                  {isFavorite ? <use xlinkHref="#in-list"></use> : <use xlinkHref="#add"></use>}
+                  <use xlinkHref={`#${isFavorite ? Enum.Icons.IN_LIST : Enum.Icons.ADD}`}></use>
                 </svg>
                 <span>My list</span>
               </button>

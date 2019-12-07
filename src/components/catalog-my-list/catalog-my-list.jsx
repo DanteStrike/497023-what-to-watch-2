@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 
 import MoviesList from "../movies-list/movies-list.jsx";
 
-import {filmsSelectors} from "../../reducers/films/index.js";
+import {filmsSelectors} from "../../reducers/films/films.js";
 
 
 const CatalogMyList = (props) => {

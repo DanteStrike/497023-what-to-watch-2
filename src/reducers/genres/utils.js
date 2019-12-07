@@ -1,5 +1,6 @@
-import {GenreFilter} from "../../utils/enum.js";
-const ALL_GENRE = GenreFilter.ALL_GENRE;
+import Enum from "../../enum";
+
+const ALL_GENRE = Enum.GenreFilter.ALL_GENRE;
 
 const collectState = (filmsGenres) => {
   const result = filmsGenres.reduce((filter, filmGenre) => {

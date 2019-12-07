@@ -1,4 +1,4 @@
-import {filmsActions} from "./index";
+import {filmsActions} from "./films";
 
 const loadFilms = () => (dispatch, _, api) => {
   return api.get(`/films`)

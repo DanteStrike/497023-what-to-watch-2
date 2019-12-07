@@ -1,7 +1,7 @@
-import {filmsOperations, filmsSelectors} from "../films/index.js";
-import {genreFilterActions} from "../genres/index.js";
+import {filmsOperations, filmsSelectors} from "../films/films.js";
+import {genreFilterActions} from "../genres/genres.js";
 import actions from "./actions.js";
-import {userOperations} from "../user";
+import {userOperations} from "../user/user";
 
 const setupApp = () => (dispatch, getState) => {
   const loadFilms = dispatch(filmsOperations.loadFilms())

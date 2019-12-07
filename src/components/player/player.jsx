@@ -3,10 +3,9 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
 import Video from "../video/video.jsx";
-import {appActions, appSelectors} from "../../reducers/app";
+import {appActions, appSelectors} from "../../reducers/app/app";
+import configs from "../../configs";
 
-
-const PLAYER_POSTER = `img/player-poster.jpg`;
 
 class Player extends React.PureComponent {
   constructor(props) {
@@ -38,7 +37,7 @@ class Player extends React.PureComponent {
     return (
       <div className="player" ref={this._playerRef}>
         <Video
-          poster={PLAYER_POSTER}
+          poster={configs.videoPlayerConfig.backgroundPoster}
           isActivePlayer={isActivePlayer}
           isMuted={true}
           src={videoSrc}

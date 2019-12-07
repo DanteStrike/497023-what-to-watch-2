@@ -1,11 +1,11 @@
 import axios from "axios";
-import {Time} from "../utils/enum.js";
-import {userActions} from "../reducers/user";
+import Enum from "./enum.js";
+import {userActions} from "./reducers/user/user";
 
 const configureAPI = (dispatch) => {
   const api = axios.create({
     baseURL: `https://htmlacademy-react-2.appspot.com/wtw`,
-    timeout: 5 * Time.MILLISECONDS_IN_SECOND,
+    timeout: 5 * Enum.Time.MILLISECONDS_IN_SECOND,
     withCredentials: true
   });
 

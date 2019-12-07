@@ -6,7 +6,7 @@ import operations from "./operations.js";
 import reducer from "./reducers.js";
 import selectors from "./selectors.js";
 import {commentsRAW, comments} from "../../mocks/comments.js";
-import configureAPI from "../../server/configure-API.js";
+import configureAPI from "../../configure-API.js";
 import MockAdapter from "axios-mock-adapter";
 import * as storeMock from "../../mocks/store.js";
 
