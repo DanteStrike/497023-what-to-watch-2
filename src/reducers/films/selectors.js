@@ -10,9 +10,12 @@ const getFilmsByIDs = (store) => getStoreSpace(store).data.byIDs;
 const getPromoID = (store) => getStoreSpace(store).promo.filmID;
 const getPromoFilm = (store) => getFilmsByIDs(store)[getPromoID(store)];
 const getFilmsAmount = (store) => getAllIDs(store).length;
+
 const getCurFilmID = (_, {curFilmID}) => curFilmID;
 const getFilmByCurID = (store, {curFilmID}) => getFilmsByIDs(store)[curFilmID];
+const getCurFilmName = (store, {curFilmID}) => getFilmByCurID(store, {curFilmID}).name;
 const getCurFilmGenre = (store, {curFilmID}) => getFilmByCurID(store, {curFilmID}).genre;
+const getCurFilmReleased = (store, {curFilmID}) => getFilmByCurID(store, {curFilmID}).released;
 
 const getAllFilmsGenres = createSelector(
     getAllIDs,
@@ -65,7 +68,9 @@ export default {
   getLikeThisCardsInfo,
   getFilmByCurrentID,
   getFilmByCurID,
+  getCurFilmName,
   getCurFilmGenre,
+  getCurFilmReleased,
   getPromoID,
   getPromoFilm
 };

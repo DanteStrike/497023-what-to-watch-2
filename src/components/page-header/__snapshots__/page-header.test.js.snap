@@ -2,13 +2,13 @@
 
 exports[`Render correctly PageHeader component 1`] = `
 <header
-  className="page-header undefined"
+  className="page-header "
 >
   <div
     className="logo"
   >
     <a
-      className="logo__link "
+      className="logo__link"
       href="/"
       onClick={[Function]}
     >

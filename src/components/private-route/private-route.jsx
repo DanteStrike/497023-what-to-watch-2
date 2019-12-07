@@ -1,8 +1,11 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import {connect} from "react-redux";
 import {Route, Redirect} from "react-router-dom";
-import PropTypes from "prop-types";
+
 import {userSelectors} from "../../reducers/user";
+
 
 const PrivateRoute = (props) => {
   const {component: Component, isAuth} = props;
@@ -22,7 +25,7 @@ const PrivateRoute = (props) => {
             <Redirect
               to={{
                 pathname: `/login`,
-                state: {referrer: rest.path ? rest.path : ``}
+                state: {referrer: rest.location.pathname ? rest.location.pathname : ``}
               }}
             />
         )
@@ -31,12 +34,10 @@ const PrivateRoute = (props) => {
   );
 };
 
-
 PrivateRoute.propTypes = {
   component: PropTypes.func.isRequired,
   isAuth: PropTypes.bool.isRequired
 };
-
 
 const mapStateToProps = (state) => ({
   isAuth: userSelectors.getIsAuth(state)

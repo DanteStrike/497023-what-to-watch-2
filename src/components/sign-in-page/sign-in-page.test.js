@@ -16,6 +16,7 @@ it(`Component SignInPage should render correctly`, () => {
           sentAuthRequest={jest.fn()}
           serverError={{
             isError: false,
+            target: ``,
             msg: ``}}
         />
       </Router>

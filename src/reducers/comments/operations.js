@@ -7,7 +7,30 @@ const loadCurFilmComments = (curFilmID) => (dispatch, _, api) => {
     });
 };
 
+const postUserComment = (curFilmID, score, comment) => (dispatch, _, api) => {
+  return api.post(`/comments/${curFilmID}`,
+      {
+        rating: score,
+        comment
+      })
+    .then((response) => {
+      dispatch(actions.loadCurFilmComments(response.data));
+      dispatch(actions.setPostCommentSuccess());
+    })
+    .catch((err) => {
+      if (err.code === `ECONNABORTED`) {
+        dispatch(actions.initPostCommentError(err.message));
+        return;
+      }
+
+      if (err.response) {
+        dispatch(actions.initPostCommentError(err.response.data.error));
+      }
+    });
+};
+
 export default {
-  loadCurFilmComments
+  loadCurFilmComments,
+  postUserComment
 };
 

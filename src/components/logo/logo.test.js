@@ -8,7 +8,7 @@ it(`Render correctly Logo component`, () => {
   const component = renderer
     .create(
         <Router>
-          <Logo/>
+          <Logo isLight={false}/>
         </Router>
     ).toJSON();
 

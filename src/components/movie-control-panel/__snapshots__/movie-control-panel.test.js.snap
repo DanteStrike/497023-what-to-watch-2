@@ -46,6 +46,7 @@ exports[`Render correctly MovieControlPanel component 1`] = `
     </button>
     <button
       className="btn btn--list movie-card__button"
+      onClick={[Function]}
       type="button"
     >
       <svg
@@ -61,13 +62,6 @@ exports[`Render correctly MovieControlPanel component 1`] = `
         My list
       </span>
     </button>
-    <a
-      className="btn movie-card__button"
-      href="/films/0/add-review"
-      onClick={[Function]}
-    >
-      Add review
-    </a>
   </div>
 </div>
 `;

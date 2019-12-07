@@ -40,6 +40,19 @@ describe(`Reducers: User utils`, () => {
   it(`Util getIDsList`, () => {
     expect(utils.getIDsList(filmsMock.filmsRAW)).toEqual([1, 3]);
   });
+
+  it(`Util decodeServerErrMsg`, () => {
+    expect(utils.decodeServerErrMsg(`child "email" fails because ["email" must be a valid email]`))
+      .toEqual({
+        target: `email`,
+        msg: `"email" must be a valid email`
+      });
+    expect(utils.decodeServerErrMsg(`any`))
+      .toEqual({
+        target: ``,
+        msg: `any`
+      });
+  });
 });
 
 describe(`Reducers: User actions`, () => {
@@ -62,10 +75,18 @@ describe(`Reducers: User actions`, () => {
   });
 
   it(`Action initAuthServerError`, () => {
+    utils.decodeServerErrMsg = jest.fn(() => ({
+      target: `any`,
+      msg: `msgAny`
+    }));
     expect(actions.initAuthServerError(`error`)).toEqual({
       type: types.INIT_AUTH_SERVER_ERROR,
-      payload: `error`
+      payload: {
+        target: `any`,
+        msg: `msgAny`
+      }
     });
+    expect(utils.decodeServerErrMsg).toHaveBeenCalled();
   });
 
   it(`Action setUserProfile`, () => {
@@ -162,11 +183,29 @@ describe(`Reducers: User operations`, () => {
       });
   });
 
+  it(`Operation sentAuthRequest timout`, () => {
+    const CancelToken = axios.CancelToken;
+    const sentAuthLoader = operations.sentAuthRequest(`in-correct`, `in-correct`, CancelToken.source());
+    actions.initAuthServerError = jest.fn(() => {});
+
+    apiMock
+      .onPost(`/login`)
+      .timeout();
+
+    sentAuthLoader(dispatch, _, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(actions.initAuthServerError).toHaveBeenCalledTimes(1);
+        expect(actions.initAuthServerError).toHaveBeenLastCalledWith(`timeout of 5000ms exceeded`);
+      });
+  });
+
   it(`Operation sentAuthRequest manual cancel`, () => {
     const CancelToken = axios.CancelToken;
     const source = CancelToken.source();
     const sentAuthLoader = operations.sentAuthRequest(`correct`, `correct`, source);
     actions.initAuthServerError = jest.fn(() => {});
+    axios.isCancel = jest.fn();
 
     apiMock
       .onPost(`/login`)
@@ -176,6 +215,7 @@ describe(`Reducers: User operations`, () => {
 
     sentAuthLoader(dispatch, _, api)
       .then(() => {
+        expect(axios.isCancel).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenCalledTimes(0);
         expect(actions.initAuthServerError).toHaveBeenCalledTimes(0);
       });
@@ -216,6 +256,7 @@ describe(`Reducers: User reducers`, () => {
         isAuth: true,
         error: {
           isError: false,
+          target: ``,
           msg: ``
         }
       });
@@ -227,6 +268,7 @@ describe(`Reducers: User reducers`, () => {
         isAuth: false,
         error: {
           isError: true,
+          target: `target`,
           msg: `any`
         }
       });
@@ -234,13 +276,17 @@ describe(`Reducers: User reducers`, () => {
     it(`Should init error correctly`, () => {
       const action = {
         type: types.INIT_AUTH_SERVER_ERROR,
-        payload: `errorMsg`
+        payload: {
+          target: `target`,
+          msg: `errorMsg`
+        }
       };
 
       expect(reducer(initState, action).auth).toEqual({
         isAuth: false,
         error: {
           isError: true,
+          target: `target`,
           msg: `errorMsg`
         }
       });
@@ -253,6 +299,7 @@ describe(`Reducers: User reducers`, () => {
         isAuth: true,
         error: {
           isError: false,
+          target: ``,
           msg: ``
         }
       });
@@ -317,6 +364,7 @@ describe(`Reducers: User selectors`, () => {
   it(`Selector getAuthError`, () => {
     expect(selectors.getAuthError(storeMock.loadedStore)).toEqual({
       isError: true,
+      target: `target`,
       msg: `any`
     });
   });

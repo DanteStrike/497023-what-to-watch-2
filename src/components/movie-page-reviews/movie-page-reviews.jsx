@@ -1,5 +1,6 @@
 import React, {Fragment} from "react";
 import PropTypes from "prop-types";
+
 import Review from "../review/review.jsx";
 
 
@@ -58,6 +59,5 @@ MoviePageReviews.propTypes = {
     date: PropTypes.number.isRequired
   })).isRequired
 };
-
 
 export default MoviePageReviews;

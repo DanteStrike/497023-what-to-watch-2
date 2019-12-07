@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {formatDateForReview} from "../../utils/time/time";
 
+
 const Review = (props) => {
   const {author, rating, comment, date} = props;
 

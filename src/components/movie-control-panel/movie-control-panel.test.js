@@ -14,6 +14,8 @@ it(`Render correctly MovieControlPanel component`, () => {
             genre={`any`}
             released={9999}
             openVideoPlayer={jest.fn()}
+            isAuth={false}
+            curFilmID={1}
           />
         </Router>
     ).toJSON();

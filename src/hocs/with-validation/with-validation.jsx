@@ -1,151 +1,57 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {LoginValidationType} from "../../utils/enum";
-import {getIsValidFormatEmail} from "../../utils/validation/validation";
-import {formatServerErrorMsg} from "../../utils/string/string";
+import {updateObject} from "../../utils/object/object";
+import {createValidationReport} from "../../utils/validation/validation";
 
-
-const withValidation = (WrappedComponent) => {
+const withValidation = (
+    inputName,
+    inputValidateName,
+    inputValidationName,
+    resetValidationName,
+    validationFn
+) => (WrappedComponent) => {
   class WithValidation extends React.PureComponent {
     constructor(props) {
       super(props);
 
       this.state = {
-        email: ``,
-        password: ``,
-        validation: {
-          showError: false,
-          type: ``,
-          msg: ``
-        },
-        isSubmitting: false
+        [inputValidationName]: createValidationReport(true, ``)
       };
 
-      this._emailChangeHandler = this._emailChangeHandler.bind(this);
-      this._passwordChangeHandler = this._passwordChangeHandler.bind(this);
-      this._formSubmitHandler = this._formSubmitHandler.bind(this);
+      this._validateInputValue = this._validateInputValue.bind(this);
+      this._resetValidation = this._resetValidation.bind(this);
     }
 
-    componentDidUpdate(prevProps) {
-      const {serverErrorMsg} = this.props;
+    _validateInputValue() {
+      const inputValue = this.props[inputName];
+      const newValidationState = validationFn(inputValue);
 
-      if (prevProps.serverErrorMsg !== serverErrorMsg && serverErrorMsg !== ``) {
-        const error = formatServerErrorMsg(serverErrorMsg);
-
-        this.setState({
-          validation: {
-            showError: true,
-            type: error.type,
-            msg: `Server: ${error.msg}`
-          },
-          isSubmitting: false
-        });
-      }
-    }
-
-    _emailChangeHandler(evt) {
-      this._resetValidation();
-
-      const input = evt.target;
-      this.setState({email: input.value});
-    }
-
-    _passwordChangeHandler(evt) {
-      this._resetValidation();
-
-      const input = evt.target;
-      this.setState({password: input.value});
-    }
-
-    _formSubmitHandler() {
-      const {onRequestAuth} = this.props;
-      const {email, password} = this.state;
-
-      switch (true) {
-        case !this._validateEmail():
-          return;
-        case !this._validatePassword():
-          return;
-      }
-
-      onRequestAuth(email, password);
-      this.setState({isSubmitting: true});
-    }
-
-    _validateEmail() {
-      const {email} = this.state;
-
-      if (email === ``) {
-        this.setState({validation: {
-          showError: true,
-          type: LoginValidationType.EMAIL,
-          msg: `Form: Please enter email address`
-        }});
-
-        return false;
-      }
-
-      if (!getIsValidFormatEmail(email)) {
-        this.setState({validation: {
-          showError: true,
-          type: LoginValidationType.EMAIL,
-          msg: `Form: Please enter a valid email address`
-        }});
-
-        return false;
-      }
-
-      return true;
-    }
-
-    _validatePassword() {
-      const {password} = this.state;
-      const isValidPassword = password.length > 0;
-
-      if (!isValidPassword) {
-        this.setState({validation: {
-          showError: true,
-          type: LoginValidationType.PASSWORD,
-          msg: `Form: Please enter password`
-        }});
-      }
-
-      return isValidPassword;
+      this.setState((prevState) => updateObject(prevState, {[inputValidationName]: newValidationState}));
+      return newValidationState.isValid;
     }
 
     _resetValidation() {
-      const {validation} = this.state;
-
-      if (!validation.showError) {
-        return;
-      }
-
-      this.setState({validation: {
-        showError: false,
-        type: ``,
-        msg: ``
-      }});
+      this.setState((prevState) => updateObject(prevState, {[inputValidationName]: createValidationReport(true, ``)}));
     }
 
     render() {
-      const {validation, isSubmitting} = this.state;
+      const hocProps = {
+        [inputValidationName]: this.state[inputValidationName],
+        [inputValidateName]: this._validateInputValue,
+        [resetValidationName]: this._resetValidation
+      };
 
       return (
         <WrappedComponent
           {...this.props}
-          onEmailChange={this._emailChangeHandler}
-          onPasswordChange={this._passwordChangeHandler}
-          onFormSubmit={this._formSubmitHandler}
-          formValidation={validation}
-          isSubmitting={isSubmitting}
+          {...hocProps}
         />
       );
     }
   }
 
   WithValidation.propTypes = {
-    onRequestAuth: PropTypes.func.isRequired,
-    serverErrorMsg: PropTypes.string.isRequired
+    [inputName]: PropTypes.string.isRequired
   };
 
   return WithValidation;

@@ -1,4 +1,5 @@
 import React from "react";
+
 import PageFooter from "../page-footer/page-footer.jsx";
 
 
@@ -16,6 +17,5 @@ const PageNotFound = () => {
     </div>
   );
 };
-
 
 export default PageNotFound;

@@ -24,5 +24,13 @@ describe(`Objects utils should work correctly`, () => {
     });
 
     expect(updateObject({}, {})).toEqual({});
+
+    expect(updateObject({one: `one`}, {two: `two`}, {three: `three`}, {more: `more`}))
+      .toEqual({
+        one: `one`,
+        two: `two`,
+        three: `three`,
+        more: `more`
+      });
   });
 });

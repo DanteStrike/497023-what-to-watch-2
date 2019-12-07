@@ -1,42 +1,114 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {LoginValidationType} from "../../utils/enum";
+
 
 class Login extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this._formSubmitHandler = this._formSubmitHandler.bind(this);
+    this._handleInputChange = this._handleInputChange.bind(this);
+    this._handleFormSubmit = this._handleFormSubmit.bind(this);
   }
 
-  _formSubmitHandler(evt) {
-    const {onFormSubmit} = this.props;
+  componentDidUpdate() {
+    const {isSubmitting, toggleFormLock, serverError} = this.props;
 
+    if (serverError.isError && isSubmitting) {
+      toggleFormLock();
+    }
+  }
+
+  _handleInputChange(evt) {
+    const {onEmailChange, onPasswordChange, resetEmailValidation, resetPasswordValidation} = this.props;
+
+    const target = evt.target;
+    const newValue = target.value;
+
+    if (target.id === `user-email`) {
+      onEmailChange(newValue);
+      resetEmailValidation();
+      return;
+    }
+
+    if (target.id === `user-password`) {
+      onPasswordChange(newValue);
+      resetPasswordValidation();
+    }
+  }
+
+  _handleFormSubmit(evt) {
     evt.preventDefault();
-    onFormSubmit();
+
+    const {
+      email,
+      password,
+      validateEmail,
+      validatePassword,
+      requestLogin,
+      toggleFormLock
+    } = this.props;
+
+    const isValidEmail = validateEmail();
+    if (!isValidEmail) {
+      return;
+    }
+
+    const isValidPassword = validatePassword();
+    if (!isValidPassword) {
+      return;
+    }
+
+    toggleFormLock();
+    requestLogin(email, password);
+  }
+
+  _showStatusMsg() {
+    const {emailValidation, passwordValidation, serverError, isSubmitting} = this.props;
+
+    const showMsg = serverError.isError || !emailValidation.isValid || !passwordValidation.isValid || isSubmitting;
+
+    if (!showMsg) {
+      return null;
+    }
+
+    let prioritizedMsg = ``;
+    switch (true) {
+      case serverError.isError:
+        prioritizedMsg = serverError.msg;
+        break;
+      case !emailValidation.isValid:
+        prioritizedMsg = emailValidation.msg;
+        break;
+      case !passwordValidation.isValid:
+        prioritizedMsg = passwordValidation.msg;
+        break;
+      case isSubmitting:
+        prioritizedMsg = `Sign-in...`;
+        break;
+    }
+
+    return (
+      <div className="sign-in__message">
+        <p>{prioritizedMsg}</p>
+      </div>
+    );
   }
 
   render() {
-    const {onEmailChange, onPasswordChange, formValidation, isSubmitting} = this.props;
+    const {emailValidation, passwordValidation, serverError, isSubmitting} = this.props;
 
     return (
-      <form action="#" className="sign-in__form" onSubmit={this._formSubmitHandler} style={isSubmitting ? {cursor: `wait`} : {}}>
-        {(formValidation.showError || isSubmitting) &&
-            <div className="sign-in__message">
-              <p>
-                {!isSubmitting ? formValidation.msg : `Sign-in...`}
-              </p>
-            </div>
-        }
+      <form action="#" className="sign-in__form" onSubmit={this._handleFormSubmit} style={isSubmitting ? {cursor: `wait`} : {}}>
+        {this._showStatusMsg()}
         <div className="sign-in__fields" style={isSubmitting ? {pointerEvents: `none`} : {}}>
-          <div className={`sign-in__field${(formValidation.type === LoginValidationType.EMAIL) ? ` sign-in__field--error` : ``}`}>
+          <div className={`sign-in__field${(!emailValidation.isValid || serverError.target === `email`) ? ` sign-in__field--error` : ``}`}>
             <input className="sign-in__input" type="email" placeholder="Email address" name="user-email"
-              id="user-email" onChange={onEmailChange} disabled={isSubmitting}/>
+              id="user-email" onChange={this._handleInputChange} disabled={isSubmitting}/>
             <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
           </div>
-          <div className={`sign-in__field${(formValidation.type === LoginValidationType.PASSWORD) ? ` sign-in__field--error` : ``}`}>
+          <div className={`sign-in__field${(!passwordValidation.isValid || serverError.target === `password`) ? ` sign-in__field--error` : ``}`}>
             <input className="sign-in__input" type="password" placeholder="Password" name="user-password"
-              id="user-password" onChange={onPasswordChange} disabled={isSubmitting}/>
+              id="user-password" onChange={this._handleInputChange} disabled={isSubmitting}/>
             <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
           </div>
         </div>
@@ -49,16 +121,30 @@ class Login extends React.PureComponent {
 }
 
 Login.propTypes = {
-  onFormSubmit: PropTypes.func.isRequired,
+  requestLogin: PropTypes.func.isRequired,
+  email: PropTypes.string.isRequired,
   onEmailChange: PropTypes.func.isRequired,
-  onPasswordChange: PropTypes.func.isRequired,
-  formValidation: PropTypes.exact({
-    showError: PropTypes.bool.isRequired,
-    type: PropTypes.string.isRequired,
+  validateEmail: PropTypes.func.isRequired,
+  emailValidation: PropTypes.exact({
+    isValid: PropTypes.bool.isRequired,
     msg: PropTypes.string.isRequired
   }).isRequired,
-  isSubmitting: PropTypes.bool.isRequired
+  resetEmailValidation: PropTypes.func.isRequired,
+  password: PropTypes.string.isRequired,
+  onPasswordChange: PropTypes.func.isRequired,
+  validatePassword: PropTypes.func.isRequired,
+  passwordValidation: PropTypes.exact({
+    isValid: PropTypes.bool.isRequired,
+    msg: PropTypes.string.isRequired
+  }).isRequired,
+  resetPasswordValidation: PropTypes.func.isRequired,
+  isSubmitting: PropTypes.bool.isRequired,
+  toggleFormLock: PropTypes.func.isRequired,
+  serverError: PropTypes.exact({
+    isError: PropTypes.bool.isRequired,
+    target: PropTypes.string.isRequired,
+    msg: PropTypes.string.isRequired
+  }).isRequired,
 };
-
 
 export default Login;

@@ -10,6 +10,7 @@ it(`Render correctly MoviePoster component`, () => {
           isBig={false}
           image={`url`}
           name={`any`}
+          isSmall={false}
         />
     ).toJSON();
 

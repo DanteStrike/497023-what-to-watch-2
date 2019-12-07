@@ -1,16 +1,26 @@
 import React from "react";
 import PropTypes from "prop-types";
-import axios from "axios";
+
 import {connect} from "react-redux";
+import {compose} from "recompose";
+import {userActions, userOperations, userSelectors} from "../../reducers/user";
+import axios from "axios";
 
 import PageHeader from "../page-header/page-header.jsx";
 import PageFooter from "../page-footer/page-footer.jsx";
-
-import withValidation from "../../hocs/with-validation/with-validation.jsx";
 import Login from "../login/login.jsx";
-import {userActions, userOperations, userSelectors} from "../../reducers/user";
+import withToggleState from "../../hocs/with-toggle-state/with-toggle-state.jsx";
+import withInput from "../../hocs/with-input/with-input.jsx";
+import withValidation from "../../hocs/with-validation/with-validation.jsx";
+import {checkEmail, checkPassword} from "../../utils/validation/validation.js";
 
-const LoginWrapped = withValidation(Login);
+const LoginWrapped = compose(
+    withToggleState(`isSubmitting`, false, `toggleFormLock`),
+    withInput(`email`, `onEmailChange`, ``),
+    withInput(`password`, `onPasswordChange`, ``),
+    withValidation(`email`, `validateEmail`, `emailValidation`, `resetEmailValidation`, checkEmail),
+    withValidation(`password`, `validatePassword`, `passwordValidation`, `resetPasswordValidation`, checkPassword)
+)(Login);
 
 
 class SignInPage extends React.PureComponent {
@@ -19,17 +29,12 @@ class SignInPage extends React.PureComponent {
     this._requestAuthHandler = this._requestAuthHandler.bind(this);
   }
 
-  componentDidMount() {
-    const {resetAuthErrors} = this.props;
-    resetAuthErrors();
-  }
-
   componentDidUpdate(prevProps) {
     const {isAuth, history, location} = this.props;
 
     if (prevProps.isAuth !== isAuth && isAuth) {
       if (location.state) {
-        history.push(location.state.referer || `/`);
+        history.push(location.state.referrer || `/`);
       } else {
         history.push(`/`);
       }
@@ -37,9 +42,12 @@ class SignInPage extends React.PureComponent {
   }
 
   componentWillUnmount() {
+    const {resetAuthErrors} = this.props;
+
     if (this.authRequestToken) {
       this.authRequestToken.cancel(`Operation was aborted by user`);
     }
+    resetAuthErrors();
   }
 
 
@@ -63,8 +71,8 @@ class SignInPage extends React.PureComponent {
         />
         <div className="sign-in user-page__content">
           <LoginWrapped
-            serverErrorMsg={serverError.msg}
-            onRequestAuth={this._requestAuthHandler}
+            serverError={serverError}
+            requestLogin={this._requestAuthHandler}
           />
         </div>
         <PageFooter/>
@@ -77,6 +85,7 @@ SignInPage.propTypes = {
   isAuth: PropTypes.bool.isRequired,
   serverError: PropTypes.exact({
     isError: PropTypes.bool.isRequired,
+    target: PropTypes.string.isRequired,
     msg: PropTypes.string.isRequired
   }).isRequired,
   sentAuthRequest: PropTypes.func.isRequired,
@@ -86,7 +95,7 @@ SignInPage.propTypes = {
   }).isRequired,
   location: PropTypes.shape({
     state: PropTypes.shape({
-      referer: PropTypes.string.isRequired
+      referrer: PropTypes.string
     })
   })
 };

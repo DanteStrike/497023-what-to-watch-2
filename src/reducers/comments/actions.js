@@ -8,6 +8,28 @@ const loadCurFilmComments = (commentsRAW) => {
   };
 };
 
+const initPostCommentError = (errMsg) => {
+  return {
+    type: types.INIT_POST_COMMENT_ERROR,
+    payload: errMsg
+  };
+};
+
+const setPostCommentSuccess = () => {
+  return {
+    type: types.SET_POST_COMMENT_SUCCESS
+  };
+};
+
+const resetPostCommentError = () => {
+  return {
+    type: types.RESET_POST_COMMENT
+  };
+};
+
 export default {
-  loadCurFilmComments
+  loadCurFilmComments,
+  initPostCommentError,
+  resetPostCommentError,
+  setPostCommentSuccess
 };

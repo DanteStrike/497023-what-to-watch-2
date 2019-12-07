@@ -1,5 +1,6 @@
 import React, {Fragment} from "react";
 import PropTypes from "prop-types";
+
 import {RatingLevel} from "../../utils/enum.js";
 
 
@@ -57,6 +58,5 @@ MoviePageOverview.propTypes = {
     starring: PropTypes.arrayOf(PropTypes.string).isRequired
   }).isRequired
 };
-
 
 export default MoviePageOverview;

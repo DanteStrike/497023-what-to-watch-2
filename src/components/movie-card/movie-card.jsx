@@ -1,7 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Link} from "react-router-dom";
+
 import Video from "../video/video.jsx";
+import ClearLink from "../clear-link/clear-link.jsx";
+
 
 const fixFirefoxFlickering = {
   willChange: `transform`
@@ -20,7 +22,7 @@ const MovieCard = (props) => {
 
   return (
     <article className="small-movie-card catalog__movies-card" style={fixFirefoxFlickering} onMouseEnter={onTimerStart} onMouseLeave={onTimerReset}>
-      <Link to={`/films/${id}`} style={{textDecoration: `none`, color: `unset`}}>
+      <ClearLink to={`/films/${id}`}>
         <div className="small-movie-card__image">
           <Video
             poster={poster}
@@ -34,7 +36,7 @@ const MovieCard = (props) => {
         <h3 className="small-movie-card__title">
           {name}
         </h3>
-      </Link>
+      </ClearLink>
     </article>
   );
 };

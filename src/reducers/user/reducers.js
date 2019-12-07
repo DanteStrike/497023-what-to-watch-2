@@ -6,6 +6,7 @@ const authInitState = {
   isAuth: false,
   error: {
     isError: false,
+    target: ``,
     msg: ``
   }
 };
@@ -18,11 +19,13 @@ const authReducer = (state = authInitState, action) => {
     case types.INIT_AUTH_SERVER_ERROR:
       return updateObject(state, {error: {
         isError: true,
-        msg: action.payload
+        target: action.payload.target,
+        msg: action.payload.msg
       }});
     case types.RESET_AUTH_ERRORS:
       return updateObject(state, {error: {
         isError: false,
+        target: ``,
         msg: ``
       }});
     default:

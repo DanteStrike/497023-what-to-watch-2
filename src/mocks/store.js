@@ -20,6 +20,13 @@ export const initStore = {
   },
 
   [StoreNameSpace.COMMENTS]: {
+    postComment: {
+      isSuccess: false,
+      error: {
+        isError: false,
+        msg: ``
+      }
+    },
     curFilmComments: []
   },
 
@@ -42,6 +49,7 @@ export const initStore = {
       isAuth: false,
       error: {
         isError: false,
+        target: ``,
         msg: ``
       }
     },
@@ -71,6 +79,13 @@ export const loadedStore = {
   },
 
   [StoreNameSpace.COMMENTS]: {
+    postComment: {
+      isSuccess: true,
+      error: {
+        isError: false,
+        msg: ``
+      }
+    },
     curFilmComments: comments
   },
 
@@ -95,6 +110,7 @@ export const loadedStore = {
       isAuth: true,
       error: {
         isError: true,
+        target: `target`,
         msg: `any`
       }
     },

@@ -1,8 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import MovieCard from "../movie-card/movie-card.jsx";
-import withTimer from "../../hocs/with-timer/with-timer.jsx";
+
 import {compose} from "redux";
+
+import MovieCard from "../movie-card/movie-card.jsx";
+
+import withTimer from "../../hocs/with-timer/with-timer.jsx";
+
 import {movieListConfig} from "../../configs/movie-list-config.js";
 
 
@@ -40,6 +44,5 @@ MoviesList.propTypes = {
     }).isRequired
   }))
 };
-
 
 export default MoviesList;
