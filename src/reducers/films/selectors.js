@@ -63,9 +63,15 @@ const getLikeThisCardsInfo = createSelector(
       .slice(0, amount)
 );
 
-// const getMyListCardsInfo = createSelector(
-//
-// );
+const getMyListCardsInfo = createSelector(
+    userSelectors.getFavoritesIDs,
+    getFilmsByIDs,
+    (myListIDs, films) => myListIDs.map((filmID) => ({
+      id: films[filmID].id,
+      name: films[filmID].name,
+      preview: films[filmID].preview,
+    }))
+);
 
 export default {
   getStoreSpace,
@@ -84,5 +90,6 @@ export default {
   getCurFilmReleased,
   getPromoID,
   getPromoFilm,
-  getIsFavorite
+  getIsFavorite,
+  getMyListCardsInfo
 };
