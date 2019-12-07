@@ -10,14 +10,14 @@ const setupApp = () => (dispatch, getState) => {
       dispatch(genreFilterActions.setupFilterState(filmsGenres));
     });
   const loadPromo = dispatch(filmsOperations.loadPromo());
-  dispatch(userOperations.checkAuth())
-    .then(() => {
-      dispatch(userOperations.getMyListFilms());
-    });
 
   return Promise.all([loadFilms, loadPromo])
     .then(() => {
-      dispatch(actions.setAppIsReady(true));
+      dispatch(userOperations.checkAuth())
+        .then(() => {
+          dispatch(userOperations.getMyListFilms());
+        })
+        .finally(dispatch(actions.setAppIsReady(true)));
     });
 };
 
