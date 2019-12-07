@@ -10,6 +10,7 @@ import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import * as storeMock from "../../mocks/store.js";
 import * as filmsMock from "../../mocks/films.js";
+import {userSelectors} from "./index";
 
 describe(`Reducers: User utils`, () => {
   it(`Util adaptUserProfile`, () => {
@@ -116,11 +117,45 @@ describe(`Reducers: User actions`, () => {
       type: types.CLEAR_USER_DATA,
     });
   });
+
+  it(`Action addFilmToMylist`, () => {
+    expect(actions.addFilmToMylist(3, [9, 2, 4, 1])).toEqual({
+      type: types.SET_USER_MYLIST,
+      payload: [9, 2, 4, 1, 3]
+    });
+  });
+
+  it(`Action delFilmFromMyList`, () => {
+    expect(actions.delFilmFromMyList(3, [9, 2, 3, 1])).toEqual({
+      type: types.SET_USER_MYLIST,
+      payload: [9, 2, 1]
+    });
+  });
+
+  it(`Action setFavoriteSuccess`, () => {
+    expect(actions.setFavoriteSuccess()).toEqual({
+      type: types.SET_FAVORITE_SUCCESS,
+    });
+  });
+
+  it(`Action initFavoriteError`, () => {
+    expect(actions.initFavoriteError(`msg`)).toEqual({
+      type: types.INIT_FAVORITE_ERROR,
+      payload: `msg`
+    });
+  });
+
+  it(`Action resetFavoriteError`, () => {
+    expect(actions.resetFavoriteError()).toEqual({
+      type: types.RESET_FAVORITE_ERROR
+    });
+  });
 });
 
 describe(`Reducers: User operations`, () => {
   const api = configureAPI();
   const dispatch = jest.fn();
+  const getState = jest.fn();
   const _ = jest.fn();
 
   let apiMock;
@@ -234,6 +269,82 @@ describe(`Reducers: User operations`, () => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(actions.setUserMyList).toHaveBeenCalledTimes(1);
         expect(actions.setUserMyList).toHaveBeenLastCalledWith([{favoriteFilm: `raw`}, {favoriteFilm: `raw`}]);
+      });
+  });
+
+  it(`Operation toggleFavorite (newState = 1)`, () => {
+    const toggleFavoriteLoader = operations.toggleFavorite(4, 1);
+    actions.addFilmToMylist = jest.fn(() => {});
+    actions.setFavoriteSuccess = jest.fn(() => {});
+    userSelectors.getFavoritesIDs = jest.fn(() => {});
+    userSelectors.getFavoritesIDs.mockReturnValue([3, 6, 2]);
+
+    apiMock
+      .onPost(`/favorite/4/1`)
+      .reply(200, {any: `any`});
+
+    toggleFavoriteLoader(dispatch, getState, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(userSelectors.getFavoritesIDs).toHaveBeenCalledTimes(1);
+        expect(getState).toHaveBeenCalledTimes(1);
+        expect(actions.addFilmToMylist).toHaveBeenCalledTimes(1);
+        expect(actions.addFilmToMylist).toHaveBeenLastCalledWith(4, [3, 6, 2]);
+        expect(actions.setFavoriteSuccess).toHaveBeenCalledTimes(1);
+      });
+  });
+
+  it(`Operation toggleFavorite (newState = 0)`, () => {
+    const toggleFavoriteLoader = operations.toggleFavorite(6, 0);
+    actions.delFilmFromMyList = jest.fn(() => {});
+    actions.setFavoriteSuccess = jest.fn(() => {});
+    userSelectors.getFavoritesIDs = jest.fn(() => {});
+    userSelectors.getFavoritesIDs.mockReturnValue([3, 6, 2, 4]);
+
+    apiMock
+      .onPost(`/favorite/6/0`)
+      .reply(200, {any: `any`});
+
+    toggleFavoriteLoader(dispatch, getState, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(userSelectors.getFavoritesIDs).toHaveBeenCalledTimes(1);
+        expect(getState).toHaveBeenCalledTimes(1);
+        expect(actions.delFilmFromMyList).toHaveBeenCalledTimes(1);
+        expect(actions.delFilmFromMyList).toHaveBeenLastCalledWith(6, [3, 6, 2, 4]);
+        expect(actions.setFavoriteSuccess).toHaveBeenCalledTimes(1);
+      });
+  });
+
+  it(`Operation toggleFavorite (timeout)`, () => {
+    const toggleFavoriteLoader = operations.toggleFavorite(8, 1);
+    actions.initFavoriteError = jest.fn(() => {});
+
+    apiMock
+      .onPost(`/favorite/8/1`)
+      .timeout();
+
+    toggleFavoriteLoader(dispatch, getState, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(actions.initFavoriteError).toHaveBeenCalledTimes(1);
+        expect(actions.initFavoriteError).toHaveBeenLastCalledWith(`timeout of 5000ms exceeded`);
+      });
+  });
+
+  it(`Operation toggleFavorite (error)`, () => {
+    const toggleFavoriteLoader = operations.toggleFavorite(8, 1);
+    actions.initFavoriteError = jest.fn(() => {});
+
+    apiMock
+      .onPost(`/favorite/8/1`)
+      .reply(400, {error: {code: 111, message: `any`}});
+
+    toggleFavoriteLoader(dispatch, getState, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(actions.initFavoriteError).toHaveBeenCalledTimes(1);
+        expect(actions.initFavoriteError).toHaveBeenLastCalledWith({code: 111, message: `any`});
       });
   });
 });
@@ -354,6 +465,48 @@ describe(`Reducers: User reducers`, () => {
       });
     });
   });
+
+  describe(`Reducer favoriteRequestStatusReducer`, () => {
+    it(`Should init error`, () => {
+      const action = {
+        type: types.INIT_FAVORITE_ERROR,
+        payload: `anyMSG`
+      };
+      expect(reducer(initState, action).toggleFavoriteStatus).toEqual({
+        isSuccess: false,
+        error: {
+          isError: true,
+          msg: `anyMSG`
+        }
+      });
+    });
+
+    it(`Should set isSuccess on success`, () => {
+      const action = {
+        type: types.SET_FAVORITE_SUCCESS,
+      };
+      expect(reducer(initState, action).toggleFavoriteStatus).toEqual({
+        isSuccess: true,
+        error: {
+          isError: false,
+          msg: ``
+        }
+      });
+    });
+
+    it(`Should reset request state`, () => {
+      const action = {
+        type: types.RESET_FAVORITE_ERROR,
+      };
+      expect(reducer(loadedStore, action).toggleFavoriteStatus).toEqual({
+        isSuccess: false,
+        error: {
+          isError: false,
+          msg: ``
+        }
+      });
+    });
+  });
 });
 
 describe(`Reducers: User selectors`, () => {
@@ -371,5 +524,9 @@ describe(`Reducers: User selectors`, () => {
 
   it(`Selector getAvatarUrl`, () => {
     expect(selectors.getAvatarUrl(storeMock.loadedStore)).toEqual(`img/1.png`);
+  });
+
+  it(`Selector getFavoritesIDs`, () => {
+    expect(selectors.getFavoritesIDs(storeMock.loadedStore)).toEqual([3]);
   });
 });

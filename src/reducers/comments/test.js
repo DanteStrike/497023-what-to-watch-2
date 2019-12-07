@@ -164,7 +164,7 @@ describe(`Reducers: Comments reducer`, () => {
         type: types.INIT_POST_COMMENT_ERROR,
         payload: `test`
       };
-      expect(reducer(initState, action).postComment).toEqual({
+      expect(reducer(initState, action).postCommentState).toEqual({
         isSuccess: false,
         error: {
           isError: true,
@@ -177,7 +177,7 @@ describe(`Reducers: Comments reducer`, () => {
       const action = {
         type: types.SET_POST_COMMENT_SUCCESS,
       };
-      expect(reducer(initState, action).postComment).toEqual({
+      expect(reducer(initState, action).postCommentState).toEqual({
         isSuccess: true,
         error: {
           isError: false,
@@ -190,7 +190,7 @@ describe(`Reducers: Comments reducer`, () => {
       const action = {
         type: types.RESET_POST_COMMENT,
       };
-      expect(reducer(loadedStore, action).postComment).toEqual({
+      expect(reducer(loadedStore, action).postCommentState).toEqual({
         isSuccess: false,
         error: {
           isError: false,
@@ -207,10 +207,10 @@ describe(`Reducers: Comments selector`, () => {
   });
 
   it(`Selector getPostCommentError`, () => {
-    expect(selectors.getPostCommentError(storeMock.loadedStore)).toEqual(storeMock.loadedStore[StoreNameSpace.COMMENTS].postComment.error);
+    expect(selectors.getPostCommentError(storeMock.loadedStore)).toEqual(storeMock.loadedStore[StoreNameSpace.COMMENTS].postCommentState.error);
   });
 
   it(`Selector getPostCommentStatus`, () => {
-    expect(selectors.getPostCommentStatus(storeMock.loadedStore)).toEqual(storeMock.loadedStore[StoreNameSpace.COMMENTS].postComment.isSuccess);
+    expect(selectors.getPostCommentStatus(storeMock.loadedStore)).toEqual(storeMock.loadedStore[StoreNameSpace.COMMENTS].postCommentState.isSuccess);
   });
 });

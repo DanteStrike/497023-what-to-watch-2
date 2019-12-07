@@ -38,6 +38,38 @@ const clearUserData = () => ({
   type: types.CLEAR_USER_DATA
 });
 
+const addFilmToMylist = (filmID, oldMyListIDs) => {
+  const newMyListIDs = oldMyListIDs.slice();
+  newMyListIDs.push(filmID);
+  return {
+    type: types.SET_USER_MYLIST,
+    payload: newMyListIDs
+  };
+};
+
+const delFilmFromMyList = (filmID, oldMyListIDs) => {
+  const foundedFilmID = oldMyListIDs.indexOf(filmID);
+  const newMyListIDs = oldMyListIDs.slice();
+  newMyListIDs.splice(foundedFilmID, 1);
+  return {
+    type: types.SET_USER_MYLIST,
+    payload: newMyListIDs
+  };
+};
+
+const setFavoriteSuccess = () => ({
+  type: types.SET_FAVORITE_SUCCESS
+});
+
+const initFavoriteError = (errMsg) => ({
+  type: types.INIT_FAVORITE_ERROR,
+  payload: errMsg
+});
+
+const resetFavoriteError = () => ({
+  type: types.RESET_FAVORITE_ERROR
+});
+
 export default {
   setAuthSuccess,
   setAuthRequired,
@@ -45,5 +77,10 @@ export default {
   initAuthServerError,
   setUserProfile,
   setUserMyList,
-  clearUserData
+  clearUserData,
+  addFilmToMylist,
+  delFilmFromMyList,
+  setFavoriteSuccess,
+  initFavoriteError,
+  resetFavoriteError
 };

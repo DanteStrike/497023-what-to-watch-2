@@ -2,6 +2,7 @@ import {createSelector} from "reselect";
 import {genreFilterSelectors} from "../genres/index.js";
 import {catalogSelectors} from "../catalog/index.js";
 import StoreNameSpace from "../store-name-space";
+import {userSelectors} from "../user";
 
 
 const getStoreSpace = (store) => store[StoreNameSpace.FILMS];
@@ -16,6 +17,12 @@ const getFilmByCurID = (store, {curFilmID}) => getFilmsByIDs(store)[curFilmID];
 const getCurFilmName = (store, {curFilmID}) => getFilmByCurID(store, {curFilmID}).name;
 const getCurFilmGenre = (store, {curFilmID}) => getFilmByCurID(store, {curFilmID}).genre;
 const getCurFilmReleased = (store, {curFilmID}) => getFilmByCurID(store, {curFilmID}).released;
+
+const getIsFavorite = createSelector(
+    getCurFilmID,
+    userSelectors.getFavoritesIDs,
+    (curFilmID, mylistIDs) => mylistIDs.some((mylistID) => mylistID === curFilmID)
+);
 
 const getAllFilmsGenres = createSelector(
     getAllIDs,
@@ -56,6 +63,10 @@ const getLikeThisCardsInfo = createSelector(
       .slice(0, amount)
 );
 
+const getMyListCardsInfo = createSelector(
+
+);
+
 export default {
   getStoreSpace,
   getCurFilmID,
@@ -72,5 +83,6 @@ export default {
   getCurFilmGenre,
   getCurFilmReleased,
   getPromoID,
-  getPromoFilm
+  getPromoFilm,
+  getIsFavorite
 };

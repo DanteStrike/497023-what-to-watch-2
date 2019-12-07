@@ -1,5 +1,6 @@
 import actions from "./actions";
 import axios from "axios";
+import {userSelectors} from "./index";
 
 const checkAuth = () => (dispatch, _, api) => {
   return api.get(`/login`)
@@ -43,8 +44,34 @@ const getMyListFilms = () => (dispatch, _, api) => {
     });
 };
 
+const toggleFavorite = (curFilmID, newStatus) => (dispatch, getState, api) => {
+  return api.post(`/favorite/${curFilmID}/${newStatus}`)
+    .then(() => {
+      const oldMyListIDs = userSelectors.getFavoritesIDs(getState());
+
+      if (newStatus) {
+        dispatch(actions.addFilmToMylist(curFilmID, oldMyListIDs));
+      } else {
+        dispatch(actions.delFilmFromMyList(curFilmID, oldMyListIDs));
+      }
+
+      dispatch(actions.setFavoriteSuccess());
+    })
+    .catch((err) => {
+      if (err.code === `ECONNABORTED`) {
+        dispatch(actions.initFavoriteError(err.message));
+        return;
+      }
+
+      if (err.response) {
+        dispatch(actions.initFavoriteError(err.response.data.error));
+      }
+    });
+};
+
 export default {
   sentAuthRequest,
   checkAuth,
-  getMyListFilms
+  getMyListFilms,
+  toggleFavorite
 };

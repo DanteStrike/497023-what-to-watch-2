@@ -8,8 +8,12 @@ import MovieBackground from "../movie-background/movie-background.jsx";
 import MoviePoster from "../movie-poster/movie-poster.jsx";
 import MovieControlPanel from "../movie-control-panel/movie-control-panel.jsx";
 
+import withToggleState from "../../hocs/with-toggle-state/with-toggle-state.jsx";
+
 import {filmsSelectors} from "../../reducers/films";
 
+
+const MovieControlPanelWrapped = withToggleState(`isSubmitting`, false, `toggleFormLock`)(MovieControlPanel);
 
 const MoviePreview = (props) => {
   const {promo} = props;
@@ -22,7 +26,7 @@ const MoviePreview = (props) => {
       <div className="movie-card__wrap">
         <div className="movie-card__info">
           <MoviePoster isBig={false} isSmall={false} name={promo.name} image={promo.posterImage}/>
-          <MovieControlPanel curFilmID={promo.id}/>
+          <MovieControlPanelWrapped curFilmID={promo.id}/>
         </div>
       </div>
     </section>

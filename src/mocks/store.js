@@ -20,7 +20,7 @@ export const initStore = {
   },
 
   [StoreNameSpace.COMMENTS]: {
-    postComment: {
+    postCommentState: {
       isSuccess: false,
       error: {
         isError: false,
@@ -54,6 +54,14 @@ export const initStore = {
       }
     },
 
+    toggleFavoriteStatus: {
+      isSuccess: false,
+      error: {
+        isError: false,
+        msg: ``
+      }
+    },
+
     data: {
       id: null,
       email: ``,
@@ -79,7 +87,7 @@ export const loadedStore = {
   },
 
   [StoreNameSpace.COMMENTS]: {
-    postComment: {
+    postCommentState: {
       isSuccess: true,
       error: {
         isError: false,
@@ -112,6 +120,14 @@ export const loadedStore = {
         isError: true,
         target: `target`,
         msg: `any`
+      }
+    },
+
+    toggleFavoriteStatus: {
+      isSuccess: true,
+      error: {
+        isError: false,
+        msg: ``
       }
     },
 
