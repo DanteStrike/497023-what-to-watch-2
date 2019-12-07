@@ -152,203 +152,6 @@ describe(`Reducers: User actions`, () => {
   });
 });
 
-describe(`Reducers: User operations`, () => {
-  const api = configureAPI();
-  const dispatch = jest.fn();
-  const getState = jest.fn();
-  const _ = jest.fn();
-
-  let apiMock;
-  beforeEach(() => {
-    jest.resetAllMocks();
-    apiMock = new MockAdapter(api);
-  });
-
-  it(`Operation checkAuth`, () => {
-    const loginChecker = operations.checkAuth();
-    actions.setAuthSuccess = jest.fn(() => {});
-    actions.setUserProfile = jest.fn(() => {});
-
-    apiMock
-      .onGet(`/login`)
-      .reply(200, {profile: `any`});
-
-    loginChecker(dispatch, _, api)
-      .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(2);
-        expect(actions.setAuthSuccess).toHaveBeenCalledTimes(1);
-        expect(actions.setUserProfile).toHaveBeenCalledTimes(1);
-        expect(actions.setUserProfile).toHaveBeenLastCalledWith({profile: `any`});
-      });
-  });
-
-  it(`Operation sentAuthRequest SUCCESS`, () => {
-    const CancelToken = axios.CancelToken;
-    const sentAuthLoader = operations.sentAuthRequest(`correct`, `correct`, CancelToken.source());
-    actions.setAuthSuccess = jest.fn(() => {});
-    actions.setUserProfile = jest.fn(() => {});
-
-    apiMock
-      .onPost(`/login`)
-      .reply(200, {profile: `any`});
-
-    sentAuthLoader(dispatch, _, api)
-      .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(2);
-        expect(actions.setAuthSuccess).toHaveBeenCalledTimes(1);
-        expect(actions.setUserProfile).toHaveBeenCalledTimes(1);
-        expect(actions.setUserProfile).toHaveBeenLastCalledWith({profile: `any`});
-      });
-  });
-
-  it(`Operation sentAuthRequest 400 ERROR`, () => {
-    const CancelToken = axios.CancelToken;
-    const sentAuthLoader = operations.sentAuthRequest(`in-correct`, `in-correct`, CancelToken.source());
-    actions.initAuthServerError = jest.fn(() => {});
-
-    apiMock
-      .onPost(`/login`)
-      .reply(400, {error: {code: 111, message: `any`}});
-
-    sentAuthLoader(dispatch, _, api)
-      .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(actions.initAuthServerError).toHaveBeenCalledTimes(1);
-        expect(actions.initAuthServerError).toHaveBeenLastCalledWith({code: 111, message: `any`});
-      });
-  });
-
-  it(`Operation sentAuthRequest timout`, () => {
-    const CancelToken = axios.CancelToken;
-    const sentAuthLoader = operations.sentAuthRequest(`in-correct`, `in-correct`, CancelToken.source());
-    actions.initAuthServerError = jest.fn(() => {});
-
-    apiMock
-      .onPost(`/login`)
-      .timeout();
-
-    sentAuthLoader(dispatch, _, api)
-      .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(actions.initAuthServerError).toHaveBeenCalledTimes(1);
-        expect(actions.initAuthServerError).toHaveBeenLastCalledWith(`timeout of 5000ms exceeded`);
-      });
-  });
-
-  it(`Operation sentAuthRequest manual cancel`, () => {
-    const CancelToken = axios.CancelToken;
-    const source = CancelToken.source();
-    const sentAuthLoader = operations.sentAuthRequest(`correct`, `correct`, source);
-    actions.initAuthServerError = jest.fn(() => {});
-    axios.isCancel = jest.fn();
-
-    apiMock
-      .onPost(`/login`)
-      .reply(200, {profile: `any`});
-
-    source.cancel(`MANUAL CANCEL`);
-
-    sentAuthLoader(dispatch, _, api)
-      .then(() => {
-        expect(axios.isCancel).toHaveBeenCalledTimes(1);
-        expect(dispatch).toHaveBeenCalledTimes(0);
-        expect(actions.initAuthServerError).toHaveBeenCalledTimes(0);
-      });
-  });
-
-  it(`Operation getMyListFilms`, () => {
-    const myListLoader = operations.getMyListFilms();
-    actions.setUserMyList = jest.fn(() => {});
-
-    apiMock
-      .onGet(`/favorite`)
-      .reply(200, [{favoriteFilm: `raw`}, {favoriteFilm: `raw`}]);
-
-    myListLoader(dispatch, _, api)
-      .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(actions.setUserMyList).toHaveBeenCalledTimes(1);
-        expect(actions.setUserMyList).toHaveBeenLastCalledWith([{favoriteFilm: `raw`}, {favoriteFilm: `raw`}]);
-      });
-  });
-
-  it(`Operation toggleFavorite (newState = 1)`, () => {
-    const toggleFavoriteLoader = operations.toggleFavorite(4, 1);
-    actions.addFilmToMylist = jest.fn(() => {});
-    actions.setFavoriteSuccess = jest.fn(() => {});
-    userSelectors.getFavoritesIDs = jest.fn(() => {});
-    userSelectors.getFavoritesIDs.mockReturnValue([3, 6, 2]);
-
-    apiMock
-      .onPost(`/favorite/4/1`)
-      .reply(200, {any: `any`});
-
-    toggleFavoriteLoader(dispatch, getState, api)
-      .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(2);
-        expect(userSelectors.getFavoritesIDs).toHaveBeenCalledTimes(1);
-        expect(getState).toHaveBeenCalledTimes(1);
-        expect(actions.addFilmToMylist).toHaveBeenCalledTimes(1);
-        expect(actions.addFilmToMylist).toHaveBeenLastCalledWith(4, [3, 6, 2]);
-        expect(actions.setFavoriteSuccess).toHaveBeenCalledTimes(1);
-      });
-  });
-
-  it(`Operation toggleFavorite (newState = 0)`, () => {
-    const toggleFavoriteLoader = operations.toggleFavorite(6, 0);
-    actions.delFilmFromMyList = jest.fn(() => {});
-    actions.setFavoriteSuccess = jest.fn(() => {});
-    userSelectors.getFavoritesIDs = jest.fn(() => {});
-    userSelectors.getFavoritesIDs.mockReturnValue([3, 6, 2, 4]);
-
-    apiMock
-      .onPost(`/favorite/6/0`)
-      .reply(200, {any: `any`});
-
-    toggleFavoriteLoader(dispatch, getState, api)
-      .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(2);
-        expect(userSelectors.getFavoritesIDs).toHaveBeenCalledTimes(1);
-        expect(getState).toHaveBeenCalledTimes(1);
-        expect(actions.delFilmFromMyList).toHaveBeenCalledTimes(1);
-        expect(actions.delFilmFromMyList).toHaveBeenLastCalledWith(6, [3, 6, 2, 4]);
-        expect(actions.setFavoriteSuccess).toHaveBeenCalledTimes(1);
-      });
-  });
-
-  it(`Operation toggleFavorite (timeout)`, () => {
-    const toggleFavoriteLoader = operations.toggleFavorite(8, 1);
-    actions.initFavoriteError = jest.fn(() => {});
-
-    apiMock
-      .onPost(`/favorite/8/1`)
-      .timeout();
-
-    toggleFavoriteLoader(dispatch, getState, api)
-      .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(actions.initFavoriteError).toHaveBeenCalledTimes(1);
-        expect(actions.initFavoriteError).toHaveBeenLastCalledWith(`timeout of 5000ms exceeded`);
-      });
-  });
-
-  it(`Operation toggleFavorite (error)`, () => {
-    const toggleFavoriteLoader = operations.toggleFavorite(8, 1);
-    actions.initFavoriteError = jest.fn(() => {});
-
-    apiMock
-      .onPost(`/favorite/8/1`)
-      .reply(400, {error: {code: 111, message: `any`}});
-
-    toggleFavoriteLoader(dispatch, getState, api)
-      .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(actions.initFavoriteError).toHaveBeenCalledTimes(1);
-        expect(actions.initFavoriteError).toHaveBeenLastCalledWith({code: 111, message: `any`});
-      });
-  });
-});
-
 describe(`Reducers: User reducers`, () => {
   const initState = storeMock.initStore[StoreNameSpace.USER];
   const loadedStore = storeMock.loadedStore[StoreNameSpace.USER];
@@ -528,5 +331,202 @@ describe(`Reducers: User selectors`, () => {
 
   it(`Selector getFavoritesIDs`, () => {
     expect(selectors.getFavoritesIDs(storeMock.loadedStore)).toEqual([3]);
+  });
+});
+
+describe(`Reducers: User operations`, () => {
+  const api = configureAPI();
+  const dispatch = jest.fn();
+  const getState = jest.fn();
+  const _ = jest.fn();
+
+  let apiMock;
+  beforeEach(() => {
+    jest.resetAllMocks();
+    apiMock = new MockAdapter(api);
+  });
+
+  it(`Operation checkAuth`, () => {
+    const loginChecker = operations.checkAuth();
+    actions.setAuthSuccess = jest.fn(() => {});
+    actions.setUserProfile = jest.fn(() => {});
+
+    apiMock
+      .onGet(`/login`)
+      .reply(200, {profile: `any`});
+
+    loginChecker(dispatch, _, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(actions.setAuthSuccess).toHaveBeenCalledTimes(1);
+        expect(actions.setUserProfile).toHaveBeenCalledTimes(1);
+        expect(actions.setUserProfile).toHaveBeenLastCalledWith({profile: `any`});
+      });
+  });
+
+  it(`Operation sentAuthRequest SUCCESS`, () => {
+    const CancelToken = axios.CancelToken;
+    const sentAuthLoader = operations.sentAuthRequest(`correct`, `correct`, CancelToken.source());
+    actions.setAuthSuccess = jest.fn(() => {});
+    actions.setUserProfile = jest.fn(() => {});
+
+    apiMock
+      .onPost(`/login`)
+      .reply(200, {profile: `any`});
+
+    sentAuthLoader(dispatch, _, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(actions.setAuthSuccess).toHaveBeenCalledTimes(1);
+        expect(actions.setUserProfile).toHaveBeenCalledTimes(1);
+        expect(actions.setUserProfile).toHaveBeenLastCalledWith({profile: `any`});
+      });
+  });
+
+  it(`Operation sentAuthRequest 400 ERROR`, () => {
+    const CancelToken = axios.CancelToken;
+    const sentAuthLoader = operations.sentAuthRequest(`in-correct`, `in-correct`, CancelToken.source());
+    actions.initAuthServerError = jest.fn(() => {});
+
+    apiMock
+      .onPost(`/login`)
+      .reply(400, {error: {code: 111, message: `any`}});
+
+    sentAuthLoader(dispatch, _, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(actions.initAuthServerError).toHaveBeenCalledTimes(1);
+        expect(actions.initAuthServerError).toHaveBeenLastCalledWith({code: 111, message: `any`});
+      });
+  });
+
+  it(`Operation sentAuthRequest timout`, () => {
+    const CancelToken = axios.CancelToken;
+    const sentAuthLoader = operations.sentAuthRequest(`in-correct`, `in-correct`, CancelToken.source());
+    actions.initAuthServerError = jest.fn(() => {});
+
+    apiMock
+      .onPost(`/login`)
+      .timeout();
+
+    sentAuthLoader(dispatch, _, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(actions.initAuthServerError).toHaveBeenCalledTimes(1);
+        expect(actions.initAuthServerError).toHaveBeenLastCalledWith(`timeout of 5000ms exceeded`);
+      });
+  });
+
+  it(`Operation sentAuthRequest manual cancel`, () => {
+    const CancelToken = axios.CancelToken;
+    const source = CancelToken.source();
+    const sentAuthLoader = operations.sentAuthRequest(`correct`, `correct`, source);
+    actions.initAuthServerError = jest.fn(() => {});
+    axios.isCancel = jest.fn();
+
+    apiMock
+      .onPost(`/login`)
+      .reply(200, {profile: `any`});
+
+    source.cancel(`MANUAL CANCEL`);
+
+    sentAuthLoader(dispatch, _, api)
+      .then(() => {
+        expect(axios.isCancel).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenCalledTimes(0);
+        expect(actions.initAuthServerError).toHaveBeenCalledTimes(0);
+      });
+  });
+
+  it(`Operation getMyListFilms`, () => {
+    const myListLoader = operations.getMyListFilms();
+    actions.setUserMyList = jest.fn(() => {});
+
+    apiMock
+      .onGet(`/favorite`)
+      .reply(200, [{favoriteFilm: `raw`}, {favoriteFilm: `raw`}]);
+
+    myListLoader(dispatch, _, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(actions.setUserMyList).toHaveBeenCalledTimes(1);
+        expect(actions.setUserMyList).toHaveBeenLastCalledWith([{favoriteFilm: `raw`}, {favoriteFilm: `raw`}]);
+      });
+  });
+
+  it(`Operation toggleFavorite (newState = 1)`, () => {
+    const toggleFavoriteLoader = operations.toggleFavorite(4, 1);
+    actions.addFilmToMylist = jest.fn(() => {});
+    actions.setFavoriteSuccess = jest.fn(() => {});
+    userSelectors.getFavoritesIDs = jest.fn();
+    userSelectors.getFavoritesIDs.mockReturnValue([3, 6, 2]);
+
+    apiMock
+      .onPost(`/favorite/4/1`)
+      .reply(200, {any: `any`});
+
+    toggleFavoriteLoader(dispatch, getState, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(userSelectors.getFavoritesIDs).toHaveBeenCalledTimes(1);
+        expect(getState).toHaveBeenCalledTimes(1);
+        expect(actions.addFilmToMylist).toHaveBeenCalledTimes(1);
+        expect(actions.addFilmToMylist).toHaveBeenLastCalledWith(4, [3, 6, 2]);
+        expect(actions.setFavoriteSuccess).toHaveBeenCalledTimes(1);
+      });
+  });
+
+  it(`Operation toggleFavorite (newState = 0)`, () => {
+    const toggleFavoriteLoader = operations.toggleFavorite(6, 0);
+    actions.delFilmFromMyList = jest.fn(() => {});
+    actions.setFavoriteSuccess = jest.fn(() => {});
+    userSelectors.getFavoritesIDs = jest.fn(() => {});
+    userSelectors.getFavoritesIDs.mockReturnValue([3, 6, 2, 4]);
+
+    apiMock
+      .onPost(`/favorite/6/0`)
+      .reply(200, {any: `any`});
+
+    toggleFavoriteLoader(dispatch, getState, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(userSelectors.getFavoritesIDs).toHaveBeenCalledTimes(1);
+        expect(getState).toHaveBeenCalledTimes(1);
+        expect(actions.delFilmFromMyList).toHaveBeenCalledTimes(1);
+        expect(actions.delFilmFromMyList).toHaveBeenLastCalledWith(6, [3, 6, 2, 4]);
+        expect(actions.setFavoriteSuccess).toHaveBeenCalledTimes(1);
+      });
+  });
+
+  it(`Operation toggleFavorite (timeout)`, () => {
+    const toggleFavoriteLoader = operations.toggleFavorite(8, 1);
+    actions.initFavoriteError = jest.fn(() => {});
+
+    apiMock
+      .onPost(`/favorite/8/1`)
+      .timeout();
+
+    toggleFavoriteLoader(dispatch, getState, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(actions.initFavoriteError).toHaveBeenCalledTimes(1);
+        expect(actions.initFavoriteError).toHaveBeenLastCalledWith(`timeout of 5000ms exceeded`);
+      });
+  });
+
+  it(`Operation toggleFavorite (error)`, () => {
+    const toggleFavoriteLoader = operations.toggleFavorite(8, 1);
+    actions.initFavoriteError = jest.fn(() => {});
+
+    apiMock
+      .onPost(`/favorite/8/1`)
+      .reply(400, {error: {code: 111, message: `any`}});
+
+    toggleFavoriteLoader(dispatch, getState, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(actions.initFavoriteError).toHaveBeenCalledTimes(1);
+        expect(actions.initFavoriteError).toHaveBeenLastCalledWith({code: 111, message: `any`});
+      });
   });
 });

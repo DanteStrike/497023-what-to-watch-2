@@ -44,24 +44,6 @@ exports[`Render correctly MovieControlPanel component 1`] = `
         Play
       </span>
     </button>
-    <button
-      className="btn btn--list movie-card__button"
-      onClick={[Function]}
-      type="button"
-    >
-      <svg
-        height="20"
-        viewBox="0 0 19 20"
-        width="19"
-      >
-        <use
-          xlinkHref="#add"
-        />
-      </svg>
-      <span>
-        My list
-      </span>
-    </button>
   </div>
 </div>
 `;

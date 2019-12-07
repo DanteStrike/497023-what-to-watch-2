@@ -63,9 +63,9 @@ const getLikeThisCardsInfo = createSelector(
       .slice(0, amount)
 );
 
-const getMyListCardsInfo = createSelector(
-
-);
+// const getMyListCardsInfo = createSelector(
+//
+// );
 
 export default {
   getStoreSpace,
