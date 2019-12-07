@@ -63,8 +63,8 @@ const App = (props) => {
       <Route exact path="/films/:id" component={({match: {params: {id}}}) => {
         return (<MoviePageWrapped curFilmID={Number(id)}/>);
       }}/>
-      <PrivateRoute exact path="/films/:id/add-review" component={({match: {params: {id}}}) => {
-        return (<AddReviewPage curFilmID={Number(id)}/>);
+      <PrivateRoute exact path="/films/:id/add-review" component={({match: {params: {id}}, history}) => {
+        return (<AddReviewPage curFilmID={Number(id)} history={history}/>);
       }}/>
       <Route component={PageNotFound}/>
     </Switch>

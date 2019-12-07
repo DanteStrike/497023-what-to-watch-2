@@ -20,6 +20,13 @@ export const initStore = {
   },
 
   [StoreNameSpace.COMMENTS]: {
+    postComment: {
+      isSuccess: false,
+      error: {
+        isError: false,
+        msg: ``
+      }
+    },
     curFilmComments: []
   },
 
@@ -72,6 +79,13 @@ export const loadedStore = {
   },
 
   [StoreNameSpace.COMMENTS]: {
+    postComment: {
+      isSuccess: true,
+      error: {
+        isError: false,
+        msg: ``
+      }
+    },
     curFilmComments: comments
   },
 

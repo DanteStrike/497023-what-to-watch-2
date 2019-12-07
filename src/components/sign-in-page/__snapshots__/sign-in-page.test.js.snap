@@ -11,7 +11,7 @@ exports[`Component SignInPage should render correctly 1`] = `
       className="logo"
     >
       <a
-        className="logo__link "
+        className="logo__link"
         href="/"
         onClick={[Function]}
       >

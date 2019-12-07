@@ -2,7 +2,6 @@ import {createSelector} from "reselect";
 import {genreFilterSelectors} from "../genres/index.js";
 import {catalogSelectors} from "../catalog/index.js";
 import StoreNameSpace from "../store-name-space";
-import {userSelectors} from "../user";
 
 
 const getStoreSpace = (store) => store[StoreNameSpace.FILMS];

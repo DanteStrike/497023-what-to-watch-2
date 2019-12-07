@@ -1,14 +1,14 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import {BrowserRouter as Router} from 'react-router-dom';
-import Logo from "./logo.jsx";
+import {BrowserRouter as Router} from "react-router-dom";
+import Breadcrumbs from "./breadcrumbs";
 
 
-it(`Render correctly Logo component`, () => {
+it(`Render correctly Breadcrumbs component`, () => {
   const component = renderer
     .create(
         <Router>
-          <Logo isLight={false}/>
+          <Breadcrumbs curFilmID={1} name={`any`}/>
         </Router>
     ).toJSON();
 

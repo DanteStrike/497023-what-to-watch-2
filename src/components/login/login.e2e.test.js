@@ -41,6 +41,8 @@ describe(`Component Login should work correctly`, () => {
             target: ``,
             msg: ``
           }}
+          resetEmailValidation={jest.fn()}
+          resetPasswordValidation={jest.fn()}
         />
     );
   });

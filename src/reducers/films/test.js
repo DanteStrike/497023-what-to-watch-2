@@ -9,6 +9,7 @@ import configureAPI from "../../server/configure-API.js";
 import MockAdapter from "axios-mock-adapter";
 import * as filmsMock from "../../mocks/films.js";
 import * as storeMock from "../../mocks/store.js";
+import {filmsActions} from "./index";
 
 
 describe(`Reducers: Films utils`, () => {
@@ -72,12 +73,7 @@ describe(`Reducers: Film operations`, () => {
 
   it(`Operation loadFilms`, () => {
     const filmsLoader = operations.loadFilms();
-
-    const spyOnLoadFilms = jest.spyOn(actions, `loadFilms`);
-    spyOnLoadFilms.mockReturnValue({
-      type: types.LOAD_FILMS,
-      payload: [{film: `norm`}]
-    });
+    filmsActions.loadFilms = jest.fn(() => {});
 
     apiMock
       .onGet(`/films`)
@@ -86,21 +82,14 @@ describe(`Reducers: Film operations`, () => {
     filmsLoader(dispatch, _, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: types.LOAD_FILMS,
-          payload: [{film: `norm`}]
-        });
+        expect(filmsActions.loadFilms).toHaveBeenCalledTimes(1);
+        expect(filmsActions.loadFilms).toHaveBeenLastCalledWith([{film: `raw`}]);
       });
   });
 
   it(`Operation loadPromo`, () => {
     const promoLoader = operations.loadPromo();
-
-    const spyOnLoadPromo = jest.spyOn(actions, `loadPromo`);
-    spyOnLoadPromo.mockReturnValue({
-      type: types.LOAD_PROMO,
-      payload: [{promo: `filmID`}]
-    });
+    filmsActions.loadPromo = jest.fn(() => {});
 
     apiMock
       .onGet(`/films/promo`)
@@ -109,10 +98,8 @@ describe(`Reducers: Film operations`, () => {
     promoLoader(dispatch, _, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: types.LOAD_PROMO,
-          payload: [{promo: `filmID`}]
-        });
+        expect(filmsActions.loadPromo).toHaveBeenCalledTimes(1);
+        expect(filmsActions.loadPromo).toHaveBeenLastCalledWith([{promo: `raw`}]);
       });
   });
 });

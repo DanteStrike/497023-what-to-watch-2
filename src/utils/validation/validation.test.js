@@ -1,4 +1,4 @@
-import {createValidationReport, checkEmail, checkPassword} from "./validation";
+import {createValidationReport, checkEmail, checkPassword, checkComment} from "./validation";
 
 
 describe(`Util Validation should work correctly`, () => {
@@ -48,5 +48,18 @@ describe(`Util Validation should work correctly`, () => {
       msg: `Form: Please enter password`
     });
     expect(checkPassword(`a`)).toEqual(successReport);
+  });
+
+  it(`Util checkComment`, () => {
+    expect(checkComment(5, 9)(`1234`)).toEqual({
+      isValid: false,
+      msg: `Form: Comment length should be between 5 to 9 symbols`
+    });
+    expect(checkComment(5, 9)(`123456789D`)).toEqual({
+      isValid: false,
+      msg: `Form: Comment length should be between 5 to 9 symbols`
+    });
+    expect(checkComment(5, 9)(`12345`)).toEqual(successReport);
+    expect(checkComment(5, 9)(`123456789`)).toEqual(successReport);
   });
 });

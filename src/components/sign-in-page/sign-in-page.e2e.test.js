@@ -13,7 +13,7 @@ describe(`SignInPage should work correctly`, () => {
   };
   const locationMock = {
     state: {
-      referer: `/other`
+      referrer: `/other`
     }
   };
   const serverErrorMock = {

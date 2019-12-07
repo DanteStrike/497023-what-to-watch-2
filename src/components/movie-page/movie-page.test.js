@@ -17,6 +17,8 @@ it(`Render correctly MoviePage component`, () => {
           <Router>
             <MoviePage
               curFilmID={1}
+              renderTabs={jest.fn()}
+              resetTabs={jest.fn()}
             />
           </Router>
         </Provider>

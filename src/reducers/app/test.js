@@ -1,7 +1,7 @@
 import types from "./types.js";
 import StoreNameSpace from "../store-name-space.js";
 import {filmsSelectors, filmsOperations} from "../films/index.js";
-import {genreFilterTypes, genreFilterActions} from "../genres/index.js";
+import {genreFilterActions} from "../genres/index.js";
 
 import actions from "./actions.js";
 import operations from "./operations.js";
@@ -9,6 +9,7 @@ import reducer from "./reducers.js";
 import selectors from "./selectors.js";
 import * as storeMock from "../../mocks/store.js";
 import {films} from "../../mocks/films.js";
+import {userOperations} from "../user";
 
 
 describe(`Reducers: App actions`, () => {
@@ -36,42 +37,29 @@ describe(`Reducers: App actions`, () => {
 describe(`Reducers: App operations`, () => {
   it(`Setup operation with API should work correctly`, () => {
     const setupApp = operations.setupApp();
-
     const dispatch = jest.fn().mockResolvedValue(`resolved`);
     const getState = jest.fn();
-
-    const spyOnLoadFilms = jest.spyOn(filmsOperations, `loadFilms`);
-    const spyOnLoadPromo = jest.spyOn(filmsOperations, `loadPromo`);
-
-    const spyOnGetAllFilmsGenres = jest.spyOn(filmsSelectors, `getAllFilmsGenres`);
-    spyOnGetAllFilmsGenres.mockReturnValue([`mock`]);
-
-    const spyOnSetupFilterState = jest.spyOn(genreFilterActions, `setupFilterState`);
-    spyOnSetupFilterState.mockReturnValue({
-      type: genreFilterTypes.SETUP_FILTER_STATE,
-      payload: [{genre: `ready`}]
-    });
+    filmsOperations.loadFilms = jest.fn(() => {});
+    filmsOperations.loadPromo = jest.fn(() => {});
+    filmsSelectors.getAllFilmsGenres = jest.fn(() => {}).mockReturnValue([`mock`]);
+    genreFilterActions.setupFilterState = jest.fn(() => {});
+    userOperations.checkAuth = jest.fn(() => {});
+    userOperations.getMyListFilms = jest.fn(() => {});
+    actions.setAppIsReady = jest.fn(() => {});
 
     setupApp(dispatch, getState)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(6);
         expect(getState).toHaveBeenCalledTimes(1);
 
-        expect(spyOnLoadFilms).toHaveBeenCalledTimes(1);
-        expect(spyOnLoadPromo).toHaveBeenCalledTimes(1);
-        expect(spyOnGetAllFilmsGenres).toHaveBeenCalledTimes(1);
-        expect(spyOnSetupFilterState).toHaveBeenCalledTimes(1);
-
-        expect(spyOnSetupFilterState).toHaveBeenNthCalledWith(1, [`mock`]);
-        expect(dispatch).toHaveBeenNthCalledWith(4, {
-          type: genreFilterTypes.SETUP_FILTER_STATE,
-          payload: [{genre: `ready`}]
-        });
-
-        expect(dispatch).toHaveBeenNthCalledWith(6, {
-          type: types.SET_APP_IS_READY,
-          payload: true
-        });
+        expect(filmsOperations.loadFilms).toHaveBeenCalledTimes(1);
+        expect(filmsOperations.loadPromo).toHaveBeenCalledTimes(1);
+        expect(filmsSelectors.getAllFilmsGenres).toHaveBeenCalledTimes(1);
+        expect(genreFilterActions.setupFilterState).toHaveBeenCalledTimes(1);
+        expect(genreFilterActions.setupFilterState).toHaveBeenLastCalledWith([`mock`]);
+        expect(userOperations.checkAuth).toHaveBeenCalledTimes(1);
+        expect(userOperations.getMyListFilms).toHaveBeenCalledTimes(1);
+        expect(actions.setAppIsReady).toHaveBeenCalledTimes(1);
       });
   });
 });

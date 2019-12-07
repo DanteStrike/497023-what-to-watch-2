@@ -26,6 +26,7 @@ describe(`Util fullscreenAPI should work correctly`, () => {
   });
 
   it(`Util openFullScreen`, () => {
+    openFullScreen({});
     openFullScreen(elementDefault);
     expect(elementDefault.requestFullscreen).toHaveBeenCalledTimes(1);
     openFullScreen(elementFirefox);
@@ -37,6 +38,8 @@ describe(`Util fullscreenAPI should work correctly`, () => {
   });
 
   it(`Util closeFullScreen`, () => {
+    closeFullscreen();
+
     global.document.msExitFullscreen = jest.fn();
     closeFullscreen();
     expect(global.document.msExitFullscreen).toHaveBeenCalledTimes(1);

@@ -183,11 +183,29 @@ describe(`Reducers: User operations`, () => {
       });
   });
 
+  it(`Operation sentAuthRequest timout`, () => {
+    const CancelToken = axios.CancelToken;
+    const sentAuthLoader = operations.sentAuthRequest(`in-correct`, `in-correct`, CancelToken.source());
+    actions.initAuthServerError = jest.fn(() => {});
+
+    apiMock
+      .onPost(`/login`)
+      .timeout();
+
+    sentAuthLoader(dispatch, _, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(actions.initAuthServerError).toHaveBeenCalledTimes(1);
+        expect(actions.initAuthServerError).toHaveBeenLastCalledWith(`timeout of 5000ms exceeded`);
+      });
+  });
+
   it(`Operation sentAuthRequest manual cancel`, () => {
     const CancelToken = axios.CancelToken;
     const source = CancelToken.source();
     const sentAuthLoader = operations.sentAuthRequest(`correct`, `correct`, source);
     actions.initAuthServerError = jest.fn(() => {});
+    axios.isCancel = jest.fn();
 
     apiMock
       .onPost(`/login`)
@@ -197,6 +215,7 @@ describe(`Reducers: User operations`, () => {
 
     sentAuthLoader(dispatch, _, api)
       .then(() => {
+        expect(axios.isCancel).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenCalledTimes(0);
         expect(actions.initAuthServerError).toHaveBeenCalledTimes(0);
       });

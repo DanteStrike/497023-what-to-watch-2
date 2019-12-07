@@ -29,6 +29,8 @@ it(`Component Login should render correctly`, () => {
             target: ``,
             msg: ``
           }}
+          resetEmailValidation={jest.fn()}
+          resetPasswordValidation={jest.fn()}
         />
       </Router>
   );

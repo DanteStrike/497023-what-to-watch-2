@@ -7,11 +7,20 @@ class AddReviewForm extends React.PureComponent {
 
     this._stars = new Array(5).fill(``);
     this._handleInputChange = this._handleInputChange.bind(this);
+    this._handleFormSubmit = this._handleFormSubmit.bind(this);
   }
 
   componentDidMount() {
     const {validateComment} = this.props;
     validateComment();
+  }
+
+  componentDidUpdate() {
+    const {isSubmitting, toggleFormLock, serverError} = this.props;
+
+    if (serverError.isError && isSubmitting) {
+      toggleFormLock();
+    }
   }
 
   _handleInputChange(evt) {
@@ -30,18 +39,26 @@ class AddReviewForm extends React.PureComponent {
     }
   }
 
+  _handleFormSubmit(evt) {
+    evt.preventDefault();
+
+    const {toggleFormLock, postComment, score, comment} = this.props;
+
+    toggleFormLock();
+    postComment(score, comment);
+  }
 
   render() {
-    const {score, commentValidation} = this.props;
+    const {score, commentValidation, isSubmitting, serverError} = this.props;
 
     return (
-      <div className="add-review">
-        <form action="#" className="add-review__form">
+      <div className="add-review" style={isSubmitting ? {cursor: `wait`} : {}}>
+        <form action="#" className="add-review__form" style={isSubmitting ? {pointerEvents: `none`} : {}} onSubmit={this._handleFormSubmit}>
           <div className="rating">
             <div className="rating__stars">
               {this._stars.map((_, index) => (
                 <Fragment key={`${index}_star`}>
-                  <input className="rating__input" id={`star-${index}`} type="radio" name="rating" value={`${index + 1}`} onChange={this._handleInputChange}/>
+                  <input className="rating__input" id={`star-${index}`} type="radio" name="rating" value={`${index + 1}`} onChange={this._handleInputChange} disabled={isSubmitting}/>
                   <label className="rating__label" htmlFor={`star-${index}`}>Rating ${index}</label>
                 </Fragment>
               ))}
@@ -49,19 +66,27 @@ class AddReviewForm extends React.PureComponent {
           </div>
 
           <div className="add-review__text">
-            <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" onChange={this._handleInputChange}></textarea>
+            <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" onChange={this._handleInputChange} disabled={isSubmitting}></textarea>
             <div className="add-review__submit">
-              {(score === -1 || !commentValidation.isValid) ? null : <button className="add-review__btn" type="submit">Post</button>}
+              {(score === -1 || !commentValidation.isValid) ? null : <button className="add-review__btn" type="submit" disabled={isSubmitting}>Post</button>}
             </div>
 
           </div>
         </form>
+        {!serverError.isError ? null : <p>{serverError.msg}</p>}
       </div>
     );
   }
 }
 
 AddReviewForm.propTypes = {
+  isSubmitting: PropTypes.bool.isRequired,
+  toggleFormLock: PropTypes.func.isRequired,
+  postComment: PropTypes.func.isRequired,
+  serverError: PropTypes.exact({
+    isError: PropTypes.bool.isRequired,
+    msg: PropTypes.string.isRequired
+  }).isRequired,
   score: PropTypes.number.isRequired,
   setScore: PropTypes.func.isRequired,
   comment: PropTypes.string.isRequired,
