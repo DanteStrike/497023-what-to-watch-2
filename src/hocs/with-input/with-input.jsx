@@ -16,8 +16,8 @@ const withInput = (
       this._changeInputState = this._changeInputState.bind(this);
     }
 
-    _changeInputState(newValue) {
-      this.setState({[inputName]: newValue});
+    _changeInputState(newValue, callback) {
+      this.setState({[inputName]: newValue}, callback);
     }
 
     render() {
