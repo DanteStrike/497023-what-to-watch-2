@@ -59,9 +59,44 @@ const userProfileReducer = (state = userProfileInitState, action) => {
   }
 };
 
+const favoriteRequestInitStatus = {
+  isSuccess: false,
+  error: {
+    isError: false,
+    msg: ``
+  }
+};
+const favoriteRequestStatusReducer = (state = favoriteRequestInitStatus, action) => {
+  switch (action.type) {
+    case types.INIT_FAVORITE_ERROR:
+      return {
+        isSuccess: false,
+        error: {
+          isError: true,
+          msg: action.payload
+        }
+      };
+    case types.SET_FAVORITE_SUCCESS:
+      return updateObject(state, {
+        isSuccess: true
+      });
+    case types.RESET_FAVORITE_ERROR:
+      return {
+        isSuccess: false,
+        error: {
+          isError: false,
+          msg: ``
+        }
+      };
+    default:
+      return state;
+  }
+};
+
 const reducer = combineReducers({
   auth: authReducer,
-  data: userProfileReducer
+  data: userProfileReducer,
+  toggleFavoriteStatus: favoriteRequestStatusReducer
 });
 
 export default reducer;

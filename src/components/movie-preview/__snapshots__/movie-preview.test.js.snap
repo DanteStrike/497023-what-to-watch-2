@@ -131,7 +131,9 @@ exports[`Render correctly MoviePreview component 1`] = `
           </button>
           <button
             className="btn btn--list movie-card__button"
+            disabled={false}
             onClick={[Function]}
+            style={Object {}}
             type="button"
           >
             <svg

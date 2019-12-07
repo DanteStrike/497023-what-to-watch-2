@@ -7,12 +7,15 @@ import UserBlock from "../user-block/user-block.jsx";
 import PageFooter from "../page-footer/page-footer.jsx";
 import MovieBackground from "../movie-background/movie-background.jsx";
 import MoviePoster from "../movie-poster/movie-poster.jsx";
-import MovieControlPanel from "../movie-control-panel/movie-control-panel.jsx";
+import CatalogLikeThis from "../catalog-like-this/catalog-like-this.jsx";
+
+import withToggleState from "../../hocs/with-toggle-state/with-toggle-state.jsx";
 
 import {filmsSelectors} from "../../reducers/films";
-import CatalogLikeThis from "../catalog-like-this/catalog-like-this.jsx";
 import {commentsOperations, commentsSelectors} from "../../reducers/comments";
 
+
+const MovieControlPanelWrapped = withToggleState(`isSubmitting`, false, `toggleFormLock`);
 
 class MoviePage extends React.PureComponent {
   componentDidMount() {
@@ -40,7 +43,7 @@ class MoviePage extends React.PureComponent {
             <h1 className="visually-hidden">WTW</h1>
             <PageHeader mixinClass={`movie-card__head`} rightPart={<UserBlock/>}/>
             <div className="movie-card__wrap">
-              <MovieControlPanel curFilmID={film.id}/>
+              <MovieControlPanelWrapped curFilmID={film.id}/>
             </div>
           </div>
 

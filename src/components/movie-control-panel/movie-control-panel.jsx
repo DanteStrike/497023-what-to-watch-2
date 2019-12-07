@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Fragment} from "react";
 import PropTypes from "prop-types";
 
 import {Link} from "react-router-dom";
@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 import {appActions} from "../../reducers/app";
 import {connect} from "react-redux";
 import {filmsSelectors} from "../../reducers/films";
-import {userSelectors} from "../../reducers/user";
+import {userActions, userOperations, userSelectors} from "../../reducers/user";
 
 
 class MovieControlPanel extends React.PureComponent {
@@ -17,16 +17,31 @@ class MovieControlPanel extends React.PureComponent {
     this._handleFavoriteToggleClick = this._handleFavoriteToggleClick.bind(this);
   }
 
+  componentDidUpdate(prevProps) {
+    const {favoriteRequestStatus, isSubmitting, toggleFormLock} = this.props;
+
+    if ((prevProps.favoriteRequestStatus.isSuccess !== favoriteRequestStatus.isSuccess && favoriteRequestStatus.isSuccess
+        || prevProps.favoriteRequestStatus.error.isError !== favoriteRequestStatus.error.isError && favoriteRequestStatus.error.isError)
+        && isSubmitting) {
+      toggleFormLock();
+    }
+  }
+
   _handlePlayButtonClick() {
     const {curFilmID, openVideoPlayer} = this.props;
     openVideoPlayer(curFilmID);
   }
 
-  _handleFavoriteToggleClick() {}
+  _handleFavoriteToggleClick() {
+    const {curFilmID, isFavorite, toggleFavorite, toggleFormLock, resetFavoriteError} = this.props;
+    toggleFormLock();
+    resetFavoriteError();
+    toggleFavorite(curFilmID, Number(!isFavorite));
+  }
 
 
   render() {
-    const {curFilmID, isAuth, name, genre, released} = this.props;
+    const {curFilmID, isAuth, name, genre, released, isFavorite, isSubmitting} = this.props;
 
     return (
       <div className="movie-card__desc">
@@ -43,13 +58,18 @@ class MovieControlPanel extends React.PureComponent {
             </svg>
             <span>Play</span>
           </button>
-          <button className="btn btn--list movie-card__button" type="button" onClick={this._handleFavoriteToggleClick}>
-            <svg viewBox="0 0 19 20" width="19" height="20">
-              <use xlinkHref="#add"></use>
-            </svg>
-            <span>My list</span>
-          </button>
-          {isAuth && <Link to={`/films/${curFilmID}/add-review`} className="btn movie-card__button">Add review</Link>}
+          {isAuth &&
+            <Fragment>
+              <button className="btn btn--list movie-card__button" type="button" onClick={this._handleFavoriteToggleClick}
+                disabled={isSubmitting} style={isSubmitting ? {cursor: `wait`} : {}}>
+                <svg viewBox="0 0 19 20" width="19" height="20">
+                  {isFavorite ? <use xlinkHref="#in-list"></use> : <use xlinkHref="#add"></use>}
+                </svg>
+                <span>My list</span>
+              </button>
+              <Link to={`/films/${curFilmID}/add-review`} className="btn movie-card__button">Add review</Link>
+            </Fragment>
+          }
         </div>
       </div>
     );
@@ -58,11 +78,23 @@ class MovieControlPanel extends React.PureComponent {
 
 MovieControlPanel.propTypes = {
   isAuth: PropTypes.bool.isRequired,
+  isFavorite: PropTypes.bool.isRequired,
   curFilmID: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
   released: PropTypes.number.isRequired,
-  openVideoPlayer: PropTypes.func.isRequired
+  openVideoPlayer: PropTypes.func.isRequired,
+  toggleFavorite: PropTypes.func.isRequired,
+  isSubmitting: PropTypes.bool.isRequired,
+  toggleFormLock: PropTypes.func.isRequired,
+  favoriteRequestStatus: PropTypes.exact({
+    isSuccess: PropTypes.bool.isRequired,
+    error: PropTypes.exact({
+      isError: PropTypes.bool.isRequired,
+      msg: PropTypes.string.isRequired
+    }).isRequired
+  }).isRequired,
+  resetFavoriteError: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (store, props) => ({
@@ -70,11 +102,14 @@ const mapStateToProps = (store, props) => ({
   name: filmsSelectors.getCurFilmName(store, props),
   genre: filmsSelectors.getCurFilmGenre(store, props),
   released: filmsSelectors.getCurFilmReleased(store, props),
-  // isFavorite: filmsSelectors.getIsCurFilmFavorite(store, props)
+  isFavorite: filmsSelectors.getIsFavorite(store, props),
+  favoriteRequestStatus: userSelectors.getFavoriteError(store)
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  openVideoPlayer: (filmID) => dispatch(appActions.openVideoPlayer(filmID))
+  openVideoPlayer: (filmID) => dispatch(appActions.openVideoPlayer(filmID)),
+  toggleFavorite: (curFilmID, newState) => dispatch(userOperations.toggleFavorite(curFilmID, newState)),
+  resetFavoriteError: () => dispatch(userActions.resetFavoriteError())
 });
 
 export {MovieControlPanel};

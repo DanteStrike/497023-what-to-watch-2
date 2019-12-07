@@ -1,11 +1,16 @@
 import StoreNameSpace from "../store-name-space";
 
-const getIsAuth = (state) => state[StoreNameSpace.USER].auth.isAuth;
-const getAuthError = (state) => state[StoreNameSpace.USER].auth.error;
-const getAvatarUrl = (state) => state[StoreNameSpace.USER].data.avatarUrl;
+const getUserStore = (store) => store[StoreNameSpace.USER];
+const getIsAuth = (store) => getUserStore(store).auth.isAuth;
+const getAuthError = (store) => getUserStore(store).auth.error;
+const getAvatarUrl = (store) => getUserStore(store).data.avatarUrl;
+const getFavoritesIDs = (store) => getUserStore(store).data.myListFilmsIDs;
+const getFavoriteError = (store) => getUserStore(store).toggleFavoriteStatus;
 
 export default {
   getIsAuth,
   getAuthError,
-  getAvatarUrl
+  getAvatarUrl,
+  getFavoritesIDs,
+  getFavoriteError
 };
