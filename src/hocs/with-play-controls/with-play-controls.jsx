@@ -10,10 +10,10 @@ const withPlayControls = (WrappedComponent) => {
         isPlaying: false,
       };
 
-      this._playerButtonClickHandler = this._playerButtonClickHandler.bind(this);
+      this._handlePlayButtonClick = this._handlePlayButtonClick.bind(this);
     }
 
-    _playerButtonClickHandler() {
+    _handlePlayButtonClick() {
       this.setState((prevState) => {
         return {
           isPlaying: !prevState.isPlaying
@@ -25,7 +25,7 @@ const withPlayControls = (WrappedComponent) => {
       const {isPlaying} = this.state;
 
       return (
-        <button className="player__play" type="button" onClick={this._playerButtonClickHandler}>
+        <button className="player__play" type="button" onClick={this._handlePlayButtonClick}>
           <svg viewBox="0 0 19 19" width="19" height="19">
             <use xlinkHref={`#${isPlaying ? Constants.Icons.PAUSE : Constants.Icons.PLAY_S}`}></use>
           </svg>

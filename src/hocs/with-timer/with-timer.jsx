@@ -12,22 +12,22 @@ const withTimer = (timeout) => (WrappedComponent) => {
         isTimerFinished: false
       };
 
-      this._timerStartHandler = this._timerStartHandler.bind(this);
-      this._timerResetHandler = this._timerResetHandler.bind(this);
+      this._handleTimerStart = this._handleTimerStart.bind(this);
+      this._handleTimerReset = this._handleTimerReset.bind(this);
       this._timerFinished = this._timerFinished.bind(this);
     }
 
     componentWillUnmount() {
-      this._timerResetHandler();
+      this._handleTimerReset();
     }
 
-    _timerStartHandler() {
+    _handleTimerStart() {
       this.setState({
         timerID: setTimeout(this._timerFinished, this._timeout)
       });
     }
 
-    _timerResetHandler() {
+    _handleTimerReset() {
       const {timerID} = this.state;
       clearTimeout(timerID);
       this.setState({
@@ -46,8 +46,8 @@ const withTimer = (timeout) => (WrappedComponent) => {
       return (
         <WrappedComponent
           {...this.props}
-          onTimerStart={this._timerStartHandler}
-          onTimerReset={this._timerResetHandler}
+          onTimerStart={this._handleTimerStart}
+          onTimerReset={this._handleTimerReset}
           isTimerFinished={isTimerFinished}
         />
       );

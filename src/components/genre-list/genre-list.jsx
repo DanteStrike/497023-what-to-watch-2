@@ -11,7 +11,7 @@ const GenreList = (props) => {
   const {genres, currentFilter, onGenreChange} = props;
   const maxDisplayedAmount = configs.genreListConfig.maxDisplayedAmount;
 
-  const genreClickHandler = (evt, genre) => {
+  const handleGenreClick = (evt, genre) => {
     evt.preventDefault();
     onGenreChange(genre);
   };
@@ -22,7 +22,7 @@ const GenreList = (props) => {
       {genres.slice(0, maxGenresAmount).map((genre, index) => (
         <li key={`${index}_${genre}`} className={`catalog__genres-item${genre === currentFilter ? ` catalog__genres-item--active` : ``}`}>
           <a href="#" className="catalog__genres-link"
-            onClick={(evt) => genreClickHandler(evt, genre)}>{genre}</a>
+            onClick={(evt) => handleGenreClick(evt, genre)}>{genre}</a>
         </li>
       ))}
     </ul>

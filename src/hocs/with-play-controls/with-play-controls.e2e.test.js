@@ -31,9 +31,9 @@ describe(`HoC withPlayControls should work correctly`, () => {
   });
 
   it(`Should change playing state on button click`, () => {
-    component.instance()._playerButtonClickHandler();
+    component.instance()._handlePlayButtonClick();
     expect(component.state().isPlaying).toEqual(true);
-    component.instance()._playerButtonClickHandler();
+    component.instance()._handlePlayButtonClick();
     expect(component.state().isPlaying).toEqual(false);
   });
 });

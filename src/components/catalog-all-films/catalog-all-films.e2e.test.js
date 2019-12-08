@@ -34,7 +34,7 @@ describe(`Component CatalogAllFilms should work correctly`, () => {
   });
 
   it(`Should call showMoreItems on button click`, () => {
-    component.instance()._showMoreItems();
+    component.instance()._handleShowMoreButtonClick();
     expect(showMoreItemsMock).toBeCalledTimes(1);
     expect(showMoreItemsMock).toHaveBeenLastCalledWith(8, 20, 30);
   });

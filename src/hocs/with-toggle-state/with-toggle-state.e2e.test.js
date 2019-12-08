@@ -28,11 +28,11 @@ describe(`HoC withToggleState should work correctly`, () => {
   });
 
   it(`Should toggle state`, () => {
-    component.instance()._stateToggle();
+    component.instance()._toggleState();
     expect(component.state()).toEqual({
       isSubmitting: true
     });
-    component.instance()._stateToggle();
+    component.instance()._toggleState();
     expect(component.state()).toEqual({
       isSubmitting: false
     });

@@ -21,7 +21,7 @@ class CatalogAllFilms extends React.PureComponent {
     this._defaultItemsAmount = configs.catalogAllFilmsConfig.defaultItemsAmount;
     this._increaseAmountRate = configs.catalogAllFilmsConfig.increaseAmountRate;
 
-    this._showMoreItems = this._showMoreItems.bind(this);
+    this._handleShowMoreButtonClick = this._handleShowMoreButtonClick.bind(this);
   }
 
   componentDidMount() {
@@ -39,7 +39,7 @@ class CatalogAllFilms extends React.PureComponent {
     }
   }
 
-  _showMoreItems() {
+  _handleShowMoreButtonClick() {
     const {itemsAmount, maxItemsAmount, showMoreItems} = this.props;
 
     showMoreItems(itemsAmount, this._increaseAmountRate, maxItemsAmount);
@@ -54,7 +54,7 @@ class CatalogAllFilms extends React.PureComponent {
         <GenreList/>
         <MoviesList filmsCards={filmsCards}/>
         {(itemsAmount < maxItemsAmount) &&
-          <ShowMoreButton onShowMoreButtonClick={this._showMoreItems}/>
+          <ShowMoreButton onShowMoreButtonClick={this._handleShowMoreButtonClick}/>
         }
       </section>
     );

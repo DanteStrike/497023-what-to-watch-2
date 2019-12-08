@@ -26,9 +26,9 @@ describe(`HoC withFullScreen should work correctly`, () => {
   });
 
   it(`Should change fullscreen state on button click`, () => {
-    component.instance()._fullScreenButtonClickHandler();
+    component.instance()._handleFullScreenButtonClick();
     expect(component.state().isFullScreen).toEqual(true);
-    component.instance()._fullScreenButtonClickHandler();
+    component.instance()._handleFullScreenButtonClick();
     expect(component.state().isFullScreen).toEqual(false);
   });
 
