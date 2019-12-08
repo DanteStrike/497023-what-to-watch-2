@@ -55,7 +55,7 @@ const RequestErrorCode = {
   FORBIDDEN: 403
 };
 
-const Enum = {
+const Constants = {
   Time,
   RatingLevel,
   GenreFilter,
@@ -63,4 +63,4 @@ const Enum = {
   Styles,
   RequestErrorCode
 };
-export default Enum;
+export default Constants;

@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Enum from "../../enum";
+import Constants from "../../constants";
 
 
 class Video extends React.PureComponent {
@@ -75,7 +75,7 @@ class Video extends React.PureComponent {
 
   render() {
     return (
-      <video ref={this._videoRef} style={Enum.Styles.VIDEO_OBJECT_FIT_COVER}/>
+      <video ref={this._videoRef} style={Constants.Styles.VIDEO_OBJECT_FIT_COVER}/>
     );
   }
 }

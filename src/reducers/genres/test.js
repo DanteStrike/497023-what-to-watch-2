@@ -72,7 +72,7 @@ describe(`Reducers: Genres actions`, () => {
 
 describe(`Reducers: Genres reducers`, () => {
   const genreFilterStore = {
-    currentFilter: utils.ALL_GENRE,
+    currentFilter: `All genre`,
     data: {
       genres: [`All genre`, `genreOne`, `genreTwo`],
       byGenres: {
@@ -116,7 +116,7 @@ describe(`Reducers: Genres reducers`, () => {
     };
 
     expect(reducer(genreFilterStore, action)).toEqual({
-      currentFilter: utils.ALL_GENRE,
+      currentFilter: `All genre`,
       data: {
         genres: [`All genre new`, `genreOne new`, `genreTwo new`],
         byGenres: {

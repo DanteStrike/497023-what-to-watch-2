@@ -1,6 +1,4 @@
-import Enum from "../../enum";
-
-const ALL_GENRE = Enum.GenreFilter.ALL_GENRE;
+import Constants from "../../constants";
 
 const collectState = (filmsGenres) => {
   const result = filmsGenres.reduce((filter, filmGenre) => {
@@ -12,12 +10,12 @@ const collectState = (filmsGenres) => {
     }
 
     filter.byGenres[genre].push(id);
-    filter.byGenres[ALL_GENRE].push(id);
+    filter.byGenres[Constants.GenreFilter.ALL_GENRE].push(id);
     return filter;
   }, {
-    genres: new Set([ALL_GENRE]),
+    genres: new Set([Constants.GenreFilter.ALL_GENRE]),
     byGenres: {
-      [ALL_GENRE]: []
+      [Constants.GenreFilter.ALL_GENRE]: []
     }
   });
 
@@ -28,6 +26,5 @@ const collectState = (filmsGenres) => {
 };
 
 export default {
-  collectState,
-  ALL_GENRE
+  collectState
 };

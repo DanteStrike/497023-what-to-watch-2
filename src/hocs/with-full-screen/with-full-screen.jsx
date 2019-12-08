@@ -1,6 +1,6 @@
 import React from "react";
 import {openFullScreen, closeFullscreen} from "../../utils/fullscreen-api/fullscreen-api.js";
-import Enum from "../../enum.js";
+import Constants from "../../constants.js";
 
 const withFullScreen = (WrappedComponent) => {
   class WithFullScreen extends React.PureComponent {
@@ -28,7 +28,7 @@ const withFullScreen = (WrappedComponent) => {
       return (
         <button type="button" className="player__full-screen" onClick={this._fullScreenButtonClickHandler}>
           <svg viewBox="0 0 27 27" width="27" height="27">
-            <use xlinkHref={`#${Enum.Icons.FULL_SCREEN}`}></use>
+            <use xlinkHref={`#${Constants.Icons.FULL_SCREEN}`}></use>
           </svg>
           <span>Full screen</span>
         </button>

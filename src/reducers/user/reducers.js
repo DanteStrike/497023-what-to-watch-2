@@ -47,13 +47,7 @@ const userProfileReducer = (state = userProfileInitState, action) => {
     case types.SET_USER_MYLIST:
       return updateObject(state, {myListFilmsIDs: action.payload});
     case types.CLEAR_USER_DATA:
-      return {
-        id: null,
-        email: ``,
-        name: ``,
-        avatarUrl: ``,
-        myListFilmsIDs: []
-      };
+      return userProfileInitState;
     default:
       return state;
   }
@@ -79,12 +73,7 @@ const favoriteRequestStatusReducer = (state = favoriteRequestInitStatus, action)
         isSuccess: true
       });
     case types.RESET_FAVORITE_ERROR:
-      return {
-        isSuccess: false,
-        error: {
-          isError: false
-        }
-      };
+      return favoriteRequestInitStatus;
     default:
       return state;
   }

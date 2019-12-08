@@ -2,7 +2,7 @@ import React, {Fragment} from "react";
 import PropTypes from "prop-types";
 
 import configs from "../../configs.js";
-import Enum from "../../enum.js";
+import Constants from "../../constants.js";
 
 
 class AddReviewForm extends React.PureComponent {
@@ -56,8 +56,8 @@ class AddReviewForm extends React.PureComponent {
     const {score, commentValidation, isSubmitting, serverError} = this.props;
 
     return (
-      <div className="add-review" style={isSubmitting ? Enum.Styles.NO_EVENTS : Enum.Styles.NO_STYLE}>
-        <form action="#" className="add-review__form" style={isSubmitting ? Enum.Styles.LOADING_CURSOR : Enum.Styles.NO_STYLE} onSubmit={this._handleFormSubmit}>
+      <div className="add-review" style={isSubmitting ? Constants.Styles.NO_EVENTS : Constants.Styles.NO_STYLE}>
+        <form action="#" className="add-review__form" style={isSubmitting ? Constants.Styles.LOADING_CURSOR : Constants.Styles.NO_STYLE} onSubmit={this._handleFormSubmit}>
           <div className="rating">
             <div className="rating__stars">
               {this._stars.map((_, index) => (

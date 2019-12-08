@@ -1,7 +1,7 @@
-import Enum from "./enum";
+import Constants from "./constants";
 
 const movieListConfig = {
-  showTrailerTimeout: Enum.Time.MILLISECONDS_IN_SECOND
+  showTrailerTimeout: Constants.Time.MILLISECONDS_IN_SECOND
 };
 
 const genreListConfig = {
@@ -9,7 +9,7 @@ const genreListConfig = {
 };
 
 const catalogAllFilmsConfig = {
-  defaultGenre: Enum.GenreFilter.ALL_GENRE,
+  defaultGenre: Constants.GenreFilter.ALL_GENRE,
   defaultItemsAmount: 8,
   increaseAmountRate: 20
 };

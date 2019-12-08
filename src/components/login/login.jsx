@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Enum from "../../enum";
+import Constants from "../../constants";
 
 
 class Login extends React.PureComponent {
@@ -100,8 +100,8 @@ class Login extends React.PureComponent {
     const {emailValidation, passwordValidation, serverError, isSubmitting} = this.props;
 
     return (
-      <div className="sign-in user-page__content" style={isSubmitting ? Enum.Styles.LOADING_CURSOR : Enum.Styles.NO_STYLE}>
-        <form action="#" className="sign-in__form" onSubmit={this._handleFormSubmit} style={isSubmitting ? Enum.Styles.NO_EVENTS : Enum.Styles.NO_STYLE}>
+      <div className="sign-in user-page__content" style={isSubmitting ? Constants.Styles.LOADING_CURSOR : Constants.Styles.NO_STYLE}>
+        <form action="#" className="sign-in__form" onSubmit={this._handleFormSubmit} style={isSubmitting ? Constants.Styles.NO_EVENTS : Constants.Styles.NO_STYLE}>
           {this._showStatusMsg()}
           <div className="sign-in__fields">
             <div className={`sign-in__field${(!emailValidation.isValid || serverError.target === `email`) ? ` sign-in__field--error` : ``}`}>
