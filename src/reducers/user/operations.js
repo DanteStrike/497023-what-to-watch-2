@@ -1,6 +1,7 @@
 import actions from "./actions";
 import axios from "axios";
 import {userSelectors} from "./user";
+import Enum from "../../enum";
 
 const checkAuth = () => (dispatch, _, api) => {
   return api.get(`/login`)
@@ -26,7 +27,7 @@ const sentAuthRequest = (email, password, source) => (dispatch, _, api) => {
       return;
     }
 
-    if (err.code === `ECONNABORTED`) {
+    if (err.code === Enum.RequestErrorCode.TIMEOUT) {
       dispatch(actions.initAuthServerError(err.message));
       return;
     }
@@ -58,7 +59,7 @@ const toggleFavorite = (curFilmID, newStatus) => (dispatch, getState, api) => {
       dispatch(actions.setFavoriteSuccess());
     })
     .catch((err) => {
-      if (err.code === `ECONNABORTED`) {
+      if (err.code === Enum.RequestErrorCode.TIMEOUT) {
         dispatch(actions.initFavoriteError(err.message));
         return;
       }

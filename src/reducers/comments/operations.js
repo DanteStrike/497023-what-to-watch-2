@@ -19,7 +19,7 @@ const postUserComment = (curFilmID, score, comment) => (dispatch, _, api) => {
       dispatch(actions.setPostCommentSuccess());
     })
     .catch((err) => {
-      if (err.code === Enum.RequestErrorCode) {
+      if (err.code === Enum.RequestErrorCode.TIMEOUT) {
         dispatch(actions.initPostCommentError(err.message));
         return;
       }
