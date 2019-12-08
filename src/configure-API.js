@@ -15,6 +15,10 @@ const configureAPI = (dispatch) => {
       throw err;
     }
 
+    if (!err.response) {
+      throw err;
+    }
+
     if (err.response.status === Enum.RequestErrorCode.UNAUTHORIZED || err.response.status === Enum.RequestErrorCode.FORBIDDEN) {
       dispatch(userActions.setAuthRequired());
     }

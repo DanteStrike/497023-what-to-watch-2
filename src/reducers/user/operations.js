@@ -58,15 +58,8 @@ const toggleFavorite = (curFilmID, newStatus) => (dispatch, getState, api) => {
 
       dispatch(actions.setFavoriteSuccess());
     })
-    .catch((err) => {
-      if (err.code === Enum.RequestErrorCode.TIMEOUT) {
-        dispatch(actions.initFavoriteError(err.message));
-        return;
-      }
-
-      if (err.response) {
-        dispatch(actions.initFavoriteError(err.response.data.error));
-      }
+    .catch(() => {
+      dispatch(actions.initFavoriteError());
     });
 };
 

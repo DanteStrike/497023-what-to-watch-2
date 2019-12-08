@@ -107,4 +107,22 @@ describe(`Component Player should work correctly`, () => {
     }});
     expect(toggleFormLockMock).toHaveBeenCalledTimes(2);
   });
+
+  it(`Should style my-list button correctly`, () => {
+    expect(component.instance()._getButtonPlayStyle()).toEqual({});
+    component.setProps({isSubmitting: true});
+    expect(component.instance()._getButtonPlayStyle()).toEqual({cursor: `wait`});
+    component.setProps({favoriteRequestStatus: {
+      isSuccess: false,
+      error: {isError: true}
+    }});
+    expect(component.instance()._getButtonPlayStyle()).toEqual({
+      cursor: `wait`,
+      boxShadow: `0px 0px 0px 2px rgba(255,0,0,1)`
+    });
+    component.setProps({isSubmitting: false});
+    expect(component.instance()._getButtonPlayStyle()).toEqual({
+      boxShadow: `0px 0px 0px 2px rgba(255,0,0,1)`
+    });
+  });
 });

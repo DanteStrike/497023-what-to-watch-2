@@ -505,7 +505,7 @@ describe(`Reducers: User operations`, () => {
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(actions.initFavoriteError).toHaveBeenCalledTimes(1);
-        expect(actions.initFavoriteError).toHaveBeenLastCalledWith(`timeout of 5000ms exceeded`);
+        expect(actions.initFavoriteError).toHaveBeenLastCalledWith();
       });
   });
 
@@ -521,7 +521,7 @@ describe(`Reducers: User operations`, () => {
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(actions.initFavoriteError).toHaveBeenCalledTimes(1);
-        expect(actions.initFavoriteError).toHaveBeenLastCalledWith({code: 111, message: `any`});
+        expect(actions.initFavoriteError).toHaveBeenLastCalledWith();
       });
   });
 });

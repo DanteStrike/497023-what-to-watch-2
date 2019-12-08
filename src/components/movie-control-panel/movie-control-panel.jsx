@@ -8,6 +8,7 @@ import {connect} from "react-redux";
 import {filmsSelectors} from "../../reducers/films/films";
 import {userActions, userOperations, userSelectors} from "../../reducers/user/user";
 import Enum from "../../enum";
+import {updateObject} from "../../utils/object/object";
 
 
 class MovieControlPanel extends React.PureComponent {
@@ -40,6 +41,22 @@ class MovieControlPanel extends React.PureComponent {
     toggleFavorite(curFilmID, Number(!isFavorite));
   }
 
+  _getButtonPlayStyle() {
+    const {isSubmitting, favoriteRequestStatus: {error}} = this.props;
+
+    let style = Enum.Styles.NO_STYLE;
+
+    if (isSubmitting) {
+      style = updateObject(style, Enum.Styles.LOADING_CURSOR);
+    }
+
+    if (error.isError) {
+      style = updateObject(style, Enum.Styles.ERROR_OUTLINE);
+    }
+
+    return style;
+  }
+
 
   render() {
     const {curFilmID, isAuth, name, genre, released, isFavorite, isSubmitting} = this.props;
@@ -62,7 +79,7 @@ class MovieControlPanel extends React.PureComponent {
           {isAuth &&
             <Fragment>
               <button className="btn btn--list movie-card__button" type="button" onClick={this._handleFavoriteToggleClick}
-                disabled={isSubmitting} style={isSubmitting ? Enum.Styles.LOADING_CURSOR : Enum.Styles.NO_STYLE}>
+                disabled={isSubmitting} style={this._getButtonPlayStyle()}>
                 <svg viewBox="0 0 19 20" width="19" height="20">
                   <use xlinkHref={`#${isFavorite ? Enum.Icons.IN_LIST : Enum.Icons.ADD}`}></use>
                 </svg>
