@@ -76,13 +76,13 @@ class Login extends React.PureComponent {
     let prioritizedMsg = ``;
     switch (true) {
       case serverError.isError:
-        prioritizedMsg = serverError.msg;
+        prioritizedMsg = `Server: ${serverError.msg}`;
         break;
       case !emailValidation.isValid:
-        prioritizedMsg = emailValidation.msg;
+        prioritizedMsg = `Form: ${emailValidation.msg}`;
         break;
       case !passwordValidation.isValid:
-        prioritizedMsg = passwordValidation.msg;
+        prioritizedMsg = `Form: ${passwordValidation.msg}`;
         break;
       case isSubmitting:
         prioritizedMsg = this._loadingMsg;
