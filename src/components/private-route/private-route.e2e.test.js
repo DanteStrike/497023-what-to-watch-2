@@ -12,14 +12,16 @@ describe(`Component PrivateRoute should work correctly`, () => {
     const locationMock = {
       pathname: `/other`
     };
+    const checkAuthMock = jest.fn();
     const MockComponent = () => <div/>;
 
     const component = mount(
         <Router>
-          <PrivateRoute isAuth={false} component={MockComponent} location={locationMock}/>
+          <PrivateRoute checkAuth={checkAuthMock} isAuth={false} component={MockComponent} location={locationMock}/>
         </Router>
     );
 
+    expect(checkAuthMock).toHaveBeenCalledTimes(1);
     expect(component.find(`Redirect`)).toHaveLength(1);
   });
 });
