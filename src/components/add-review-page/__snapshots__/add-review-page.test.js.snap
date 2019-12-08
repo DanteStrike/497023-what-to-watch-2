@@ -26,7 +26,7 @@ exports[`Render correctly AddReviewPage component 1`] = `
       WTW
     </h1>
     <header
-      className="page-header "
+      className="page-header"
     >
       <div
         className="logo"

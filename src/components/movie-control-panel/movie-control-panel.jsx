@@ -91,8 +91,7 @@ MovieControlPanel.propTypes = {
   favoriteRequestStatus: PropTypes.exact({
     isSuccess: PropTypes.bool.isRequired,
     error: PropTypes.exact({
-      isError: PropTypes.bool.isRequired,
-      msg: PropTypes.string.isRequired
+      isError: PropTypes.bool.isRequired
     }).isRequired
   }).isRequired,
   resetFavoriteError: PropTypes.func.isRequired

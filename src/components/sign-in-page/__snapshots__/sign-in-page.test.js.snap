@@ -40,6 +40,7 @@ exports[`Component SignInPage should render correctly 1`] = `
   </header>
   <div
     className="sign-in user-page__content"
+    style={Object {}}
   >
     <form
       action="#"
@@ -49,7 +50,6 @@ exports[`Component SignInPage should render correctly 1`] = `
     >
       <div
         className="sign-in__fields"
-        style={Object {}}
       >
         <div
           className="sign-in__field"
@@ -92,7 +92,6 @@ exports[`Component SignInPage should render correctly 1`] = `
       </div>
       <div
         className="sign-in__submit"
-        style={Object {}}
       >
         <button
           className="sign-in__btn"

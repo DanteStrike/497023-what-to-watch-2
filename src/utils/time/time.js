@@ -31,9 +31,9 @@ export const twoDigitView = (number = 0) => {
 };
 
 export const formatTimeForPlayer = (time = 0) => {
-  const hours = Math.floor(time / Time.SECONDS_IN_HOUR);
-  const minutes = Math.floor((time - hours * Time.SECONDS_IN_HOUR) / Time.SECONDS_IN_MINUTE);
-  const seconds = Math.floor(time - hours * Time.SECONDS_IN_HOUR - minutes * Time.SECONDS_IN_MINUTE);
+  const hours = Math.floor(time / Enum.Time.SECONDS_IN_HOUR);
+  const minutes = Math.floor((time - hours * Enum.Time.SECONDS_IN_HOUR) / Enum.Time.SECONDS_IN_MINUTE);
+  const seconds = Math.floor(time - hours * Enum.Time.SECONDS_IN_HOUR - minutes * Enum.Time.SECONDS_IN_MINUTE);
 
   return `${twoDigitView(hours)}:${twoDigitView(minutes)}:${twoDigitView(seconds)}`;
 };

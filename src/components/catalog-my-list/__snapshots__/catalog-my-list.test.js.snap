@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render correctly CatalogMyList component 1`] = `
+<section
+  className="catalog"
+>
+  <h2
+    className="catalog__title visually-hidden"
+  >
+    Catalog
+  </h2>
+  <div
+    className="catalog__movies-list"
+  >
+    <article
+      className="small-movie-card catalog__movies-card"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      style={
+        Object {
+          "willChange": "transform",
+        }
+      }
+    >
+      <a
+        href="/films/3"
+        onClick={[Function]}
+        style={
+          Object {
+            "color": "unset",
+            "textDecoration": "none",
+          }
+        }
+      >
+        <div
+          className="small-movie-card__image"
+        >
+          <video
+            style={
+              Object {
+                "backgroundColor": "black",
+                "display": "block",
+                "height": "100%",
+                "left": "50%",
+                "minHeight": "100%",
+                "minWidth": "100%",
+                "position": "absolute",
+                "top": "50%",
+                "transform": "translate(-50%, -50%)",
+                "width": "100%",
+              }
+            }
+          />
+        </div>
+        <h3
+          className="small-movie-card__title"
+        >
+          filmTwo
+        </h3>
+      </a>
+    </article>
+  </div>
+</section>
+`;

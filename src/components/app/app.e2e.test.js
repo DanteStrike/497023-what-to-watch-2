@@ -19,4 +19,16 @@ describe(`Component APP should work correctly`, () => {
     component.setProps({videoPlayerID: 222});
     expect(component.find(`WithProgressBar`)).toHaveLength(1);
   });
+
+  it(`Should render Player on isAppReady`, () => {
+    const component = shallow(
+        <App
+          isAppReady={false}
+          videoPlayerID={-1}
+        />
+    );
+
+    expect(component.find(`WithProgressBar`)).toHaveLength(0);
+    expect(component.find(`Switch`)).toHaveLength(0);
+  });
 });

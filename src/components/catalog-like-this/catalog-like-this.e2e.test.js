@@ -5,12 +5,6 @@ import {CatalogLikeThis} from "./catalog-like-this.jsx";
 
 Enzyme.configure({adapter: new Adapter()});
 
-jest.mock(`../../configs/catalog-like-this-config.js`, () => ({
-  catalogLikeThisConfig: {
-    defaultItemsAmount: 5
-  }
-}));
-
 describe(`Component CatalogLikeThis should work correctly`, () => {
   let component;
   const initCatalogLikeThisMock = jest.fn();
@@ -30,7 +24,7 @@ describe(`Component CatalogLikeThis should work correctly`, () => {
 
   it(`Should initialized correctly on did mount`, () => {
     expect(initCatalogLikeThisMock).toBeCalledTimes(1);
-    expect(initCatalogLikeThisMock).toHaveBeenLastCalledWith(`any`, 5, 9);
+    expect(initCatalogLikeThisMock).toHaveBeenLastCalledWith(`any`, 4, 9);
   });
 
   it(`Should reset correctly on current page film id change`, () => {
@@ -39,6 +33,6 @@ describe(`Component CatalogLikeThis should work correctly`, () => {
     expect(initCatalogLikeThisMock).toBeCalledTimes(0);
     component.setProps({curFilmID: 2});
     expect(initCatalogLikeThisMock).toBeCalledTimes(1);
-    expect(initCatalogLikeThisMock).toHaveBeenLastCalledWith(`any`, 5, 9);
+    expect(initCatalogLikeThisMock).toHaveBeenLastCalledWith(`any`, 4, 9);
   });
 });

@@ -11,11 +11,11 @@ const configureAPI = (dispatch) => {
 
   const onSuccess = (response) => response;
   const onFail = (err) => {
-    if (err.code === `ECONNABORTED`) {
+    if (err.code === Enum.RequestErrorCode.TIMEOUT) {
       throw err;
     }
 
-    if (err.response.status === 401 || err.response.status === 403) {
+    if (err.response.status === Enum.RequestErrorCode.UNAUTHORIZED || err.response.status === Enum.RequestErrorCode.FORBIDDEN) {
       dispatch(userActions.setAuthRequired());
     }
 

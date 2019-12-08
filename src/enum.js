@@ -33,7 +33,26 @@ const Styles = {
   FIX_FIREFOX_FLICKERING: {willChange: `transform`},
   DISPLAY_FLEX: {display: `flex`},
   MARGIN_AUTO: {margin: `auto`},
-  ERROR_OUTLINE: {boxShadow: `0px 0px 0px 2px rgba(255,0,0,1)`}
+  ERROR_OUTLINE: {boxShadow: `0px 0px 0px 2px rgba(255,0,0,1)`},
+  VIDEO_OBJECT_FIT_COVER: {
+    position: `absolute`,
+    display: `block`,
+    width: `100%`,
+    height: `100%`,
+    top: `50%`,
+    left: `50%`,
+    transform: `translate(-50%, -50%)`,
+    minWidth: `100%`,
+    minHeight: `100%`,
+    backgroundColor: `black`
+  }
+};
+
+const RequestErrorCode = {
+  TIMEOUT: `ECONNABORTED`,
+  BAD_REQUEST: 400,
+  UNAUTHORIZED: 401,
+  FORBIDDEN: 403
 };
 
 const Enum = {
@@ -41,6 +60,7 @@ const Enum = {
   RatingLevel,
   GenreFilter,
   Icons,
-  Styles
+  Styles,
+  RequestErrorCode
 };
 export default Enum;

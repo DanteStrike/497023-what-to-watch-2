@@ -72,7 +72,7 @@ class AddReviewForm extends React.PureComponent {
           <div className="add-review__text">
             <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" onChange={this._handleInputChange} disabled={isSubmitting}></textarea>
             <div className="add-review__submit">
-              {!(~score || commentValidation.isValid) ? null : <button className="add-review__btn" type="submit" disabled={isSubmitting}>Post</button>}
+              {(!~score || !commentValidation.isValid) ? null : <button className="add-review__btn" type="submit" disabled={isSubmitting}>Post</button>}
             </div>
 
           </div>
@@ -96,9 +96,8 @@ AddReviewForm.propTypes = {
   comment: PropTypes.string.isRequired,
   setComment: PropTypes.func.isRequired,
   validateComment: PropTypes.func.isRequired,
-  commentValidation: PropTypes.exact({
-    isValid: PropTypes.bool.isRequired,
-    msg: PropTypes.string.isRequired
+  commentValidation: PropTypes.shape({
+    isValid: PropTypes.bool.isRequired
   }).isRequired,
   resetValidation: PropTypes.func.isRequired
 };

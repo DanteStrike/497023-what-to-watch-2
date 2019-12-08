@@ -61,9 +61,8 @@ const setFavoriteSuccess = () => ({
   type: types.SET_FAVORITE_SUCCESS
 });
 
-const initFavoriteError = (errMsg) => ({
-  type: types.INIT_FAVORITE_ERROR,
-  payload: errMsg
+const initFavoriteError = () => ({
+  type: types.INIT_FAVORITE_ERROR
 });
 
 const resetFavoriteError = () => ({

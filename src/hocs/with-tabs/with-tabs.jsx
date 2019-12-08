@@ -13,7 +13,7 @@ const withTabs = (tabs) => (WrappedComponent) => {
       this._resetTabs = this._resetTabs.bind(this);
     }
 
-    _navLinkClickHandler(evt, id) {
+    _handleNavLinkClick(evt, id) {
       evt.preventDefault();
       this.setState({curTabID: id});
     }
@@ -35,7 +35,7 @@ const withTabs = (tabs) => (WrappedComponent) => {
             <ul className="movie-nav__list">
               {tabs.map((tab, index) => (
                 <li key={`${index}_${tab.name}`} className={`movie-nav__item ${index === curTabID ? `movie-nav__item--active` : ``}`}>
-                  <a href="#" className="movie-nav__link" onClick={(evt) => this._navLinkClickHandler(evt, index)}>{tab.name}</a>
+                  <a href="#" className="movie-nav__link" onClick={(evt) => this._handleNavLinkClick(evt, index)}>{tab.name}</a>
                 </li>
               ))}
             </ul>
@@ -50,7 +50,7 @@ const withTabs = (tabs) => (WrappedComponent) => {
         <WrappedComponent
           {...this.props}
           resetTabs={this._resetTabs}
-          renderTabs={(film) => this._renderTabs(film)}
+          renderTabs={(...arg) => this._renderTabs(...arg)}
         />
       );
     }

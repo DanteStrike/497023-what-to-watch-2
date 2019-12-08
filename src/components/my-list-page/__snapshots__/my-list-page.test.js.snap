@@ -70,27 +70,50 @@ exports[`Render correctly MyListPage component 1`] = `
     >
       <article
         className="small-movie-card catalog__movies-card"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        style={
+          Object {
+            "willChange": "transform",
+          }
+        }
       >
-        <div
-          className="small-movie-card__image"
+        <a
+          href="/films/3"
+          onClick={[Function]}
+          style={
+            Object {
+              "color": "unset",
+              "textDecoration": "none",
+            }
+          }
         >
-          <img
-            alt="Fantastic Beasts: The Crimes of Grindelwald"
-            height="175"
-            src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-            width="280"
-          />
-        </div>
-        <h3
-          className="small-movie-card__title"
-        >
-          <a
-            className="small-movie-card__link"
-            href="movie-page.html"
+          <div
+            className="small-movie-card__image"
           >
-            Fantastic Beasts: The Crimes of Grindelwald
-          </a>
-        </h3>
+            <video
+              style={
+                Object {
+                  "backgroundColor": "black",
+                  "display": "block",
+                  "height": "100%",
+                  "left": "50%",
+                  "minHeight": "100%",
+                  "minWidth": "100%",
+                  "position": "absolute",
+                  "top": "50%",
+                  "transform": "translate(-50%, -50%)",
+                  "width": "100%",
+                }
+              }
+            />
+          </div>
+          <h3
+            className="small-movie-card__title"
+          >
+            filmTwo
+          </h3>
+        </a>
       </article>
     </div>
   </section>

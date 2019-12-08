@@ -7,16 +7,16 @@ import {createStore} from "redux";
 
 import {loadedStore} from "../../mocks/store.js";
 import {createNodeMock} from "../../mocks/node-mock.js";
-import CatalogLikeThis from "../catalog-like-this/catalog-like-this.jsx";
+import CatalogMyList from "./catalog-my-list.jsx";
 
 
-it(`Render correctly CatalogLikeThis component`, () => {
+it(`Render correctly CatalogMyList component`, () => {
   const store = createStore(() => loadedStore);
   const component = renderer
     .create(
         <Provider store={store}>
           <Router>
-            <CatalogLikeThis curFilmID={1}/>
+            <CatalogMyList/>
           </Router>
         </Provider>,
         {

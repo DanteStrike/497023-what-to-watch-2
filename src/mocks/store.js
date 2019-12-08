@@ -57,8 +57,7 @@ export const initStore = {
     toggleFavoriteStatus: {
       isSuccess: false,
       error: {
-        isError: false,
-        msg: ``
+        isError: false
       }
     },
 
@@ -126,8 +125,7 @@ export const loadedStore = {
     toggleFavoriteStatus: {
       isSuccess: true,
       error: {
-        isError: false,
-        msg: ``
+        isError: false
       }
     },
 

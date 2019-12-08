@@ -5,14 +5,6 @@ import {CatalogAllFilms} from "./catalog-all-films.jsx";
 
 Enzyme.configure({adapter: new Adapter()});
 
-jest.mock(`../../configs/catalog-all-films-config.js`, () => ({
-  catalogAllFilmsConfig: {
-    defaultGenre: `default from config`,
-    defaultItemsAmount: 5,
-    increaseAmountRate: 10
-  }
-}));
-
 describe(`Component CatalogAllFilms should work correctly`, () => {
   let component;
   const setCurrentFilterMock = jest.fn();
@@ -36,15 +28,15 @@ describe(`Component CatalogAllFilms should work correctly`, () => {
 
   it(`Should initialized correctly on did mount`, () => {
     expect(setCurrentFilterMock).toBeCalledTimes(1);
-    expect(setCurrentFilterMock).toHaveBeenLastCalledWith(`default from config`);
+    expect(setCurrentFilterMock).toHaveBeenLastCalledWith(`All genre`);
     expect(setDisplayedItemsMock).toBeCalledTimes(1);
-    expect(setDisplayedItemsMock).toHaveBeenLastCalledWith(5, 30);
+    expect(setDisplayedItemsMock).toHaveBeenLastCalledWith(8, 30);
   });
 
   it(`Should call showMoreItems on button click`, () => {
     component.instance()._showMoreItems();
     expect(showMoreItemsMock).toBeCalledTimes(1);
-    expect(showMoreItemsMock).toHaveBeenLastCalledWith(8, 10, 30);
+    expect(showMoreItemsMock).toHaveBeenLastCalledWith(8, 20, 30);
   });
 
   it(`Should reset displayed items on currentFilter change`, () => {
@@ -53,7 +45,7 @@ describe(`Component CatalogAllFilms should work correctly`, () => {
     expect(setDisplayedItemsMock).toBeCalledTimes(0);
     component.setProps({currentFilter: `other`});
     expect(setDisplayedItemsMock).toBeCalledTimes(1);
-    expect(setDisplayedItemsMock).toHaveBeenLastCalledWith(5, 30);
+    expect(setDisplayedItemsMock).toHaveBeenLastCalledWith(8, 30);
   });
 
   it(`Should unrender button on maxItemsDisplayed reach`, () => {

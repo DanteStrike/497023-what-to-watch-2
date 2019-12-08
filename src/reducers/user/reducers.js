@@ -62,8 +62,7 @@ const userProfileReducer = (state = userProfileInitState, action) => {
 const favoriteRequestInitStatus = {
   isSuccess: false,
   error: {
-    isError: false,
-    msg: ``
+    isError: false
   }
 };
 const favoriteRequestStatusReducer = (state = favoriteRequestInitStatus, action) => {
@@ -72,8 +71,7 @@ const favoriteRequestStatusReducer = (state = favoriteRequestInitStatus, action)
       return {
         isSuccess: false,
         error: {
-          isError: true,
-          msg: action.payload
+          isError: true
         }
       };
     case types.SET_FAVORITE_SUCCESS:
@@ -84,8 +82,7 @@ const favoriteRequestStatusReducer = (state = favoriteRequestInitStatus, action)
       return {
         isSuccess: false,
         error: {
-          isError: false,
-          msg: ``
+          isError: false
         }
       };
     default:

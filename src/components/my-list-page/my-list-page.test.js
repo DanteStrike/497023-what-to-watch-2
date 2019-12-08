@@ -7,6 +7,7 @@ import {Provider} from "react-redux";
 import {createStore} from "redux";
 
 import {loadedStore} from "../../mocks/store.js";
+import {createNodeMock} from "../../mocks/node-mock";
 
 it(`Render correctly MyListPage component`, () => {
   const store = createStore(() => loadedStore);
@@ -16,7 +17,10 @@ it(`Render correctly MyListPage component`, () => {
           <Router>
             <MyListPage/>
           </Router>
-        </Provider>
+        </Provider>,
+        {
+          createNodeMock
+        }
     ).toJSON();
 
   expect(component).toMatchSnapshot();

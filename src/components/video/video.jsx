@@ -1,19 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Enum from "../../enum";
 
-
-const videoObjectFitCover = {
-  position: `absolute`,
-  display: `block`,
-  width: `100%`,
-  height: `100%`,
-  top: `50%`,
-  left: `50%`,
-  transform: `translate(-50%, -50%)`,
-  minWidth: `100%`,
-  minHeight: `100%`,
-  backgroundColor: `black`
-};
 
 class Video extends React.PureComponent {
   constructor(props) {
@@ -87,7 +75,7 @@ class Video extends React.PureComponent {
 
   render() {
     return (
-      <video ref={this._videoRef} style={videoObjectFitCover}/>
+      <video ref={this._videoRef} style={Enum.Styles.VIDEO_OBJECT_FIT_COVER}/>
     );
   }
 }

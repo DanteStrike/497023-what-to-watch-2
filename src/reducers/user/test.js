@@ -140,8 +140,7 @@ describe(`Reducers: User actions`, () => {
 
   it(`Action initFavoriteError`, () => {
     expect(actions.initFavoriteError(`msg`)).toEqual({
-      type: types.INIT_FAVORITE_ERROR,
-      payload: `msg`
+      type: types.INIT_FAVORITE_ERROR
     });
   });
 
@@ -272,14 +271,12 @@ describe(`Reducers: User reducers`, () => {
   describe(`Reducer favoriteRequestStatusReducer`, () => {
     it(`Should init error`, () => {
       const action = {
-        type: types.INIT_FAVORITE_ERROR,
-        payload: `anyMSG`
+        type: types.INIT_FAVORITE_ERROR
       };
       expect(reducer(initState, action).toggleFavoriteStatus).toEqual({
         isSuccess: false,
         error: {
-          isError: true,
-          msg: `anyMSG`
+          isError: true
         }
       });
     });
@@ -291,8 +288,7 @@ describe(`Reducers: User reducers`, () => {
       expect(reducer(initState, action).toggleFavoriteStatus).toEqual({
         isSuccess: true,
         error: {
-          isError: false,
-          msg: ``
+          isError: false
         }
       });
     });
@@ -304,8 +300,7 @@ describe(`Reducers: User reducers`, () => {
       expect(reducer(loadedStore, action).toggleFavoriteStatus).toEqual({
         isSuccess: false,
         error: {
-          isError: false,
-          msg: ``
+          isError: false
         }
       });
     });
@@ -422,17 +417,17 @@ describe(`Reducers: User operations`, () => {
     const source = CancelToken.source();
     const sentAuthLoader = operations.sentAuthRequest(`correct`, `correct`, source);
     actions.initAuthServerError = jest.fn(() => {});
-    axios.isCancel = jest.fn();
+    const spy = jest.spyOn(axios, `isCancel`);
+    spy.mockReturnValue(true);
 
     apiMock
-      .onPost(`/login`)
-      .reply(200, {profile: `any`});
+      .onPost(`/login`);
 
     source.cancel(`MANUAL CANCEL`);
 
     sentAuthLoader(dispatch, _, api)
       .then(() => {
-        expect(axios.isCancel).toHaveBeenCalledTimes(1);
+        expect(spy).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenCalledTimes(0);
         expect(actions.initAuthServerError).toHaveBeenCalledTimes(0);
       });
