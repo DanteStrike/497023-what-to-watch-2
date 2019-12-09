@@ -85,4 +85,19 @@ describe(`SignInPage should work correctly`, () => {
     expect(sentAuthRequestMock).toHaveBeenCalledTimes(1);
     expect(sentAuthRequestMock).toHaveBeenLastCalledWith(`email`, `password`, `cancelToken`);
   });
+
+  it(`Page only for unauthorized users`, () => {
+    component = shallow(
+        <SignInPage
+          isAuth={true}
+          serverError={serverErrorMock}
+          sentAuthRequest={sentAuthRequestMock}
+          resetAuthErrors={resetAuthErrorsMock}
+          history={historyMock}
+          location={locationMock}
+        />
+    );
+    expect(historyMock.push).toHaveBeenCalledTimes(1);
+    expect(historyMock.push).toHaveBeenLastCalledWith(`/`);
+  });
 });

@@ -56,21 +56,21 @@ describe(`Reducers: App operations`, () => {
   const dispatch = jest.fn();
   const getState = jest.fn();
 
+  filmsOperations.loadFilms = jest.fn(() => {});
+  filmsOperations.loadPromo = jest.fn(() => {});
+  genreFilterActions.setupFilterState = jest.fn(() => {});
+  userOperations.checkAuth = jest.fn(() => {});
+  userOperations.getMyListFilms = jest.fn(() => {});
+
   beforeEach(() => {
     jest.resetAllMocks();
     setupApp = operations.setupApp();
   });
 
   it(`Setup operation with API should work correctly`, () => {
-    dispatch.mockResolvedValue(`resolved`);
-    filmsOperations.loadFilms = jest.fn(() => {});
-    filmsOperations.loadPromo = jest.fn(() => {});
-    filmsSelectors.getAllFilmsGenres = jest.fn(() => {}).mockReturnValue([`mock`]);
-    genreFilterActions.setupFilterState = jest.fn(() => {});
-    userOperations.checkAuth = jest.fn(() => {});
-    userOperations.getMyListFilms = jest.fn(() => {});
     actions.setAppIsReady = jest.fn(() => {});
-
+    dispatch.mockResolvedValue(`resolved`);
+    filmsSelectors.getAllFilmsGenres = jest.fn(() => {}).mockReturnValue([`mock`]);
     setupApp(dispatch, getState)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(6);
@@ -88,11 +88,10 @@ describe(`Reducers: App operations`, () => {
   });
 
   it(`Setup operation with API should work correctly (timeout)`, () => {
+    actions.initSetupAppError = jest.fn(() => {});
     dispatch.mockRejectedValueOnce({
       code: Constants.RequestErrorCode.TIMEOUT,
       message: `any`
-    });
-    actions.initSetupAppError = jest.fn(() => {
     });
 
     setupApp(dispatch, jest.fn())
@@ -104,6 +103,7 @@ describe(`Reducers: App operations`, () => {
   });
 
   it(`Setup operation with API should work correctly (404)`, () => {
+    actions.initSetupAppError = jest.fn(() => {});
     dispatch.mockRejectedValueOnce({
       response: {
         status: 404,
@@ -119,6 +119,7 @@ describe(`Reducers: App operations`, () => {
   });
 
   it(`Setup operation with API should work correctly (network error)`, () => {
+    actions.initSetupAppError = jest.fn(() => {});
     dispatch.mockRejectedValueOnce({
       message: `network error`
     });
@@ -127,6 +128,22 @@ describe(`Reducers: App operations`, () => {
         expect(dispatch).toHaveBeenCalledTimes(3);
         expect(actions.initSetupAppError).toHaveBeenCalledTimes(1);
         expect(actions.initSetupAppError).toHaveBeenLastCalledWith(null, `network error`);
+      });
+  });
+
+  it(`Setup operation with API should work correctly (auth error)`, () => {
+    actions.setAppIsReady = jest.fn(() => {});
+    filmsSelectors.getAllFilmsGenres = jest.fn(() => {});
+    dispatch
+      .mockResolvedValueOnce(`resolved`)
+      .mockResolvedValueOnce(`resolved`)
+      .mockResolvedValueOnce(`resolved`)
+      .mockRejectedValueOnce(`rejected`);
+    setupApp(dispatch, getState)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(5);
+        expect(userOperations.getMyListFilms).toHaveBeenCalledTimes(0);
+        expect(actions.setAppIsReady).toHaveBeenCalledTimes(1);
       });
   });
 });
