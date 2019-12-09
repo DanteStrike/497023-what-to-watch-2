@@ -7,9 +7,9 @@ it(`Render correctly Catalog component`, () => {
   const component = renderer
     .create(
         <GenreList
-          currentFilter={`All genre`}
+          currentFilter="All genre"
           genres={[`All genre`, `others`]}
-          filterGenre={`All genre`}
+          filterGenre="All genre"
           onGenreChange={jest.fn}
         />
     ).toJSON();

@@ -42,7 +42,7 @@ class MoviePage extends React.PureComponent {
           <div className="movie-card__hero">
             <MovieBackground name={film.name} image={film.background.image} backgroundColor={film.background.color}/>
             <h1 className="visually-hidden">WTW</h1>
-            <PageHeader mixinClass={`movie-card__head`} rightPart={<UserBlock/>}/>
+            <PageHeader mixinClass="movie-card__head" rightPart={<UserBlock/>}/>
             <div className="movie-card__wrap">
               <MovieControlPanelWrapped curFilmID={film.id}/>
             </div>

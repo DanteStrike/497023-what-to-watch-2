@@ -20,7 +20,7 @@ describe(`Component APP should work correctly`, () => {
     expect(component.find(`WithProgressBar`)).toHaveLength(1);
   });
 
-  it(`Should render Player on isAppReady`, () => {
+  it(`Should render SetupAppPage on isAppReady = false`, () => {
     const component = shallow(
         <App
           isAppReady={false}
@@ -28,7 +28,6 @@ describe(`Component APP should work correctly`, () => {
         />
     );
 
-    expect(component.find(`WithProgressBar`)).toHaveLength(0);
-    expect(component.find(`Switch`)).toHaveLength(0);
+    expect(component.find(`SetupAppPage`)).toHaveLength(1);
   });
 });

@@ -16,7 +16,7 @@ describe(`Component CatalogAllFilms should work correctly`, () => {
 
     component = shallow(
         <CatalogAllFilms
-          currentFilter={`any`}
+          currentFilter="any"
           itemsAmount={8}
           maxItemsAmount={30}
           setCurrentFilter={setCurrentFilterMock}

@@ -27,7 +27,7 @@ const MovieCard = (props) => {
             isMuted={true}
             src={previewSrc}
             isAutoReset={true}
-            preload={`none`}
+            preload="none"
           />
         </div>
         <h3 className="small-movie-card__title">

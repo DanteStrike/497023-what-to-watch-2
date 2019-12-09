@@ -49,7 +49,7 @@ class CatalogAllFilms extends React.PureComponent {
     const {itemsAmount, maxItemsAmount, filmsCards} = this.props;
 
     return (
-      <section className={`catalog`}>
+      <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
         <GenreList/>
         <MoviesList filmsCards={filmsCards}/>

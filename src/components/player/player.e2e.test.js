@@ -14,7 +14,7 @@ describe(`Component Player should work correctly`, () => {
     jest.resetAllMocks();
     component = mount(
         <Player
-          videoSrc={`src`}
+          videoSrc="src"
           isActivePlayer={false}
           isFullScreen={false}
           toggleFullScreen={toggleFullScreenMock}

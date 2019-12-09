@@ -45,6 +45,18 @@ const Styles = {
     minWidth: `100%`,
     minHeight: `100%`,
     backgroundColor: `black`
+  },
+  MARGIN_BOTTOM: {marginBottom: `60px`},
+  RETRY_BUTTON: {
+    margin: `auto`,
+    border: `1px solid rgba(217,205,141,.41)`,
+    borderRadius: `8px`,
+    transition: `border-color .2s`,
+    fontSize: `30px`,
+    lineHeight: `44px`,
+    textAlign: `center`,
+    color: `#d9cd8d`,
+    cursor: `pointer`,
   }
 };
 

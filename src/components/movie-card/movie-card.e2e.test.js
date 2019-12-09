@@ -16,13 +16,13 @@ describe(`MovieCard should work correctly`, () => {
     component = shallow(
         <MovieCard
           id={1}
-          name={`Johnny English`}
-          image={`img/johnny-english.jpg`}
+          name="Johnny English"
+          image="img/johnny-english.jpg"
           onTimerStart={onTimerStart}
           onTimerReset={onTimerReset}
           isTimerFinished={false}
-          poster={`url`}
-          previewSrc={`src`}
+          poster="url"
+          previewSrc="src"
         />
     );
   });

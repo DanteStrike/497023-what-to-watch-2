@@ -8,7 +8,7 @@ it(`Render correctly Player component`, () => {
   const component = renderer
     .create(
         <Player
-          videoSrc={`src`}
+          videoSrc="src"
           isActivePlayer={false}
           isFullScreen={false}
           toggleFullScreen={jest.fn()}

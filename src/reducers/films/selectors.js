@@ -21,7 +21,7 @@ const getCurFilmReleased = (store, {curFilmID}) => getFilmByCurID(store, {curFil
 const getIsFavorite = createSelector(
     getCurFilmID,
     userSelectors.getFavoritesIDs,
-    (curFilmID, mylistIDs) => mylistIDs.some((mylistID) => mylistID === curFilmID)
+    (curFilmID, myListIDs) => myListIDs.some((mylistID) => mylistID === curFilmID)
 );
 
 const getAllFilmsGenres = createSelector(

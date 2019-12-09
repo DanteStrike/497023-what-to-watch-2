@@ -15,7 +15,7 @@ describe(`Component CatalogLikeThis should work correctly`, () => {
     component = shallow(
         <CatalogLikeThis
           curFilmID={1}
-          curFilmGenre={`any`}
+          curFilmGenre="any"
           maxItemsAmount={10}
           initCatalogLikeThis={initCatalogLikeThisMock}
         />

@@ -16,13 +16,14 @@ import SignInPage from "../sign-in-page/sign-in-page.jsx";
 import AddReviewPage from "../add-review-page/add-review-page.jsx";
 import PageNotFound from "../page-not-found/page-not-found.jsx";
 import PrivateRoute from "../private-route/private-route.jsx";
+import SetupAppPage from "../setup-app-page/setup-app-page.jsx";
 
 import withPlayControls from "../../hocs/with-play-controls/with-play-controls.jsx";
 import withFullScreen from "../../hocs/with-full-screen/with-full-screen.jsx";
 import withProgressBar from "../../hocs/with-progress-bar/with-progress-bar.jsx";
 import withTabs from "../../hocs/with-tabs/with-tabs.jsx";
 
-import {appSelectors} from "../../reducers/app/app";
+import {appOperations, appSelectors} from "../../reducers/app/app";
 
 
 const PlayerWrapped = compose(withProgressBar, withFullScreen, withPlayControls)(Player);
@@ -36,7 +37,7 @@ const App = (props) => {
   const {isAppReady, videoPlayerID} = props;
 
   if (!isAppReady) {
-    return null;
+    return <SetupAppPage/>;
   }
 
   if (~videoPlayerID) {
@@ -69,5 +70,8 @@ const mapStateToProps = (store) => ({
   videoPlayerID: appSelectors.getVideoPlayerFilmID(store)
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  onRepeatSetupClick: () => dispatch(appOperations.setupApp())
+});
 export {App};
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

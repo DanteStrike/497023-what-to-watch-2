@@ -11,9 +11,9 @@ const MyListPage = () => {
   return (
     <div className="user-page">
       <PageHeader
-        mixinClass={`user-page__head`}
+        mixinClass="user-page__head"
         rightPart={[
-          <PageTitle key="middle" title={`My list`}/>,
+          <PageTitle key="middle" title="My list"/>,
           <UserBlock key="right"/>
         ]}
       />

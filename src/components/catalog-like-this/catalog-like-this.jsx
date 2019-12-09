@@ -37,7 +37,7 @@ class CatalogLikeThis extends React.PureComponent {
     const {filmsCards} = this.props;
 
     return (
-      <section className={`catalog catalog--like-this`}>
+      <section className="catalog catalog--like-this">
         <h2 className="catalog__title">More like this</h2>
         <MoviesList filmsCards={filmsCards}/>
       </section>

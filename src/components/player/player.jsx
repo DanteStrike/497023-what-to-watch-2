@@ -42,7 +42,7 @@ class Player extends React.PureComponent {
           isMuted={true}
           src={videoSrc}
           isAutoReset={false}
-          preload={`metadata`}
+          preload="metadata"
           updateProgressBar={updateProgressBar}
         />
 

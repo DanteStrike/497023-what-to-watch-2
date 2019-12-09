@@ -7,7 +7,7 @@ it(`Render correctly PageTitle component`, () => {
   const component = renderer
     .create(
         <PageTitle
-          title={`any`}
+          title="any"
         />
     ).toJSON();
 

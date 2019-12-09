@@ -8,9 +8,9 @@ it(`Render correctly Review component`, () => {
   const component = renderer
     .create(
         <Review
-          author={`author`}
+          author="author"
           rating={10}
-          comment={`any`}
+          comment="any"
           date={0}
         />
     ).toJSON();

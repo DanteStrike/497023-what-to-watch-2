@@ -5,6 +5,11 @@ import {normalizedFilmsData} from "./films";
 export const initStore = {
   [StoreNameSpace.APP]: {
     isReady: false,
+    setupAppError: {
+      isError: false,
+      code: null,
+      msg: ``
+    },
     videoPlayerFilmID: -1
   },
 
@@ -74,6 +79,11 @@ export const initStore = {
 export const loadedStore = {
   [StoreNameSpace.APP]: {
     isReady: true,
+    setupAppError: {
+      isError: false,
+      code: null,
+      msg: ``
+    },
     videoPlayerFilmID: 1
   },
 
