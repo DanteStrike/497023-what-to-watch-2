@@ -29,6 +29,14 @@ class SignInPage extends React.PureComponent {
     this._requestAuthHandler = this._requestAuthHandler.bind(this);
   }
 
+  componentDidMount() {
+    const {isAuth, history} = this.props;
+
+    if (isAuth) {
+      history.push(`/`);
+    }
+  }
+
   componentDidUpdate(prevProps) {
     const {isAuth, history, location} = this.props;
 

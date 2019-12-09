@@ -14,6 +14,7 @@ exports[`Component SignInPage should render correctly 1`] = `
         className="logo__link"
         href="/"
         onClick={[Function]}
+        style={Object {}}
       >
         <span
           className="logo__letter logo__letter--1"
@@ -113,6 +114,7 @@ exports[`Component SignInPage should render correctly 1`] = `
         className="logo__link logo__link--light"
         href="/"
         onClick={[Function]}
+        style={Object {}}
       >
         <span
           className="logo__letter logo__letter--1"

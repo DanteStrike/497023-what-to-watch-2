@@ -69,7 +69,7 @@ describe(`Component AddReviewForm should work correctly`, () => {
     };
     component.find(`#star-3`).simulate(`change`, ratingInputEvt);
     expect(setScoreMock).toHaveBeenCalledTimes(1);
-    expect(setScoreMock).toHaveBeenLastCalledWith(3);
+    expect(setScoreMock).toHaveBeenLastCalledWith(6);
 
     const reviewInputEvt = {
       target: {

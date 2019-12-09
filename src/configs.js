@@ -20,6 +20,7 @@ const catalogLikeThisConfig = {
 
 const addReviewFormConfig = {
   starsAmount: 5,
+  scoreScaleCoefficient: 2,
   validationSettings: {
     comment: {
       minLength: 50,

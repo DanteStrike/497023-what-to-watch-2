@@ -36,6 +36,7 @@ Array [
             className="logo__link"
             href="/"
             onClick={[Function]}
+            style={Object {}}
           >
             <span
               className="logo__letter logo__letter--1"
@@ -195,6 +196,7 @@ Array [
           className="logo__link logo__link--light"
           href="/"
           onClick={[Function]}
+          style={Object {}}
         >
           <span
             className="logo__letter logo__letter--1"

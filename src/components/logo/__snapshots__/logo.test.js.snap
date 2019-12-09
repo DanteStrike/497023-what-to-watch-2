@@ -8,6 +8,7 @@ exports[`Render correctly Logo component 1`] = `
     className="logo__link"
     href="/"
     onClick={[Function]}
+    style={Object {}}
   >
     <span
       className="logo__letter logo__letter--1"

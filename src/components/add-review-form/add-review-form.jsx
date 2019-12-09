@@ -10,6 +10,7 @@ class AddReviewForm extends React.PureComponent {
     super(props);
 
     this._stars = new Array(configs.addReviewFormConfig.starsAmount).fill(``);
+    this._scoreScaleCoefficient = configs.addReviewFormConfig.scoreScaleCoefficient;
     this._handleInputChange = this._handleInputChange.bind(this);
     this._handleFormSubmit = this._handleFormSubmit.bind(this);
   }
@@ -34,7 +35,7 @@ class AddReviewForm extends React.PureComponent {
     const newValue = target.value;
 
     if (target.name === `rating`) {
-      setScore(Number(newValue));
+      setScore(Number(newValue) * this._scoreScaleCoefficient);
       return;
     }
 

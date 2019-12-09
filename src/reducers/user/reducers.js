@@ -80,11 +80,14 @@ const favoriteRequestStatusReducer = (state = favoriteRequestInitStatus, action)
 };
 
 const myListStatusReducer = (state = false, action) => {
-  if (action.type === types.SET_MY_LIST_LOADED) {
-    return true;
+  switch (action.type) {
+    case types.SET_MY_LIST_LOADED:
+      return true;
+    case types.CLEAR_USER_DATA:
+      return false;
+    default:
+      return state;
   }
-
-  return state;
 };
 
 const reducer = combineReducers({
