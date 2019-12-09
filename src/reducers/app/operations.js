@@ -16,9 +16,10 @@ const setupApp = () => (dispatch, getState) => {
     .then(() => {
       dispatch(userOperations.checkAuth())
         .then(() => {
-          dispatch(userOperations.getMyListFilms());
+          dispatch(userOperations.getMyListFilms())
+            .then(() => dispatch(actions.setAppIsReady(true)));
         })
-        .finally(dispatch(actions.setAppIsReady(true)));
+        .catch(() => dispatch(actions.setAppIsReady(true)));
     })
     .catch((err) => {
       if (err.code === Constants.RequestErrorCode.TIMEOUT) {
