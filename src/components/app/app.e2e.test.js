@@ -28,6 +28,6 @@ describe(`Component APP should work correctly`, () => {
         />
     );
 
-    expect(component.find(`SetupAppPage`)).toHaveLength(1);
+    expect(component.find(`Connect(SetupAppPage)`)).toHaveLength(1);
   });
 });

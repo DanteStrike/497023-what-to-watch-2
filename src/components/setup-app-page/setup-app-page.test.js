@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import SetupAppPage from "./setup-app-page.jsx";
+import {SetupAppPage} from "./setup-app-page.jsx";
 
 
 it(`Render correctly SetupAppErrorPage component`, () => {
