@@ -44,7 +44,7 @@ const userProfileReducer = (state = userProfileInitState, action) => {
   switch (action.type) {
     case types.SET_USER_PROFILE:
       return updateObject(state, action.payload);
-    case types.SET_USER_MYLIST:
+    case types.SET_USER_MY_LIST:
       return updateObject(state, {myListFilmsIDs: action.payload});
     case types.CLEAR_USER_DATA:
       return userProfileInitState;
@@ -79,10 +79,19 @@ const favoriteRequestStatusReducer = (state = favoriteRequestInitStatus, action)
   }
 };
 
+const myListStatusReducer = (state = false, action) => {
+  if (action.type === types.SET_MY_LIST_LOADED) {
+    return true;
+  }
+
+  return state;
+};
+
 const reducer = combineReducers({
   auth: authReducer,
   data: userProfileReducer,
-  toggleFavoriteStatus: favoriteRequestStatusReducer
+  toggleFavoriteStatus: favoriteRequestStatusReducer,
+  isMyListLoaded: myListStatusReducer
 });
 
 export default reducer;

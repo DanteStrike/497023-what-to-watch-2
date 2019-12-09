@@ -75,6 +75,12 @@ describe(`Reducers: User actions`, () => {
     });
   });
 
+  it(`Action setMyListLoaded`, () => {
+    expect(actions.setMyListLoaded()).toEqual({
+      type: types.SET_MY_LIST_LOADED
+    });
+  });
+
   it(`Action initAuthServerError`, () => {
     utils.decodeServerErrMsg = jest.fn(() => ({
       target: `any`,
@@ -106,7 +112,7 @@ describe(`Reducers: User actions`, () => {
     utils.getIDsList.mockReturnValue([1, 2]);
 
     expect(actions.setUserMyList([`any`, `any`])).toEqual({
-      type: types.SET_USER_MYLIST,
+      type: types.SET_USER_MY_LIST,
       payload: [1, 2]
     });
     expect(utils.getIDsList).toHaveBeenCalledTimes(1);
@@ -120,14 +126,14 @@ describe(`Reducers: User actions`, () => {
 
   it(`Action addFilmToMylist`, () => {
     expect(actions.addFilmToMylist(3, [9, 2, 4, 1])).toEqual({
-      type: types.SET_USER_MYLIST,
+      type: types.SET_USER_MY_LIST,
       payload: [9, 2, 4, 1, 3]
     });
   });
 
   it(`Action delFilmFromMyList`, () => {
     expect(actions.delFilmFromMyList(3, [9, 2, 3, 1])).toEqual({
-      type: types.SET_USER_MYLIST,
+      type: types.SET_USER_MY_LIST,
       payload: [9, 2, 1]
     });
   });
@@ -241,7 +247,7 @@ describe(`Reducers: User reducers`, () => {
     });
     it(`Should set user mylist`, () => {
       const action = {
-        type: types.SET_USER_MYLIST,
+        type: types.SET_USER_MY_LIST,
         payload: [`any`, `any`]
       };
 
@@ -305,6 +311,14 @@ describe(`Reducers: User reducers`, () => {
       });
     });
   });
+
+  describe(`Reducer myListStatusReducer`, () => {
+    const action = {
+      type: types.SET_MY_LIST_LOADED
+    };
+
+    expect(reducer(initState, action).isMyListLoaded).toEqual(true);
+  });
 });
 
 describe(`Reducers: User selectors`, () => {
@@ -326,6 +340,10 @@ describe(`Reducers: User selectors`, () => {
 
   it(`Selector getFavoritesIDs`, () => {
     expect(selectors.getFavoritesIDs(storeMock.loadedStore)).toEqual([3]);
+  });
+
+  it(`Selector getIsMyListLoaded`, () => {
+    expect(selectors.getIsMyListLoaded(storeMock.loadedStore)).toEqual(true);
   });
 });
 
@@ -436,6 +454,7 @@ describe(`Reducers: User operations`, () => {
   it(`Operation getMyListFilms`, () => {
     const myListLoader = operations.getMyListFilms();
     actions.setUserMyList = jest.fn(() => {});
+    actions.setMyListLoaded = jest.fn(() => {});
 
     apiMock
       .onGet(`/favorite`)
@@ -443,9 +462,10 @@ describe(`Reducers: User operations`, () => {
 
     myListLoader(dispatch, _, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenCalledTimes(2);
         expect(actions.setUserMyList).toHaveBeenCalledTimes(1);
         expect(actions.setUserMyList).toHaveBeenLastCalledWith([{favoriteFilm: `raw`}, {favoriteFilm: `raw`}]);
+        expect(actions.setMyListLoaded).toHaveBeenCalledTimes(1);
       });
   });
 

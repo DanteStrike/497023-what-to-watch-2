@@ -66,6 +66,8 @@ export const initStore = {
       }
     },
 
+    isMyListLoaded: false,
+
     data: {
       id: null,
       email: ``,
@@ -138,6 +140,8 @@ export const loadedStore = {
         isError: false
       }
     },
+
+    isMyListLoaded: true,
 
     data: {
       id: 1,

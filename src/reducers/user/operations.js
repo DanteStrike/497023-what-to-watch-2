@@ -42,6 +42,7 @@ const getMyListFilms = () => (dispatch, _, api) => {
   return api.get(`/favorite`)
     .then((response) => {
       dispatch(actions.setUserMyList(response.data));
+      dispatch(actions.setMyListLoaded());
     });
 };
 

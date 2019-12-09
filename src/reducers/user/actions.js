@@ -30,7 +30,7 @@ const setUserProfile = (userProfileRAW) => ({
 });
 
 const setUserMyList = (myListFilmsRAW) => ({
-  type: types.SET_USER_MYLIST,
+  type: types.SET_USER_MY_LIST,
   payload: utils.getIDsList(myListFilmsRAW)
 });
 
@@ -42,7 +42,7 @@ const addFilmToMylist = (filmID, oldMyListIDs) => {
   const newMyListIDs = oldMyListIDs.slice();
   newMyListIDs.push(filmID);
   return {
-    type: types.SET_USER_MYLIST,
+    type: types.SET_USER_MY_LIST,
     payload: newMyListIDs
   };
 };
@@ -52,7 +52,7 @@ const delFilmFromMyList = (filmID, oldMyListIDs) => {
   const newMyListIDs = oldMyListIDs.slice();
   newMyListIDs.splice(foundedFilmID, 1);
   return {
-    type: types.SET_USER_MYLIST,
+    type: types.SET_USER_MY_LIST,
     payload: newMyListIDs
   };
 };
@@ -69,6 +69,10 @@ const resetFavoriteError = () => ({
   type: types.RESET_FAVORITE_ERROR
 });
 
+const setMyListLoaded = () => ({
+  type: types.SET_MY_LIST_LOADED
+});
+
 export default {
   setAuthSuccess,
   setAuthRequired,
@@ -81,5 +85,6 @@ export default {
   delFilmFromMyList,
   setFavoriteSuccess,
   initFavoriteError,
-  resetFavoriteError
+  resetFavoriteError,
+  setMyListLoaded
 };
