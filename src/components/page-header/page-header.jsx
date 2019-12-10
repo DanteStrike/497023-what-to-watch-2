@@ -23,4 +23,8 @@ PageHeader.propTypes = {
   isLogoDisabled: PropTypes.bool
 };
 
+PageHeader.defaultProps = {
+  isLogoDisabled: false
+};
+
 export default PageHeader;

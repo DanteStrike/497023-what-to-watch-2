@@ -11,7 +11,7 @@ const MainPage = () => {
       <MoviePreview/>
       <div className="page-content">
         <CatalogAllFilms/>
-        <PageFooter/>
+        <PageFooter isLogoDisabled={true}/>
       </div>
     </Fragment>
   );

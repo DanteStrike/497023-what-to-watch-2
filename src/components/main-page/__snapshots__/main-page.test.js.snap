@@ -240,7 +240,11 @@ Array [
           className="logo__link logo__link--light"
           href="/"
           onClick={[Function]}
-          style={Object {}}
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
         >
           <span
             className="logo__letter logo__letter--1"
