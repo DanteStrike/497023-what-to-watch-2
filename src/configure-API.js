@@ -21,6 +21,7 @@ const configureAPI = (dispatch) => {
 
     if (err.response.status === Constants.RequestErrorCode.UNAUTHORIZED || err.response.status === Constants.RequestErrorCode.FORBIDDEN) {
       dispatch(userActions.setAuthRequired());
+      dispatch(userActions.clearUserData());
     }
 
     throw err;
