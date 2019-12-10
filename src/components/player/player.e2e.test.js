@@ -32,6 +32,8 @@ describe(`Component Player should work correctly`, () => {
     component.setProps({isFullScreen: true});
     expect(toggleFullScreenMock).toBeCalledTimes(1);
     expect(toggleFullScreenMock).toHaveBeenLastCalledWith(component.find(`.player`).getDOMNode());
+    component.setProps({isFullScreen: false});
+    expect(toggleFullScreenMock).toBeCalledTimes(2);
   });
 
   it(`Should closeVideoPlayer on button click`, () => {

@@ -36,6 +36,8 @@ describe(`Component AddReviewPage should work correctly`, () => {
     component.setProps({isSuccess: true});
     expect(historyMock.push).toHaveBeenCalledTimes(1);
     expect(historyMock.push).toHaveBeenLastCalledWith(`/films/3`);
+    component.setProps({isSuccess: false});
+    expect(historyMock.push).toHaveBeenCalledTimes(1);
   });
 
   it(`Should postComment correctly`, () => {

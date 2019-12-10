@@ -125,4 +125,9 @@ describe(`Component Player should work correctly`, () => {
       boxShadow: `0px 0px 0px 2px rgba(255,0,0,1)`
     });
   });
+
+  it(`Should reset error state on unmount`, () => {
+    component.unmount();
+    expect(resetFavoriteErrorMock).toHaveBeenCalledTimes(1);
+  });
 });
