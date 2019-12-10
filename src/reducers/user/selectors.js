@@ -6,7 +6,7 @@ const getAuthError = (store) => getUserStore(store).auth.error;
 const getAvatarUrl = (store) => getUserStore(store).data.avatarUrl;
 const getFavoritesIDs = (store) => getUserStore(store).data.myListFilmsIDs;
 const getFavoriteError = (store) => getUserStore(store).toggleFavoriteStatus;
-const getIsMyListLoaded = (store) => getUserStore(store).isMyListLoaded;
+const getMyListStatus = (store) => getUserStore(store).myListStatus;
 
 export default {
   getIsAuth,
@@ -14,5 +14,5 @@ export default {
   getAvatarUrl,
   getFavoritesIDs,
   getFavoriteError,
-  getIsMyListLoaded
+  getMyListStatus
 };

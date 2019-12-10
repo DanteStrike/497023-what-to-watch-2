@@ -66,7 +66,10 @@ export const initStore = {
       }
     },
 
-    isMyListLoaded: false,
+    myListStatus: {
+      isMyListLoaded: false,
+      isLoading: false,
+    },
 
     data: {
       id: null,
@@ -141,7 +144,10 @@ export const loadedStore = {
       }
     },
 
-    isMyListLoaded: true,
+    myListStatus: {
+      isMyListLoaded: true,
+      isLoading: false,
+    },
 
     data: {
       id: 1,

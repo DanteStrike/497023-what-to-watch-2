@@ -11,6 +11,7 @@ import MockAdapter from "axios-mock-adapter";
 import * as storeMock from "../../mocks/store.js";
 import * as filmsMock from "../../mocks/films.js";
 import {userSelectors} from "./user";
+import {updateObject} from "../../utils/object/object.js";
 
 describe(`Reducers: User utils`, () => {
   it(`Util adaptUserProfile`, () => {
@@ -153,6 +154,18 @@ describe(`Reducers: User actions`, () => {
   it(`Action resetFavoriteError`, () => {
     expect(actions.resetFavoriteError()).toEqual({
       type: types.RESET_FAVORITE_ERROR
+    });
+  });
+
+  it(`Action initMyListRequest`, () => {
+    expect(actions.initMyListRequest()).toEqual({
+      type: types.INIT_MY_LIST_REQUEST
+    });
+  });
+
+  it(`Action compliteMyListRequest`, () => {
+    expect(actions.compliteMyListRequest()).toEqual({
+      type: types.COMPLITE_MY_LIST_REQUEST
     });
   });
 });
@@ -313,11 +326,52 @@ describe(`Reducers: User reducers`, () => {
   });
 
   describe(`Reducer myListStatusReducer`, () => {
-    const action = {
-      type: types.SET_MY_LIST_LOADED
-    };
+    it(`Should set loaded status`, () => {
+      const action = {
+        type: types.SET_MY_LIST_LOADED
+      };
 
-    expect(reducer(initState, action).isMyListLoaded).toEqual(true);
+      expect(reducer(initState, action).myListStatus).toEqual({
+        isMyListLoaded: true,
+        isLoading: false
+      });
+    });
+
+    it(`Should fix request start`, () => {
+      const action = {
+        type: types.INIT_MY_LIST_REQUEST
+      };
+
+      expect(reducer(initState, action).myListStatus).toEqual({
+        isMyListLoaded: false,
+        isLoading: true
+      });
+    });
+
+    it(`Should fix request end`, () => {
+      const action = {
+        type: types.COMPLITE_MY_LIST_REQUEST
+      };
+
+      expect(reducer(updateObject(loadedStore, {myListStatus: {
+        isMyListLoaded: false,
+        isLoading: true
+      }}), action).myListStatus).toEqual({
+        isMyListLoaded: false,
+        isLoading: false
+      });
+    });
+
+    it(`Should reset state`, () => {
+      const action = {
+        type: types.CLEAR_USER_DATA
+      };
+
+      expect(reducer(loadedStore, action).myListStatus).toEqual({
+        isMyListLoaded: false,
+        isLoading: false
+      });
+    });
   });
 });
 
@@ -343,7 +397,10 @@ describe(`Reducers: User selectors`, () => {
   });
 
   it(`Selector getIsMyListLoaded`, () => {
-    expect(selectors.getIsMyListLoaded(storeMock.loadedStore)).toEqual(true);
+    expect(selectors.getMyListStatus(storeMock.loadedStore)).toEqual({
+      isMyListLoaded: true,
+      isLoading: false
+    });
   });
 });
 

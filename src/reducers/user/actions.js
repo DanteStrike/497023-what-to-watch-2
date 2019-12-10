@@ -73,6 +73,14 @@ const setMyListLoaded = () => ({
   type: types.SET_MY_LIST_LOADED
 });
 
+const initMyListRequest = () => ({
+  type: types.INIT_MY_LIST_REQUEST
+});
+
+const compliteMyListRequest = () => ({
+  type: types.COMPLITE_MY_LIST_REQUEST
+});
+
 export default {
   setAuthSuccess,
   setAuthRequired,
@@ -86,5 +94,7 @@ export default {
   setFavoriteSuccess,
   initFavoriteError,
   resetFavoriteError,
-  setMyListLoaded
+  setMyListLoaded,
+  initMyListRequest,
+  compliteMyListRequest
 };

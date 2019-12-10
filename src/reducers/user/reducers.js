@@ -79,12 +79,21 @@ const favoriteRequestStatusReducer = (state = favoriteRequestInitStatus, action)
   }
 };
 
-const myListStatusReducer = (state = false, action) => {
+
+const myListInitStatus = {
+  isMyListLoaded: false,
+  isLoading: false
+};
+const myListStatusReducer = (state = myListInitStatus, action) => {
   switch (action.type) {
     case types.SET_MY_LIST_LOADED:
-      return true;
+      return updateObject(state, {isMyListLoaded: true});
+    case types.INIT_MY_LIST_REQUEST:
+      return updateObject(state, {isLoading: true});
+    case types.COMPLITE_MY_LIST_REQUEST:
+      return updateObject(state, {isLoading: false});
     case types.CLEAR_USER_DATA:
-      return false;
+      return myListInitStatus;
     default:
       return state;
   }
@@ -94,7 +103,7 @@ const reducer = combineReducers({
   auth: authReducer,
   data: userProfileReducer,
   toggleFavoriteStatus: favoriteRequestStatusReducer,
-  isMyListLoaded: myListStatusReducer
+  myListStatus: myListStatusReducer
 });
 
 export default reducer;
