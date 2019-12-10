@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 import {connect} from "react-redux";
@@ -9,23 +9,28 @@ import {filmsSelectors} from "../../reducers/films/films.js";
 import {userOperations, userSelectors} from "../../reducers/user/user";
 
 
-const CatalogMyList = (props) => {
-  const {filmsCards, isMyListLoaded, loadMyList} = props;
+class CatalogMyList extends React.PureComponent {
+  componentDidMount() {
+    const {myListState, loadMyList} = this.props;
 
-  useEffect(() => {
-    if (!isMyListLoaded) {
+    if (!myListState.isMyListLoaded) {
       loadMyList();
     }
-  }, []);
+  }
 
-  return (
-    <section className="catalog">
-      <h2 className="catalog__title visually-hidden">Catalog</h2>
-      <MoviesList filmsCards={filmsCards}/>
-      {!isMyListLoaded && <p>Something goes wrong. We cant download all of you favorite list. Please try again later.</p>}
-    </section>
-  );
-};
+  render() {
+    const {filmsCards, myListState} = this.props;
+
+    return (
+      <section className="catalog">
+        <h2 className="catalog__title visually-hidden">Catalog</h2>
+        <MoviesList filmsCards={filmsCards}/>
+        {!myListState.isMyListLoaded && !myListState.isLoading &&
+          <p>Something goes wrong. We cant download all of you favorite list. Please try again later.</p>}
+      </section>
+    );
+  }
+}
 
 CatalogMyList.propTypes = {
   filmsCards: PropTypes.arrayOf(PropTypes.exact({
@@ -37,12 +42,15 @@ CatalogMyList.propTypes = {
     }).isRequired
   })),
   loadMyList: PropTypes.func.isRequired,
-  isMyListLoaded: PropTypes.bool.isRequired
+  myListState: PropTypes.exact({
+    isMyListLoaded: PropTypes.bool.isRequired,
+    isLoading: PropTypes.bool.isRequired
+  })
 };
 
 const mapStateToProps = (store) => ({
   filmsCards: filmsSelectors.getMyListCardsInfo(store),
-  isMyListLoaded: userSelectors.getIsMyListLoaded(store)
+  myListState: userSelectors.getMyListStatus(store)
 });
 
 const mapDispatchToProps = (dispatch) => ({

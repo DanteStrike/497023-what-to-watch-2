@@ -508,21 +508,46 @@ describe(`Reducers: User operations`, () => {
       });
   });
 
-  it(`Operation getMyListFilms`, () => {
+  it(`Operation getMyListFilms (success)`, () => {
     const myListLoader = operations.getMyListFilms();
     actions.setUserMyList = jest.fn(() => {});
     actions.setMyListLoaded = jest.fn(() => {});
+    actions.initMyListRequest = jest.fn(() => {});
+    actions.compliteMyListRequest = jest.fn(() => {});
 
     apiMock
       .onGet(`/favorite`)
-      .reply(200, [{favoriteFilm: `raw`}, {favoriteFilm: `raw`}]);
+      .reply(200, {data: [{favoriteFilm: `raw`}, {favoriteFilm: `raw`}]});
+
+    myListLoader(dispatch, _, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(4);
+        expect(actions.initMyListRequest).toHaveBeenCalledTimes(1);
+        expect(actions.setUserMyList).toHaveBeenCalledTimes(1);
+        expect(actions.setUserMyList).toHaveBeenLastCalledWith({data: [{favoriteFilm: `raw`}, {favoriteFilm: `raw`}]});
+        expect(actions.setMyListLoaded).toHaveBeenCalledTimes(1);
+        expect(actions.compliteMyListRequest).toHaveBeenCalledTimes(1);
+      });
+  });
+
+  it(`Operation getMyListFilms (error)`, () => {
+    const myListLoader = operations.getMyListFilms();
+    actions.setUserMyList = jest.fn(() => {});
+    actions.setMyListLoaded = jest.fn(() => {});
+    actions.initMyListRequest = jest.fn(() => {});
+    actions.compliteMyListRequest = jest.fn(() => {});
+
+    apiMock
+      .onGet(`/favorite`)
+      .reply(400, {error: `error`});
 
     myListLoader(dispatch, _, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(2);
-        expect(actions.setUserMyList).toHaveBeenCalledTimes(1);
-        expect(actions.setUserMyList).toHaveBeenLastCalledWith([{favoriteFilm: `raw`}, {favoriteFilm: `raw`}]);
-        expect(actions.setMyListLoaded).toHaveBeenCalledTimes(1);
+        expect(actions.initMyListRequest).toHaveBeenCalledTimes(1);
+        expect(actions.setUserMyList).toHaveBeenCalledTimes(0);
+        expect(actions.setMyListLoaded).toHaveBeenCalledTimes(0);
+        expect(actions.compliteMyListRequest).toHaveBeenCalledTimes(1);
       });
   });
 

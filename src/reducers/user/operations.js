@@ -39,10 +39,15 @@ const sentAuthRequest = (email, password, source) => (dispatch, _, api) => {
 };
 
 const getMyListFilms = () => (dispatch, _, api) => {
+  dispatch(actions.initMyListRequest());
   return api.get(`/favorite`)
     .then((response) => {
       dispatch(actions.setUserMyList(response.data));
       dispatch(actions.setMyListLoaded());
+      dispatch(actions.compliteMyListRequest());
+    })
+    .catch(() => {
+      dispatch(actions.compliteMyListRequest());
     });
 };
 
