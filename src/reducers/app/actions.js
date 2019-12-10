@@ -26,11 +26,20 @@ const closeVideoPlayer = () => ({
   type: types.CLOSE_VIDEO_PLAYER
 });
 
+const identifyEdgeBrowser = () => {
+  const isEdge = navigator.userAgent.indexOf(`Edge`) > -1;
+  return {
+    type: types.IDENTIFY_EDGE_BROWSER,
+    payload: isEdge
+  };
+};
+
 export default {
   setAppIsReady,
   openVideoPlayer,
   closeVideoPlayer,
   initSetupAppError,
-  resetSetupAppError
+  resetSetupAppError,
+  identifyEdgeBrowser
 };
 

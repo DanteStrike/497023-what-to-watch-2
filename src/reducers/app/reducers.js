@@ -41,9 +41,18 @@ const videoPlayerReducer = (state = -1, action) => {
   }
 };
 
+const isEdgeBrowserReducer = (state = false, action) => {
+  if (action.type === types.IDENTIFY_EDGE_BROWSER) {
+    return action.payload;
+  }
+
+  return state;
+};
+
 const reducer = combineReducers({
   isReady: appReadyReducer,
   setupAppError: setupAppReducer,
+  isEdgeBrowser: isEdgeBrowserReducer,
   videoPlayerFilmID: videoPlayerReducer
 });
 

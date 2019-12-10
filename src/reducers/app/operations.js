@@ -14,6 +14,7 @@ const setupApp = () => (dispatch, getState) => {
 
   return Promise.all([loadFilms, loadPromo])
     .then(() => {
+      dispatch(actions.identifyEdgeBrowser());
       dispatch(userOperations.checkAuth())
         .then(() => {
           dispatch(userOperations.getMyListFilms())

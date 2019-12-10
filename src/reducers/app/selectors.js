@@ -6,6 +6,7 @@ const getStoreSpace = (store) => store[StoreNameSpace.APP];
 const getIsReady = (store) => getStoreSpace(store).isReady;
 const getVideoPlayerFilmID = (store) => getStoreSpace(store).videoPlayerFilmID;
 const getSetupAppError = (store) => getStoreSpace(store).setupAppError;
+const getIsEdgeBrowser = (store) => getStoreSpace(store).isEdgeBrowser;
 const getVideoPlayerInfo = createSelector(
     filmsSelectors.getFilmsByIDs,
     getVideoPlayerFilmID,
@@ -17,7 +18,8 @@ export default {
   getIsReady,
   getVideoPlayerFilmID,
   getVideoPlayerInfo,
-  getSetupAppError
+  getSetupAppError,
+  getIsEdgeBrowser
 };
 
 
