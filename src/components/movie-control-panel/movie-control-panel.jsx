@@ -29,6 +29,11 @@ class MovieControlPanel extends React.PureComponent {
     }
   }
 
+  componentWillUnmount() {
+    const {resetFavoriteError} = this.props;
+    resetFavoriteError();
+  }
+
   _handlePlayButtonClick() {
     const {curFilmID, openVideoPlayer} = this.props;
     openVideoPlayer(curFilmID);
