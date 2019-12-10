@@ -8,6 +8,7 @@ class Video extends React.PureComponent {
     super(props);
 
     this._videoRef = React.createRef();
+    this._isEDGE = navigator.userAgent.indexOf(`Edge`) > -1;
   }
 
   componentDidMount() {
@@ -24,7 +25,10 @@ class Video extends React.PureComponent {
     video.muted = isMuted;
     video.poster = poster;
     video.controls = false;
-    video.src = src;
+
+    if (!this._isEDGE) {
+      video.src = src;
+    }
 
     if (updateProgressBar) {
       video.addEventListener(`timeupdate`, updateProgressBar);
@@ -32,10 +36,14 @@ class Video extends React.PureComponent {
   }
 
   componentDidUpdate() {
-    const {isActivePlayer} = this.props;
+    const {isActivePlayer, src} = this.props;
     const video = this._videoRef.current;
 
     if (isActivePlayer) {
+      if (this._isEDGE) {
+        video.src = src;
+      }
+
       this._playPromise = video.play();
     } else {
       if (this._playPromise !== undefined) {
