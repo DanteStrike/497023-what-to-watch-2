@@ -8,7 +8,7 @@ it(`Component PrivateRouter should render correctly`, () => {
 
   const component = renderer.create(
       <BrowserRouter>
-        <PrivateRoute component={MockComponent} isAuth={true}/>
+        <PrivateRoute component={MockComponent} isAuth={true} checkAuth={jest.fn()}/>
       </BrowserRouter>
   ).toJSON();
 
