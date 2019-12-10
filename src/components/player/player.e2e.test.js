@@ -9,6 +9,7 @@ describe(`Component Player should work correctly`, () => {
   let component;
   const toggleFullScreenMock = jest.fn();
   const closeVideoPlayerMock = jest.fn();
+  const updateVolumeMock = jest.fn();
 
   beforeEach(() => {
     jest.resetAllMocks();
@@ -23,6 +24,9 @@ describe(`Component Player should work correctly`, () => {
           renderPlayButton={jest.fn()}
           renderFullScreen={jest.fn()}
           closeVideoPlayer={closeVideoPlayerMock}
+          volume={0.1}
+          renderVolume={jest.fn()}
+          updateVolume={updateVolumeMock}
         />
     );
   });
@@ -40,5 +44,14 @@ describe(`Component Player should work correctly`, () => {
     expect(closeVideoPlayerMock).toBeCalledTimes(0);
     component.find(`.player__exit`).simulate(`click`);
     expect(closeVideoPlayerMock).toBeCalledTimes(1);
+  });
+
+  it(`Should change volume on wheel`, () => {
+    component.find(`.player`).simulate(`wheel`, {deltaY: -100});
+    expect(updateVolumeMock).toBeCalledTimes(1);
+    expect(updateVolumeMock).toHaveBeenLastCalledWith(true);
+    component.find(`.player`).simulate(`wheel`, {deltaY: 100});
+    expect(updateVolumeMock).toBeCalledTimes(2);
+    expect(updateVolumeMock).toHaveBeenLastCalledWith(false);
   });
 });

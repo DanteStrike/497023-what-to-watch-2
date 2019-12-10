@@ -9,6 +9,7 @@ it(`Render correctly Player component`, () => {
     .create(
         <Player
           videoSrc="src"
+          volume={0.1}
           isActivePlayer={false}
           isFullScreen={false}
           toggleFullScreen={jest.fn()}
@@ -17,6 +18,8 @@ it(`Render correctly Player component`, () => {
           renderPlayButton={jest.fn()}
           renderFullScreen={jest.fn()}
           closeVideoPlayer={jest.fn()}
+          renderVolume={jest.fn()}
+          updateVolume={jest.fn()}
         />,
         {
           createNodeMock

@@ -20,7 +20,7 @@ const catalogLikeThisConfig = {
 
 const addReviewFormConfig = {
   starsAmount: 5,
-  scoreScaleCoefficient: 2,
+  scoreScaleCoefficient: 1,
   validationSettings: {
     comment: {
       minLength: 50,
@@ -30,6 +30,12 @@ const addReviewFormConfig = {
 };
 
 const videoPlayerConfig = {
+  volume: {
+    maxVolume: 100,
+    minVolume: 0,
+    defaultValue: 20,
+    step: 5
+  },
   backgroundPoster: `img/player-poster.jpg`
 };
 

@@ -22,11 +22,13 @@ import withPlayControls from "../../hocs/with-play-controls/with-play-controls.j
 import withFullScreen from "../../hocs/with-full-screen/with-full-screen.jsx";
 import withProgressBar from "../../hocs/with-progress-bar/with-progress-bar.jsx";
 import withTabs from "../../hocs/with-tabs/with-tabs.jsx";
+import withVolume from "../../hocs/with-volume/with-volume.jsx";
 
 import {appOperations, appSelectors} from "../../reducers/app/app";
+import configs from "../../configs";
 
 
-const PlayerWrapped = compose(withProgressBar, withFullScreen, withPlayControls)(Player);
+const PlayerWrapped = compose(withProgressBar, withFullScreen, withPlayControls, withVolume(configs.videoPlayerConfig.volume))(Player);
 const MoviePageWrapped = withTabs([
   {name: `Overview`, requiredPropName: `filmOverview`, Output: MoviePageOverview},
   {name: `Details`, requiredPropName: `filmDetails`, Output: MoviePageDetails},

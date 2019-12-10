@@ -17,14 +17,20 @@ class Video extends React.PureComponent {
       poster,
       isMuted,
       preload,
-      updateProgressBar
+      updateProgressBar,
+      volume
     } = this.props;
     const video = this._videoRef.current;
 
     video.preload = preload;
-    video.muted = isMuted;
     video.poster = poster;
     video.controls = false;
+
+    if (isMuted) {
+      video.muted = isMuted;
+    } else {
+      video.volume = volume;
+    }
 
     if (!this._isEDGE) {
       video.src = src;
@@ -36,11 +42,11 @@ class Video extends React.PureComponent {
   }
 
   componentDidUpdate() {
-    const {isActivePlayer, src} = this.props;
+    const {isActivePlayer, src, volume, isMuted} = this.props;
     const video = this._videoRef.current;
 
     if (isActivePlayer) {
-      if (this._isEDGE) {
+      if (this._isEDGE && !video.src) {
         video.src = src;
       }
 
@@ -54,6 +60,10 @@ class Video extends React.PureComponent {
             this._resetVideo();
           });
       }
+    }
+
+    if (!isMuted) {
+      video.volume = volume;
     }
   }
 
@@ -91,11 +101,11 @@ class Video extends React.PureComponent {
 Video.propTypes = {
   poster: PropTypes.string.isRequired,
   src: PropTypes.string.isRequired,
+  volume: PropTypes.number,
   isActivePlayer: PropTypes.bool,
   isAutoReset: PropTypes.bool,
   preload: PropTypes.string,
   isMuted: PropTypes.bool,
-
   updateProgressBar: PropTypes.func,
 };
 

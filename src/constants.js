@@ -57,6 +57,23 @@ const Styles = {
     textAlign: `center`,
     color: `#d9cd8d`,
     cursor: `pointer`,
+  },
+  VOLUME_CONTAINER: {
+    position: `absolute`,
+    zIndex: `10`,
+    top: `0`,
+    left: `0`,
+    margin: `0`,
+    padding: `0`,
+    color: `#eee5b5`,
+    fontSize: `12px`
+  },
+  VOLUME_INFO: {
+    fontSize: `12px`
+  },
+  VOLUME_STATE: {
+    display: `block`,
+    fontSize: `16px`
   }
 };
 
