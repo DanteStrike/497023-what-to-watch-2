@@ -11,9 +11,9 @@ describe(`GenreList should work correctly`, () => {
     const onGenreChange = jest.fn();
     const component = shallow(
         <GenreList
-          currentFilter={`All genre`}
+          currentFilter="All genre"
           genres={[`All genre`, `others`]}
-          filterGenre={`All genre`}
+          filterGenre="All genre"
           onGenreChange={onGenreChange}
         />
     );
@@ -27,9 +27,9 @@ describe(`GenreList should work correctly`, () => {
   it(`Should render max 9 genres + "All genre"`, () => {
     const component = shallow(
         <GenreList
-          currentFilter={`All genre`}
+          currentFilter="All genre"
           genres={[`All genre`, `genre-1`, `genre-2`, `genre-3`, `genre-4`, `genre-5`, `genre-6`, `genre-7`, `genre-8`, `genre-9`, `genre-10`]}
-          filterGenre={`All genre`}
+          filterGenre="All genre"
           onGenreChange={jest.fn()}
         />
     );

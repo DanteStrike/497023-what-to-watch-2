@@ -1,4 +1,5 @@
 import actions from "./actions";
+import Constants from "../../constants";
 
 const loadCurFilmComments = (curFilmID) => (dispatch, _, api) => {
   return api.get(`/comments/${curFilmID}`)
@@ -18,7 +19,7 @@ const postUserComment = (curFilmID, score, comment) => (dispatch, _, api) => {
       dispatch(actions.setPostCommentSuccess());
     })
     .catch((err) => {
-      if (err.code === `ECONNABORTED`) {
+      if (err.code === Constants.RequestErrorCode.TIMEOUT) {
         dispatch(actions.initPostCommentError(err.message));
         return;
       }

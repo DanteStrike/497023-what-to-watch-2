@@ -15,15 +15,15 @@ describe(`HoC withTabs should work correctly`, () => {
     {
       name: `tab1`,
       requiredPropName: `tab1Prop`,
-      output: ComponentOne
+      Output: ComponentOne
     }, {
       name: `tab2`,
       requiredPropName: `tab2Prop`,
-      output: ComponentTwo
+      Output: ComponentTwo
     }, {
       name: `tab3`,
       requiredPropName: `tab3Prop`,
-      output: ComponentThree
+      Output: ComponentThree
     }
   ];
   const tabsPropsMock = [{any: `any`}, {any: `any`}, {any: `any`}];
@@ -45,7 +45,7 @@ describe(`HoC withTabs should work correctly`, () => {
 
   it(`Should preventDefault on navLink click and set new active tab`, () => {
     const evt = {preventDefault: jest.fn()};
-    expect(component.instance()._navLinkClickHandler(evt, 2));
+    expect(component.instance()._handleNavLinkClick(evt, 2));
     expect(evt.preventDefault).toBeCalledTimes(1);
     expect(component.state().curTabID).toBe(2);
   });
@@ -56,6 +56,14 @@ describe(`HoC withTabs should work correctly`, () => {
     expect(renderedComponent.find(`.movie-nav__item--active`)).toHaveLength(1);
     expect(renderedComponent.find(`.movie-nav__link`)).toHaveLength(3);
     expect(renderedComponent.find(`.movie-nav__item`).at(0).props().className).toEqual(`movie-nav__item movie-nav__item--active`);
+  });
+
+  it(`Nav button click`, () => {
+    component.instance()._handleNavLinkClick = jest.fn();
+    const renderedComponent = shallow(component.instance()._renderTabs(tabsPropsMock));
+    renderedComponent.find(`.movie-nav__link`).at(2).simulate(`click`, {evt: `evt`});
+    expect(component.instance()._handleNavLinkClick).toHaveBeenCalledTimes(1);
+    expect(component.instance()._handleNavLinkClick).toHaveBeenLastCalledWith({evt: `evt`}, 2);
   });
 
   it(`Should switch tabs`, () => {

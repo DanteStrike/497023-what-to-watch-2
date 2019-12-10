@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {compose} from "redux";
+import configs from "../../configs";
 
 import AddReviewForm from "../add-review-form/add-review-form.jsx";
 import MovieBackground from "../movie-background/movie-background.jsx";
@@ -15,15 +16,18 @@ import withValidation from "../../hocs/with-validation/with-validation.jsx";
 import withToggleState from "../../hocs/with-toggle-state/with-toggle-state.jsx";
 
 import {checkComment} from "../../utils/validation/validation.js";
-import {filmsSelectors} from "../../reducers/films";
-import {commentsActions, commentsOperations, commentsSelectors} from "../../reducers/comments";
+import {filmsSelectors} from "../../reducers/films/films";
+import {commentsActions, commentsOperations, commentsSelectors} from "../../reducers/comments/comments";
 
 
 const AddReviewFormWrapped = compose(
     withToggleState(`isSubmitting`, false, `toggleFormLock`),
     withInput(`score`, `setScore`, -1),
     withInput(`comment`, `setComment`, ``),
-    withValidation(`comment`, `validateComment`, `commentValidation`, `resetValidation`, checkComment(50, 400))
+    withValidation(`comment`, `validateComment`, `commentValidation`,
+        `resetValidation`,
+        checkComment(configs.addReviewFormConfig.validationSettings.comment.minLength,
+            configs.addReviewFormConfig.validationSettings.comment.maxLength))
 )(AddReviewForm);
 
 class AddReviewPage extends React.PureComponent {

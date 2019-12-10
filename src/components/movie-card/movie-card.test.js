@@ -12,13 +12,13 @@ it(`Render correctly MovieCard component`, () => {
         <Router>
           <MovieCard
             id={1}
-            name={`Johnny English`}
-            image={`img/johnny-english.jpg`}
+            name="Johnny English"
+            image="img/johnny-english.jpg"
             onTimerStart={jest.fn()}
             onTimerReset={jest.fn()}
             isTimerFinished={false}
-            poster={`url`}
-            previewSrc={`src`}
+            poster="url"
+            previewSrc="src"
           />
         </Router>,
         {

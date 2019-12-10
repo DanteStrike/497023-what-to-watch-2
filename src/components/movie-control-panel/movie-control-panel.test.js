@@ -9,13 +9,23 @@ it(`Render correctly MovieControlPanel component`, () => {
     .create(
         <Router>
           <MovieControlPanel
-            id={0}
-            name={`any`}
-            genre={`any`}
-            released={9999}
+            isAuth={true}
+            isFavorite={false}
+            curFilmID={3}
+            name="title"
+            genre="genre"
+            released={2009}
             openVideoPlayer={jest.fn()}
-            isAuth={false}
-            curFilmID={1}
+            toggleFavorite={jest.fn()}
+            isSubmitting={false}
+            toggleFormLock={jest.fn()}
+            favoriteRequestStatus={{
+              isSuccess: false,
+              error: {
+                isError: false
+              }
+            }}
+            resetFavoriteError={jest.fn()}
           />
         </Router>
     ).toJSON();

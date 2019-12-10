@@ -35,11 +35,11 @@ describe(`Component Video should work correctly`, () => {
 
     component = shallow(
         <Video
-          poster={`any`}
-          src={`url`}
+          poster="any"
+          src="url"
           isActivePlayer={false}
           isAutoReset={false}
-          preload={`auto`}
+          preload="auto"
           isMuted={true}
           updateProgressBar={updateProgressBarMock}
         />

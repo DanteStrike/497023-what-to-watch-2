@@ -1,14 +1,14 @@
-import configureAPI from "../server/configure-API";
+import configureAPI from "../configure-API.js";
 import {applyMiddleware, combineReducers, createStore} from "redux";
-import {appReducer} from "./app";
-import {filmsReducer} from "./films";
-import {genreFilterReducer} from "./genres";
-import {catalogReducer} from "./catalog";
+import {appReducer} from "./app/app";
+import {filmsReducer} from "./films/films";
+import {genreFilterReducer} from "./genres/genres";
+import {catalogReducer} from "./catalog/catalog";
 import {compose} from "recompose";
 import thunk from "redux-thunk";
 import StoreNameSpace from "./store-name-space";
-import {commentsReducer} from "./comments";
-import {userReducer} from "./user";
+import {commentsReducer} from "./comments/comments";
+import {userReducer} from "./user/user";
 
 const api = configureAPI((...args) => configuredStore.dispatch(...args));
 

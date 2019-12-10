@@ -26,7 +26,7 @@ exports[`Render correctly AddReviewPage component 1`] = `
       WTW
     </h1>
     <header
-      className="page-header "
+      className="page-header"
     >
       <div
         className="logo"
@@ -35,6 +35,7 @@ exports[`Render correctly AddReviewPage component 1`] = `
           className="logo__link"
           href="/"
           onClick={[Function]}
+          style={Object {}}
         >
           <span
             className="logo__letter logo__letter--1"

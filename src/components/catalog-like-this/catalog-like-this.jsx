@@ -2,27 +2,34 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import {connect} from "react-redux";
+import configs from "../../configs.js";
 
 import MoviesList from "../movies-list/movies-list.jsx";
 
-import {genreFilterActions} from "../../reducers/genres/index.js";
-import {filmsSelectors} from "../../reducers/films/index.js";
-import {catalogActions} from "../../reducers/catalog/index.js";
-import {genreFilterSelectors} from "../../reducers/genres/index";
-import {catalogLikeThisConfig} from "../../configs/catalog-like-this-config";
+import {genreFilterActions} from "../../reducers/genres/genres.js";
+import {filmsSelectors} from "../../reducers/films/films.js";
+import {catalogActions} from "../../reducers/catalog/catalog.js";
+import {genreFilterSelectors} from "../../reducers/genres/genres";
 
 
 class CatalogLikeThis extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this._defaultItemsAmount = configs.catalogLikeThisConfig.defaultItemsAmount;
+  }
+
+
   componentDidMount() {
     const {curFilmGenre, maxItemsAmount, initCatalogLikeThis} = this.props;
-    initCatalogLikeThis(curFilmGenre, catalogLikeThisConfig.defaultItemsAmount, maxItemsAmount - 1);
+    initCatalogLikeThis(curFilmGenre, this._defaultItemsAmount, maxItemsAmount - 1);
   }
 
   componentDidUpdate(prevProps) {
     const {curFilmID, curFilmGenre, maxItemsAmount, initCatalogLikeThis} = this.props;
 
     if (curFilmID !== prevProps.curFilmID) {
-      initCatalogLikeThis(curFilmGenre, catalogLikeThisConfig.defaultItemsAmount, maxItemsAmount - 1);
+      initCatalogLikeThis(curFilmGenre, this._defaultItemsAmount, maxItemsAmount - 1);
     }
   }
 
@@ -30,7 +37,7 @@ class CatalogLikeThis extends React.PureComponent {
     const {filmsCards} = this.props;
 
     return (
-      <section className={`catalog catalog--like-this`}>
+      <section className="catalog catalog--like-this">
         <h2 className="catalog__title">More like this</h2>
         <MoviesList filmsCards={filmsCards}/>
       </section>

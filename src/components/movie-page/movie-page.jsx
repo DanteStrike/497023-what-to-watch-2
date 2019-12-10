@@ -8,14 +8,15 @@ import PageFooter from "../page-footer/page-footer.jsx";
 import MovieBackground from "../movie-background/movie-background.jsx";
 import MoviePoster from "../movie-poster/movie-poster.jsx";
 import CatalogLikeThis from "../catalog-like-this/catalog-like-this.jsx";
+import MovieControlPanel from "../movie-control-panel/movie-control-panel.jsx";
 
 import withToggleState from "../../hocs/with-toggle-state/with-toggle-state.jsx";
 
-import {filmsSelectors} from "../../reducers/films";
-import {commentsOperations, commentsSelectors} from "../../reducers/comments";
+import {filmsSelectors} from "../../reducers/films/films";
+import {commentsOperations, commentsSelectors} from "../../reducers/comments/comments";
 
 
-const MovieControlPanelWrapped = withToggleState(`isSubmitting`, false, `toggleFormLock`);
+const MovieControlPanelWrapped = withToggleState(`isSubmitting`, false, `toggleFormLock`)(MovieControlPanel);
 
 class MoviePage extends React.PureComponent {
   componentDidMount() {
@@ -41,7 +42,7 @@ class MoviePage extends React.PureComponent {
           <div className="movie-card__hero">
             <MovieBackground name={film.name} image={film.background.image} backgroundColor={film.background.color}/>
             <h1 className="visually-hidden">WTW</h1>
-            <PageHeader mixinClass={`movie-card__head`} rightPart={<UserBlock/>}/>
+            <PageHeader mixinClass="movie-card__head" rightPart={<UserBlock/>}/>
             <div className="movie-card__wrap">
               <MovieControlPanelWrapped curFilmID={film.id}/>
             </div>

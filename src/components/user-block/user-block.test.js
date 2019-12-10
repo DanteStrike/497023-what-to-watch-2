@@ -10,7 +10,7 @@ it(`Render correctly UserBlock component`, () => {
         <Router>
           <UserBlock
             isAuth={false}
-            avatarUrl={`img`}
+            avatarUrl="img"
           />
         </Router>
     ).toJSON();

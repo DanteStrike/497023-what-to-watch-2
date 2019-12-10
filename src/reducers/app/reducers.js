@@ -10,6 +10,26 @@ const appReadyReducer = (state = false, action) => {
   return state;
 };
 
+const setupAppInitState = {
+  isError: false,
+  code: null,
+  msg: ``
+};
+const setupAppReducer = (state = setupAppInitState, action) => {
+  switch (action.type) {
+    case types.INIT_SETUP_APP_ERROR:
+      return {
+        isError: true,
+        code: action.payload.code,
+        msg: action.payload.msg,
+      };
+    case types.RESET_SETUP_APP_ERROR:
+      return setupAppInitState;
+    default:
+      return state;
+  }
+};
+
 const videoPlayerReducer = (state = -1, action) => {
   switch (action.type) {
     case types.OPEN_VIDEO_PLAYER:
@@ -23,6 +43,7 @@ const videoPlayerReducer = (state = -1, action) => {
 
 const reducer = combineReducers({
   isReady: appReadyReducer,
+  setupAppError: setupAppReducer,
   videoPlayerFilmID: videoPlayerReducer
 });
 

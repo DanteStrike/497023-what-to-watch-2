@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import {connect} from "react-redux";
 import {compose} from "recompose";
-import {userActions, userOperations, userSelectors} from "../../reducers/user";
+import {userActions, userOperations, userSelectors} from "../../reducers/user/user";
 import axios from "axios";
 
 import PageHeader from "../page-header/page-header.jsx";
@@ -29,15 +29,23 @@ class SignInPage extends React.PureComponent {
     this._requestAuthHandler = this._requestAuthHandler.bind(this);
   }
 
+  componentDidMount() {
+    const {isAuth, history} = this.props;
+
+    if (isAuth) {
+      history.push(`/`);
+    }
+  }
+
   componentDidUpdate(prevProps) {
     const {isAuth, history, location} = this.props;
 
     if (prevProps.isAuth !== isAuth && isAuth) {
+      let newPath;
       if (location.state) {
-        history.push(location.state.referrer || `/`);
-      } else {
-        history.push(`/`);
+        newPath = location.state.referrer;
       }
+      history.push(newPath || `/`);
     }
   }
 
@@ -69,12 +77,7 @@ class SignInPage extends React.PureComponent {
           mixinClass="user-page__head"
           rightPart={<h1 className="page-title user-page__title">Sign in</h1>}
         />
-        <div className="sign-in user-page__content">
-          <LoginWrapped
-            serverError={serverError}
-            requestLogin={this._requestAuthHandler}
-          />
-        </div>
+        <LoginWrapped serverError={serverError} requestLogin={this._requestAuthHandler}/>
         <PageFooter/>
       </div>
     );

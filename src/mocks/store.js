@@ -5,6 +5,11 @@ import {normalizedFilmsData} from "./films";
 export const initStore = {
   [StoreNameSpace.APP]: {
     isReady: false,
+    setupAppError: {
+      isError: false,
+      code: null,
+      msg: ``
+    },
     videoPlayerFilmID: -1
   },
 
@@ -57,9 +62,13 @@ export const initStore = {
     toggleFavoriteStatus: {
       isSuccess: false,
       error: {
-        isError: false,
-        msg: ``
+        isError: false
       }
+    },
+
+    myListStatus: {
+      isMyListLoaded: false,
+      isLoading: false,
     },
 
     data: {
@@ -75,6 +84,11 @@ export const initStore = {
 export const loadedStore = {
   [StoreNameSpace.APP]: {
     isReady: true,
+    setupAppError: {
+      isError: false,
+      code: null,
+      msg: ``
+    },
     videoPlayerFilmID: 1
   },
 
@@ -126,9 +140,13 @@ export const loadedStore = {
     toggleFavoriteStatus: {
       isSuccess: true,
       error: {
-        isError: false,
-        msg: ``
+        isError: false
       }
+    },
+
+    myListStatus: {
+      isMyListLoaded: true,
+      isLoading: false,
     },
 
     data: {

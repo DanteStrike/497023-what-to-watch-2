@@ -1,11 +1,16 @@
 import React, {Fragment} from "react";
 import PropTypes from "prop-types";
 
+import configs from "../../configs.js";
+import Constants from "../../constants.js";
+
+
 class AddReviewForm extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this._stars = new Array(5).fill(``);
+    this._stars = new Array(configs.addReviewFormConfig.starsAmount).fill(``);
+    this._scoreScaleCoefficient = configs.addReviewFormConfig.scoreScaleCoefficient;
     this._handleInputChange = this._handleInputChange.bind(this);
     this._handleFormSubmit = this._handleFormSubmit.bind(this);
   }
@@ -30,7 +35,7 @@ class AddReviewForm extends React.PureComponent {
     const newValue = target.value;
 
     if (target.name === `rating`) {
-      setScore(Number(newValue));
+      setScore(Number(newValue) * this._scoreScaleCoefficient);
       return;
     }
 
@@ -52,8 +57,8 @@ class AddReviewForm extends React.PureComponent {
     const {score, commentValidation, isSubmitting, serverError} = this.props;
 
     return (
-      <div className="add-review" style={isSubmitting ? {cursor: `wait`} : {}}>
-        <form action="#" className="add-review__form" style={isSubmitting ? {pointerEvents: `none`} : {}} onSubmit={this._handleFormSubmit}>
+      <div className="add-review" style={isSubmitting ? Constants.Styles.NO_EVENTS : Constants.Styles.NO_STYLE}>
+        <form action="#" className="add-review__form" style={isSubmitting ? Constants.Styles.LOADING_CURSOR : Constants.Styles.NO_STYLE} onSubmit={this._handleFormSubmit}>
           <div className="rating">
             <div className="rating__stars">
               {this._stars.map((_, index) => (
@@ -68,7 +73,7 @@ class AddReviewForm extends React.PureComponent {
           <div className="add-review__text">
             <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" onChange={this._handleInputChange} disabled={isSubmitting}></textarea>
             <div className="add-review__submit">
-              {(score === -1 || !commentValidation.isValid) ? null : <button className="add-review__btn" type="submit" disabled={isSubmitting}>Post</button>}
+              {(!~score || !commentValidation.isValid) ? null : <button className="add-review__btn" type="submit" disabled={isSubmitting}>Post</button>}
             </div>
 
           </div>
@@ -92,9 +97,8 @@ AddReviewForm.propTypes = {
   comment: PropTypes.string.isRequired,
   setComment: PropTypes.func.isRequired,
   validateComment: PropTypes.func.isRequired,
-  commentValidation: PropTypes.exact({
-    isValid: PropTypes.bool.isRequired,
-    msg: PropTypes.string.isRequired
+  commentValidation: PropTypes.shape({
+    isValid: PropTypes.bool.isRequired
   }).isRequired,
   resetValidation: PropTypes.func.isRequired
 };

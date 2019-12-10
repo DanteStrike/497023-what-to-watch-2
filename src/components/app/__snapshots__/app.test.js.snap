@@ -3,7 +3,43 @@
 exports[`Render correctly App component 1`] = `
 <div
   className="player"
+  onWheel={[Function]}
 >
+  <p
+    style={
+      Object {
+        "color": "#eee5b5",
+        "fontSize": "12px",
+        "left": "0",
+        "margin": "0",
+        "padding": "0",
+        "position": "absolute",
+        "top": "0",
+        "zIndex": "10",
+      }
+    }
+  >
+    <small
+      style={
+        Object {
+          "fontSize": "12px",
+        }
+      }
+    >
+      Volume wheelUp(+) | wheelDown(-)
+    </small>
+    <strong
+      style={
+        Object {
+          "display": "block",
+          "fontSize": "16px",
+        }
+      }
+    >
+      20
+       %
+    </strong>
+  </p>
   <video
     style={
       Object {

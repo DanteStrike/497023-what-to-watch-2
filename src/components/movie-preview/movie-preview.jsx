@@ -10,7 +10,7 @@ import MovieControlPanel from "../movie-control-panel/movie-control-panel.jsx";
 
 import withToggleState from "../../hocs/with-toggle-state/with-toggle-state.jsx";
 
-import {filmsSelectors} from "../../reducers/films";
+import {filmsSelectors} from "../../reducers/films/films";
 
 
 const MovieControlPanelWrapped = withToggleState(`isSubmitting`, false, `toggleFormLock`)(MovieControlPanel);
@@ -22,7 +22,7 @@ const MoviePreview = (props) => {
     <section className="movie-card">
       <MovieBackground name={promo.name} image={promo.background.image} backgroundColor={promo.background.color}/>
       <h1 className="visually-hidden">WTW</h1>
-      <PageHeader mixinClass={`movie-card__head`} rightPart={<UserBlock/>}/>
+      <PageHeader mixinClass="movie-card__head" rightPart={<UserBlock/>} isLogoDisabled={true}/>
       <div className="movie-card__wrap">
         <div className="movie-card__info">
           <MoviePoster isBig={false} isSmall={false} name={promo.name} image={promo.posterImage}/>

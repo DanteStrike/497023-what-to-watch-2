@@ -1,25 +1,7 @@
 import React, {Fragment} from "react";
 import PropTypes from "prop-types";
 
-import {RatingLevel} from "../../utils/enum.js";
-
-
-const getRatingLevel = (rate) => {
-  switch (true) {
-    case (rate >= 0 && rate < 3):
-      return RatingLevel.BAD;
-    case (rate >= 3 && rate < 5):
-      return RatingLevel.NORMAL;
-    case (rate >= 5 && rate < 8):
-      return RatingLevel.GOOD;
-    case (rate >= 8 && rate < 10):
-      return RatingLevel.VERY_GOOD;
-    case (rate === 10):
-      return RatingLevel.AWESOME;
-    default:
-      throw new Error(`rate = ${rate} is out of range [0, 10]`);
-  }
-};
+import {getRatingLevel} from "../../utils/rating-level/rating-level";
 
 const MoviePageOverview = (props) => {
   const {filmOverview: {rating, scoresCount, description, director, starring}} = props;

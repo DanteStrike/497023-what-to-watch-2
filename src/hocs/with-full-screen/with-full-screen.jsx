@@ -1,6 +1,6 @@
 import React from "react";
 import {openFullScreen, closeFullscreen} from "../../utils/fullscreen-api/fullscreen-api.js";
-import {Icons} from "../../utils/enum.js";
+import Constants from "../../constants.js";
 
 const withFullScreen = (WrappedComponent) => {
   class WithFullScreen extends React.PureComponent {
@@ -13,10 +13,10 @@ const withFullScreen = (WrappedComponent) => {
 
       this._toggleFullScreen = this._toggleFullScreen.bind(this);
       this._renderFullScreen = this._renderFullScreen.bind(this);
-      this._fullScreenButtonClickHandler = this._fullScreenButtonClickHandler.bind(this);
+      this._handleFullScreenButtonClick = this._handleFullScreenButtonClick.bind(this);
     }
 
-    _fullScreenButtonClickHandler() {
+    _handleFullScreenButtonClick() {
       this.setState((prevState) => {
         return {
           isFullScreen: !prevState.isFullScreen
@@ -26,9 +26,9 @@ const withFullScreen = (WrappedComponent) => {
 
     _renderFullScreen() {
       return (
-        <button type="button" className="player__full-screen" onClick={this._fullScreenButtonClickHandler}>
+        <button type="button" className="player__full-screen" onClick={this._handleFullScreenButtonClick}>
           <svg viewBox="0 0 27 27" width="27" height="27">
-            <use xlinkHref={`#${Icons.FULL_SCREEN}`}></use>
+            <use xlinkHref={`#${Constants.Icons.FULL_SCREEN}`}></use>
           </svg>
           <span>Full screen</span>
         </button>
@@ -58,6 +58,8 @@ const withFullScreen = (WrappedComponent) => {
       );
     }
   }
+
+  WithFullScreen.propTypes = {};
 
   return WithFullScreen;
 };

@@ -19,8 +19,7 @@ export const films = [
     starring: [`actorOne`, `actorTwo`],
     runTime: 1,
     genre: `genreOne`,
-    released: 2019,
-    isFavorite: false,
+    released: 2019
   }, {
     id: 3,
     name: `filmTwo`,
@@ -41,8 +40,7 @@ export const films = [
     starring: [`actorThree`, `actorFour`],
     runTime: 2,
     genre: `genreTwo`,
-    released: 2020,
-    isFavorite: true,
+    released: 2020
   }
 ];
 

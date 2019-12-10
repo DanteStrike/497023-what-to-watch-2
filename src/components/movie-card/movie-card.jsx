@@ -3,11 +3,8 @@ import PropTypes from "prop-types";
 
 import Video from "../video/video.jsx";
 import ClearLink from "../clear-link/clear-link.jsx";
+import Constants from "../../constants";
 
-
-const fixFirefoxFlickering = {
-  willChange: `transform`
-};
 
 const MovieCard = (props) => {
   const {
@@ -21,7 +18,7 @@ const MovieCard = (props) => {
   } = props;
 
   return (
-    <article className="small-movie-card catalog__movies-card" style={fixFirefoxFlickering} onMouseEnter={onTimerStart} onMouseLeave={onTimerReset}>
+    <article className="small-movie-card catalog__movies-card" style={Constants.Styles.FIX_FIREFOX_FLICKERING} onMouseEnter={onTimerStart} onMouseLeave={onTimerReset}>
       <ClearLink to={`/films/${id}`}>
         <div className="small-movie-card__image">
           <Video
@@ -30,7 +27,7 @@ const MovieCard = (props) => {
             isMuted={true}
             src={previewSrc}
             isAutoReset={true}
-            preload={`none`}
+            preload="none"
           />
         </div>
         <h3 className="small-movie-card__title">

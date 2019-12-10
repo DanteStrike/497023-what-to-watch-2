@@ -8,7 +8,7 @@ it(`Render correctly Breadcrumbs component`, () => {
   const component = renderer
     .create(
         <Router>
-          <Breadcrumbs curFilmID={1} name={`any`}/>
+          <Breadcrumbs curFilmID={1} name="any"/>
         </Router>
     ).toJSON();
 

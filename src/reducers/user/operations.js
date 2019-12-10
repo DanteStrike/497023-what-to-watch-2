@@ -1,6 +1,7 @@
 import actions from "./actions";
 import axios from "axios";
-import {userSelectors} from "./index";
+import {userSelectors} from "./user";
+import Constants from "../../constants";
 
 const checkAuth = () => (dispatch, _, api) => {
   return api.get(`/login`)
@@ -26,7 +27,7 @@ const sentAuthRequest = (email, password, source) => (dispatch, _, api) => {
       return;
     }
 
-    if (err.code === `ECONNABORTED`) {
+    if (err.code === Constants.RequestErrorCode.TIMEOUT) {
       dispatch(actions.initAuthServerError(err.message));
       return;
     }
@@ -38,9 +39,15 @@ const sentAuthRequest = (email, password, source) => (dispatch, _, api) => {
 };
 
 const getMyListFilms = () => (dispatch, _, api) => {
+  dispatch(actions.initMyListRequest());
   return api.get(`/favorite`)
     .then((response) => {
       dispatch(actions.setUserMyList(response.data));
+      dispatch(actions.setMyListLoaded());
+      dispatch(actions.compliteMyListRequest());
+    })
+    .catch(() => {
+      dispatch(actions.compliteMyListRequest());
     });
 };
 
@@ -57,15 +64,8 @@ const toggleFavorite = (curFilmID, newStatus) => (dispatch, getState, api) => {
 
       dispatch(actions.setFavoriteSuccess());
     })
-    .catch((err) => {
-      if (err.code === `ECONNABORTED`) {
-        dispatch(actions.initFavoriteError(err.message));
-        return;
-      }
-
-      if (err.response) {
-        dispatch(actions.initFavoriteError(err.response.data.error));
-      }
+    .catch(() => {
+      dispatch(actions.initFavoriteError());
     });
 };
 

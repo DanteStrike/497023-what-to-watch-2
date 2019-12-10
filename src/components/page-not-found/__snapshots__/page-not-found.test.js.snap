@@ -37,6 +37,7 @@ exports[`Render correctly PageNotFound component 1`] = `
         className="logo__link logo__link--light"
         href="/"
         onClick={[Function]}
+        style={Object {}}
       >
         <span
           className="logo__letter logo__letter--1"

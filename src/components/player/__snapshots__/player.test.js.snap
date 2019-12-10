@@ -3,6 +3,7 @@
 exports[`Render correctly Player component 1`] = `
 <div
   className="player"
+  onWheel={[Function]}
 >
   <video
     style={

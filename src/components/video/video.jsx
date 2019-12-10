@@ -1,25 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Constants from "../../constants";
 
-
-const videoObjectFitCover = {
-  position: `absolute`,
-  display: `block`,
-  width: `100%`,
-  height: `100%`,
-  top: `50%`,
-  left: `50%`,
-  transform: `translate(-50%, -50%)`,
-  minWidth: `100%`,
-  minHeight: `100%`,
-  backgroundColor: `black`
-};
 
 class Video extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this._videoRef = React.createRef();
+    this._isEDGE = navigator.userAgent.indexOf(`Edge`) > -1;
   }
 
   componentDidMount() {
@@ -28,15 +17,24 @@ class Video extends React.PureComponent {
       poster,
       isMuted,
       preload,
-      updateProgressBar
+      updateProgressBar,
+      volume
     } = this.props;
     const video = this._videoRef.current;
 
     video.preload = preload;
-    video.muted = isMuted;
     video.poster = poster;
     video.controls = false;
-    video.src = src;
+
+    if (isMuted) {
+      video.muted = isMuted;
+    } else {
+      video.volume = volume;
+    }
+
+    if (!this._isEDGE) {
+      video.src = src;
+    }
 
     if (updateProgressBar) {
       video.addEventListener(`timeupdate`, updateProgressBar);
@@ -44,10 +42,14 @@ class Video extends React.PureComponent {
   }
 
   componentDidUpdate() {
-    const {isActivePlayer} = this.props;
+    const {isActivePlayer, src, volume, isMuted} = this.props;
     const video = this._videoRef.current;
 
     if (isActivePlayer) {
+      if (this._isEDGE && !video.src) {
+        video.src = src;
+      }
+
       this._playPromise = video.play();
     } else {
       if (this._playPromise !== undefined) {
@@ -58,6 +60,10 @@ class Video extends React.PureComponent {
             this._resetVideo();
           });
       }
+    }
+
+    if (!isMuted) {
+      video.volume = volume;
     }
   }
 
@@ -87,7 +93,7 @@ class Video extends React.PureComponent {
 
   render() {
     return (
-      <video ref={this._videoRef} style={videoObjectFitCover}/>
+      <video ref={this._videoRef} style={Constants.Styles.VIDEO_OBJECT_FIT_COVER}/>
     );
   }
 }
@@ -95,11 +101,11 @@ class Video extends React.PureComponent {
 Video.propTypes = {
   poster: PropTypes.string.isRequired,
   src: PropTypes.string.isRequired,
+  volume: PropTypes.number,
   isActivePlayer: PropTypes.bool,
   isAutoReset: PropTypes.bool,
   preload: PropTypes.string,
   isMuted: PropTypes.bool,
-
   updateProgressBar: PropTypes.func,
 };
 

@@ -21,8 +21,7 @@ const adaptFilmRAW = (filmRAW) => ({
   starring: filmRAW[`starring`],
   runTime: filmRAW[`run_time`],
   genre: filmRAW[`genre`],
-  released: filmRAW[`released`],
-  isFavorite: filmRAW[`is_favorite`],
+  released: filmRAW[`released`]
 });
 
 const adaptFilmsRAW = (filmsRAW) => filmsRAW.map((filmRAW) => adaptFilmRAW(filmRAW));

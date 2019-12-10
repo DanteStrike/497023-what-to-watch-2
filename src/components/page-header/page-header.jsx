@@ -4,11 +4,11 @@ import Logo from "../logo/logo.jsx";
 
 
 const PageHeader = (props) => {
-  const {mixinClass = ``, rightPart} = props;
+  const {mixinClass, rightPart, isLogoDisabled} = props;
 
   return (
-    <header className={`page-header ${mixinClass}`}>
-      <Logo isLight={false}/>
+    <header className={`page-header${mixinClass ? ` ${mixinClass}` : ``}`}>
+      <Logo isLight={false} isDisabled={isLogoDisabled}/>
       {rightPart}
     </header>
   );
@@ -19,7 +19,12 @@ PageHeader.propTypes = {
   rightPart: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.element),
     PropTypes.element
-  ])
+  ]),
+  isLogoDisabled: PropTypes.bool
+};
+
+PageHeader.defaultProps = {
+  isLogoDisabled: false
 };
 
 export default PageHeader;

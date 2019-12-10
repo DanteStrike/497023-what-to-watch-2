@@ -14,17 +14,17 @@ const withToggleState = (
         [stateName]: stateInitValue
       };
 
-      this._stateToggle = this._stateToggle.bind(this);
+      this._toggleState = this._toggleState.bind(this);
     }
 
-    _stateToggle() {
+    _toggleState() {
       this.setState((prevState) => updateObject(prevState, {[stateName]: !prevState[stateName]}));
     }
 
     render() {
       const hocProps = {
         [stateName]: this.state[stateName],
-        [stateToggleName]: this._stateToggle
+        [stateToggleName]: this._toggleState
       };
 
       return (

@@ -5,12 +5,13 @@ import operations from "./operations.js";
 import selectors from "./selectors.js";
 import reducer from "./reducers.js";
 import utils from "./utils";
-import configureAPI from "../../server/configure-API";
+import configureAPI from "../../configure-API";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import * as storeMock from "../../mocks/store.js";
 import * as filmsMock from "../../mocks/films.js";
-import {userSelectors} from "./index";
+import {userSelectors} from "./user";
+import {updateObject} from "../../utils/object/object.js";
 
 describe(`Reducers: User utils`, () => {
   it(`Util adaptUserProfile`, () => {
@@ -75,6 +76,12 @@ describe(`Reducers: User actions`, () => {
     });
   });
 
+  it(`Action setMyListLoaded`, () => {
+    expect(actions.setMyListLoaded()).toEqual({
+      type: types.SET_MY_LIST_LOADED
+    });
+  });
+
   it(`Action initAuthServerError`, () => {
     utils.decodeServerErrMsg = jest.fn(() => ({
       target: `any`,
@@ -106,7 +113,7 @@ describe(`Reducers: User actions`, () => {
     utils.getIDsList.mockReturnValue([1, 2]);
 
     expect(actions.setUserMyList([`any`, `any`])).toEqual({
-      type: types.SET_USER_MYLIST,
+      type: types.SET_USER_MY_LIST,
       payload: [1, 2]
     });
     expect(utils.getIDsList).toHaveBeenCalledTimes(1);
@@ -120,14 +127,14 @@ describe(`Reducers: User actions`, () => {
 
   it(`Action addFilmToMylist`, () => {
     expect(actions.addFilmToMylist(3, [9, 2, 4, 1])).toEqual({
-      type: types.SET_USER_MYLIST,
+      type: types.SET_USER_MY_LIST,
       payload: [9, 2, 4, 1, 3]
     });
   });
 
   it(`Action delFilmFromMyList`, () => {
     expect(actions.delFilmFromMyList(3, [9, 2, 3, 1])).toEqual({
-      type: types.SET_USER_MYLIST,
+      type: types.SET_USER_MY_LIST,
       payload: [9, 2, 1]
     });
   });
@@ -140,14 +147,25 @@ describe(`Reducers: User actions`, () => {
 
   it(`Action initFavoriteError`, () => {
     expect(actions.initFavoriteError(`msg`)).toEqual({
-      type: types.INIT_FAVORITE_ERROR,
-      payload: `msg`
+      type: types.INIT_FAVORITE_ERROR
     });
   });
 
   it(`Action resetFavoriteError`, () => {
     expect(actions.resetFavoriteError()).toEqual({
       type: types.RESET_FAVORITE_ERROR
+    });
+  });
+
+  it(`Action initMyListRequest`, () => {
+    expect(actions.initMyListRequest()).toEqual({
+      type: types.INIT_MY_LIST_REQUEST
+    });
+  });
+
+  it(`Action compliteMyListRequest`, () => {
+    expect(actions.compliteMyListRequest()).toEqual({
+      type: types.COMPLITE_MY_LIST_REQUEST
     });
   });
 });
@@ -242,7 +260,7 @@ describe(`Reducers: User reducers`, () => {
     });
     it(`Should set user mylist`, () => {
       const action = {
-        type: types.SET_USER_MYLIST,
+        type: types.SET_USER_MY_LIST,
         payload: [`any`, `any`]
       };
 
@@ -272,14 +290,12 @@ describe(`Reducers: User reducers`, () => {
   describe(`Reducer favoriteRequestStatusReducer`, () => {
     it(`Should init error`, () => {
       const action = {
-        type: types.INIT_FAVORITE_ERROR,
-        payload: `anyMSG`
+        type: types.INIT_FAVORITE_ERROR
       };
       expect(reducer(initState, action).toggleFavoriteStatus).toEqual({
         isSuccess: false,
         error: {
-          isError: true,
-          msg: `anyMSG`
+          isError: true
         }
       });
     });
@@ -291,8 +307,7 @@ describe(`Reducers: User reducers`, () => {
       expect(reducer(initState, action).toggleFavoriteStatus).toEqual({
         isSuccess: true,
         error: {
-          isError: false,
-          msg: ``
+          isError: false
         }
       });
     });
@@ -304,9 +319,57 @@ describe(`Reducers: User reducers`, () => {
       expect(reducer(loadedStore, action).toggleFavoriteStatus).toEqual({
         isSuccess: false,
         error: {
-          isError: false,
-          msg: ``
+          isError: false
         }
+      });
+    });
+  });
+
+  describe(`Reducer myListStatusReducer`, () => {
+    it(`Should set loaded status`, () => {
+      const action = {
+        type: types.SET_MY_LIST_LOADED
+      };
+
+      expect(reducer(initState, action).myListStatus).toEqual({
+        isMyListLoaded: true,
+        isLoading: false
+      });
+    });
+
+    it(`Should fix request start`, () => {
+      const action = {
+        type: types.INIT_MY_LIST_REQUEST
+      };
+
+      expect(reducer(initState, action).myListStatus).toEqual({
+        isMyListLoaded: false,
+        isLoading: true
+      });
+    });
+
+    it(`Should fix request end`, () => {
+      const action = {
+        type: types.COMPLITE_MY_LIST_REQUEST
+      };
+
+      expect(reducer(updateObject(loadedStore, {myListStatus: {
+        isMyListLoaded: false,
+        isLoading: true
+      }}), action).myListStatus).toEqual({
+        isMyListLoaded: false,
+        isLoading: false
+      });
+    });
+
+    it(`Should reset state`, () => {
+      const action = {
+        type: types.CLEAR_USER_DATA
+      };
+
+      expect(reducer(loadedStore, action).myListStatus).toEqual({
+        isMyListLoaded: false,
+        isLoading: false
       });
     });
   });
@@ -331,6 +394,13 @@ describe(`Reducers: User selectors`, () => {
 
   it(`Selector getFavoritesIDs`, () => {
     expect(selectors.getFavoritesIDs(storeMock.loadedStore)).toEqual([3]);
+  });
+
+  it(`Selector getIsMyListLoaded`, () => {
+    expect(selectors.getMyListStatus(storeMock.loadedStore)).toEqual({
+      isMyListLoaded: true,
+      isLoading: false
+    });
   });
 });
 
@@ -422,35 +492,62 @@ describe(`Reducers: User operations`, () => {
     const source = CancelToken.source();
     const sentAuthLoader = operations.sentAuthRequest(`correct`, `correct`, source);
     actions.initAuthServerError = jest.fn(() => {});
-    axios.isCancel = jest.fn();
+    const spy = jest.spyOn(axios, `isCancel`);
+    spy.mockReturnValue(true);
 
     apiMock
-      .onPost(`/login`)
-      .reply(200, {profile: `any`});
+      .onPost(`/login`);
 
     source.cancel(`MANUAL CANCEL`);
 
     sentAuthLoader(dispatch, _, api)
       .then(() => {
-        expect(axios.isCancel).toHaveBeenCalledTimes(1);
+        expect(spy).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenCalledTimes(0);
         expect(actions.initAuthServerError).toHaveBeenCalledTimes(0);
       });
   });
 
-  it(`Operation getMyListFilms`, () => {
+  it(`Operation getMyListFilms (success)`, () => {
     const myListLoader = operations.getMyListFilms();
     actions.setUserMyList = jest.fn(() => {});
+    actions.setMyListLoaded = jest.fn(() => {});
+    actions.initMyListRequest = jest.fn(() => {});
+    actions.compliteMyListRequest = jest.fn(() => {});
 
     apiMock
       .onGet(`/favorite`)
-      .reply(200, [{favoriteFilm: `raw`}, {favoriteFilm: `raw`}]);
+      .reply(200, {data: [{favoriteFilm: `raw`}, {favoriteFilm: `raw`}]});
 
     myListLoader(dispatch, _, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenCalledTimes(4);
+        expect(actions.initMyListRequest).toHaveBeenCalledTimes(1);
         expect(actions.setUserMyList).toHaveBeenCalledTimes(1);
-        expect(actions.setUserMyList).toHaveBeenLastCalledWith([{favoriteFilm: `raw`}, {favoriteFilm: `raw`}]);
+        expect(actions.setUserMyList).toHaveBeenLastCalledWith({data: [{favoriteFilm: `raw`}, {favoriteFilm: `raw`}]});
+        expect(actions.setMyListLoaded).toHaveBeenCalledTimes(1);
+        expect(actions.compliteMyListRequest).toHaveBeenCalledTimes(1);
+      });
+  });
+
+  it(`Operation getMyListFilms (error)`, () => {
+    const myListLoader = operations.getMyListFilms();
+    actions.setUserMyList = jest.fn(() => {});
+    actions.setMyListLoaded = jest.fn(() => {});
+    actions.initMyListRequest = jest.fn(() => {});
+    actions.compliteMyListRequest = jest.fn(() => {});
+
+    apiMock
+      .onGet(`/favorite`)
+      .reply(400, {error: `error`});
+
+    myListLoader(dispatch, _, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(actions.initMyListRequest).toHaveBeenCalledTimes(1);
+        expect(actions.setUserMyList).toHaveBeenCalledTimes(0);
+        expect(actions.setMyListLoaded).toHaveBeenCalledTimes(0);
+        expect(actions.compliteMyListRequest).toHaveBeenCalledTimes(1);
       });
   });
 
@@ -510,7 +607,7 @@ describe(`Reducers: User operations`, () => {
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(actions.initFavoriteError).toHaveBeenCalledTimes(1);
-        expect(actions.initFavoriteError).toHaveBeenLastCalledWith(`timeout of 5000ms exceeded`);
+        expect(actions.initFavoriteError).toHaveBeenLastCalledWith();
       });
   });
 
@@ -526,7 +623,7 @@ describe(`Reducers: User operations`, () => {
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(actions.initFavoriteError).toHaveBeenCalledTimes(1);
-        expect(actions.initFavoriteError).toHaveBeenLastCalledWith({code: 111, message: `any`});
+        expect(actions.initFavoriteError).toHaveBeenLastCalledWith();
       });
   });
 });

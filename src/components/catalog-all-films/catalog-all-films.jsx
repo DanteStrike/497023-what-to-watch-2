@@ -1,55 +1,60 @@
 import React from "react";
 import PropTypes from "prop-types";
+
 import {connect} from "react-redux";
+import configs from "../../configs.js";
 
 import GenreList from "../genre-list/genre-list.jsx";
 import MoviesList from "../movies-list/movies-list.jsx";
 import ShowMoreButton from "../show-more-button/show-more-button.jsx";
 
-import {catalogActions, catalogSelectors} from "../../reducers/catalog/index.js";
-import {genreFilterActions, genreFilterSelectors} from "../../reducers/genres/index.js";
-import {filmsSelectors} from "../../reducers/films/index.js";
-import {catalogAllFilmsConfig} from "../../configs/catalog-all-films-config.js";
+import {catalogActions, catalogSelectors} from "../../reducers/catalog/catalog.js";
+import {genreFilterActions, genreFilterSelectors} from "../../reducers/genres/genres.js";
+import {filmsSelectors} from "../../reducers/films/films.js";
 
 
 class CatalogAllFilms extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this._showMoreItems = this._showMoreItems.bind(this);
+    this._defaultGenre = configs.catalogAllFilmsConfig.defaultGenre;
+    this._defaultItemsAmount = configs.catalogAllFilmsConfig.defaultItemsAmount;
+    this._increaseAmountRate = configs.catalogAllFilmsConfig.increaseAmountRate;
+
+    this._handleShowMoreButtonClick = this._handleShowMoreButtonClick.bind(this);
   }
 
   componentDidMount() {
     const {maxItemsAmount, setCurrentFilter, setDisplayedItems} = this.props;
 
-    setCurrentFilter(catalogAllFilmsConfig.defaultGenre);
-    setDisplayedItems(catalogAllFilmsConfig.defaultItemsAmount, maxItemsAmount);
+    setCurrentFilter(this._defaultGenre);
+    setDisplayedItems(this._defaultItemsAmount, maxItemsAmount);
   }
 
   componentDidUpdate(prevProps) {
     const {currentFilter, maxItemsAmount, setDisplayedItems} = this.props;
 
     if (prevProps.currentFilter !== currentFilter) {
-      setDisplayedItems(catalogAllFilmsConfig.defaultItemsAmount, maxItemsAmount);
+      setDisplayedItems(this._defaultItemsAmount, maxItemsAmount);
     }
   }
 
-  _showMoreItems() {
+  _handleShowMoreButtonClick() {
     const {itemsAmount, maxItemsAmount, showMoreItems} = this.props;
 
-    showMoreItems(itemsAmount, catalogAllFilmsConfig.increaseAmountRate, maxItemsAmount);
+    showMoreItems(itemsAmount, this._increaseAmountRate, maxItemsAmount);
   }
 
   render() {
     const {itemsAmount, maxItemsAmount, filmsCards} = this.props;
 
     return (
-      <section className={`catalog`}>
+      <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
         <GenreList/>
         <MoviesList filmsCards={filmsCards}/>
         {(itemsAmount < maxItemsAmount) &&
-          <ShowMoreButton onShowMoreButtonClick={this._showMoreItems}/>
+          <ShowMoreButton onShowMoreButtonClick={this._handleShowMoreButtonClick}/>
         }
       </section>
     );

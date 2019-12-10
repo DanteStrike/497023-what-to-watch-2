@@ -25,7 +25,7 @@ describe(`HoC withTimer should work correctly`, () => {
   });
 
   it(`Timer should start on timer start handler`, () => {
-    component.instance()._timerStartHandler();
+    component.instance()._handleTimerStart();
     expect(setTimeout).toHaveBeenCalledTimes(1);
     expect(setTimeout).toHaveBeenLastCalledWith(component.instance()._timerFinished, 500);
     expect(component.state().timerID).not.toBeNull();
@@ -33,20 +33,20 @@ describe(`HoC withTimer should work correctly`, () => {
   });
 
   it(`Timer should reset on timer reset handler`, () => {
-    component.instance()._timerResetHandler();
+    component.instance()._handleTimerReset();
     expect(clearTimeout).toHaveBeenCalledTimes(1);
     expect(component.state().timerID).toBeNull();
     expect(component.state().isTimerFinished).toEqual(false);
   });
 
   it(`Timer should sent signal on timer finished`, () => {
-    component.instance()._timerStartHandler();
+    component.instance()._handleTimerStart();
     jest.runAllTimers();
     expect(component.state().isTimerFinished).toEqual(true);
   });
 
   it(`Should correctly unmount`, () => {
-    const reset = component.instance()._timerResetHandler = jest.fn();
+    const reset = component.instance()._handleTimerReset = jest.fn();
     component.unmount();
     expect(reset).toHaveBeenCalledTimes(1);
   });

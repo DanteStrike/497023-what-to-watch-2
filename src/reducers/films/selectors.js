@@ -1,8 +1,8 @@
 import {createSelector} from "reselect";
-import {genreFilterSelectors} from "../genres/index.js";
-import {catalogSelectors} from "../catalog/index.js";
+import {genreFilterSelectors} from "../genres/genres.js";
+import {catalogSelectors} from "../catalog/catalog.js";
 import StoreNameSpace from "../store-name-space";
-import {userSelectors} from "../user";
+import {userSelectors} from "../user/user";
 
 
 const getStoreSpace = (store) => store[StoreNameSpace.FILMS];
@@ -21,7 +21,7 @@ const getCurFilmReleased = (store, {curFilmID}) => getFilmByCurID(store, {curFil
 const getIsFavorite = createSelector(
     getCurFilmID,
     userSelectors.getFavoritesIDs,
-    (curFilmID, mylistIDs) => mylistIDs.some((mylistID) => mylistID === curFilmID)
+    (curFilmID, myListIDs) => myListIDs.some((mylistID) => mylistID === curFilmID)
 );
 
 const getAllFilmsGenres = createSelector(
@@ -63,9 +63,15 @@ const getLikeThisCardsInfo = createSelector(
       .slice(0, amount)
 );
 
-// const getMyListCardsInfo = createSelector(
-//
-// );
+const getMyListCardsInfo = createSelector(
+    userSelectors.getFavoritesIDs,
+    getFilmsByIDs,
+    (myListIDs, films) => myListIDs.map((filmID) => ({
+      id: films[filmID].id,
+      name: films[filmID].name,
+      preview: films[filmID].preview,
+    }))
+);
 
 export default {
   getStoreSpace,
@@ -84,5 +90,6 @@ export default {
   getCurFilmReleased,
   getPromoID,
   getPromoFilm,
-  getIsFavorite
+  getIsFavorite,
+  getMyListCardsInfo
 };

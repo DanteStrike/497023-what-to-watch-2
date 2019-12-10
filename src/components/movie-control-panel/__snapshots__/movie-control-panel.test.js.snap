@@ -7,7 +7,7 @@ exports[`Render correctly MovieControlPanel component 1`] = `
   <h2
     className="movie-card__title"
   >
-    any
+    title
   </h2>
   <p
     className="movie-card__meta"
@@ -15,12 +15,12 @@ exports[`Render correctly MovieControlPanel component 1`] = `
     <span
       className="movie-card__genre"
     >
-      any
+      genre
     </span>
     <span
       className="movie-card__year"
     >
-      9999
+      2009
     </span>
   </p>
   <div
@@ -44,6 +44,33 @@ exports[`Render correctly MovieControlPanel component 1`] = `
         Play
       </span>
     </button>
+    <button
+      className="btn btn--list movie-card__button"
+      disabled={false}
+      onClick={[Function]}
+      style={Object {}}
+      type="button"
+    >
+      <svg
+        height="20"
+        viewBox="0 0 19 20"
+        width="19"
+      >
+        <use
+          xlinkHref="#add"
+        />
+      </svg>
+      <span>
+        My list
+      </span>
+    </button>
+    <a
+      className="btn movie-card__button"
+      href="/films/3/add-review"
+      onClick={[Function]}
+    >
+      Add review
+    </a>
   </div>
 </div>
 `;

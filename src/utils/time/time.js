@@ -1,9 +1,9 @@
-import {Time} from "../enum.js";
+import Constants from "../../constants.js";
 
 
 export const formatTimeToHM = (time = 0) => {
-  const hours = Math.floor(time / Time.MINUTES_IN_HOUR);
-  const minutes = time - hours * Time.MINUTES_IN_HOUR;
+  const hours = Math.floor(time / Constants.Time.MINUTES_IN_HOUR);
+  const minutes = time - hours * Constants.Time.MINUTES_IN_HOUR;
 
   return `${(hours !== 0) ? `${hours}h` : ``}${(hours !== 0 && minutes !== 0) ? ` ` : ``}${(minutes !== 0) ? `${minutes}m` : ``}`;
 };
@@ -31,9 +31,9 @@ export const twoDigitView = (number = 0) => {
 };
 
 export const formatTimeForPlayer = (time = 0) => {
-  const hours = Math.floor(time / Time.SECONDS_IN_HOUR);
-  const minutes = Math.floor((time - hours * Time.SECONDS_IN_HOUR) / Time.SECONDS_IN_MINUTE);
-  const seconds = Math.floor(time - hours * Time.SECONDS_IN_HOUR - minutes * Time.SECONDS_IN_MINUTE);
+  const hours = Math.floor(time / Constants.Time.SECONDS_IN_HOUR);
+  const minutes = Math.floor((time - hours * Constants.Time.SECONDS_IN_HOUR) / Constants.Time.SECONDS_IN_MINUTE);
+  const seconds = Math.floor(time - hours * Constants.Time.SECONDS_IN_HOUR - minutes * Constants.Time.SECONDS_IN_MINUTE);
 
   return `${twoDigitView(hours)}:${twoDigitView(minutes)}:${twoDigitView(seconds)}`;
 };

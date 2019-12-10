@@ -1,11 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Constants from "../../constants";
 
 
 class Login extends React.PureComponent {
   constructor(props) {
     super(props);
 
+    this._loadingMsg = `Sign-in...`;
     this._handleInputChange = this._handleInputChange.bind(this);
     this._handleFormSubmit = this._handleFormSubmit.bind(this);
   }
@@ -74,16 +76,16 @@ class Login extends React.PureComponent {
     let prioritizedMsg = ``;
     switch (true) {
       case serverError.isError:
-        prioritizedMsg = serverError.msg;
+        prioritizedMsg = `Server: ${serverError.msg}`;
         break;
       case !emailValidation.isValid:
-        prioritizedMsg = emailValidation.msg;
+        prioritizedMsg = `Form: ${emailValidation.msg}`;
         break;
       case !passwordValidation.isValid:
-        prioritizedMsg = passwordValidation.msg;
+        prioritizedMsg = `Form: ${passwordValidation.msg}`;
         break;
       case isSubmitting:
-        prioritizedMsg = `Sign-in...`;
+        prioritizedMsg = this._loadingMsg;
         break;
     }
 
@@ -98,24 +100,26 @@ class Login extends React.PureComponent {
     const {emailValidation, passwordValidation, serverError, isSubmitting} = this.props;
 
     return (
-      <form action="#" className="sign-in__form" onSubmit={this._handleFormSubmit} style={isSubmitting ? {cursor: `wait`} : {}}>
-        {this._showStatusMsg()}
-        <div className="sign-in__fields" style={isSubmitting ? {pointerEvents: `none`} : {}}>
-          <div className={`sign-in__field${(!emailValidation.isValid || serverError.target === `email`) ? ` sign-in__field--error` : ``}`}>
-            <input className="sign-in__input" type="email" placeholder="Email address" name="user-email"
-              id="user-email" onChange={this._handleInputChange} disabled={isSubmitting}/>
-            <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
+      <div className="sign-in user-page__content" style={isSubmitting ? Constants.Styles.LOADING_CURSOR : Constants.Styles.NO_STYLE}>
+        <form action="#" className="sign-in__form" onSubmit={this._handleFormSubmit} style={isSubmitting ? Constants.Styles.NO_EVENTS : Constants.Styles.NO_STYLE}>
+          {this._showStatusMsg()}
+          <div className="sign-in__fields">
+            <div className={`sign-in__field${(!emailValidation.isValid || serverError.target === `email`) ? ` sign-in__field--error` : ``}`}>
+              <input className="sign-in__input" type="email" placeholder="Email address" name="user-email"
+                id="user-email" onChange={this._handleInputChange} disabled={isSubmitting}/>
+              <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
+            </div>
+            <div className={`sign-in__field${(!passwordValidation.isValid || serverError.target === `password`) ? ` sign-in__field--error` : ``}`}>
+              <input className="sign-in__input" type="password" placeholder="Password" name="user-password"
+                id="user-password" onChange={this._handleInputChange} disabled={isSubmitting}/>
+              <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
+            </div>
           </div>
-          <div className={`sign-in__field${(!passwordValidation.isValid || serverError.target === `password`) ? ` sign-in__field--error` : ``}`}>
-            <input className="sign-in__input" type="password" placeholder="Password" name="user-password"
-              id="user-password" onChange={this._handleInputChange} disabled={isSubmitting}/>
-            <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
+          <div className="sign-in__submit">
+            <button className="sign-in__btn" type="submit" disabled={isSubmitting}>Sign in</button>
           </div>
-        </div>
-        <div className="sign-in__submit" style={isSubmitting ? {pointerEvents: `none`} : {}}>
-          <button className="sign-in__btn" type="submit" disabled={isSubmitting}>Sign in</button>
-        </div>
-      </form>
+        </form>
+      </div>
     );
   }
 }

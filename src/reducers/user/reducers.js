@@ -44,16 +44,10 @@ const userProfileReducer = (state = userProfileInitState, action) => {
   switch (action.type) {
     case types.SET_USER_PROFILE:
       return updateObject(state, action.payload);
-    case types.SET_USER_MYLIST:
+    case types.SET_USER_MY_LIST:
       return updateObject(state, {myListFilmsIDs: action.payload});
     case types.CLEAR_USER_DATA:
-      return {
-        id: null,
-        email: ``,
-        name: ``,
-        avatarUrl: ``,
-        myListFilmsIDs: []
-      };
+      return userProfileInitState;
     default:
       return state;
   }
@@ -62,8 +56,7 @@ const userProfileReducer = (state = userProfileInitState, action) => {
 const favoriteRequestInitStatus = {
   isSuccess: false,
   error: {
-    isError: false,
-    msg: ``
+    isError: false
   }
 };
 const favoriteRequestStatusReducer = (state = favoriteRequestInitStatus, action) => {
@@ -72,8 +65,7 @@ const favoriteRequestStatusReducer = (state = favoriteRequestInitStatus, action)
       return {
         isSuccess: false,
         error: {
-          isError: true,
-          msg: action.payload
+          isError: true
         }
       };
     case types.SET_FAVORITE_SUCCESS:
@@ -81,13 +73,27 @@ const favoriteRequestStatusReducer = (state = favoriteRequestInitStatus, action)
         isSuccess: true
       });
     case types.RESET_FAVORITE_ERROR:
-      return {
-        isSuccess: false,
-        error: {
-          isError: false,
-          msg: ``
-        }
-      };
+      return favoriteRequestInitStatus;
+    default:
+      return state;
+  }
+};
+
+
+const myListInitStatus = {
+  isMyListLoaded: false,
+  isLoading: false
+};
+const myListStatusReducer = (state = myListInitStatus, action) => {
+  switch (action.type) {
+    case types.SET_MY_LIST_LOADED:
+      return updateObject(state, {isMyListLoaded: true});
+    case types.INIT_MY_LIST_REQUEST:
+      return updateObject(state, {isLoading: true});
+    case types.COMPLITE_MY_LIST_REQUEST:
+      return updateObject(state, {isLoading: false});
+    case types.CLEAR_USER_DATA:
+      return myListInitStatus;
     default:
       return state;
   }
@@ -96,7 +102,8 @@ const favoriteRequestStatusReducer = (state = favoriteRequestInitStatus, action)
 const reducer = combineReducers({
   auth: authReducer,
   data: userProfileReducer,
-  toggleFavoriteStatus: favoriteRequestStatusReducer
+  toggleFavoriteStatus: favoriteRequestStatusReducer,
+  myListStatus: myListStatusReducer
 });
 
 export default reducer;

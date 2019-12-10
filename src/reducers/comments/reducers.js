@@ -32,13 +32,7 @@ const postCommentReducer = (state = postCommentInitState, action) => {
         isSuccess: true,
       });
     case types.RESET_POST_COMMENT:
-      return {
-        isSuccess: false,
-        error: {
-          isError: false,
-          msg: ``
-        }
-      };
+      return postCommentInitState;
     default:
       return state;
   }

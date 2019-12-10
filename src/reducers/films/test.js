@@ -5,11 +5,11 @@ import actions from "./actions.js";
 import operations from "./operations.js";
 import selectors from "./selectors.js";
 import reducer from "./reducers.js";
-import configureAPI from "../../server/configure-API.js";
+import configureAPI from "../../configure-API.js";
 import MockAdapter from "axios-mock-adapter";
 import * as filmsMock from "../../mocks/films.js";
 import * as storeMock from "../../mocks/store.js";
-import {filmsActions} from "./index";
+import {filmsActions} from "./films";
 
 
 describe(`Reducers: Films utils`, () => {

@@ -3,10 +3,12 @@ import PropTypes from "prop-types";
 
 import {Link} from "react-router-dom";
 
-import {appActions} from "../../reducers/app";
+import {appActions} from "../../reducers/app/app";
 import {connect} from "react-redux";
-import {filmsSelectors} from "../../reducers/films";
-import {userActions, userOperations, userSelectors} from "../../reducers/user";
+import {filmsSelectors} from "../../reducers/films/films";
+import {userActions, userOperations, userSelectors} from "../../reducers/user/user";
+import Constants from "../../constants";
+import {updateObject} from "../../utils/object/object";
 
 
 class MovieControlPanel extends React.PureComponent {
@@ -27,6 +29,11 @@ class MovieControlPanel extends React.PureComponent {
     }
   }
 
+  componentWillUnmount() {
+    const {resetFavoriteError} = this.props;
+    resetFavoriteError();
+  }
+
   _handlePlayButtonClick() {
     const {curFilmID, openVideoPlayer} = this.props;
     openVideoPlayer(curFilmID);
@@ -37,6 +44,22 @@ class MovieControlPanel extends React.PureComponent {
     toggleFormLock();
     resetFavoriteError();
     toggleFavorite(curFilmID, Number(!isFavorite));
+  }
+
+  _getButtonPlayStyle() {
+    const {isSubmitting, favoriteRequestStatus: {error}} = this.props;
+
+    let style = Constants.Styles.NO_STYLE;
+
+    if (isSubmitting) {
+      style = updateObject(style, Constants.Styles.LOADING_CURSOR);
+    }
+
+    if (error.isError) {
+      style = updateObject(style, Constants.Styles.ERROR_OUTLINE);
+    }
+
+    return style;
   }
 
 
@@ -54,16 +77,16 @@ class MovieControlPanel extends React.PureComponent {
         <div className="movie-card__buttons">
           <button className="btn btn--play movie-card__button" type="button" onClick={this._handlePlayButtonClick}>
             <svg viewBox="0 0 19 19" width="19" height="19">
-              <use xlinkHref="#play-s"></use>
+              <use xlinkHref={`#${Constants.Icons.PLAY_S}`}></use>
             </svg>
             <span>Play</span>
           </button>
           {isAuth &&
             <Fragment>
               <button className="btn btn--list movie-card__button" type="button" onClick={this._handleFavoriteToggleClick}
-                disabled={isSubmitting} style={isSubmitting ? {cursor: `wait`} : {}}>
+                disabled={isSubmitting} style={this._getButtonPlayStyle()}>
                 <svg viewBox="0 0 19 20" width="19" height="20">
-                  {isFavorite ? <use xlinkHref="#in-list"></use> : <use xlinkHref="#add"></use>}
+                  <use xlinkHref={`#${isFavorite ? Constants.Icons.IN_LIST : Constants.Icons.ADD}`}></use>
                 </svg>
                 <span>My list</span>
               </button>
@@ -90,8 +113,7 @@ MovieControlPanel.propTypes = {
   favoriteRequestStatus: PropTypes.exact({
     isSuccess: PropTypes.bool.isRequired,
     error: PropTypes.exact({
-      isError: PropTypes.bool.isRequired,
-      msg: PropTypes.string.isRequired
+      isError: PropTypes.bool.isRequired
     }).isRequired
   }).isRequired,
   resetFavoriteError: PropTypes.func.isRequired

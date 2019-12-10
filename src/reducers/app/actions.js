@@ -5,6 +5,18 @@ const setAppIsReady = (isAppReady) => ({
   payload: isAppReady
 });
 
+const initSetupAppError = (code, msg) => ({
+  type: types.INIT_SETUP_APP_ERROR,
+  payload: {
+    code,
+    msg
+  }
+});
+
+const resetSetupAppError = () => ({
+  type: types.RESET_SETUP_APP_ERROR
+});
+
 const openVideoPlayer = (filmID) => ({
   type: types.OPEN_VIDEO_PLAYER,
   payload: filmID
@@ -17,6 +29,8 @@ const closeVideoPlayer = () => ({
 export default {
   setAppIsReady,
   openVideoPlayer,
-  closeVideoPlayer
+  closeVideoPlayer,
+  initSetupAppError,
+  resetSetupAppError
 };
 

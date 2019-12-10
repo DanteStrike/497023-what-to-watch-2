@@ -17,11 +17,11 @@ describe(`Util Validation should work correctly`, () => {
   it(`Util checkEmail`, () => {
     const emptyEmailReport = {
       isValid: false,
-      msg: `Form: Please enter email address`
+      msg: `Please enter email address`
     };
     const invalidEmailReport = {
       isValid: false,
-      msg: `Form: Please enter a valid email address`
+      msg: `Please enter a valid email address`
     };
 
     expect(checkEmail(``)).toEqual(emptyEmailReport);
@@ -45,7 +45,7 @@ describe(`Util Validation should work correctly`, () => {
   it(`Util checkPassword`, () => {
     expect(checkPassword(``)).toEqual({
       isValid: false,
-      msg: `Form: Please enter password`
+      msg: `Please enter password`
     });
     expect(checkPassword(`a`)).toEqual(successReport);
   });
@@ -53,11 +53,11 @@ describe(`Util Validation should work correctly`, () => {
   it(`Util checkComment`, () => {
     expect(checkComment(5, 9)(`1234`)).toEqual({
       isValid: false,
-      msg: `Form: Comment length should be between 5 to 9 symbols`
+      msg: `Comment length should be between 5 to 9 symbols`
     });
     expect(checkComment(5, 9)(`123456789D`)).toEqual({
       isValid: false,
-      msg: `Form: Comment length should be between 5 to 9 symbols`
+      msg: `Comment length should be between 5 to 9 symbols`
     });
     expect(checkComment(5, 9)(`12345`)).toEqual(successReport);
     expect(checkComment(5, 9)(`123456789`)).toEqual(successReport);

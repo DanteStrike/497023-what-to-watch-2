@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 
 import {Link} from "react-router-dom";
 
-import {userSelectors} from "../../reducers/user";
+import {userSelectors} from "../../reducers/user/user";
 
 
 const UserBlock = (props) => {

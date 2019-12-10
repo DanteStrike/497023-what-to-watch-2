@@ -7,9 +7,9 @@ it(`Render correctly MovieBackground component`, () => {
   const component = renderer
     .create(
         <MovieBackground
-          name={`any`}
-          backgroundColor={`color`}
-          image={`url`}
+          name="any"
+          backgroundColor="color"
+          image="url"
         />
     ).toJSON();
 

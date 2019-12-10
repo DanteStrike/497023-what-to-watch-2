@@ -2,11 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import {Provider} from "react-redux";
 import {BrowserRouter} from "react-router-dom";
-import configuredStore from "./reducers/configure-store.js";
+import configuredStore from "./reducers/reducers.js";
 
 import App from "./components/app/app.jsx";
 import ScrollToTop from "./components/scroll-to-top/scroll-to-top.jsx";
-import {appOperations} from "./reducers/app/index.js";
+import {appOperations} from "./reducers/app/app.js";
 
 
 const init = (store) => {
