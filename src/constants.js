@@ -61,8 +61,8 @@ const Styles = {
   VOLUME_CONTAINER: {
     position: `absolute`,
     zIndex: `10`,
-    top: `0`,
-    left: `0`,
+    top: `5px`,
+    left: `5px`,
     margin: `0`,
     padding: `0`,
     color: `#eee5b5`,
