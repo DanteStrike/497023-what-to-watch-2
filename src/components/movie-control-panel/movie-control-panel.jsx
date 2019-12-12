@@ -90,7 +90,7 @@ class MovieControlPanel extends React.PureComponent {
                 </svg>
                 <span>My list</span>
               </button>
-              <Link to={`/films/${curFilmID}/add-review`} className="btn movie-card__button">Add review</Link>
+              <Link to={`/films/${curFilmID}/review`} className="btn movie-card__button">Add review</Link>
             </Fragment>
           }
         </div>

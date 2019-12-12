@@ -156,7 +156,7 @@ exports[`Render correctly MoviePreview component 1`] = `
           </button>
           <a
             className="btn movie-card__button"
-            href="/films/1/add-review"
+            href="/films/1/review"
             onClick={[Function]}
           >
             Add review
