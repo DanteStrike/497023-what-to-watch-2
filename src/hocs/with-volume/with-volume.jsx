@@ -36,9 +36,9 @@ const withVolume = ({defaultValue, step, minVolume, maxVolume}) => (WrappedCompo
       const {value} = this.state;
 
       return (
-        <p style={Constants.Styles.VOLUME_CONTAINER}>
-          <small style={Constants.Styles.VOLUME_INFO}>Volume wheelUp(+) | wheelDown(-)</small>
-          <strong style={Constants.Styles.VOLUME_STATE}>{value} %</strong>
+        <p style={Constants.Style.VOLUME_CONTAINER}>
+          <small style={Constants.Style.VOLUME_INFO}>Volume wheelUp(+) | wheelDown(-)</small>
+          <strong style={Constants.Style.VOLUME_STATE}>{value} %</strong>
         </p>
       );
     }

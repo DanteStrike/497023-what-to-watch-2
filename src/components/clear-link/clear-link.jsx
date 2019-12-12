@@ -5,7 +5,7 @@ import Constants from "../../constants";
 
 const ClearLink = (props) => {
   return (
-    <Link {...props} style={Constants.Styles.CLEAR_LINK}/>
+    <Link {...props} style={Constants.Style.CLEAR_LINK}/>
   );
 };
 

@@ -93,7 +93,7 @@ class Video extends React.PureComponent {
 
   render() {
     return (
-      <video ref={this._videoRef} style={Constants.Styles.VIDEO_OBJECT_FIT_COVER}/>
+      <video ref={this._videoRef} style={Constants.Style.VIDEO_OBJECT_FIT_COVER}/>
     );
   }
 }

@@ -17,7 +17,7 @@ const GenreFilter = {
   ALL_GENRE: `All genre`
 };
 
-const Icons = {
+const Icon = {
   ADD: `add`,
   FULL_SCREEN: `full-screen`,
   IN_LIST: `in-list`,
@@ -25,7 +25,7 @@ const Icons = {
   PLAY_S: `play-s`
 };
 
-const Styles = {
+const Style = {
   NO_STYLE: {},
   NO_EVENTS: {pointerEvents: `none`},
   LOADING_CURSOR: {cursor: `wait`},
@@ -88,8 +88,8 @@ const Constants = {
   Time,
   RatingLevel,
   GenreFilter,
-  Icons,
-  Styles,
+  Icon,
+  Style,
   RequestErrorCode
 };
 export default Constants;

@@ -28,7 +28,7 @@ const withFullScreen = (WrappedComponent) => {
       return (
         <button type="button" className="player__full-screen" onClick={this._handleFullScreenButtonClick}>
           <svg viewBox="0 0 27 27" width="27" height="27">
-            <use xlinkHref={`#${Constants.Icons.FULL_SCREEN}`}></use>
+            <use xlinkHref={`#${Constants.Icon.FULL_SCREEN}`}></use>
           </svg>
           <span>Full screen</span>
         </button>

@@ -18,7 +18,7 @@ const MovieCard = (props) => {
   } = props;
 
   return (
-    <article className="small-movie-card catalog__movies-card" style={Constants.Styles.FIX_FIREFOX_FLICKERING} onMouseEnter={onTimerStart} onMouseLeave={onTimerReset}>
+    <article className="small-movie-card catalog__movies-card" style={Constants.Style.FIX_FIREFOX_FLICKERING} onMouseEnter={onTimerStart} onMouseLeave={onTimerReset}>
       <ClearLink to={`/films/${id}`}>
         <div className="small-movie-card__image">
           <Video

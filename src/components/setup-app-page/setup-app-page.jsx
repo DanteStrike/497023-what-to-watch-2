@@ -10,12 +10,12 @@ const SetupAppPage = (props) => {
 
   return (
     <div className="user-page">
-      {setupAppError.isError && <div className="user-page__content" style={Constants.Styles.DISPLAY_FLEX}>
-        <div style={Constants.Styles.MARGIN_AUTO}>
+      {setupAppError.isError && <div className="user-page__content" style={Constants.Style.DISPLAY_FLEX}>
+        <div style={Constants.Style.MARGIN_AUTO}>
           <h1>Something goes wrong on setup App</h1>
           {setupAppError.code && <p>Error code: {setupAppError.code}</p>}
-          <p style={Constants.Styles.MARGIN_BOTTOM}>{setupAppError.msg}</p>
-          <button className="btn" style={Constants.Styles.RETRY_BUTTON} onClick={onRepeatSetupClick}>Retry</button>
+          <p style={Constants.Style.MARGIN_BOTTOM}>{setupAppError.msg}</p>
+          <button className="btn" style={Constants.Style.RETRY_BUTTON} onClick={onRepeatSetupClick}>Retry</button>
         </div>
       </div>}
     </div>

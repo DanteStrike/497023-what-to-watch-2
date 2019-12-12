@@ -49,14 +49,14 @@ class MovieControlPanel extends React.PureComponent {
   _getButtonPlayStyle() {
     const {isSubmitting, favoriteRequestStatus: {error}} = this.props;
 
-    let style = Constants.Styles.NO_STYLE;
+    let style = Constants.Style.NO_STYLE;
 
     if (isSubmitting) {
-      style = updateObject(style, Constants.Styles.LOADING_CURSOR);
+      style = updateObject(style, Constants.Style.LOADING_CURSOR);
     }
 
     if (error.isError) {
-      style = updateObject(style, Constants.Styles.ERROR_OUTLINE);
+      style = updateObject(style, Constants.Style.ERROR_OUTLINE);
     }
 
     return style;
@@ -77,7 +77,7 @@ class MovieControlPanel extends React.PureComponent {
         <div className="movie-card__buttons">
           <button className="btn btn--play movie-card__button" type="button" onClick={this._handlePlayButtonClick}>
             <svg viewBox="0 0 19 19" width="19" height="19">
-              <use xlinkHref={`#${Constants.Icons.PLAY_S}`}></use>
+              <use xlinkHref={`#${Constants.Icon.PLAY_S}`}></use>
             </svg>
             <span>Play</span>
           </button>
@@ -86,7 +86,7 @@ class MovieControlPanel extends React.PureComponent {
               <button className="btn btn--list movie-card__button" type="button" onClick={this._handleFavoriteToggleClick}
                 disabled={isSubmitting} style={this._getButtonPlayStyle()}>
                 <svg viewBox="0 0 19 20" width="19" height="20">
-                  <use xlinkHref={`#${isFavorite ? Constants.Icons.IN_LIST : Constants.Icons.ADD}`}></use>
+                  <use xlinkHref={`#${isFavorite ? Constants.Icon.IN_LIST : Constants.Icon.ADD}`}></use>
                 </svg>
                 <span>My list</span>
               </button>

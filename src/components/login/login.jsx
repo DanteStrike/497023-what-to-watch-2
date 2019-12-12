@@ -100,8 +100,8 @@ class Login extends React.PureComponent {
     const {emailValidation, passwordValidation, serverError, isSubmitting} = this.props;
 
     return (
-      <div className="sign-in user-page__content" style={isSubmitting ? Constants.Styles.LOADING_CURSOR : Constants.Styles.NO_STYLE}>
-        <form action="#" className="sign-in__form" onSubmit={this._handleFormSubmit} style={isSubmitting ? Constants.Styles.NO_EVENTS : Constants.Styles.NO_STYLE}>
+      <div className="sign-in user-page__content" style={isSubmitting ? Constants.Style.LOADING_CURSOR : Constants.Style.NO_STYLE}>
+        <form action="#" className="sign-in__form" onSubmit={this._handleFormSubmit} style={isSubmitting ? Constants.Style.NO_EVENTS : Constants.Style.NO_STYLE}>
           {this._showStatusMsg()}
           <div className="sign-in__fields">
             <div className={`sign-in__field${(!emailValidation.isValid || serverError.target === `email`) ? ` sign-in__field--error` : ``}`}>

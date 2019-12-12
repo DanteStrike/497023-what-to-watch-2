@@ -10,11 +10,11 @@ exports[`Render correctly App component 1`] = `
       Object {
         "color": "#eee5b5",
         "fontSize": "12px",
-        "left": "0",
+        "left": "5px",
         "margin": "0",
         "padding": "0",
         "position": "absolute",
-        "top": "0",
+        "top": "5px",
         "zIndex": "10",
       }
     }

@@ -57,8 +57,8 @@ class AddReviewForm extends React.PureComponent {
     const {score, commentValidation, isSubmitting, serverError} = this.props;
 
     return (
-      <div className="add-review" style={isSubmitting ? Constants.Styles.NO_EVENTS : Constants.Styles.NO_STYLE}>
-        <form action="#" className="add-review__form" style={isSubmitting ? Constants.Styles.LOADING_CURSOR : Constants.Styles.NO_STYLE} onSubmit={this._handleFormSubmit}>
+      <div className="add-review" style={isSubmitting ? Constants.Style.NO_EVENTS : Constants.Style.NO_STYLE}>
+        <form action="#" className="add-review__form" style={isSubmitting ? Constants.Style.LOADING_CURSOR : Constants.Style.NO_STYLE} onSubmit={this._handleFormSubmit}>
           <div className="rating">
             <div className="rating__stars">
               {this._stars.map((_, index) => (

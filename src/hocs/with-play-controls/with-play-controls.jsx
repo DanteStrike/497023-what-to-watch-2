@@ -27,7 +27,7 @@ const withPlayControls = (WrappedComponent) => {
       return (
         <button className="player__play" type="button" onClick={this._handlePlayButtonClick}>
           <svg viewBox="0 0 19 19" width="19" height="19">
-            <use xlinkHref={`#${isPlaying ? Constants.Icons.PAUSE : Constants.Icons.PLAY_S}`}></use>
+            <use xlinkHref={`#${isPlaying ? Constants.Icon.PAUSE : Constants.Icon.PLAY_S}`}></use>
           </svg>
           <span>{`${(isPlaying) ? `Pause` : `Play`}`}</span>
         </button>
