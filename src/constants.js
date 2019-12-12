@@ -9,22 +9,22 @@ const RatingLevel = {
   Bad: {
     TITLE: `Bad`,
     MIN_VALUE: 0,
-    MAX_VALUE: 2
+    MAX_VALUE: 3
   },
   Normal: {
     TITLE: `Normal`,
     MIN_VALUE: 3,
-    MAX_VALUE: 4
+    MAX_VALUE: 5
   },
   Good: {
     TITLE: `Good`,
     MIN_VALUE: 5,
-    MAX_VALUE: 7
+    MAX_VALUE: 8
   },
   VeryGood: {
     TITLE: `Very good`,
     MIN_VALUE: 8,
-    MAX_VALUE: 9
+    MAX_VALUE: 10
   },
   Awesome: {
     TITLE: `Awesome`,
