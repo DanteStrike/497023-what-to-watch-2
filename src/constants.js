@@ -6,11 +6,30 @@ const Time = {
 };
 
 const RatingLevel = {
-  BAD: `Bad`,
-  NORMAL: `Normal`,
-  GOOD: `Good`,
-  VERY_GOOD: `Very good`,
-  AWESOME: `Awesome`
+  Bad: {
+    TITLE: `Bad`,
+    MIN_VALUE: 0,
+    MAX_VALUE: 2
+  },
+  Normal: {
+    TITLE: `Normal`,
+    MIN_VALUE: 3,
+    MAX_VALUE: 4
+  },
+  Good: {
+    TITLE: `Good`,
+    MIN_VALUE: 5,
+    MAX_VALUE: 7
+  },
+  VeryGood: {
+    TITLE: `Very good`,
+    MIN_VALUE: 8,
+    MAX_VALUE: 9
+  },
+  Awesome: {
+    TITLE: `Awesome`,
+    VALUE: 10,
+  }
 };
 
 const GenreFilter = {
