@@ -20,7 +20,7 @@ const withProgressBar = (WrappedComponent) => {
       const duration = mediaElement.duration;
       this.setState({
         barPercent: curTime / duration * 100,
-        time: curTime
+        time: duration - curTime
       });
     }
 

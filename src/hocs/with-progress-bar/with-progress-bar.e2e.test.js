@@ -36,11 +36,11 @@ describe(`HoC withProgressBar should work correctly`, () => {
   it(`Should update state on updateProgressBar fired by mediaElement`, () => {
     component.instance()._updateProgressBar(mediaElementEventMock);
     expect(component.state().barPercent).toBe(10);
-    expect(component.state().time).toBe(100);
+    expect(component.state().time).toBe(900);
 
     const renderedComponent = mount(component.instance()._renderProgressBar());
     expect(renderedComponent.find(`.player__progress`).props().value).toBe(10);
     expect(renderedComponent.find(`.player__toggler`).props().style.left).toEqual(`10%`);
-    expect(renderedComponent.find(`.player__time-value`).props().children).toEqual(`00:01:40`);
+    expect(renderedComponent.find(`.player__time-value`).props().children).toEqual(`00:15:00`);
   });
 });
